@@ -1,0 +1,11 @@
+Snmsung Remote Power Button Press:
+> Once each line
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A
+30 0D 0A 30 0D 0A

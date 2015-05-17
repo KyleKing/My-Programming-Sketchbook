@@ -1,0 +1,150 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Kyle King</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-03-28"><meta name="DC.source" content="BIOE232_HW11.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Kyle King</h1><!--introduction--><p>BIOE232 HW 11 Mar 28, 2015</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Part A</a></li><li><a href="#2">Part B</a></li></ul></div><h2>Part A<a name="1"></a></h2><pre class="codeinput">clc, clear <span class="string">all</span>, close <span class="string">all</span>
+
+<span class="comment">% Declare constants</span>
+P1sat = 180; P2sat = 34.25;
+x1 = linspace(0,1,100);
+<span class="comment">% Find total pressure using equation 1</span>
+P = x1.*[P1sat - P2sat] + P2sat;
+figure, hold <span class="string">all</span>, plot(x1, P)
+
+<span class="comment">% Solve for y1:</span>
+y1 = (x1./P).*P1sat;
+plot(y1, P)
+<span class="comment">% Add some labels</span>
+title(<span class="string">'Pxy Diagram of benzene(1) and ethylbenzene(2)'</span>)
+legend(<span class="string">'P vs x1'</span>, <span class="string">'P vs y1'</span>,<span class="string">'location'</span>, <span class="string">'northwest'</span>)
+xlabel(<span class="string">'x1 or y1'</span>), ylabel(<span class="string">'Total Pressure (kPa)'</span>)
+</pre><img vspace="5" hspace="5" src="BIOE232_HW11_01.png" alt=""> <h2>Part B<a name="2"></a></h2><pre class="codeinput">clear <span class="string">all</span>
+
+<span class="comment">% Declare constants</span>
+P = 101.3; <span class="comment">% kPa</span>
+T1sat = 80.09; T2sat = 136.185;
+T = linspace(T1sat, T2sat, 100);
+<span class="comment">% Find saturated pressures based off of Temperature scale</span>
+P1sat = exp(13.8858 - 2788.51./( T+220.79 ));
+P2sat = exp(14.0045 - 3279.47./( T+213.2 ));
+<span class="comment">% Find partial content</span>
+x1 = (P-P2sat)./(P1sat - P2sat);
+y1 = (x1.*P1sat)/P;
+<span class="comment">% Plot</span>
+figure, hold <span class="string">all</span>, plot(x1, T)
+plot(y1, T), axis <span class="string">tight</span>
+<span class="comment">% Add some labels</span>
+title(<span class="string">'Txy Diagram of benzene(1) and ethylbenzene(2)'</span>)
+legend(<span class="string">'T vs x1'</span>, <span class="string">'T vs y1'</span>,<span class="string">'location'</span>, <span class="string">'northeast'</span>)
+xlabel(<span class="string">'x1 or y1'</span>), ylabel(<span class="string">'Temperature (&deg;C)'</span>)
+</pre><img vspace="5" hspace="5" src="BIOE232_HW11_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Kyle King
+% BIOE232 HW 11
+% Mar 28, 2015
+
+%% Part A
+clc, clear all, close all
+
+% Declare constants
+P1sat = 180; P2sat = 34.25;
+x1 = linspace(0,1,100);
+% Find total pressure using equation 1
+P = x1.*[P1sat - P2sat] + P2sat;
+figure, hold all, plot(x1, P)
+
+% Solve for y1:
+y1 = (x1./P).*P1sat;
+plot(y1, P)
+% Add some labels
+title('Pxy Diagram of benzene(1) and ethylbenzene(2)')
+legend('P vs x1', 'P vs y1','location', 'northwest')
+xlabel('x1 or y1'), ylabel('Total Pressure (kPa)')
+
+
+%% Part B
+clear all
+
+% Declare constants
+P = 101.3; % kPa
+T1sat = 80.09; T2sat = 136.185;
+T = linspace(T1sat, T2sat, 100);
+% Find saturated pressures based off of Temperature scale
+P1sat = exp(13.8858 - 2788.51./( T+220.79 ));
+P2sat = exp(14.0045 - 3279.47./( T+213.2 ));
+% Find partial content
+x1 = (P-P2sat)./(P1sat - P2sat);
+y1 = (x1.*P1sat)/P;
+% Plot
+figure, hold all, plot(x1, T)
+plot(y1, T), axis tight
+% Add some labels
+title('Txy Diagram of benzene(1) and ethylbenzene(2)')
+legend('T vs x1', 'T vs y1','location', 'northeast')
+xlabel('x1 or y1'), ylabel('Temperature (°C)')
+##### SOURCE END #####
+--></body></html>

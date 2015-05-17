@@ -1,0 +1,357 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW3</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-09-29"><meta name="DC.source" content="HW3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Kyle King</span>
+<span class="comment">% BIOE404</span>
+<span class="comment">% Section 0103</span>
+<span class="comment">% 9-29-2014</span>
+
+clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+warning(<span class="string">'off'</span>);
+
+<span class="comment">% Global Variables</span>
+Grav = 9.8; <span class="comment">% m/s^2 Gravity</span>
+
+<span class="comment">%</span>
+<span class="comment">% Declare values</span>
+<span class="comment">%</span>
+
+<span class="comment">% constant for now:</span>
+step = 0.01; <span class="comment">% time step</span>
+<span class="keyword">for</span> t = 0.2 : step : 0.4;
+  count = (single(t/step) - 19);
+
+  <span class="comment">%</span>
+  <span class="comment">% Upper Leg</span>
+  <span class="comment">%</span>
+  Iulh = 0.25; <span class="comment">% kg/m^2</span>
+  Aul = [0, 0, 0]; <span class="comment">% rad/s^2</span>
+  Wul = [0, 0, 4]; <span class="comment">% rad/s</span>
+  Oul = 0; <span class="comment">% wrt vertical</span>
+
+  Rul = [0, -.58, 0]; <span class="comment">% m</span>
+  Fulw = [0, -75, 0]; <span class="comment">% N</span>
+  Rulw = [0, -0.26, 0]; <span class="comment">% m</span>
+
+  <span class="comment">%</span>
+  <span class="comment">% Lower Leg</span>
+  <span class="comment">%</span>
+  Illk = 0.2; <span class="comment">% kg/m^2</span>
+  <span class="comment">% Calculate the new angular velocity given new time duration</span>
+  Ooll = -90 * pi/180;
+  Ofll = -15 * pi/180;
+  AlphaLL = [0, 0, (((Ofll - Ooll)*2)/t^2)]; <span class="comment">% rad/s^2</span>
+  Wll = AlphaLL*t; <span class="comment">% rad/s</span>
+  Oll = 15; <span class="comment">% wrt vertical</span>
+
+  Lll = .50; <span class="comment">% m</span>
+  Rll = -Lll*[sind(Oll), cosd(Oll), 0];
+  Fllw = [0, -45, 0]; <span class="comment">% N</span>
+  Rllw = [-0.3*sind(Oll), -0.3*cosd(Oll), 0]; <span class="comment">% m</span>
+
+  <span class="comment">% Find the force of the patella tendon (Fpt) at:</span>
+  syms <span class="string">Fjrh</span> <span class="string">Fiskx</span> <span class="string">Fisky</span> <span class="string">Fiskz</span> <span class="string">Fpt</span>;
+  Ollpt = 45; <span class="comment">% degrees wrt horizontal</span>
+  Rkpt = 0.05; <span class="comment">% m</span>
+  <span class="comment">% The inter-segmental force at the knee (Fisk)</span>
+  <span class="comment">% The joint reaction force at the hip (Fjrh)</span>
+
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  <span class="comment">% Start at the lower leg</span>
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+
+  <span class="comment">% Find Normal and Tangential acceleration of the upper leg</span>
+  Atangk = cross(-Rul, Aul);
+  Anormk = -Rul.*(norm(Wul))^2;
+  <span class="comment">% Combine to find the translating motion of the knee</span>
+  Ak = Atangk + Anormk;
+  <span class="comment">% Find Normal and Tangential acceleration of the lower leg</span>
+  Atangll = cross(-Rllw, AlphaLL);
+  Anormll = -Rllw.*(norm(Wll))^2;
+  <span class="comment">% Combine to find the translating motion of the knee</span>
+  Allnt = Atangll + Anormll;
+
+  <span class="comment">% Net angular acceleration on the lower leg</span>
+  All = Ak + Allnt;
+
+  <span class="comment">% Moment forces created affecting K</span>
+  nMllk = Illk*AlphaLL;
+  Mwll = cross(Rllw, Fllw); <span class="comment">% Find moment due to weight</span>
+  Mfpt = [0, 0, Rkpt*Fpt]; <span class="comment">% using given perpendicular direction and symbolic force</span>
+
+  <span class="comment">% Solve for the net moment of the lower leg at point K</span>
+  tempFpt = solve(nMllk == Mwll + Mfpt, Fpt); tempFpt = double(tempFpt); <span class="comment">% Decrease precision</span>
+  Fpt = [tempFpt*cosd(Ollpt), tempFpt*sind(Ollpt), 0]; <span class="comment">% put into vector form given angle wrt horizontal</span>
+
+  <span class="comment">% Solve for the net forces of the lower leg at point K</span>
+  nFll = (norm(Fllw)/Grav).*All;
+  aFisk = [Fiskx, Fisky, Fiskz]; <span class="comment">% Use an (a) array format</span>
+
+  <span class="comment">% Solve for the three directions of the inter-segmental force at the knee</span>
+  <span class="keyword">for</span> i = 1:3
+    solFisk(i) = solve(nFll(i) == Fpt(i) + Fllw(i) + aFisk(i), aFisk(i));
+    tempFisk(i) = solFisk(i);
+  <span class="keyword">end</span>
+  Fisk = double(tempFisk); <span class="comment">% Clean up the numbers</span>
+
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  <span class="comment">% Evaluate the upper leg</span>
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  Mh = cross(Rul, Fisk);
+  Fjrh = Fisk - Fulw;
+
+  <span class="comment">% Log data for plotting</span>
+  FptLog(count) = norm(Fpt);
+  FjrhLog(count) = norm(Fjrh);
+  FiskLog(count) = norm(Fisk);
+  T(count) = t; <span class="comment">% Save time values for plotting</span>
+<span class="keyword">end</span>
+
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Report</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Plot results</span>
+figure(1), hold <span class="string">all</span>, plot(T, FptLog), plot(T, FjrhLog), plot(T, FiskLog),<span class="keyword">...</span>
+ legend(<span class="string">'Quadriceps Force (Fq)'</span>, <span class="string">'Inter-Segmental Force at the Hip (Fjrh)'</span>, <span class="string">'Joint Reaction Force at the Knee (Fisk)'</span>, <span class="string">'Location'</span>, <span class="string">'SouthWest'</span>),<span class="keyword">...</span>
+    title(<span class="string">'Force Compared to Kicking Time Duration'</span>)
+  xlabel(<span class="string">'time (second) '</span>),  ylabel(<span class="string">'Force (N)'</span>)
+
+<span class="comment">% Tabulate data</span>
+tM = table(T', FptLog', FjrhLog', FiskLog');
+<span class="comment">% tM.Properties.VariableUnits = {'*', 'N', 'N'};</span>
+tM.Properties.VariableNames{<span class="string">'Var1'</span>} = <span class="string">'Seconds'</span>;
+tM.Properties.VariableNames{<span class="string">'Var2'</span>} = <span class="string">'Fpt'</span>;
+tM.Properties.VariableNames{<span class="string">'Var3'</span>} = <span class="string">'Fjrh'</span>;
+tM.Properties.VariableNames{<span class="string">'Var4'</span>} = <span class="string">'Fisk'</span>;
+disp(tM)
+</pre><pre class="codeoutput">    Seconds     Fpt       Fjrh      Fisk 
+    _______    ______    ______    ______
+
+     0.2       191.92     231.9    157.06
+    0.21       167.58     230.3    155.57
+    0.22       146.48    228.96    154.34
+    0.23       128.08    227.82    153.31
+    0.24       111.92    226.84    152.46
+    0.25        97.67    226.01    151.74
+    0.26        85.03    225.28    151.12
+    0.27       73.767    224.65     150.6
+    0.28        63.69    224.09    150.14
+    0.29       54.637     223.6    149.75
+     0.3       46.474    223.16     149.4
+    0.31       39.088    222.78     149.1
+    0.32       32.384    222.43    148.83
+    0.33        26.28    222.11    148.59
+    0.34       20.707    221.83    148.38
+    0.35       15.604    221.58    148.19
+    0.36       10.921    221.35    148.02
+    0.37       6.6125    221.13    147.87
+    0.38       2.6395    220.94    147.73
+    0.39       1.0319    220.76     147.6
+     0.4       4.4313     220.6    147.49
+
+</pre><img vspace="5" hspace="5" src="HW3_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Kyle King
+% BIOE404
+% Section 0103
+% 9-29-2014
+
+clc, clear all % boilerplate
+warning('off');
+
+% Global Variables
+Grav = 9.8; % m/s^2 Gravity
+
+%
+% Declare values
+%
+
+% constant for now:
+step = 0.01; % time step
+for t = 0.2 : step : 0.4;
+  count = (single(t/step) - 19);
+
+  %
+  % Upper Leg
+  %
+  Iulh = 0.25; % kg/m^2
+  Aul = [0, 0, 0]; % rad/s^2
+  Wul = [0, 0, 4]; % rad/s
+  Oul = 0; % wrt vertical
+
+  Rul = [0, -.58, 0]; % m
+  Fulw = [0, -75, 0]; % N
+  Rulw = [0, -0.26, 0]; % m
+
+  %
+  % Lower Leg
+  %
+  Illk = 0.2; % kg/m^2
+  % Calculate the new angular velocity given new time duration
+  Ooll = -90 * pi/180;
+  Ofll = -15 * pi/180;
+  AlphaLL = [0, 0, (((Ofll - Ooll)*2)/t^2)]; % rad/s^2
+  Wll = AlphaLL*t; % rad/s
+  Oll = 15; % wrt vertical
+
+  Lll = .50; % m
+  Rll = -Lll*[sind(Oll), cosd(Oll), 0];
+  Fllw = [0, -45, 0]; % N
+  Rllw = [-0.3*sind(Oll), -0.3*cosd(Oll), 0]; % m
+
+  % Find the force of the patella tendon (Fpt) at:
+  syms Fjrh Fiskx Fisky Fiskz Fpt;
+  Ollpt = 45; % degrees wrt horizontal
+  Rkpt = 0.05; % m
+  % The inter-segmental force at the knee (Fisk)
+  % The joint reaction force at the hip (Fjrh)
+
+  %
+  %
+  % Start at the lower leg
+  %
+  %
+
+  % Find Normal and Tangential acceleration of the upper leg
+  Atangk = cross(-Rul, Aul);
+  Anormk = -Rul.*(norm(Wul))^2;
+  % Combine to find the translating motion of the knee
+  Ak = Atangk + Anormk;
+  % Find Normal and Tangential acceleration of the lower leg
+  Atangll = cross(-Rllw, AlphaLL);
+  Anormll = -Rllw.*(norm(Wll))^2;
+  % Combine to find the translating motion of the knee
+  Allnt = Atangll + Anormll;
+
+  % Net angular acceleration on the lower leg
+  All = Ak + Allnt;
+
+  % Moment forces created affecting K
+  nMllk = Illk*AlphaLL;
+  Mwll = cross(Rllw, Fllw); % Find moment due to weight
+  Mfpt = [0, 0, Rkpt*Fpt]; % using given perpendicular direction and symbolic force
+
+  % Solve for the net moment of the lower leg at point K
+  tempFpt = solve(nMllk == Mwll + Mfpt, Fpt); tempFpt = double(tempFpt); % Decrease precision
+  Fpt = [tempFpt*cosd(Ollpt), tempFpt*sind(Ollpt), 0]; % put into vector form given angle wrt horizontal
+
+  % Solve for the net forces of the lower leg at point K
+  nFll = (norm(Fllw)/Grav).*All;
+  aFisk = [Fiskx, Fisky, Fiskz]; % Use an (a) array format
+
+  % Solve for the three directions of the inter-segmental force at the knee
+  for i = 1:3
+    solFisk(i) = solve(nFll(i) == Fpt(i) + Fllw(i) + aFisk(i), aFisk(i));
+    tempFisk(i) = solFisk(i);
+  end
+  Fisk = double(tempFisk); % Clean up the numbers
+
+  %
+  %
+  % Evaluate the upper leg
+  %
+  %
+  Mh = cross(Rul, Fisk);
+  Fjrh = Fisk - Fulw;
+
+  % Log data for plotting
+  FptLog(count) = norm(Fpt);
+  FjrhLog(count) = norm(Fjrh);
+  FiskLog(count) = norm(Fisk);
+  T(count) = t; % Save time values for plotting
+end
+
+%
+%
+% Report
+%
+%
+% Plot results
+figure(1), hold all, plot(T, FptLog), plot(T, FjrhLog), plot(T, FiskLog),...
+ legend('Quadriceps Force (Fq)', 'Inter-Segmental Force at the Hip (Fjrh)', 'Joint Reaction Force at the Knee (Fisk)', 'Location', 'SouthWest'),...
+    title('Force Compared to Kicking Time Duration')
+  xlabel('time (second) '),  ylabel('Force (N)')
+
+% Tabulate data
+tM = table(T', FptLog', FjrhLog', FiskLog');
+% tM.Properties.VariableUnits = {'*', 'N', 'N'};
+tM.Properties.VariableNames{'Var1'} = 'Seconds';
+tM.Properties.VariableNames{'Var2'} = 'Fpt';
+tM.Properties.VariableNames{'Var3'} = 'Fjrh';
+tM.Properties.VariableNames{'Var4'} = 'Fisk';
+disp(tM)
+
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,4 @@
+3 - twitch 0V
+4 - twitch 0.2V
+5 - twitch 0.4V
+stopped at 10..

@@ -1,0 +1,265 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>testPalindrome</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-27"><meta name="DC.source" content="testPalindrome.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Kyle King</span>
+<span class="comment">% BIOE489D</span>
+<span class="comment">% 10-22-2014</span>
+
+clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+
+<span class="comment">% % for testing with known # of palindromes</span>
+<span class="comment">% seq = 'AAAAAAAAGGTTTTTTTTTT';</span>
+<span class="comment">% N = length(seq);</span>
+
+<span class="comment">% Get a random starting sequence for the real deal</span>
+N = 100; <span class="comment">% Length of sequence</span>
+seq = rseq(N);
+
+revseq = complement(seq); <span class="comment">% Take the reverse complement</span>
+
+
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Search for a Palindrome</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+
+<span class="comment">% Initialize counters</span>
+matches = 0;
+aTable = zeros(N, 5); <span class="comment">% for length and location storage</span>
+
+<span class="comment">% Loop for seq</span>
+<span class="keyword">for</span> i = 1:N
+  <span class="comment">% Loop for revseq</span>
+  <span class="keyword">for</span> j = 1:N
+    <span class="comment">% Initialize length counter</span>
+    lengthMatch = 1;
+
+    <span class="comment">% Check for a match</span>
+    <span class="keyword">if</span> seq(i) == revseq(j)
+      <span class="comment">% If match is found</span>
+      matches = matches + 1; <span class="comment">% trigger a match!</span>
+      <span class="comment">% disp('trigger')</span>
+
+      <span class="comment">% Use K to extend the match section</span>
+      k = 1;
+      <span class="keyword">while</span> k &lt; N+1
+        <span class="keyword">if</span> (i+k &gt; N || j+k &gt; N)
+          <span class="comment">% If past max length of the sequence</span>
+          aTable(matches, :) = [i, j, (i+k-1), (j+k-1), lengthMatch];
+          <span class="comment">% disp('Done-max')</span>
+          k = N+1;
+        <span class="keyword">elseif</span> seq(i+k) == revseq(j+k)
+          <span class="comment">% If match is found, extend the count</span>
+          lengthMatch = lengthMatch + 1;
+          <span class="comment">% disp([seq(i+k) ' and ' revseq(j+k) ' at ' num2str(i+k) ' and ' num2str(j+k)]) % for testing</span>
+          k = k+1;
+        <span class="keyword">else</span>
+          <span class="comment">% If no match, then end the count</span>
+          aTable(matches, :) = [i, j, (i+k-1), (j+k-1), lengthMatch];
+          <span class="comment">% disp('Done-no Match')</span>
+          k = N+1;
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>
+
+    <span class="keyword">end</span>
+
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Find maximum plaindrome by sorting through aTable</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Initialize counters</span>
+aTableMax = max(aTable(:, 5));
+finalTable = zeros(1, 5);
+finalMatches = 0;
+<span class="comment">% sort through table to see where the maxes are:</span>
+<span class="keyword">for</span> l = 1:matches
+  <span class="keyword">if</span> aTable(l, 5) == aTableMax
+    finalMatches = finalMatches + 1;
+    finalTable(finalMatches, :) = aTable(l, :);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Display results</span>
+lengthFinal = length(finalTable(:,1));
+disp([<span class="string">'Found '</span> num2str(lengthFinal) <span class="string">' maximum length palindromes of '</span> num2str(aTableMax) <span class="string">' bp'</span> 13])
+disp([<span class="string">'Parsed as: Seq_Start RevSeq_Start Seq_Final RevSeq_Final Length_of_Match'</span> 13])
+disp(finalTable)
+<span class="keyword">for</span> count = 1:lengthFinal
+  disp({seq(finalTable(count, 1):finalTable(count, 3)), revseq(finalTable(count, 2):finalTable(count, 4))})
+<span class="keyword">end</span>
+<span class="comment">% disp([13 'to view palindromes, use start/final points with seq(Seq_Start:Seq_Final) and/or revseq(RevSeq_Start:RevSeq_Final)'])</span>
+</pre><pre class="codeoutput">Found 1 maximum length palindromes of 8 bp
+Parsed as: Seq_Start RevSeq_Start Seq_Final RevSeq_Final Length_of_Match
+    86     8    93    15     8
+
+    'ACCATGGT'    'ACCATGGT'
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Kyle King
+% BIOE489D
+% 10-22-2014
+
+clc, clear all % boilerplate
+
+% % for testing with known # of palindromes
+% seq = 'AAAAAAAAGGTTTTTTTTTT';
+% N = length(seq);
+
+% Get a random starting sequence for the real deal
+N = 100; % Length of sequence
+seq = rseq(N);
+
+revseq = complement(seq); % Take the reverse complement
+
+
+%
+%
+% Search for a Palindrome
+%
+%
+
+% Initialize counters
+matches = 0;
+aTable = zeros(N, 5); % for length and location storage
+
+% Loop for seq
+for i = 1:N
+  % Loop for revseq
+  for j = 1:N
+    % Initialize length counter
+    lengthMatch = 1;
+
+    % Check for a match
+    if seq(i) == revseq(j)
+      % If match is found
+      matches = matches + 1; % trigger a match!
+      % disp('trigger')
+
+      % Use K to extend the match section
+      k = 1;
+      while k < N+1
+        if (i+k > N || j+k > N)
+          % If past max length of the sequence
+          aTable(matches, :) = [i, j, (i+k-1), (j+k-1), lengthMatch];
+          % disp('Done-max')
+          k = N+1;
+        elseif seq(i+k) == revseq(j+k)
+          % If match is found, extend the count
+          lengthMatch = lengthMatch + 1;
+          % disp([seq(i+k) ' and ' revseq(j+k) ' at ' num2str(i+k) ' and ' num2str(j+k)]) % for testing
+          k = k+1;
+        else
+          % If no match, then end the count
+          aTable(matches, :) = [i, j, (i+k-1), (j+k-1), lengthMatch];
+          % disp('Done-no Match')
+          k = N+1;
+        end
+      end
+
+    end
+
+  end
+end
+
+%
+%
+% Find maximum plaindrome by sorting through aTable
+%
+%
+% Initialize counters
+aTableMax = max(aTable(:, 5));
+finalTable = zeros(1, 5);
+finalMatches = 0;
+% sort through table to see where the maxes are:
+for l = 1:matches
+  if aTable(l, 5) == aTableMax
+    finalMatches = finalMatches + 1;
+    finalTable(finalMatches, :) = aTable(l, :);
+  end
+end
+
+% Display results
+lengthFinal = length(finalTable(:,1));
+disp(['Found ' num2str(lengthFinal) ' maximum length palindromes of ' num2str(aTableMax) ' bp' 13])
+disp(['Parsed as: Seq_Start RevSeq_Start Seq_Final RevSeq_Final Length_of_Match' 13])
+disp(finalTable)
+for count = 1:lengthFinal
+  disp({seq(finalTable(count, 1):finalTable(count, 3)), revseq(finalTable(count, 2):finalTable(count, 4))})
+end
+% disp([13 'to view palindromes, use start/final points with seq(Seq_Start:Seq_Final) and/or revseq(RevSeq_Start:RevSeq_Final)'])
+
+
+
+##### SOURCE END #####
+--></body></html>

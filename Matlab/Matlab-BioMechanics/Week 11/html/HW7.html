@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW7</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-11-21"><meta name="DC.source" content="HW7.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Question 1</a></li><li><a href="#3">Question 2</a></li></ul></div><pre class="codeinput"><span class="comment">% % Kyle King</span>
+<span class="comment">% % BIOE404</span>
+<span class="comment">% % Section 0103</span>
+<span class="comment">% % 11-21-2014</span>
+
+clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+</pre><h2>Question 1<a name="2"></a></h2><pre class="codeinput">disp(<span class="string">'Question 1'</span>)
+
+<span class="comment">% % Parse and import data</span>
+
+<span class="comment">% Pick File</span>
+<span class="comment">% [Name, Path] = uigetfile('.csv');</span>
+<span class="comment">% filename = strcat(Path, Name);</span>
+Name = <span class="string">'/BIOE404-F14-HW7data.csv'</span>;
+currentFolder = pwd;
+filename = strcat(currentFolder, Name);
+<span class="comment">% filename = '/Users/kyleking/Documents/Developer/__Matlab/Matlab-BioMechanics/Week 11/';</span>
+A = csvread(filename, 1, 0); <span class="comment">% Read data</span>
+
+<span class="comment">% Global Variables</span>
+t = A(:, 1); <span class="comment">% Time (sec)</span>
+Healthy = A(:, 2); <span class="comment">% Healthy (mm)</span>
+Ostheo = A(:, 3); <span class="comment">% Osteoarthritic [Degenerative Tissue] (mm)</span>
+
+<span class="comment">% % Fit Data</span>
+<span class="comment">% cftool</span>
+<span class="comment">% strain(t) = stress [F/A] * [1/E2 + (1/(E1+E2) - (1/E2))*exp(-E1*E2*t/(mu*E1+mu*E2))]</span>
+<span class="comment">% (-2/0.00365)*(1/B+(1/(A+B)-(1/B))*exp((-A*B)/(u*(A+B))*t))</span>
+stress = (-2/0.00365);
+[fitresult, gof] = createFits(t, Healthy, Ostheo);
+
+<span class="comment">% % Plot results</span>
+figure
+subplot(2, 1, 1), plot(fitresult{1}, t, Healthy),<span class="keyword">...</span>
+ legend(<span class="string">'Healthy Tissue'</span>, <span class="string">'Healthy Fit'</span>, <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>),<span class="keyword">...</span>
+    title(<span class="string">'Fitted Creep Test of Healthy Tissue'</span>)
+subplot(2, 1, 2), plot(fitresult{2}, t, Ostheo),<span class="keyword">...</span>
+ legend(<span class="string">'Osteoarthritic Tissue'</span>, <span class="string">'Osteoarthritic Fit'</span>, <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>),<span class="keyword">...</span>
+    title(<span class="string">'Fitted Creep Test of Osteoarthritic Tissue'</span>)
+  xlabel(<span class="string">'time (second) '</span>),  ylabel(<span class="string">'Creep (mm)'</span>)
+
+<span class="comment">% % Display Fit Results</span>
+disp(<span class="string">'Healthy Tissue'</span>)
+gof(1)
+fitresult{1}
+
+disp([10 <span class="string">'Osteoarthritic Tissue'</span>])
+gof(2)
+fitresult{2}
+
+<span class="comment">% % Explain Fit Results</span>
+disp([10 <span class="string">'Explanation:'</span>])
+disp([<span class="string">'The Healthy Tissue has Youngs moduli of E1 = 1.093 and E2 = 1.083, which are roughly twice the size of the moduli '</span> 10 <span class="string">'for Osteoarthritic Tissue, E1 = 0.5675 and E2 = 0.5123. This means that the Osteoarthritic Tissue is more stiff and '</span> 10 <span class="string">'will only strain half as much as the healthy tissue under the same load. The Healthy Tissue has a moduli close to one '</span> 10 <span class="string">'and thus can be thought of elastic.'</span>])
+disp([10 <span class="string">'The Healthy Tissue has a mu of 1086, which is roughly the same as the Osteoarthritic Tissue with a mu of 1028. '</span> 10 <span class="string">'So both have a similar dashpot element and similar viscosity.'</span>])
+disp([10 <span class="string">'The greatest difference between the two tissues is the Youngs Moduli, which contributes to the difference in the creep test plots.'</span> 10 <span class="string">' The Osteoarthritic tissue is stiffer causing it to more readily strain.'</span>])
+</pre><pre class="codeoutput">Question 1
+Healthy Tissue
+
+ans = 
+
+           sse: 0.0011
+       rsquare: 0.9999
+           dfe: 1998
+    adjrsquare: 0.9999
+          rmse: 7.5215e-04
+
+
+ans = 
+
+     General model:
+     ans(t) = [-2/(1.16*3.65)]*(1/B+(1/(A+B)-(1/B))*exp((-A*B)/(u*(A+B))*t))
+     Coefficients (with 95% confidence bounds):
+       A =       1.093  (1.091, 1.094)
+       B =       1.083  (1.083, 1.083)
+       u =        1086  (1085, 1087)
+
+Osteoarthritic Tissue
+
+ans = 
+
+           sse: 0.0045
+       rsquare: 0.9999
+           dfe: 1998
+    adjrsquare: 0.9999
+          rmse: 0.0015
+
+
+ans = 
+
+     General model:
+     ans(t) = [-2/(1.32*3.79)]*(1/B+(1/(A+B)-(1/B))*exp((-A*B)/(u*(A+B))*t))
+     Coefficients (with 95% confidence bounds):
+       A =      0.5675  (0.5669, 0.5682)
+       B =      0.5123  (0.5121, 0.5125)
+       u =        1028  (1026, 1030)
+
+Explanation:
+The Healthy Tissue has Youngs moduli of E1 = 1.093 and E2 = 1.083, which are roughly twice the size of the moduli 
+for Osteoarthritic Tissue, E1 = 0.5675 and E2 = 0.5123. This means that the Osteoarthritic Tissue is more stiff and 
+will only strain half as much as the healthy tissue under the same load. The Healthy Tissue has a moduli close to one 
+and thus can be thought of elastic.
+
+The Healthy Tissue has a mu of 1086, which is roughly the same as the Osteoarthritic Tissue with a mu of 1028. 
+So both have a similar dashpot element and similar viscosity.
+
+The greatest difference between the two tissues is the Youngs Moduli, which contributes to the difference in the creep test plots.
+ The Osteoarthritic tissue is stiffer causing it to more readily strain.
+</pre><img vspace="5" hspace="5" src="HW7_01.png" alt=""> <h2>Question 2<a name="3"></a></h2><pre class="codeinput">disp(<span class="string">'Question 2'</span>)
+disp([<span class="string">'A: The time scale of the first test is 2x the length of time as the second test, but include the same number of waves, '</span> 10 <span class="string">' which means that the first test responds much slower to the cyclical strain and is much more viscous.'</span>])
+disp(<span class="string">'B:'</span>)
+[storage, loss, delta1] = storeloss(6, 0.03, 0.25, 1.3);
+disp([<span class="string">'For test 1, the storage moduli is: '</span> num2str(storage)])
+disp([<span class="string">'For test 1, the loss moduli is: '</span> num2str(loss)])
+percent_contribution_1 = storage/(storage + loss);
+
+[storage, loss, delta2] = storeloss(12, 0.03, 0.05, 0.65);
+disp([<span class="string">'For test 2, the storage moduli is: '</span> num2str(storage)])
+disp([<span class="string">'For test 2, the loss moduli is: '</span> num2str(loss)])
+percent_contribution_2 = storage/(storage + loss);
+
+disp(<span class="string">'C:'</span>)
+disp([<span class="string">'The closer delta is to 0, the more elastic the element is, while the closer to 2pi the element is approaching perfectly '</span> 10 <span class="string">' viscous. In this case, test 1 has a delta of '</span> num2str(delta1) <span class="string">' while the delta for test 2 is '</span> num2str(delta2)])
+disp([<span class="string">'The deltas can then be used to calculate the contribution of viscous or elastic elements to the total response of the system. '</span> 10 <span class="string">'When normalized to the total loss + storage moduli, the percent contribution of the elastic element is '</span> num2str(percent_contribution_1*100) <span class="string">'% in tests 1, '</span> 10 <span class="string">'versus in test 2: '</span> num2str(percent_contribution_2*100) <span class="string">'%. This means that test 2 is considerably more elastic and is approaching perfectly elastic, '</span> 10 <span class="string">'while test 1 has a much larger viscous contribution.'</span>])
+</pre><pre class="codeoutput">Question 2
+A: The time scale of the first test is 2x the length of time as the second test, but include the same number of waves, 
+ which means that the first test responds much slower to the cyclical strain and is much more viscous.
+B:
+For test 1, the storage moduli is: 70.921
+For test 1, the loss moduli is: 187.0032
+For test 2, the storage moduli is: 354.1824
+For test 2, the loss moduli is: 185.8893
+C:
+The closer delta is to 0, the more elastic the element is, while the closer to 2pi the element is approaching perfectly 
+ viscous. In this case, test 1 has a delta of 1.2083 while the delta for test 2 is 0.48332
+The deltas can then be used to calculate the contribution of viscous or elastic elements to the total response of the system. 
+When normalized to the total loss + storage moduli, the percent contribution of the elastic element is 27.4968% in tests 1, 
+versus in test 2: 65.5806%. This means that test 2 is considerably more elastic and is approaching perfectly elastic, 
+while test 1 has a much larger viscous contribution.
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% % Kyle King
+% % BIOE404
+% % Section 0103
+% % 11-21-2014
+
+clc, clear all % boilerplate
+%% Question 1
+disp('Question 1')
+
+% % Parse and import data
+
+% Pick File
+% [Name, Path] = uigetfile('.csv');
+% filename = strcat(Path, Name);
+Name = '/BIOE404-F14-HW7data.csv';
+currentFolder = pwd;
+filename = strcat(currentFolder, Name);
+% filename = '/Users/kyleking/Documents/Developer/__Matlab/Matlab-BioMechanics/Week 11/';
+A = csvread(filename, 1, 0); % Read data
+
+% Global Variables
+t = A(:, 1); % Time (sec)
+Healthy = A(:, 2); % Healthy (mm)
+Ostheo = A(:, 3); % Osteoarthritic [Degenerative Tissue] (mm)
+
+% % Fit Data
+% cftool
+% strain(t) = stress [F/A] * [1/E2 + (1/(E1+E2) - (1/E2))*exp(-E1*E2*t/(mu*E1+mu*E2))]
+% (-2/0.00365)*(1/B+(1/(A+B)-(1/B))*exp((-A*B)/(u*(A+B))*t))
+stress = (-2/0.00365);
+[fitresult, gof] = createFits(t, Healthy, Ostheo);
+
+% % Plot results
+figure
+subplot(2, 1, 1), plot(fitresult{1}, t, Healthy),...
+ legend('Healthy Tissue', 'Healthy Fit', 'Location', 'NorthEast'),...
+    title('Fitted Creep Test of Healthy Tissue')
+subplot(2, 1, 2), plot(fitresult{2}, t, Ostheo),...
+ legend('Osteoarthritic Tissue', 'Osteoarthritic Fit', 'Location', 'NorthEast'),...
+    title('Fitted Creep Test of Osteoarthritic Tissue')
+  xlabel('time (second) '),  ylabel('Creep (mm)')
+
+% % Display Fit Results
+disp('Healthy Tissue')
+gof(1)
+fitresult{1}
+
+disp([10 'Osteoarthritic Tissue'])
+gof(2)
+fitresult{2}
+
+% % Explain Fit Results
+disp([10 'Explanation:'])
+disp(['The Healthy Tissue has Youngs moduli of E1 = 1.093 and E2 = 1.083, which are roughly twice the size of the moduli ' 10 'for Osteoarthritic Tissue, E1 = 0.5675 and E2 = 0.5123. This means that the Osteoarthritic Tissue is more stiff and ' 10 'will only strain half as much as the healthy tissue under the same load. The Healthy Tissue has a moduli close to one ' 10 'and thus can be thought of elastic.'])
+disp([10 'The Healthy Tissue has a mu of 1086, which is roughly the same as the Osteoarthritic Tissue with a mu of 1028. ' 10 'So both have a similar dashpot element and similar viscosity.'])
+disp([10 'The greatest difference between the two tissues is the Youngs Moduli, which contributes to the difference in the creep test plots.' 10 ' The Osteoarthritic tissue is stiffer causing it to more readily strain.'])
+
+%% Question 2
+disp('Question 2')
+disp(['A: The time scale of the first test is 2x the length of time as the second test, but include the same number of waves, ' 10 ' which means that the first test responds much slower to the cyclical strain and is much more viscous.'])
+disp('B:')
+[storage, loss, delta1] = storeloss(6, 0.03, 0.25, 1.3);
+disp(['For test 1, the storage moduli is: ' num2str(storage)])
+disp(['For test 1, the loss moduli is: ' num2str(loss)])
+percent_contribution_1 = storage/(storage + loss);
+
+[storage, loss, delta2] = storeloss(12, 0.03, 0.05, 0.65);
+disp(['For test 2, the storage moduli is: ' num2str(storage)])
+disp(['For test 2, the loss moduli is: ' num2str(loss)])
+percent_contribution_2 = storage/(storage + loss);
+
+disp('C:')
+disp(['The closer delta is to 0, the more elastic the element is, while the closer to 2pi the element is approaching perfectly ' 10 ' viscous. In this case, test 1 has a delta of ' num2str(delta1) ' while the delta for test 2 is ' num2str(delta2)])
+disp(['The deltas can then be used to calculate the contribution of viscous or elastic elements to the total response of the system. ' 10 'When normalized to the total loss + storage moduli, the percent contribution of the elastic element is ' num2str(percent_contribution_1*100) '% in tests 1, ' 10 'versus in test 2: ' num2str(percent_contribution_2*100) '%. This means that test 2 is considerably more elastic and is approaching perfectly elastic, ' 10 'while test 1 has a much larger viscous contribution.'])
+##### SOURCE END #####
+--></body></html>

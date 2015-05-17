@@ -1,0 +1,303 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW8</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-12-07"><meta name="DC.source" content="HW8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Part A.</a></li><li><a href="#3">Part B.</a></li><li><a href="#4">Part C.</a></li><li><a href="#5">Part D.</a></li></ul></div><pre class="codeinput"><span class="comment">% % Kyle King</span>
+<span class="comment">% % HW8</span>
+<span class="comment">% % BIOE404</span>
+<span class="comment">% % Section 0103</span>
+<span class="comment">% % 12-05-2014</span>
+
+clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+
+<span class="comment">% Given Global Constants</span>
+r = 4;                   <span class="comment">% Radius (mm)</span>
+h = 4;                   <span class="comment">% h=Height (mm)</span>
+area = pi*r^2;         <span class="comment">% Area of plug</span>
+Ha = 2;                 <span class="comment">% 2 MPa</span>
+orig_Ko = 1e-15;      <span class="comment">% m^4/N-s</span>
+Ko = orig_Ko*(1e12); <span class="comment">% convert to mm^4/N-s</span>
+</pre><h2>Part A.<a name="2"></a></h2><pre class="codeinput">disp([<span class="string">'Part A:'</span>])
+<span class="comment">% Set constants based on problem-statement</span>
+F = 75;                 <span class="comment">% N</span>
+stressApp = F/area;    <span class="comment">% N/mm^2</span>
+interval = 20000;      <span class="comment">% s</span>
+time = 0:interval;      <span class="comment">% time array</span>
+strt = 0;                <span class="comment">% Only for Creep Calculation</span>
+estMax = 5;             <span class="comment">% Hint from TA for summation estimation</span>
+
+<span class="comment">% Find Uj based on top surface using creep function file</span>
+Xjt = h; <span class="comment">% top</span>
+[ut_a] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko, strt, Xjt, estMax);
+
+<span class="comment">% Find Uj based on mid-height surface</span>
+Xjm = h/2; <span class="comment">% mid-height</span>
+[um_a] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko, strt, Xjm, estMax);
+
+<span class="comment">% Plot them</span>
+figure, hold <span class="string">all</span>, plot(time, ut_a), plot(time, um_a)
+xlabel(<span class="string">'Time (s)'</span>), ylabel(<span class="string">'Displacement (mm)'</span>), title(<span class="string">'Displacement versus time of top surface and the mid-height of the specimen'</span>), legend(<span class="string">'Top Surface Displacement'</span>,<span class="string">'Mid-Height Displacement'</span>)
+
+<span class="comment">% Evaluate the difference in displacements at t = 500s</span>
+t_eval = 500;
+FiveHundredComp = ut_a(t_eval) / um_a(t_eval);
+<span class="keyword">if</span> (FiveHundredComp ==  2)
+    disp(<span class="string">'As expected in a uniform material, the displacement of the top is twice the displacement at the mid-height.'</span>)
+<span class="keyword">else</span>
+    disp([<span class="string">'The displacement of the top surface is NOT twice the displacement at the mid-height.'</span> 10 <span class="string">'This means that the material is not uniform. The actual displacement comparison is a factor of '</span> num2str(FiveHundredComp)])
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Part A:
+The displacement of the top surface is NOT twice the displacement at the mid-height.
+This means that the material is not uniform. The actual displacement comparison is a factor of 11.2626
+</pre><img vspace="5" hspace="5" src="HW8_01.png" alt=""> <h2>Part B.<a name="3"></a></h2><pre class="codeinput">disp([10 <span class="string">'Part B:'</span>])
+<span class="comment">% Set constant K0's based on problem-statement</span>
+Ko_b = [Ko*10, Ko, Ko/10];
+
+figure, hold <span class="string">all</span>
+<span class="keyword">for</span> i = 1:length(Ko_b)
+    <span class="comment">% Calculate Creep and plot</span>
+    [uj] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko_b(i), strt, Xjt, estMax);
+    plot(time, uj)
+<span class="keyword">end</span>
+xlabel(<span class="string">'Time (s)'</span>), ylabel(<span class="string">'Displacement (mm)'</span>), title(<span class="string">'Displacement With Variable Ko'</span>), legend(<span class="string">'Ko = 1e-14 m^4/N-s'</span>,<span class="string">'Ko = 1e-15 m^4/N-s (Normal)'</span>,<span class="string">'Ko = 1e-16 m^4/N-s'</span>)
+
+disp([<span class="string">'The larger the K0 value, the faster the tissue deforms, as seen on the graph. K0 represents fluid permeability, '</span> 10 <span class="string">'which determines how closely the tissue resembles a dashpot. The closer K0 is to 0, the faster the fluid '</span> 10 <span class="string">'permeates the tissue and the faster the tissue compresses. This means that a K0 value of 0 would resemble '</span> 10 <span class="string">'a perfect dashpot with no fluid permeability, while a K0 closer to 1 would more closely represent a spring.'</span>])
+</pre><pre class="codeoutput">
+Part B:
+The larger the K0 value, the faster the tissue deforms, as seen on the graph. K0 represents fluid permeability, 
+which determines how closely the tissue resembles a dashpot. The closer K0 is to 0, the faster the fluid 
+permeates the tissue and the faster the tissue compresses. This means that a K0 value of 0 would resemble 
+a perfect dashpot with no fluid permeability, while a K0 closer to 1 would more closely represent a spring.
+</pre><img vspace="5" hspace="5" src="HW8_02.png" alt=""> <h2>Part C.<a name="4"></a></h2><pre class="codeinput">disp([10 <span class="string">'Part C:'</span>])
+<span class="comment">% Set constants based on problem-statement</span>
+t0 = 2; <span class="comment">% s</span>
+t = [500, 5000]; <span class="comment">% s</span>
+vo = 1/t0; <span class="comment">% mm/s</span>
+strt = 1;
+
+figure, hold <span class="string">all</span>
+<span class="keyword">for</span> i = 1:length(t)
+    <span class="comment">% Calculate the relaxation</span>
+    [uj, Xj] = linearBiphasicModelRelax(t0, t(i), vo, h, Ha, Ko, strt, estMax);
+    plot(Xj, uj)
+    <span class="comment">% Store values for part D</span>
+    uj_c(i, :) = uj; Xj_c(i, :) = Xj;
+<span class="keyword">end</span>
+xlabel(<span class="string">'Height (mm)'</span>), ylabel(<span class="string">'Displacement Uj (mm)'</span>), title([<span class="string">'Stress Relaxation at Various Heights'</span>]), legend(<span class="string">'t = 500 s'</span>, <span class="string">'t = 5,000 s'</span>)
+<span class="comment">% Answer to question</span>
+disp([<span class="string">'The material has reached equilibrium at 5,000 s because the slope is constant meaning that the displacement'</span> 10 <span class="string">'is evenly shared between each section of the material. Over time, the displacement in the top section has '</span> 10 <span class="string">'evenly distributed throughout the material. Whereas at t = 500 s, the displacement is disproportionately  '</span> 10 <span class="string">'limited to only the top section.'</span>])
+</pre><pre class="codeoutput">
+Part C:
+The material has reached equilibrium at 5,000 s because the slope is constant meaning that the displacement
+is evenly shared between each section of the material. Over time, the displacement in the top section has 
+evenly distributed throughout the material. Whereas at t = 500 s, the displacement is disproportionately  
+limited to only the top section.
+</pre><img vspace="5" hspace="5" src="HW8_03.png" alt=""> <h2>Part D.<a name="5"></a></h2><pre class="codeinput">disp([10 <span class="string">'Part D:'</span> 10 <span class="string">'The predicted stress that would be measured at the top of the specimen at: '</span>])
+<span class="comment">% Calculate Stress Applied at the top for both time points</span>
+<span class="keyword">for</span> i = 1:length(t)
+    <span class="comment">% rate of change of displacement and position at top (end)</span>
+    du_t = uj_c(i, end) - uj_c(i, end-1);
+    dx_t = Xj_c(i, end) - Xj_c(i, end-1);
+    <span class="comment">% Find stress applied</span>
+    stressApp_td(i) = Ha*(du_t/dx_t);
+    disp([<span class="string">'t = '</span> num2str(t(i)) <span class="string">'s is '</span> num2str(stressApp_td(i)) <span class="string">' MPa'</span>])
+<span class="keyword">end</span>
+
+figure, hold <span class="string">all</span>
+<span class="keyword">for</span> i = 1:length(t)
+    <span class="keyword">for</span> j = 2:length(uj_c)
+        <span class="comment">% rate of change of displacement and position at pointer value j</span>
+        du_m(i, j) = uj_c(i, j) - uj_c(i, j-1);
+        dx_m(i, j) = Xj_c(i, j) - Xj_c(i, j-1);
+        <span class="comment">% Find stress applied</span>
+        stressApp_d(i) = Ha*(du_m(i, j)/dx_m(i, j));
+        <span class="comment">% Calculate fluid pressure based on top pressure</span>
+        fluidPress(i, j) = stressApp_td(i) - stressApp_d(i);
+    <span class="keyword">end</span>
+    plot(Xj_c(i, 2:end), fluidPress(i, 2:end))
+    xlabel(<span class="string">'Height (mm)'</span>), ylabel(<span class="string">'Fluid Pressure (MPa)'</span>), title([<span class="string">'Fluid Pressure with Respect to Depth'</span>])
+<span class="keyword">end</span>
+legend(<span class="string">'t = 500 s'</span>, <span class="string">'t = 5,000 s'</span>, <span class="string">'location'</span>, <span class="string">'SouthEast'</span>)
+</pre><pre class="codeoutput">
+Part D:
+The predicted stress that would be measured at the top of the specimen at: 
+t = 500s is -1.1295 MPa
+t = 5000s is -0.5021 MPa
+</pre><img vspace="5" hspace="5" src="HW8_04.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% % Kyle King
+% % HW8
+% % BIOE404
+% % Section 0103
+% % 12-05-2014
+
+clc, clear all % boilerplate
+
+% Given Global Constants
+r = 4;                   % Radius (mm)
+h = 4;                   % h=Height (mm)
+area = pi*r^2;         % Area of plug
+Ha = 2;                 % 2 MPa
+orig_Ko = 1e-15;      % m^4/N-s
+Ko = orig_Ko*(1e12); % convert to mm^4/N-s
+
+%% Part A.
+disp(['Part A:'])
+% Set constants based on problem-statement
+F = 75;                 % N
+stressApp = F/area;    % N/mm^2
+interval = 20000;      % s
+time = 0:interval;      % time array
+strt = 0;                % Only for Creep Calculation
+estMax = 5;             % Hint from TA for summation estimation
+
+% Find Uj based on top surface using creep function file
+Xjt = h; % top
+[ut_a] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko, strt, Xjt, estMax);
+
+% Find Uj based on mid-height surface
+Xjm = h/2; % mid-height
+[um_a] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko, strt, Xjm, estMax);
+
+% Plot them
+figure, hold all, plot(time, ut_a), plot(time, um_a)
+xlabel('Time (s)'), ylabel('Displacement (mm)'), title('Displacement versus time of top surface and the mid-height of the specimen'), legend('Top Surface Displacement','Mid-Height Displacement')
+
+% Evaluate the difference in displacements at t = 500s
+t_eval = 500;
+FiveHundredComp = ut_a(t_eval) / um_a(t_eval);
+if (FiveHundredComp ==  2)
+    disp('As expected in a uniform material, the displacement of the top is twice the displacement at the mid-height.')
+else
+    disp(['The displacement of the top surface is NOT twice the displacement at the mid-height.' 10 'This means that the material is not uniform. The actual displacement comparison is a factor of ' num2str(FiveHundredComp)])
+end
+
+%% Part B.
+disp([10 'Part B:'])
+% Set constant K0's based on problem-statement
+Ko_b = [Ko*10, Ko, Ko/10];
+
+figure, hold all
+for i = 1:length(Ko_b)
+    % Calculate Creep and plot
+    [uj] = linearBiphasicModelCreep(time, h, stressApp, Ha, Ko_b(i), strt, Xjt, estMax);
+    plot(time, uj)
+end
+xlabel('Time (s)'), ylabel('Displacement (mm)'), title('Displacement With Variable Ko'), legend('Ko = 1e-14 m^4/N-s','Ko = 1e-15 m^4/N-s (Normal)','Ko = 1e-16 m^4/N-s')
+
+disp(['The larger the K0 value, the faster the tissue deforms, as seen on the graph. K0 represents fluid permeability, ' 10 'which determines how closely the tissue resembles a dashpot. The closer K0 is to 0, the faster the fluid ' 10 'permeates the tissue and the faster the tissue compresses. This means that a K0 value of 0 would resemble ' 10 'a perfect dashpot with no fluid permeability, while a K0 closer to 1 would more closely represent a spring.'])
+
+%% Part C.
+disp([10 'Part C:'])
+% Set constants based on problem-statement
+t0 = 2; % s
+t = [500, 5000]; % s
+vo = 1/t0; % mm/s
+strt = 1;
+
+figure, hold all
+for i = 1:length(t)
+    % Calculate the relaxation
+    [uj, Xj] = linearBiphasicModelRelax(t0, t(i), vo, h, Ha, Ko, strt, estMax);
+    plot(Xj, uj)
+    % Store values for part D
+    uj_c(i, :) = uj; Xj_c(i, :) = Xj;
+end
+xlabel('Height (mm)'), ylabel('Displacement Uj (mm)'), title(['Stress Relaxation at Various Heights']), legend('t = 500 s', 't = 5,000 s')
+% Answer to question
+disp(['The material has reached equilibrium at 5,000 s because the slope is constant meaning that the displacement' 10 'is evenly shared between each section of the material. Over time, the displacement in the top section has ' 10 'evenly distributed throughout the material. Whereas at t = 500 s, the displacement is disproportionately  ' 10 'limited to only the top section.'])
+
+
+%% Part D.
+disp([10 'Part D:' 10 'The predicted stress that would be measured at the top of the specimen at: '])
+% Calculate Stress Applied at the top for both time points
+for i = 1:length(t)
+    % rate of change of displacement and position at top (end)
+    du_t = uj_c(i, end) - uj_c(i, end-1);
+    dx_t = Xj_c(i, end) - Xj_c(i, end-1);
+    % Find stress applied
+    stressApp_td(i) = Ha*(du_t/dx_t);
+    disp(['t = ' num2str(t(i)) 's is ' num2str(stressApp_td(i)) ' MPa'])
+end
+
+figure, hold all
+for i = 1:length(t)
+    for j = 2:length(uj_c)
+        % rate of change of displacement and position at pointer value j
+        du_m(i, j) = uj_c(i, j) - uj_c(i, j-1);
+        dx_m(i, j) = Xj_c(i, j) - Xj_c(i, j-1);
+        % Find stress applied
+        stressApp_d(i) = Ha*(du_m(i, j)/dx_m(i, j));
+        % Calculate fluid pressure based on top pressure
+        fluidPress(i, j) = stressApp_td(i) - stressApp_d(i);
+    end
+    plot(Xj_c(i, 2:end), fluidPress(i, 2:end))
+    xlabel('Height (mm)'), ylabel('Fluid Pressure (MPa)'), title(['Fluid Pressure with Respect to Depth'])
+end
+legend('t = 500 s', 't = 5,000 s', 'location', 'SouthEast')
+##### SOURCE END #####
+--></body></html>

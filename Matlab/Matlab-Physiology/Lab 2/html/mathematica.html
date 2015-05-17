@@ -1,0 +1,548 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>mathematica</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-30"><meta name="DC.source" content="mathematica.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">1. Read the data file (comma separated or excel file format) into MATLAB and store the values</a></li><li><a href="#3">2. Identify and report key features of the mean ECG signal, including</a></li><li><a href="#4">a. Heart Rate between peaks</a></li><li><a href="#5">b. Indicate the QRS complex and T and P wave on a graphical representation of the data</a></li><li><a href="#6">c. Maximum and minimum voltage</a></li><li><a href="#7">d. Average P-Q, P-R or Q-T interval</a></li><li><a href="#8">3) Using electric potential from two of the lead channels, calculate and graphically display the mean axis of depolarization</a></li><li><a href="#9">4) Disease Diagnostics</a></li></ul></div><pre class="codeinput"><span class="comment">% Kyle King</span>
+<span class="comment">% BIOE340 - Section 0102</span>
+<span class="comment">% Lab Assignment #2</span>
+<span class="comment">% 10-26-2014</span>
+
+clc, clear <span class="string">all</span>, close <span class="string">all</span> <span class="comment">% Boilerplate</span>
+</pre><h2>1. Read the data file (comma separated or excel file format) into MATLAB and store the values<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Open the file and get name and path then store data in "a"</span>
+[Name, Path] = uigetfile(<span class="string">'.*'</span>);
+filename = strcat(Path, Name);
+<span class="comment">% Ask which file format is used (i.e. CSV or XLS)</span>
+<span class="comment">% prompt = 'Are you using XLS Y/N: ';</span>
+<span class="comment">% str = input(prompt,'s');</span>
+<span class="comment">% if isempty(str)</span>
+    str = <span class="string">'Y'</span>;
+<span class="comment">% end</span>
+
+<span class="comment">% Read file</span>
+<span class="keyword">if</span> str == <span class="string">'Y'</span>
+  a = xlsread(filename);
+  <span class="comment">% % For quick Testing:</span>
+  <span class="comment">% a = xlsread('/Users/kyleking/Documents/Developer/__Matlab/Matlab-Physiology/Lab 2/6LeadECG2.xls');</span>
+  <span class="comment">% a = xlsread('/Users/kyleking/Documents/Developer/__Matlab/Matlab-Physiology/Lab 2/jackie_ecg.xls');</span>
+<span class="keyword">else</span>
+  a = csvread(filename,2,0);
+<span class="keyword">end</span>
+
+<span class="comment">% Parse the data</span>
+t = a(:,1); <span class="comment">% Time</span>
+Lone = a(:, 2); <span class="comment">% Lead 1</span>
+Ltwo = a(:, 3); <span class="comment">% Lead 2</span>
+Lthr = a(:, 4); <span class="comment">% Lead 3</span>
+</pre><h2>2. Identify and report key features of the mean ECG signal, including<a name="3"></a></h2><pre class="codeinput"><span class="comment">% Signal Prep and Clean Up</span>
+<span class="comment">% First Detrending data</span>
+[p,s,mu] = polyfit(t,Lone, 5);
+fluctuation = polyval(p,t,[],mu);
+ECG_data = Lone - fluctuation;
+<span class="comment">% Then smooth the data with a Savitzky-Golay transform</span>
+smoothECG = sgolayfilt(ECG_data,7, 23);
+<span class="comment">% figure, plot(t, Lone, 'g', t, ECG_data, 'b', t, smoothECG, 'r'); % To compare datasets and assure reasonable manipulation</span>
+
+<span class="comment">% Find Max/Min Peaks location and then absolute maxes</span>
+[~,localMaxes] = findpeaks(smoothECG,<span class="string">'MinPeakDistance'</span>, 20);
+[~,localMins] = findpeaks(-smoothECG,<span class="string">'MinPeakDistance'</span>, 10);
+mxLead = max(smoothECG); mnLead = min(smoothECG);
+
+<span class="comment">% Combine min and max peaks into one data structure</span>
+peaks = combine(localMins, localMaxes, 8, 9);
+
+<span class="comment">% Calibrated values to search within a given range of maximum smoothECG values to:</span>
+<span class="comment">% Find R-Waves</span>
+Rwaves = localMaxes(smoothECG(localMaxes) &gt; 0.8*mxLead);
+peaks = combine(Rwaves, peaks, 3, 0); <span class="comment">% Combine into main data struc</span>
+<span class="comment">% Find T-Waves</span>
+Twaves = localMaxes(smoothECG(localMaxes) &gt; 0.12*mxLead &amp; smoothECG(localMaxes) &lt; 0.8*mxLead);
+peaks = combine(Twaves, peaks, 5, 0); <span class="comment">% Combine into main data struc</span>
+
+<span class="comment">% Going through the partially labeled peaks data structure, search for peaks in relation to easily identified R and T:</span>
+<span class="comment">% Initiliaze data</span>
+lenPeaks = length(peaks(:,1)); tmpQ = []; tmpP = []; tmpS = [];
+
+<span class="comment">% Find Q-Wave</span>
+<span class="keyword">for</span> i = 1:(lenPeaks-1)          <span class="comment">% run through all max peaks</span>
+    <span class="keyword">if</span> peaks(i+1, 2) == 3     <span class="comment">% if next peak is an R wave, it's a Q</span>
+        tmpQ = [tmpQ; peaks(i,1)]; <span class="comment">% store it dynamically in temp data structure</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+peaks = combine(tmpQ, peaks, 2, 0); <span class="comment">% Combine into main data struc</span>
+
+<span class="comment">% Find P-Wave</span>
+<span class="keyword">for</span> i = 1:(lenPeaks-1)          <span class="comment">% run through all max peaks</span>
+    <span class="keyword">if</span> peaks(i, 2) == 9 &amp;&amp; (peaks(i+1, 2) == 2 | peaks(i+2, 2) == 2)    <span class="comment">% if next peak is an Q wave, it's a P</span>
+        tmpP = [tmpP; peaks(i,1)];
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+peaks = combine(tmpP, peaks, 1, 0); <span class="comment">% Combine into main data struc</span>
+
+<span class="comment">% Find S-Wave</span>
+<span class="keyword">for</span> i = 10:(lenPeaks-1)          <span class="comment">% run through all max peaks</span>
+    <span class="keyword">if</span> peaks(i-2, 2) == 3 &amp;&amp; peaks(i, 2) == 8 <span class="comment">% if last peak is an Q wave, it's a S</span>
+        tmpS = [tmpS; peaks(i,1)];
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+peaks = combine(tmpS, peaks, 4, 0); <span class="comment">% Combine into main data struc with label</span>
+
+<span class="comment">% For testing before nextMatch was written</span>
+<span class="comment">% % Plot the identified data elements</span>
+<span class="comment">% lenMax = length(localMaxes); lenMin = length(localMins); lenPeaks = length(peaks(:,1));</span>
+
+<span class="comment">% % Plot the smooth ECG data</span>
+<span class="comment">% figure, hold on, plot(t, smoothECG),</span>
+<span class="comment">% for i = 1:(lenMin+lenMax)</span>
+<span class="comment">%   % Check for combine.m issue with wave being identified as 0 - i.e. not overwritten</span>
+<span class="comment">%   if peaks(i, 2) == 0</span>
+<span class="comment">%     disp('ALERT! Issue with combine.m')</span>
+<span class="comment">%   end</span>
+<span class="comment">% end</span>
+
+<span class="comment">% % Loop through the length of the peaks data to pull out important features</span>
+<span class="comment">% for i = 1:length(peaks(:,1))</span>
+<span class="comment">%   if peaks(i, 2) == 0</span>
+<span class="comment">%     disp('Error: lol that sucks')</span>
+<span class="comment">%   elseif peaks(i, 2) == 1</span>
+<span class="comment">%     % Plot P-Waves</span>
+<span class="comment">%     % disp(['P ' num2str(peaks(i))])</span>
+<span class="comment">%     plot(t(peaks(i)),smoothECG(peaks(i)),'bs'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 2</span>
+<span class="comment">%     % Plot Q-Waves</span>
+<span class="comment">%     % disp(['Q ' num2str(peaks(i))])</span>
+<span class="comment">%     plot(t(peaks(i)),smoothECG(peaks(i)),'r+'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 3</span>
+<span class="comment">%     % Plot R-Waves</span>
+<span class="comment">%     % disp(['R ' num2str(peaks(i))])</span>
+<span class="comment">%     plot(t(peaks(i)),smoothECG(peaks(i)),'go'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 4</span>
+<span class="comment">%     % Plot S-Waves</span>
+<span class="comment">%     % disp(['S ' num2str(peaks(i))])</span>
+<span class="comment">%     plot(t(peaks(i)),smoothECG(peaks(i)),'ro'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 5</span>
+<span class="comment">%     % Plot T-Waves</span>
+<span class="comment">%     % disp(['T ' num2str(peaks(i))])</span>
+<span class="comment">%     plot(t(peaks(i)),smoothECG(peaks(i)),'gd', 'MarkerFaceColor','b'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 8</span>
+<span class="comment">%     % Plot Min's for testing</span>
+<span class="comment">%     % plot(t(peaks(i)),smoothECG(peaks(i)),'d','MarkerFaceColor','b'),</span>
+<span class="comment">%   elseif peaks(i, 2) == 9</span>
+<span class="comment">%     % Plot Max's for testing</span>
+<span class="comment">%     % plot(t(peaks(i)),smoothECG(peaks(i)),'r+'),</span>
+<span class="comment">%   else</span>
+<span class="comment">%     disp(['?? ' num2str(peaks(i))])</span>
+<span class="comment">%   end</span>
+<span class="comment">% end</span>
+
+<span class="comment">% % Give title and labels</span>
+<span class="comment">% title('ECG Signal Analysis'), xlabel('Time (s)'), ylabel('Voltage (mV)'), grid on, axis tight, hold off</span>
+</pre><h2>a. Heart Rate between peaks<a name="4"></a></h2><p>Un-combine peaks by pulling out relevant peaks from main peaks data struc</p><pre class="codeinput">Pwaves = nextMatch(peaks, 1);
+Qwaves = nextMatch(peaks, 2);
+Swaves = nextMatch(peaks, 4);
+
+<span class="comment">% Initiliaze elements</span>
+Rint = []; tInt = [];
+
+<span class="comment">% Find time between all R peaks</span>
+<span class="keyword">for</span> i = 2:length(Rwaves)
+    tInt = t(Rwaves(i)) - t(Rwaves(i-1));
+    Rint = [Rint; tInt];
+<span class="keyword">end</span>
+<span class="comment">% Calculate and display Mean HR</span>
+HR = 60/mean(tInt);
+disp([<span class="string">'Avg HR = '</span> num2str(HR) <span class="string">' bpm'</span>])
+</pre><pre class="codeoutput">Avg HR = 78.4314 bpm
+</pre><h2>b. Indicate the QRS complex and T and P wave on a graphical representation of the data<a name="5"></a></h2><pre class="codeinput">figure, hold <span class="string">on</span>
+<span class="comment">% Plot EKG data</span>
+plot(t, smoothECG),
+<span class="comment">% Add marker</span>
+plot(t(Pwaves), smoothECG(Pwaves), <span class="string">'rs'</span>, <span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>),
+plot(t(Qwaves), smoothECG(Qwaves), <span class="string">'r+'</span>),
+plot(t(Rwaves), smoothECG(Rwaves), <span class="string">'go'</span>),
+plot(t(Swaves), smoothECG(Swaves), <span class="string">'ro'</span>),
+plot(t(Twaves), smoothECG(Twaves), <span class="string">'rd'</span>, <span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>),
+<span class="comment">% Give title and labels</span>
+title(<span class="string">'ECG Signal Analysis'</span>), xlabel(<span class="string">'Time (s)'</span>), ylabel(<span class="string">'Voltage (mV)'</span>), grid <span class="string">on</span>,
+legend(<span class="string">'Smooth ECG signal'</span>,<span class="string">'P-Wave'</span>, <span class="string">'Q-Wave'</span>,<span class="string">'R-Wave'</span>,<span class="string">'S-Wave'</span>, <span class="string">'T-Wave'</span>, <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+axis <span class="string">tight</span>, hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="mathematica_01.png" alt=""> <h2>c. Maximum and minimum voltage<a name="6"></a></h2><pre class="codeinput">maxVoltage = max(ECG_data);
+disp([<span class="string">'Max Voltage = '</span> num2str(maxVoltage) <span class="string">'mV'</span>])
+minVoltage = min(ECG_data);
+disp([<span class="string">'Min Voltage = '</span> num2str(minVoltage) <span class="string">'mV'</span>])
+disp(<span class="string">'Note: Max/Min of detrended data and accounted for error in data collection'</span>)
+</pre><pre class="codeoutput">Max Voltage = 0.70558mV
+Min Voltage = -0.3322mV
+Note: Max/Min of detrended data and accounted for error in data collection
+</pre><h2>d. Average P-Q, P-R or Q-T interval<a name="7"></a></h2><p>Initiliaze variables</p><pre class="codeinput">lenP = length(Pwaves); lenQ = length(Qwaves); count = 0; PQint = [];
+
+<span class="comment">% If misalignment in number of datapoints, go with the lesser value</span>
+<span class="keyword">if</span> lenP&gt;lenQ
+    count = lenQ;
+<span class="keyword">else</span>
+    count = lenP;
+<span class="keyword">end</span>
+
+<span class="comment">% Take the difference</span>
+<span class="keyword">for</span> i = 2:(count-1)
+  PQint(i-1) = t(Qwaves(i)) - t(Pwaves(i-1));
+<span class="keyword">end</span>
+<span class="comment">% Average and display</span>
+PQavg = mean(PQint);
+disp([<span class="string">'Avg interval between P-Q = '</span> num2str(PQavg) <span class="string">'s'</span>])
+</pre><pre class="codeoutput">Avg interval between P-Q = 0.122s
+</pre><h2>3) Using electric potential from two of the lead channels, calculate and graphically display the mean axis of depolarization<a name="8"></a></h2><p>Detrend data for Lead Three</p><pre class="codeinput">[p,s,mu] = polyfit(t,Lthr, 5);
+fluctuation = polyval(p,t,[],mu);
+ECG_dataL3 = Lthr - fluctuation;
+
+<span class="comment">% Convert to x/y cordinates</span>
+xCord = ECG_data(Rwaves(1));
+yCord = -(ECG_data(Rwaves(1)) + 2*ECG_dataL3(Rwaves(1)))/(sqrt(3));
+
+<span class="comment">% Plot in a round compass</span>
+figure, compass(xCord,yCord);
+</pre><img vspace="5" hspace="5" src="mathematica_02.png" alt=""> <h2>4) Disease Diagnostics<a name="9"></a></h2><p>Initialize counter array</p><pre class="codeinput">QRSints = [];
+
+<span class="comment">% Initiliaze variables</span>
+lenS = length(Swaves);
+<span class="comment">% If misalignment in number of datapoints, go with the lesser value</span>
+<span class="keyword">if</span> lenS &gt; lenQ
+    lenData = lenQ;
+<span class="keyword">else</span>
+    lenData = lenS;
+<span class="keyword">end</span>
+<span class="comment">% For length of data, calculate width of QRS complex</span>
+<span class="keyword">for</span> i = 1:length(lenData)
+    QRSints = [QRSints; t(Swaves(i))-t(Qwaves(i))];
+<span class="keyword">end</span>
+QRSwidth = mean(QRSints);
+
+<span class="comment">% Check for slow HR</span>
+<span class="keyword">if</span>(HR &lt; 60)
+  <span class="comment">% If other factors concurr, make diagnosis</span>
+  <span class="keyword">if</span> QRSwidth &lt;= .12 &amp;&amp; 1.2 &lt;= PQavg &lt;= 2
+    disp(<span class="string">'Diagnosis: Sinus Bradycardia'</span>);
+  <span class="keyword">else</span>
+    <span class="comment">% Possibly not bad news</span>
+    disp(<span class="string">'Diagnosis: Some form of Bradycardia'</span>);
+  <span class="keyword">end</span>
+<span class="keyword">else</span>
+  <span class="comment">% The good news</span>
+  disp(<span class="string">'No Bradycardia'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">% ALso, may accidentally be really good at diagnosis some of the others by unintended warnings!</span>
+</pre><pre class="codeoutput">No Bradycardia
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Kyle King
+% BIOE340 - Section 0102
+% Lab Assignment #2
+% 10-26-2014
+
+clc, clear all, close all % Boilerplate
+
+%% 1. Read the data file (comma separated or excel file format) into MATLAB and store the values
+
+% Open the file and get name and path then store data in "a"
+[Name, Path] = uigetfile('.*');
+filename = strcat(Path, Name);
+% Ask which file format is used (i.e. CSV or XLS)
+% prompt = 'Are you using XLS Y/N: ';
+% str = input(prompt,'s');
+% if isempty(str)
+    str = 'Y';
+% end
+
+% Read file
+if str == 'Y'
+  a = xlsread(filename);
+  % % For quick Testing:
+  % a = xlsread('/Users/kyleking/Documents/Developer/__Matlab/Matlab-Physiology/Lab 2/6LeadECG2.xls');
+  % a = xlsread('/Users/kyleking/Documents/Developer/__Matlab/Matlab-Physiology/Lab 2/jackie_ecg.xls');
+else
+  a = csvread(filename,2,0);
+end
+
+% Parse the data
+t = a(:,1); % Time
+Lone = a(:, 2); % Lead 1
+Ltwo = a(:, 3); % Lead 2
+Lthr = a(:, 4); % Lead 3
+
+%% 2. Identify and report key features of the mean ECG signal, including
+
+% Signal Prep and Clean Up
+% First Detrending data
+[p,s,mu] = polyfit(t,Lone, 5);
+fluctuation = polyval(p,t,[],mu);
+ECG_data = Lone - fluctuation;
+% Then smooth the data with a Savitzky-Golay transform
+smoothECG = sgolayfilt(ECG_data,7, 23);
+% figure, plot(t, Lone, 'g', t, ECG_data, 'b', t, smoothECG, 'r'); % To compare datasets and assure reasonable manipulation
+
+% Find Max/Min Peaks location and then absolute maxes
+[~,localMaxes] = findpeaks(smoothECG,'MinPeakDistance', 20);
+[~,localMins] = findpeaks(-smoothECG,'MinPeakDistance', 10);
+mxLead = max(smoothECG); mnLead = min(smoothECG);
+
+% Combine min and max peaks into one data structure
+peaks = combine(localMins, localMaxes, 8, 9);
+
+% Calibrated values to search within a given range of maximum smoothECG values to:
+% Find R-Waves
+Rwaves = localMaxes(smoothECG(localMaxes) > 0.8*mxLead);
+peaks = combine(Rwaves, peaks, 3, 0); % Combine into main data struc
+% Find T-Waves
+Twaves = localMaxes(smoothECG(localMaxes) > 0.12*mxLead & smoothECG(localMaxes) < 0.8*mxLead);
+peaks = combine(Twaves, peaks, 5, 0); % Combine into main data struc
+
+% Going through the partially labeled peaks data structure, search for peaks in relation to easily identified R and T:
+% Initiliaze data
+lenPeaks = length(peaks(:,1)); tmpQ = []; tmpP = []; tmpS = [];
+
+% Find Q-Wave
+for i = 1:(lenPeaks-1)          % run through all max peaks
+    if peaks(i+1, 2) == 3     % if next peak is an R wave, it's a Q
+        tmpQ = [tmpQ; peaks(i,1)]; % store it dynamically in temp data structure
+    end
+end
+peaks = combine(tmpQ, peaks, 2, 0); % Combine into main data struc
+
+% Find P-Wave
+for i = 1:(lenPeaks-1)          % run through all max peaks
+    if peaks(i, 2) == 9 && (peaks(i+1, 2) == 2 | peaks(i+2, 2) == 2)    % if next peak is an Q wave, it's a P
+        tmpP = [tmpP; peaks(i,1)];
+    end
+end
+peaks = combine(tmpP, peaks, 1, 0); % Combine into main data struc
+
+% Find S-Wave
+for i = 10:(lenPeaks-1)          % run through all max peaks
+    if peaks(i-2, 2) == 3 && peaks(i, 2) == 8 % if last peak is an Q wave, it's a S
+        tmpS = [tmpS; peaks(i,1)];
+    end
+end
+peaks = combine(tmpS, peaks, 4, 0); % Combine into main data struc with label
+
+% For testing before nextMatch was written
+% % Plot the identified data elements
+% lenMax = length(localMaxes); lenMin = length(localMins); lenPeaks = length(peaks(:,1));
+
+% % Plot the smooth ECG data
+% figure, hold on, plot(t, smoothECG),
+% for i = 1:(lenMin+lenMax)
+%   % Check for combine.m issue with wave being identified as 0 - i.e. not overwritten
+%   if peaks(i, 2) == 0
+%     disp('ALERT! Issue with combine.m')
+%   end
+% end
+
+% % Loop through the length of the peaks data to pull out important features
+% for i = 1:length(peaks(:,1))
+%   if peaks(i, 2) == 0
+%     disp('Error: lol that sucks')
+%   elseif peaks(i, 2) == 1
+%     % Plot P-Waves
+%     % disp(['P ' num2str(peaks(i))])
+%     plot(t(peaks(i)),smoothECG(peaks(i)),'bs'),
+%   elseif peaks(i, 2) == 2
+%     % Plot Q-Waves
+%     % disp(['Q ' num2str(peaks(i))])
+%     plot(t(peaks(i)),smoothECG(peaks(i)),'r+'),
+%   elseif peaks(i, 2) == 3
+%     % Plot R-Waves
+%     % disp(['R ' num2str(peaks(i))])
+%     plot(t(peaks(i)),smoothECG(peaks(i)),'go'),
+%   elseif peaks(i, 2) == 4
+%     % Plot S-Waves
+%     % disp(['S ' num2str(peaks(i))])
+%     plot(t(peaks(i)),smoothECG(peaks(i)),'ro'),
+%   elseif peaks(i, 2) == 5
+%     % Plot T-Waves
+%     % disp(['T ' num2str(peaks(i))])
+%     plot(t(peaks(i)),smoothECG(peaks(i)),'gd', 'MarkerFaceColor','b'),
+%   elseif peaks(i, 2) == 8
+%     % Plot Min's for testing
+%     % plot(t(peaks(i)),smoothECG(peaks(i)),'d','MarkerFaceColor','b'),
+%   elseif peaks(i, 2) == 9
+%     % Plot Max's for testing
+%     % plot(t(peaks(i)),smoothECG(peaks(i)),'r+'),
+%   else
+%     disp(['?? ' num2str(peaks(i))])
+%   end
+% end
+
+% % Give title and labels
+% title('ECG Signal Analysis'), xlabel('Time (s)'), ylabel('Voltage (mV)'), grid on, axis tight, hold off
+
+%% a. Heart Rate between peaks
+% Un-combine peaks by pulling out relevant peaks from main peaks data struc
+Pwaves = nextMatch(peaks, 1);
+Qwaves = nextMatch(peaks, 2);
+Swaves = nextMatch(peaks, 4);
+
+% Initiliaze elements
+Rint = []; tInt = [];
+
+% Find time between all R peaks
+for i = 2:length(Rwaves)
+    tInt = t(Rwaves(i)) - t(Rwaves(i-1));
+    Rint = [Rint; tInt];
+end
+% Calculate and display Mean HR
+HR = 60/mean(tInt);
+disp(['Avg HR = ' num2str(HR) ' bpm'])
+
+%% b. Indicate the QRS complex and T and P wave on a graphical representation of the data
+figure, hold on
+% Plot EKG data
+plot(t, smoothECG),
+% Add marker
+plot(t(Pwaves), smoothECG(Pwaves), 'rs', 'MarkerFaceColor','g'),
+plot(t(Qwaves), smoothECG(Qwaves), 'r+'),
+plot(t(Rwaves), smoothECG(Rwaves), 'go'),
+plot(t(Swaves), smoothECG(Swaves), 'ro'),
+plot(t(Twaves), smoothECG(Twaves), 'rd', 'MarkerFaceColor','b'),
+% Give title and labels
+title('ECG Signal Analysis'), xlabel('Time (s)'), ylabel('Voltage (mV)'), grid on,
+legend('Smooth ECG signal','P-Wave', 'Q-Wave','R-Wave','S-Wave', 'T-Wave', 'Location', 'NorthWest');
+axis tight, hold off
+
+%% c. Maximum and minimum voltage
+maxVoltage = max(ECG_data);
+disp(['Max Voltage = ' num2str(maxVoltage) 'mV'])
+minVoltage = min(ECG_data);
+disp(['Min Voltage = ' num2str(minVoltage) 'mV'])
+disp('Note: Max/Min of detrended data and accounted for error in data collection')
+
+%% d. Average P-Q, P-R or Q-T interval
+% Initiliaze variables
+lenP = length(Pwaves); lenQ = length(Qwaves); count = 0; PQint = [];
+
+% If misalignment in number of datapoints, go with the lesser value
+if lenP>lenQ
+    count = lenQ;
+else
+    count = lenP;
+end
+
+% Take the difference
+for i = 2:(count-1)
+  PQint(i-1) = t(Qwaves(i)) - t(Pwaves(i-1));
+end
+% Average and display
+PQavg = mean(PQint);
+disp(['Avg interval between P-Q = ' num2str(PQavg) 's'])
+
+%% 3) Using electric potential from two of the lead channels, calculate and graphically display the mean axis of depolarization
+% Detrend data for Lead Three
+[p,s,mu] = polyfit(t,Lthr, 5);
+fluctuation = polyval(p,t,[],mu);
+ECG_dataL3 = Lthr - fluctuation;
+
+% Convert to x/y cordinates
+xCord = ECG_data(Rwaves(1));
+yCord = -(ECG_data(Rwaves(1)) + 2*ECG_dataL3(Rwaves(1)))/(sqrt(3));
+
+% Plot in a round compass
+figure, compass(xCord,yCord);
+
+%% 4) Disease Diagnostics
+% Initialize counter array
+QRSints = [];
+
+% Initiliaze variables
+lenS = length(Swaves);
+% If misalignment in number of datapoints, go with the lesser value
+if lenS > lenQ
+    lenData = lenQ;
+else
+    lenData = lenS;
+end
+% For length of data, calculate width of QRS complex
+for i = 1:length(lenData)
+    QRSints = [QRSints; t(Swaves(i))-t(Qwaves(i))];
+end
+QRSwidth = mean(QRSints);
+
+% Check for slow HR
+if(HR < 60)
+  % If other factors concurr, make diagnosis
+  if QRSwidth <= .12 && 1.2 <= PQavg <= 2
+    disp('Diagnosis: Sinus Bradycardia');
+  else
+    % Possibly not bad news
+    disp('Diagnosis: Some form of Bradycardia');
+  end
+else
+  % The good news
+  disp('No Bradycardia');
+end
+
+% ALso, may accidentally be really good at diagnosis some of the others by unintended warnings!
+##### SOURCE END #####
+--></body></html>

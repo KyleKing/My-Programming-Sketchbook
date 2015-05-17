@@ -1,0 +1,303 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW1</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-09-11"><meta name="DC.source" content="HW1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+
+<span class="comment">% Lengths</span>
+Lhk = 0.58; <span class="comment">% in m</span>
+Lka = 0.52; <span class="comment">% in m</span>
+
+<span class="comment">% Weights</span>
+Whk = [0, -80, 0]; <span class="comment">% in N</span>
+Wka = [0, -40, 0]; <span class="comment">% in N</span>
+
+<span class="keyword">for</span> theta = 1:1:60
+
+  <span class="comment">% translate length into vector</span>
+  Rhk = [Lhk*sind(theta), -Lhk*cosd(theta), 0];
+  Rka = [Lka*sind(theta), -Lka*cosd(theta), 0];
+
+  <span class="comment">% calculate moment created by Weights at hip</span>
+  Mhk = cross((Rhk.*(1/2)), Whk);
+  Mka = cross((Rhk + Rka.*(2/3)), Wka); <span class="comment">% for Mh</span>
+  <span class="comment">% calculates moment for hip moment forces</span>
+  Mh(theta, :) = -(Mhk+ Mka);
+
+  <span class="comment">% calculate moment created by Weights at knee</span>
+  kMka = cross((Rka.*(2/3)), Wka); <span class="comment">% for Mk</span>
+  <span class="comment">% calculates moment for knee moment forces</span>
+  Mk(theta, :) = -kMka.*[1, 1, 1];
+
+  <span class="comment">% Solve for part A</span>
+  <span class="keyword">if</span> (theta == 30)
+    partA = Mh(theta, :);
+  <span class="keyword">end</span>
+
+  <span class="comment">% Solve for part B - cheater scenario</span>
+  <span class="keyword">if</span> (theta == 60)
+    cheaterTheta = theta - 5;
+    cheaterRka = [Lka*sind(cheaterTheta), -Lka*cosd(cheaterTheta), 0];
+    cheaterMka = cross((Rhk + cheaterRka.*(2/3)), Wka);
+    cheaterMh = [0, 0, -(Mhk(3) + cheaterMka(3))];
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Calculate reaction forces</span>
+Fh = -(Whk + Wka);
+Fk = -Wka;
+
+
+<span class="comment">% Display answer to Part A</span>
+disp([<span class="string">'Answer to Part A:'</span> 10 <span class="string">'The Moment around H is '</span> num2str(partA(1)) <span class="string">'i + '</span> num2str(partA(2)) <span class="string">'j + '</span> num2str(partA(3))<span class="keyword">...</span>
+    <span class="string">'k (Nm)'</span> 10 <span class="string">'The Reaction Force at H is '</span> num2str(Fh(1)) <span class="string">'i + '</span> num2str(Fh(2)) <span class="string">'j + '</span> num2str(Fh(3)) <span class="string">'k (N)'</span>])
+disp([<span class="string">'The Moment around K is '</span> num2str(Mk(30, 1)) <span class="string">'i + '</span> num2str(Mk(30, 2)) <span class="string">'j + '</span> num2str(Mk(30, 3)) <span class="string">'k (Nm)'</span> 10 <span class="string">'The Reaction Force at K is '</span><span class="keyword">...</span>
+    num2str(Fk(1)) <span class="string">'i + '</span> num2str(Fk(2)) <span class="string">'j + '</span> num2str(Fk(3)) <span class="string">'k (N)'</span>])
+
+<span class="comment">% Display Answer to Part B</span>
+disp([10 <span class="string">'Answer to Part B:'</span> 10 <span class="string">'The intersegmental force at the hip, then at the knee:'</span> 10])
+theta = linspace(1,60,60);
+
+<span class="comment">% Plot both lines on the same graph with labels and a legend</span>
+figure(1), hold <span class="string">all</span>, plot(theta, Mh(:, 3)), plot(theta, Mk(:, 3)), legend(<span class="string">'Moment Force at the Hip (H)'</span>, <span class="string">'Moment Force at the Knee (K)'</span>),<span class="keyword">...</span>
+    title(<span class="string">'Moment Force Compared to Angle of\theta'</span>)
+  xlabel(<span class="string">'\theta (degrees)'</span>),  ylabel(<span class="string">'Moment Force (Nm)'</span>)
+
+<span class="comment">% Tabulate data</span>
+tM = table(theta', Mh(:, 1), Mh(:, 2), Mh(:, 3), Mk(:, 1), Mk(:, 2), Mk(:, 3));
+tM.Properties.VariableUnits = {<span class="string">'*'</span>, <span class="string">'Nm'</span>, <span class="string">'Nm'</span>, <span class="string">'Nm'</span>, <span class="string">'Nm'</span>, <span class="string">'Nm'</span>, <span class="string">'Nm'</span>};
+tM.Properties.VariableNames{<span class="string">'Var1'</span>} = <span class="string">'Theta'</span>;
+tM.Properties.VariableNames{<span class="string">'Var2'</span>} = <span class="string">'i_hip'</span>;
+tM.Properties.VariableNames{<span class="string">'Var3'</span>} = <span class="string">'j_hip'</span>;
+tM.Properties.VariableNames{<span class="string">'Var4'</span>} = <span class="string">'k_hip'</span>;
+tM.Properties.VariableNames{<span class="string">'Var5'</span>} = <span class="string">'i_knee'</span>;
+tM.Properties.VariableNames{<span class="string">'Var6'</span>} = <span class="string">'j_knee'</span>;
+tM.Properties.VariableNames{<span class="string">'Var7'</span>} = <span class="string">'k_knee'</span>;
+disp(tM)
+
+<span class="comment">% Display answer to Part C</span>
+disp([<span class="string">'Answer to Part C:'</span> 10 <span class="string">'The new Moment around H is '</span> num2str(Mh(60, 3) - cheaterMh(3)) <span class="keyword">...</span>
+    <span class="string">' Nm less than when compared to the non-cheating moment'</span> 10 <span class="string">'The Reaction Force at H is unaffected and is still '</span><span class="keyword">...</span>
+    num2str(Fh(1)) <span class="string">'i + '</span> num2str(Fh(2)) <span class="string">'j + '</span> num2str(Fh(3)) <span class="string">'k (N)'</span> 10])
+</pre><pre class="codeoutput">Answer to Part A:
+The Moment around H is 0i + 0j + 30.1333k (Nm)
+The Reaction Force at H is 0i + 120j + 0k (N)
+The Moment around K is 0i + 0j + 6.9333k (Nm)
+The Reaction Force at K is 0i + 40j + 0k (N)
+
+Answer to Part B:
+The intersegmental force at the hip, then at the knee:
+
+    Theta    i_hip    j_hip    k_hip     i_knee    j_knee    k_knee 
+    _____    _____    _____    ______    ______    ______    _______
+
+     1       0        0        1.0518    0         0         0.24201
+     2       0        0        2.1033    0         0         0.48394
+     3       0        0        3.1541    0         0         0.72573
+     4       0        0         4.204    0         0         0.96729
+     5       0        0        5.2526    0         0          1.2086
+     6       0        0        6.2996    0         0          1.4495
+     7       0        0        7.3447    0         0          1.6899
+     8       0        0        8.3875    0         0          1.9299
+     9       0        0        9.4278    0         0          2.1692
+    10       0        0        10.465    0         0          2.4079
+    11       0        0        11.499    0         0          2.6459
+    12       0        0         12.53    0         0           2.883
+    13       0        0        13.557    0         0          3.1193
+    14       0        0         14.58    0         0          3.3547
+    15       0        0        15.598    0         0           3.589
+    16       0        0        16.612    0         0          3.8222
+    17       0        0         17.62    0         0          4.0542
+    18       0        0        18.623    0         0           4.285
+    19       0        0        19.621    0         0          4.5145
+    20       0        0        20.612    0         0          4.7427
+    21       0        0        21.598    0         0          4.9694
+    22       0        0        22.576    0         0          5.1945
+    23       0        0        23.548    0         0          5.4181
+    24       0        0        24.513    0         0          5.6401
+    25       0        0         25.47    0         0          5.8603
+    26       0        0        26.419    0         0          6.0787
+    27       0        0         27.36    0         0          6.2953
+    28       0        0        28.293    0         0            6.51
+    29       0        0        29.218    0         0          6.7227
+    30       0        0        30.133    0         0          6.9333
+    31       0        0         31.04    0         0          7.1419
+    32       0        0        31.936    0         0          7.3482
+    33       0        0        32.824    0         0          7.5523
+    34       0        0        33.701    0         0          7.7541
+    35       0        0        34.568    0         0          7.9536
+    36       0        0        35.424    0         0          8.1506
+    37       0        0        36.269    0         0          8.3452
+    38       0        0        37.104    0         0          8.5372
+    39       0        0        37.927    0         0          8.7266
+    40       0        0        38.739    0         0          8.9133
+    41       0        0        39.538    0         0          9.0974
+    42       0        0        40.326    0         0          9.2786
+    43       0        0        41.102    0         0           9.457
+    44       0        0        41.865    0         0          9.6326
+    45       0        0        42.615    0         0          9.8052
+    46       0        0        43.352    0         0          9.9748
+    47       0        0        44.076    0         0          10.141
+    48       0        0        44.787    0         0          10.305
+    49       0        0        45.484    0         0          10.465
+    50       0        0        46.167    0         0          10.622
+    51       0        0        46.836    0         0          10.776
+    52       0        0        47.491    0         0          10.927
+    53       0        0        48.131    0         0          11.074
+    54       0        0        48.757    0         0          11.218
+    55       0        0        49.368    0         0          11.359
+    56       0        0        49.963    0         0          11.496
+    57       0        0        50.544    0         0           11.63
+    58       0        0        51.109    0         0           11.76
+    59       0        0        51.659    0         0          11.886
+    60       0        0        52.192    0         0          12.009
+
+Answer to Part C:
+The new Moment around H is 0.64998 Nm less than when compared to the non-cheating moment
+The Reaction Force at H is unaffected and is still 0i + 120j + 0k (N)
+
+</pre><img vspace="5" hspace="5" src="HW1_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clc, clear all % boilerplate
+
+% Lengths
+Lhk = 0.58; % in m
+Lka = 0.52; % in m
+
+% Weights
+Whk = [0, -80, 0]; % in N
+Wka = [0, -40, 0]; % in N
+
+for theta = 1:1:60
+
+  % translate length into vector
+  Rhk = [Lhk*sind(theta), -Lhk*cosd(theta), 0];
+  Rka = [Lka*sind(theta), -Lka*cosd(theta), 0];
+
+  % calculate moment created by Weights at hip
+  Mhk = cross((Rhk.*(1/2)), Whk);
+  Mka = cross((Rhk + Rka.*(2/3)), Wka); % for Mh
+  % calculates moment for hip moment forces
+  Mh(theta, :) = -(Mhk+ Mka);
+
+  % calculate moment created by Weights at knee
+  kMka = cross((Rka.*(2/3)), Wka); % for Mk
+  % calculates moment for knee moment forces
+  Mk(theta, :) = -kMka.*[1, 1, 1];
+
+  % Solve for part A
+  if (theta == 30)
+    partA = Mh(theta, :);
+  end
+
+  % Solve for part B - cheater scenario
+  if (theta == 60)
+    cheaterTheta = theta - 5;
+    cheaterRka = [Lka*sind(cheaterTheta), -Lka*cosd(cheaterTheta), 0];
+    cheaterMka = cross((Rhk + cheaterRka.*(2/3)), Wka);
+    cheaterMh = [0, 0, -(Mhk(3) + cheaterMka(3))];
+  end
+end
+
+% Calculate reaction forces
+Fh = -(Whk + Wka);
+Fk = -Wka;
+
+
+% Display answer to Part A
+disp(['Answer to Part A:' 10 'The Moment around H is ' num2str(partA(1)) 'i + ' num2str(partA(2)) 'j + ' num2str(partA(3))...
+    'k (Nm)' 10 'The Reaction Force at H is ' num2str(Fh(1)) 'i + ' num2str(Fh(2)) 'j + ' num2str(Fh(3)) 'k (N)'])
+disp(['The Moment around K is ' num2str(Mk(30, 1)) 'i + ' num2str(Mk(30, 2)) 'j + ' num2str(Mk(30, 3)) 'k (Nm)' 10 'The Reaction Force at K is '...
+    num2str(Fk(1)) 'i + ' num2str(Fk(2)) 'j + ' num2str(Fk(3)) 'k (N)'])
+
+% Display Answer to Part B
+disp([10 'Answer to Part B:' 10 'The intersegmental force at the hip, then at the knee:' 10])
+theta = linspace(1,60,60);
+
+% Plot both lines on the same graph with labels and a legend
+figure(1), hold all, plot(theta, Mh(:, 3)), plot(theta, Mk(:, 3)), legend('Moment Force at the Hip (H)', 'Moment Force at the Knee (K)'),...
+    title('Moment Force Compared to Angle of\theta')
+  xlabel('\theta (degrees)'),  ylabel('Moment Force (Nm)')
+
+% Tabulate data
+tM = table(theta', Mh(:, 1), Mh(:, 2), Mh(:, 3), Mk(:, 1), Mk(:, 2), Mk(:, 3));
+tM.Properties.VariableUnits = {'*', 'Nm', 'Nm', 'Nm', 'Nm', 'Nm', 'Nm'};
+tM.Properties.VariableNames{'Var1'} = 'Theta';
+tM.Properties.VariableNames{'Var2'} = 'i_hip';
+tM.Properties.VariableNames{'Var3'} = 'j_hip';
+tM.Properties.VariableNames{'Var4'} = 'k_hip';
+tM.Properties.VariableNames{'Var5'} = 'i_knee';
+tM.Properties.VariableNames{'Var6'} = 'j_knee';
+tM.Properties.VariableNames{'Var7'} = 'k_knee';
+disp(tM)
+
+% Display answer to Part C
+disp(['Answer to Part C:' 10 'The new Moment around H is ' num2str(Mh(60, 3) - cheaterMh(3)) ...
+    ' Nm less than when compared to the non-cheating moment' 10 'The Reaction Force at H is unaffected and is still '...
+    num2str(Fh(1)) 'i + ' num2str(Fh(2)) 'j + ' num2str(Fh(3)) 'k (N)' 10])
+##### SOURCE END #####
+--></body></html>

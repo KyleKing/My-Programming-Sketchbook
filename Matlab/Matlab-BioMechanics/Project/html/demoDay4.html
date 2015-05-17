@@ -1,0 +1,428 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>demoDay4</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-12-20"><meta name="DC.source" content="demoDay4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Import data</a></li><li><a href="#3">Plot Captured Data</a></li><li><a href="#4">Find the angular velocity and acceleration</a></li><li><a href="#5">Initialize initial conditions</a></li><li><a href="#6">Test impact of end angle in swing on internal elbow forces</a></li><li><a href="#7">Plot results</a></li></ul></div><pre class="codeinput"><span class="comment">% BIOE404 Project</span>
+<span class="comment">% Kyle King, Shiri Brodsky, Kristina Dziki</span>
+<span class="comment">% 11-17-2014</span>
+
+clc, clear <span class="string">all</span>, close <span class="string">all</span> <span class="comment">% Boilerplate</span>
+</pre><h2>Import data<a name="2"></a></h2><pre class="codeinput">Name = <span class="string">'ShiriData.xlsx'</span>;
+currentFolder = pwd;
+filename = strcat(currentFolder, <span class="string">'/'</span>, Name);
+Shiri_Data = xlsread (filename); <span class="comment">% Takes data from excel sheet</span>
+
+<span class="comment">% Parse data</span>
+start_analysis = 7;
+times = Shiri_Data(start_analysis:end, 1);
+data(:,1) = Shiri_Data(start_analysis:end, 4); data(:,2) = Shiri_Data(start_analysis:end, 5);
+data(:,3) = Shiri_Data(start_analysis:end, 6); data(:,4) = Shiri_Data(start_analysis:end, 7);
+</pre><h2>Plot Captured Data<a name="3"></a></h2><pre class="codeinput">figure
+subplot(2, 1, 1), hold <span class="string">all</span>, plot(times, data(:,1), <span class="string">'o'</span>), plot(times, data(:,2), <span class="string">'o'</span>)
+legend(<span class="string">'Ex'</span>, <span class="string">'Ey'</span>, <span class="string">'Location'</span>, <span class="string">'SouthWest'</span>), title(<span class="string">'X and Y Position Data of Marker E (On the Elbow)'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Position (in)'</span>)
+subplot(2, 1, 2), hold <span class="string">all</span>, plot(times, data(:,3), <span class="string">'o'</span>), plot(times, data(:,4), <span class="string">'o'</span>)
+legend(<span class="string">'Bx'</span>, <span class="string">'By'</span>, <span class="string">'Location'</span>, <span class="string">'SouthWest'</span>), title(<span class="string">'X and Y Position Data of Marker B (Midway on Arm)'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Position (in)'</span>)
+
+<span class="comment">% Remove excess data points when Shiri's arm is de-accelerating</span>
+<span class="comment">% end_analysis = length(times)-5;</span>
+end_analysis = length(times)-0;
+t = Shiri_Data(start_analysis:end_analysis, 1);
+Ex = Shiri_Data(start_analysis:end_analysis, 4).*0.03; Ey = Shiri_Data(start_analysis:end_analysis, 5).*0.03;
+Bx = Shiri_Data(start_analysis:end_analysis, 6).*0.03; By = Shiri_Data(start_analysis:end_analysis, 7).*0.03;
+
+<span class="comment">% Find vector components of radius_BC (EB from tracker)</span>
+x = Bx - Ex;
+y = By - Ey;
+thetas = atan(y./x); <span class="comment">% Find angle of lower arm from horizontal</span>
+
+t1 = linspace(t(1), t(end)); <span class="comment">% higher resolution time points for fit</span>
+
+<span class="comment">% Fit theta position data to a smooth curve</span>
+ptheta = polyfit(t, thetas, 3);
+thetas1 = polyval(ptheta, t1); <span class="comment">% fit</span>
+
+<span class="comment">% Fit x position data to a smooth curve</span>
+px = polyfit(t, x, 3);
+x1 = polyval(px, t1); <span class="comment">% fit</span>
+
+<span class="comment">% Fit y position data to a smooth curve</span>
+py = polyfit(t, y, 3);
+y1 = polyval(py, t1); <span class="comment">% fit</span>
+
+<span class="comment">% Colors:</span>
+base = 256; <span class="comment">% rgb is based on 256, but Matlab wants it on a 0 to 1 scale</span>
+blue = [69/base, 151/base, 204/base];
+red = [255/base, 112/base, 112/base];
+purple = [199/base, 87/base, 193/base];
+<span class="comment">% yellow = [255/base, 254/base, 169/base]; % too bright</span>
+
+red = [205/base, 51/base, 51/base];
+
+<span class="comment">% Plot to see what position data is calculated</span>
+figure, subplot(2, 1, 1), hold <span class="string">all</span>
+plot(t, x, <span class="string">'o'</span>, <span class="string">'Color'</span>, blue), plot(t1, x1, <span class="string">'Color'</span>, blue)
+plot(t, y, <span class="string">'o'</span>, <span class="string">'Color'</span>, red), plot(t1, y1, <span class="string">'Color'</span>, red)
+legend(<span class="string">'X'</span>,<span class="string">'X fit'</span>, <span class="string">'Y'</span>, <span class="string">'Y fit'</span>)
+title(<span class="string">'X and Y Position Data'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Position (m)'</span>)
+subplot(2, 1, 2), hold <span class="string">all</span>
+plot(t, thetas, <span class="string">'o'</span>, <span class="string">'Color'</span>, purple), plot(t1, thetas1, <span class="string">'Color'</span>, purple)
+title(<span class="string">'Calculated Angle with Horizontal'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Angle \theta (rad)'</span>)
+<span class="comment">% % 3D plot, because why not</span>
+<span class="comment">% figure, plot3(t(7:end), x, y), axis tight</span>
+<span class="comment">% title('X and Y Position Data and Calculated Angle with Horizontal')</span>
+<span class="comment">% xlabel('Time (seconds)'), ylabel('Position (m)')</span>
+</pre><img vspace="5" hspace="5" src="demoDay4_01.png" alt=""> <img vspace="5" hspace="5" src="demoDay4_02.png" alt=""> <h2>Find the angular velocity and acceleration<a name="4"></a></h2><p>Initialize variables</p><pre class="codeinput">sum_acc = 0; vel(1) = 1.6503;
+dt1 = t1(2) - t1(1); <span class="comment">% Find change in time</span>
+<span class="keyword">for</span> i = 2:length(t1)
+
+  <span class="comment">% Find the change in angle (position)</span>
+  dthetas1(i) = thetas1(i-1) - thetas1(i);
+  <span class="comment">% Find the angular velocity</span>
+  vel(i) = dthetas1(i)/dt1;
+  <span class="comment">% Find the angular acceleration</span>
+  acc(i) =  (vel(i) - vel(i-1))/dt1;
+
+  <span class="comment">% take summation of both values for average later</span>
+  <span class="keyword">if</span> i &gt;= 3
+    sum_acc = sum_acc + acc(i);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Take Averages</span>
+avg_acc = sum_acc/(i-1); <span class="comment">% rad/s^2</span>
+
+<span class="comment">% Plot speed and acceleration</span>
+figure, subplot(2, 1, 1), plot(t1(2:end), vel(2:end))
+title(<span class="string">'Rotational Velocity of the Lower Arm as a function of time'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Rotational Velocity (rad/s)'</span>)
+subplot(2, 1, 2), plot(t1(3:end), acc(3:end))
+title(<span class="string">'Acceleration based on tracker data'</span>)
+xlabel(<span class="string">'Time (seconds)'</span>), ylabel(<span class="string">'Acceleration (m/s^2)'</span>)
+</pre><img vspace="5" hspace="5" src="demoDay4_03.png" alt=""> <h2>Initialize initial conditions<a name="5"></a></h2><p>Arm info</p><pre class="codeinput">length_arm = 0.22; <span class="comment">% in m</span>
+COM_arm = (1/2)*length_arm; <span class="comment">% in m</span>
+mass_EH = (0.0207*120*4.448)/9.8;  <span class="comment">% in kg based on percent of body weight</span>
+
+<span class="comment">% Racket based on average racket size and weight</span>
+mass_racket = 0.275; <span class="comment">% kilograms</span>
+length_racket = 0.69; <span class="comment">% meters</span>
+COM_racket = (2/3)*length_racket; <span class="comment">% Estimate</span>
+
+<span class="comment">% Total mass of arm with racket</span>
+mass_net = mass_EH + mass_racket;
+Fw = [0, -mass_net*9.81, 0]; <span class="comment">% N</span>
+<span class="comment">% Net COM for racket and arm</span>
+com_net = ( COM_arm*mass_EH + (length_arm+COM_racket)*mass_racket ) / mass_net;
+I = (1/12)*(mass_net)*(com_net)^2; <span class="comment">% in kg*m^2</span>
+
+<span class="comment">% Location of tricep muscle</span>
+r_tricep = [-0.025, -0.03, 0]; <span class="comment">% end of tricep muscle</span>
+l_tricep = [-2/100, 14/100, 0]; <span class="comment">% m</span>
+u_tricep = (l_tricep - r_tricep)./norm(l_tricep - r_tricep); <span class="comment">% unit less</span>
+
+<span class="comment">% For Loop variables</span>
+t_step = 0.1; count = 1;
+angle_theta(1) = 90; <span class="comment">% Start at vertical (90')</span>
+speed_vel(1) = 0; <span class="comment">%  with omega = 0</span>
+</pre><h2>Test impact of end angle in swing on internal elbow forces<a name="6"></a></h2><pre class="codeinput"><span class="keyword">for</span> t = 1:t_step:2.8
+
+  count = count+1; <span class="comment">% Counter variable</span>
+  time(count) = t; <span class="comment">% store time value (s)</span>
+
+  <span class="comment">% Calculate the current velocity and angle of theta based on average acceleration</span>
+  vel_step = t_step*avg_acc;
+  speed_vel(count) = speed_vel(count-1) + vel_step;
+  theta_step(count) = speed_vel(count) * t_step * (180/pi);
+  angle_theta(count) = angle_theta(count-1) - theta_step(count);
+
+  <span class="comment">% Calculate new Center of Mass</span>
+  com_loc = [cosd(angle_theta(count)), sind(angle_theta(count)), 0].*com_net;
+
+  <span class="comment">% Calculate components of acceleration</span>
+  atang(count, :) = cross(-com_loc, [0, 0, avg_acc]);
+  anorm(count, :) = -com_loc.*norm([0, 0, speed_vel(count)].^2);
+  atotal(count, :) = atang(count, :) + anorm(count, :);
+
+  <span class="comment">% Solve for the force of the tricep muscle</span>
+  M_net = [0, 0, I*avg_acc];
+  M_arm_racket_w = cross(com_loc, Fw);
+  F_tricep(count, :) = (M_net-M_arm_racket_w)/cross(r_tricep, u_tricep);
+
+  <span class="comment">% Solve for inter segmental force at the elbow</span>
+  F_jrf(count, :) = (mass_net*atotal(count, :)) - Fw - F_tricep(count, :); <span class="comment">%N</span>
+
+  <span class="comment">% Store data in arrays for graphing</span>
+  force_elbow_reactions(count) = norm(F_jrf(count, :));
+  F_tricep_graph(count) = norm(F_tricep(count, :));
+  anorm_graph(count) = norm(anorm(count, :));
+  atang_graph(count) = norm(atang(count, :));
+
+<span class="keyword">end</span>
+</pre><h2>Plot results<a name="7"></a></h2><pre class="codeinput">figure
+subplot(2,1,1), hold <span class="string">all</span>
+plot(angle_theta, force_elbow_reactions), plot(angle_theta, F_tricep_graph)
+legend(<span class="string">'F_j_r_f'</span>, <span class="string">'F_t_r_i'</span>)
+xlim([0 90])
+title(<span class="string">'Forces in the Elbow as Function of \theta'</span>)
+xlabel(<span class="string">'\theta (degrees above horizontal)'</span>), ylabel(<span class="string">'Force (N)'</span>)
+
+subplot(2,1,2), plot(angle_theta, speed_vel)
+xlim([0 90])
+title(<span class="string">'Rotational Velocity of the Lower Arm as a Function of \theta'</span>)
+xlabel(<span class="string">'\theta (degrees above horizontal)'</span>), ylabel(<span class="string">'Rotational Velocity (rad/s)'</span>)
+</pre><img vspace="5" hspace="5" src="demoDay4_04.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% BIOE404 Project
+% Kyle King, Shiri Brodsky, Kristina Dziki
+% 11-17-2014
+
+clc, clear all, close all % Boilerplate
+
+%% Import data
+Name = 'ShiriData.xlsx';
+currentFolder = pwd;
+filename = strcat(currentFolder, '/', Name);
+Shiri_Data = xlsread (filename); % Takes data from excel sheet
+
+% Parse data
+start_analysis = 7;
+times = Shiri_Data(start_analysis:end, 1);
+data(:,1) = Shiri_Data(start_analysis:end, 4); data(:,2) = Shiri_Data(start_analysis:end, 5);
+data(:,3) = Shiri_Data(start_analysis:end, 6); data(:,4) = Shiri_Data(start_analysis:end, 7);
+
+%% Plot Captured Data
+figure
+subplot(2, 1, 1), hold all, plot(times, data(:,1), 'o'), plot(times, data(:,2), 'o')
+legend('Ex', 'Ey', 'Location', 'SouthWest'), title('X and Y Position Data of Marker E (On the Elbow)')
+xlabel('Time (seconds)'), ylabel('Position (in)')
+subplot(2, 1, 2), hold all, plot(times, data(:,3), 'o'), plot(times, data(:,4), 'o')
+legend('Bx', 'By', 'Location', 'SouthWest'), title('X and Y Position Data of Marker B (Midway on Arm)')
+xlabel('Time (seconds)'), ylabel('Position (in)')
+
+% Remove excess data points when Shiri's arm is de-accelerating
+% end_analysis = length(times)-5;
+end_analysis = length(times)-0;
+t = Shiri_Data(start_analysis:end_analysis, 1);
+Ex = Shiri_Data(start_analysis:end_analysis, 4).*0.03; Ey = Shiri_Data(start_analysis:end_analysis, 5).*0.03;
+Bx = Shiri_Data(start_analysis:end_analysis, 6).*0.03; By = Shiri_Data(start_analysis:end_analysis, 7).*0.03;
+
+% Find vector components of radius_BC (EB from tracker)
+x = Bx - Ex;
+y = By - Ey;
+thetas = atan(y./x); % Find angle of lower arm from horizontal
+
+t1 = linspace(t(1), t(end)); % higher resolution time points for fit
+
+% Fit theta position data to a smooth curve
+ptheta = polyfit(t, thetas, 3);
+thetas1 = polyval(ptheta, t1); % fit
+
+% Fit x position data to a smooth curve
+px = polyfit(t, x, 3);
+x1 = polyval(px, t1); % fit
+
+% Fit y position data to a smooth curve
+py = polyfit(t, y, 3);
+y1 = polyval(py, t1); % fit
+
+% Colors:
+base = 256; % rgb is based on 256, but Matlab wants it on a 0 to 1 scale
+blue = [69/base, 151/base, 204/base];
+red = [255/base, 112/base, 112/base];
+purple = [199/base, 87/base, 193/base];
+% yellow = [255/base, 254/base, 169/base]; % too bright
+
+red = [205/base, 51/base, 51/base];
+
+% Plot to see what position data is calculated
+figure, subplot(2, 1, 1), hold all
+plot(t, x, 'o', 'Color', blue), plot(t1, x1, 'Color', blue)
+plot(t, y, 'o', 'Color', red), plot(t1, y1, 'Color', red)
+legend('X','X fit', 'Y', 'Y fit')
+title('X and Y Position Data')
+xlabel('Time (seconds)'), ylabel('Position (m)')
+subplot(2, 1, 2), hold all
+plot(t, thetas, 'o', 'Color', purple), plot(t1, thetas1, 'Color', purple)
+title('Calculated Angle with Horizontal')
+xlabel('Time (seconds)'), ylabel('Angle \theta (rad)')
+% % 3D plot, because why not
+% figure, plot3(t(7:end), x, y), axis tight
+% title('X and Y Position Data and Calculated Angle with Horizontal')
+% xlabel('Time (seconds)'), ylabel('Position (m)')
+
+%% Find the angular velocity and acceleration
+% Initialize variables
+sum_acc = 0; vel(1) = 1.6503;
+dt1 = t1(2) - t1(1); % Find change in time
+for i = 2:length(t1)
+
+  % Find the change in angle (position)
+  dthetas1(i) = thetas1(i-1) - thetas1(i);
+  % Find the angular velocity
+  vel(i) = dthetas1(i)/dt1;
+  % Find the angular acceleration
+  acc(i) =  (vel(i) - vel(i-1))/dt1;
+
+  % take summation of both values for average later
+  if i >= 3
+    sum_acc = sum_acc + acc(i);
+  end
+end
+
+% Take Averages
+avg_acc = sum_acc/(i-1); % rad/s^2
+
+% Plot speed and acceleration
+figure, subplot(2, 1, 1), plot(t1(2:end), vel(2:end))
+title('Rotational Velocity of the Lower Arm as a function of time')
+xlabel('Time (seconds)'), ylabel('Rotational Velocity (rad/s)')
+subplot(2, 1, 2), plot(t1(3:end), acc(3:end))
+title('Acceleration based on tracker data')
+xlabel('Time (seconds)'), ylabel('Acceleration (m/s^2)')
+
+%% Initialize initial conditions
+% Arm info
+length_arm = 0.22; % in m
+COM_arm = (1/2)*length_arm; % in m
+mass_EH = (0.0207*120*4.448)/9.8;  % in kg based on percent of body weight
+
+% Racket based on average racket size and weight
+mass_racket = 0.275; % kilograms
+length_racket = 0.69; % meters
+COM_racket = (2/3)*length_racket; % Estimate
+
+% Total mass of arm with racket
+mass_net = mass_EH + mass_racket;
+Fw = [0, -mass_net*9.81, 0]; % N
+% Net COM for racket and arm
+com_net = ( COM_arm*mass_EH + (length_arm+COM_racket)*mass_racket ) / mass_net;
+I = (1/12)*(mass_net)*(com_net)^2; % in kg*m^2
+
+% Location of tricep muscle
+r_tricep = [-0.025, -0.03, 0]; % end of tricep muscle
+l_tricep = [-2/100, 14/100, 0]; % m
+u_tricep = (l_tricep - r_tricep)./norm(l_tricep - r_tricep); % unit less
+
+% For Loop variables
+t_step = 0.1; count = 1;
+angle_theta(1) = 90; % Start at vertical (90')
+speed_vel(1) = 0; %  with omega = 0
+
+%% Test impact of end angle in swing on internal elbow forces
+for t = 1:t_step:2.8
+
+  count = count+1; % Counter variable
+  time(count) = t; % store time value (s)
+
+  % Calculate the current velocity and angle of theta based on average acceleration
+  vel_step = t_step*avg_acc;
+  speed_vel(count) = speed_vel(count-1) + vel_step;
+  theta_step(count) = speed_vel(count) * t_step * (180/pi);
+  angle_theta(count) = angle_theta(count-1) - theta_step(count);
+
+  % Calculate new Center of Mass
+  com_loc = [cosd(angle_theta(count)), sind(angle_theta(count)), 0].*com_net;
+
+  % Calculate components of acceleration
+  atang(count, :) = cross(-com_loc, [0, 0, avg_acc]);
+  anorm(count, :) = -com_loc.*norm([0, 0, speed_vel(count)].^2);
+  atotal(count, :) = atang(count, :) + anorm(count, :);
+
+  % Solve for the force of the tricep muscle
+  M_net = [0, 0, I*avg_acc];
+  M_arm_racket_w = cross(com_loc, Fw);
+  F_tricep(count, :) = (M_net-M_arm_racket_w)/cross(r_tricep, u_tricep);
+
+  % Solve for inter segmental force at the elbow
+  F_jrf(count, :) = (mass_net*atotal(count, :)) - Fw - F_tricep(count, :); %N
+
+  % Store data in arrays for graphing
+  force_elbow_reactions(count) = norm(F_jrf(count, :));
+  F_tricep_graph(count) = norm(F_tricep(count, :));
+  anorm_graph(count) = norm(anorm(count, :));
+  atang_graph(count) = norm(atang(count, :));
+
+end
+
+%% Plot results
+figure
+subplot(2,1,1), hold all
+plot(angle_theta, force_elbow_reactions), plot(angle_theta, F_tricep_graph)
+legend('F_j_r_f', 'F_t_r_i')
+xlim([0 90])
+title('Forces in the Elbow as Function of \theta')
+xlabel('\theta (degrees above horizontal)'), ylabel('Force (N)')
+
+subplot(2,1,2), plot(angle_theta, speed_vel)
+xlim([0 90])
+title('Rotational Velocity of the Lower Arm as a Function of \theta')
+xlabel('\theta (degrees above horizontal)'), ylabel('Rotational Velocity (rad/s)')
+##### SOURCE END #####
+--></body></html>

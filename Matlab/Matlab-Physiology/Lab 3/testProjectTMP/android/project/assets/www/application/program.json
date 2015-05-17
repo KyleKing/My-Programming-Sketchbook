@@ -1,0 +1,329 @@
+{
+  "format": "web-program-pre1",
+  "manifest": [
+    {
+      "path": "6dec0060d1fb77e93f0c857707304e67f035675d.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/6dec0060d1fb77e93f0c857707304e67f035675d.js",
+      "size": 939979,
+      "hash": "6dec0060d1fb77e93f0c857707304e67f035675d"
+    },
+    {
+      "path": "3ee7e017ab2108fd078b82b84570885d0de888b8.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/3ee7e017ab2108fd078b82b84570885d0de888b8.css?meteor_css_resource=true",
+      "size": 25264,
+      "hash": "3ee7e017ab2108fd078b82b84570885d0de888b8"
+    },
+    {
+      "path": "packages/mrt_leaflet/images/layers-2x.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/packages/mrt_leaflet/images/layers-2x.png",
+      "size": 2898,
+      "hash": "34239130c3aea22f21455746284d5a266435fa39"
+    },
+    {
+      "path": "packages/mrt_leaflet/images/layers.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/packages/mrt_leaflet/images/layers.png",
+      "size": 1502,
+      "hash": "0dbc42bf6f9b7166196dd88bdbb45a11307ec8a5"
+    },
+    {
+      "path": "packages/mrt_leaflet/images/marker-icon-2x.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/packages/mrt_leaflet/images/marker-icon-2x.png",
+      "size": 4033,
+      "hash": "77a97a1552a99795fb7ebcf9117cbe7fa653eb8a"
+    },
+    {
+      "path": "packages/mrt_leaflet/images/marker-icon.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/packages/mrt_leaflet/images/marker-icon.png",
+      "size": 1747,
+      "hash": "70f05611305f77658e8f1a9827e5ddbdf97462b6"
+    },
+    {
+      "path": "packages/mrt_leaflet/images/marker-shadow.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/packages/mrt_leaflet/images/marker-shadow.png",
+      "size": 797,
+      "hash": "1edd41cfd08b19f0ea18a1fc3f603b7bb9bb2b95"
+    },
+    {
+      "path": "app/about/FAQLong.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/FAQLong.png",
+      "size": 131613,
+      "hash": "9ac2fb984d3b8831154ed59b1d02e2d2996e185b"
+    },
+    {
+      "path": "app/about/FAQShort.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/FAQShort.png",
+      "size": 93314,
+      "hash": "1eb1494b80cab64b6635340cc3a9656dcc39bc0c"
+    },
+    {
+      "path": "app/about/bikesharetemp.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/bikesharetemp.png",
+      "size": 135123,
+      "hash": "48b38e76ecd1654a9d22dbddb7177b746d00b248"
+    },
+    {
+      "path": "app/about/bikesharetemp.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/bikesharetemp.svg",
+      "size": 302481,
+      "hash": "c0aeb039e31cf81401cee1289ef74d60e3e9f64e"
+    },
+    {
+      "path": "app/about/whatImage.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/whatImage.png",
+      "size": 1165960,
+      "hash": "a20e15d73c6e17f1cff454efe3a5652f8c48db25"
+    },
+    {
+      "path": "app/about/whyImage.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/whyImage.png",
+      "size": 223425,
+      "hash": "bdf06dab24d274e007d80fe7d735bfe7d139bbe0"
+    },
+    {
+      "path": "app/leaflet/mapstatic.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/leaflet/mapstatic.png",
+      "size": 3261721,
+      "hash": "89c7b97b93827a67c8f192b1d9bda554550e004d"
+    },
+    {
+      "path": "app/leaflet/marker-icon-2x.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/leaflet/marker-icon-2x.png",
+      "size": 765,
+      "hash": "3580e7ecbbc09bf260e94bb276e0cd807547ab4d"
+    },
+    {
+      "path": "app/logo/RedBarsLogo.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/logo/RedBarsLogo.png",
+      "size": 8984,
+      "hash": "67ff9eaab7308d9b73b7a8655069aaebe404fdd7"
+    },
+    {
+      "path": "app/logo/RedBarsLogoBlack.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/logo/RedBarsLogoBlack.png",
+      "size": 9410,
+      "hash": "17ff4445b856f178a428e326e9b8a3e1131138e5"
+    },
+    {
+      "path": "app/logo/RedBarsLogoWhite.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/logo/RedBarsLogoWhite.png",
+      "size": 7974,
+      "hash": "b17de8dd535521098ee81b46222c8e117ddf7eba"
+    },
+    {
+      "path": "app/profile/Prof_Pic_Placeholder.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/profile/Prof_Pic_Placeholder.png",
+      "size": 33236,
+      "hash": "058fb68cf62f78714c244382210eb06e9d63bfc2"
+    },
+    {
+      "path": "app/profile/Route_Map.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/profile/Route_Map.png",
+      "size": 1785712,
+      "hash": "14398e977026fe355cb4ae6aa2914cd6eeccd0ad"
+    },
+    {
+      "path": "app/about/evolution/bike.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/bike.png",
+      "size": 41707,
+      "hash": "b3f0c70cc6758b7c37d740b7c44f610874504dad"
+    },
+    {
+      "path": "app/about/evolution/bike.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/bike.svg",
+      "size": 64360,
+      "hash": "0d6d114977c55da9de1a5a56ee432cfe6adf71e9"
+    },
+    {
+      "path": "app/about/evolution/bus.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/bus.png",
+      "size": 34090,
+      "hash": "d7526113f75fe1e4ee9546326d2a1b813af0caa4"
+    },
+    {
+      "path": "app/about/evolution/bus.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/bus.svg",
+      "size": 49284,
+      "hash": "6620dac607e88d988c48a60a8c15ef5e29058a1f"
+    },
+    {
+      "path": "app/about/evolution/car.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/car.png",
+      "size": 26508,
+      "hash": "3ecc3552a5bc83a55d644dc05565b42c6cf2777a"
+    },
+    {
+      "path": "app/about/evolution/car.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/car.svg",
+      "size": 186198,
+      "hash": "080a04d8675df76ba8abda5371721a0a81944af4"
+    },
+    {
+      "path": "app/about/evolution/green-fancy-line-md1.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/green-fancy-line-md1.png",
+      "size": 10761,
+      "hash": "b0d44cd03b0cf8527aece610697ea8d916e95d48"
+    },
+    {
+      "path": "app/about/evolution/line.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/line.png",
+      "size": 4130,
+      "hash": "d65bfaf8ec0b84340628330c9fa48dd1b8b335f0"
+    },
+    {
+      "path": "app/about/evolution/line.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/line.svg",
+      "size": 3503,
+      "hash": "0da2f0571d0fd57eb47ce3a6ada54826d8489e3c"
+    },
+    {
+      "path": "app/about/evolution/transportation.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/transportation.svg",
+      "size": 47050,
+      "hash": "6867f5f86cf350c09a3ae918995aa583ca349bee"
+    },
+    {
+      "path": "app/about/evolution/walk.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/walk.png",
+      "size": 26874,
+      "hash": "77bf62ff6b7a9a62c456e99364480caa9e69e001"
+    },
+    {
+      "path": "app/about/evolution/walk.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/evolution/walk.svg",
+      "size": 38074,
+      "hash": "90e9313f23347838b208660981019d4d2553a6db"
+    },
+    {
+      "path": "app/about/heroImage/biker.jpg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/heroImage/biker.jpg",
+      "size": 146470,
+      "hash": "dd930f3267480b883eae23ce728856eda5a0d78e"
+    },
+    {
+      "path": "app/about/heroImage/biker.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/heroImage/biker.png",
+      "size": 1309417,
+      "hash": "47415c48f32b421271af85add6b81e3e6a24cb93"
+    },
+    {
+      "path": "app/about/heroImage/landing_background_01_2400.jpg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/heroImage/landing_background_01_2400.jpg",
+      "size": 206084,
+      "hash": "cd848cf2bd601bc1b5dbdd59ef9f056e0e195d24"
+    },
+    {
+      "path": "app/about/heroImage/will.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/about/heroImage/will.png",
+      "size": 915965,
+      "hash": "0d91ba7b5f098c58bc923a554c3090ff95be68ee"
+    }
+  ]
+}

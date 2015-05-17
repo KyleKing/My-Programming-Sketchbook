@@ -1,0 +1,322 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW5</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-24"><meta name="DC.source" content="HW5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">a) Plot points for before and after deformation</a></li><li><a href="#3">b) find the four displacement gradients, &acirc;&#136;&#130;u/&acirc;&#136;&#130;x0</a></li><li><a href="#4">c) Utilize these displacement gradients to compute the Lagrangian strain tensor, E, and the infinitessimal strain tensor, &Icirc;&micro;,for each quadrant.</a></li><li><a href="#5">d) Which strain tensor, Lagrangian or infinitesimal, is more appropriate for describing this deformation?</a></li><li><a href="#6">e) Do the two areas indicate that there is homogeneous deformation across the tissue?</a></li></ul></div><pre class="codeinput"><span class="comment">% Kyle King</span>
+<span class="comment">% BIOE404</span>
+<span class="comment">% 10-22-2014</span>
+
+clc, clear <span class="string">all</span>, close <span class="string">all</span> <span class="comment">% boilerplate</span>
+
+<span class="comment">% Intialize Data from Table - each row is a new marker, column (1) = i coordinates, etc.</span>
+preMarkers = [0, 0; 0.98, -0.02; -0.01, 1.01; 0.97, 1.02; 0, 0; 0.97, 0.03; -0.04, 1.03; 0.97, 1.02];
+postMarkers = [-0.07, -0.05; 1.03, -0.04; -0.05, 1.09; 1.04, 1.08; 0.02, 0.04; 0.95, 0.12; 0.09, 0.95; 1.06, 0.97];
+</pre><h2>a) Plot points for before and after deformation<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Indicate number of each spot</span>
+labels = cellstr( num2str([1:4]') );
+labels2 = cellstr( num2str([5:8]') );
+
+<span class="comment">% Plot the first area</span>
+figure(1), subplot(1, 2, 1)
+plot(preMarkers(1:4,1), preMarkers(1:4,2), <span class="string">'go'</span>), hold <span class="string">on</span>
+plot(postMarkers(1:4, 1), postMarkers(1:4, 2), <span class="string">'ro'</span>)
+<span class="comment">% Label the points from 1-&gt;4</span>
+text(preMarkers(1:4,1), preMarkers(1:4,2), labels, <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>, <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>)
+text(postMarkers(1:4,1), postMarkers(1:4,2), labels, <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>, <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>)
+legend(<span class="string">'Original Coordinates'</span>, <span class="string">'Coordinate After Deformation'</span>, <span class="string">'Location'</span>,<span class="string">'SouthEast'</span>), title(<span class="string">'Area 1'</span>), xlabel(<span class="string">'i'</span>),  ylabel(<span class="string">'j'</span>), axis([-0.3, 1.5, -0.3, 1.2]) , hold <span class="string">off</span>
+hold <span class="string">off</span>
+
+<span class="comment">% Plot the second area</span>
+subplot(1, 2, 2)
+plot(preMarkers(5:8,1), preMarkers(5:8,2), <span class="string">'go'</span>), hold <span class="string">on</span>
+plot(postMarkers(5:8, 1), postMarkers(5:8, 2), <span class="string">'ro'</span>)
+<span class="comment">% Label the points from 5-&gt;8</span>
+text(preMarkers(5:8,1), preMarkers(5:8,2), labels2, <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>, <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>)
+text(postMarkers(5:8,1), postMarkers(5:8,2), labels2, <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>, <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>)
+legend(<span class="string">'Original Coordinates'</span>, <span class="string">'Coordinate After Deformation'</span>, <span class="string">'Location'</span>,<span class="string">'SouthEast'</span>), title(<span class="string">'Area 2'</span>), xlabel(<span class="string">'i'</span>),  ylabel(<span class="string">'j'</span>), axis([-0.3, 1.5, -0.3, 1.2]) , hold <span class="string">off</span>
+hold <span class="string">off</span>
+
+<span class="comment">% Intialize Marker Table of initial point, final point, and displacement</span>
+markerTable = zeros(8, 6);
+<span class="keyword">for</span> i = 1:8
+  <span class="keyword">for</span> j = 1:2
+    markerTable(i,j) = preMarkers(i, j);
+    markerTable(i, j+2) = postMarkers(i,j);
+    <span class="comment">% Find the displacement in columns 5 and 6 of markerTable</span>
+    markerTable(i, j+3) = postMarkers(i,1) - preMarkers(i, 1);
+    markerTable(i, j+4) = postMarkers(i,2) - preMarkers(i, 2);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% markerTable % for testing</span>
+</pre><img vspace="5" hspace="5" src="HW5_01.png" alt=""> <h2>b) find the four displacement gradients, &acirc;&#136;&#130;u/&acirc;&#136;&#130;x0<a name="3"></a></h2><p>point 1-2, 3-4, 5-6, 7-8 for &acirc;&#136;&#130;u/&acirc;&#136;&#130;x0i</p><pre class="codeinput"><span class="keyword">for</span> areaAnalysis = 0:4:4
+  sumiMark = 0; sumjMark = 0;
+  <span class="keyword">for</span> i = 2:2:4
+    sumiMark = sumiMark + ((markerTable(i+areaAnalysis, 5) - markerTable(i-1+areaAnalysis, 5))/(markerTable(i+areaAnalysis, 1) - markerTable(i-1+areaAnalysis, 1)));
+    sumjMark = sumjMark + ((markerTable(i+areaAnalysis, 6) - markerTable(i-1+areaAnalysis, 6))/(markerTable(i+areaAnalysis, 1) - markerTable(i-1+areaAnalysis, 1)));
+  <span class="keyword">end</span>
+  duidxi(areaAnalysis/4+1) = (1/2)*sumiMark;
+  dujdxi(areaAnalysis/4+1) = (1/2)*sumjMark;
+
+  <span class="comment">% 1-3, 2-4, 5-7, 6-8 to calculate &acirc;&#136;&#130;u/&acirc;&#136;&#130;x0j</span>
+  sumiMark = 0; sumjMark = 0;
+  <span class="keyword">for</span> i = 3:1:4
+    sumiMark = sumiMark + ((markerTable(i+areaAnalysis, 5) - markerTable(i-2+areaAnalysis, 5))/(markerTable(i+areaAnalysis, 2) - markerTable(i-2+areaAnalysis, 2)));
+    sumjMark = sumjMark + ((markerTable(i+areaAnalysis, 6) - markerTable(i-2+areaAnalysis, 6))/(markerTable(i+areaAnalysis, 2) - markerTable(i-2+areaAnalysis, 2)));
+  <span class="keyword">end</span>
+  duidxj(areaAnalysis/4+1) = (1/2)*sumiMark;
+  dujdxj(areaAnalysis/4+1) = (1/2)*sumjMark;
+<span class="keyword">end</span>
+
+<span class="comment">% Print answers</span>
+disp([<span class="string">' In order of: '</span> <span class="string">'Area 1'</span> <span class="string">' then Area 2'</span>])
+
+duidxi
+dujdxi
+duidxj
+dujdxj
+</pre><pre class="codeoutput"> In order of: Area 1 then Area 2
+
+duidxi =
+
+    0.1173   -0.0404
+
+
+dujdxi =
+
+    0.0051    0.0406
+
+
+duidxj =
+
+    0.0245    0.1090
+
+
+dujdxj =
+
+    0.1028   -0.1290
+
+</pre><h2>c) Utilize these displacement gradients to compute the Lagrangian strain tensor, E, and the infinitessimal strain tensor, &Icirc;&micro;,for each quadrant.<a name="4"></a></h2><pre class="codeinput"><span class="keyword">for</span> areaAnalysis = 1:2
+  Eii(areaAnalysis) = (1/2)*(2*duidxi(areaAnalysis) + duidxi(areaAnalysis)^2 + duidxj(areaAnalysis)^2);
+  Eij(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis) + duidxj(areaAnalysis)*duidxi(areaAnalysis) + dujdxi(areaAnalysis)*dujdxj(areaAnalysis));
+  Eji(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis) + duidxj(areaAnalysis)*duidxi(areaAnalysis) + dujdxi(areaAnalysis)*dujdxj(areaAnalysis));
+  Ejj(areaAnalysis) = (1/2)*(2*dujdxj(areaAnalysis) + dujdxi(areaAnalysis)^2 + dujdxj(areaAnalysis)^2);
+
+
+  eii(areaAnalysis) = (1/2)*(2*duidxi(areaAnalysis));
+  eij(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis));
+  eji(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis));
+  ejj(areaAnalysis) = (1/2)*(2*dujdxj(areaAnalysis));
+<span class="keyword">end</span>
+
+<span class="comment">% Lagrangian</span>
+EareaOne = [Eii(1), Eij(1); Eji(1), Ejj(1)]
+<span class="comment">% Infinitesimal</span>
+eareaOne = [eii(1), eij(1); eji(1), ejj(1)]
+
+
+EareaTwo = [Eii(2), Eij(2); Eji(2), Ejj(2)]
+eareaTwo = [eii(2), eij(2); eji(2), ejj(2)]
+</pre><pre class="codeoutput">
+EareaOne =
+
+    0.1245    0.0165
+    0.0165    0.1081
+
+
+eareaOne =
+
+    0.1173    0.0148
+    0.0148    0.1028
+
+
+EareaTwo =
+
+   -0.0337    0.0700
+    0.0700   -0.1198
+
+
+eareaTwo =
+
+   -0.0404    0.0748
+    0.0748   -0.1290
+
+</pre><h2>d) Which strain tensor, Lagrangian or infinitesimal, is more appropriate for describing this deformation?<a name="5"></a></h2><pre class="codeinput">disp(<span class="string">'Lagrangian tensor analysis works best for large strains where the squared term represents a similar magnitude value of the summation, whereas the infinitesimal strain is best for minuscule strains such as those in cells of tissue. In this case the strain is great enough to warrant the more specific analysis of the Lagrangian strain tensor as the infinitesimal strain tensor deviates greater than 1% from the Lagrangian calculation'</span>)
+</pre><pre class="codeoutput">Lagrangian tensor analysis works best for large strains where the squared term represents a similar magnitude value of the summation, whereas the infinitesimal strain is best for minuscule strains such as those in cells of tissue. In this case the strain is great enough to warrant the more specific analysis of the Lagrangian strain tensor as the infinitesimal strain tensor deviates greater than 1% from the Lagrangian calculation
+</pre><h2>e) Do the two areas indicate that there is homogeneous deformation across the tissue?<a name="6"></a></h2><pre class="codeinput">disp(<span class="string">'There is non-homogeneous deformation as indicated by the variation in the duidxi, dujdxi, duidxj, and dujdxj terms for both areas'</span>)
+</pre><pre class="codeoutput">There is non-homogeneous deformation as indicated by the variation in the duidxi, dujdxi, duidxj, and dujdxj terms for both areas
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Kyle King
+% BIOE404
+% 10-22-2014
+
+clc, clear all, close all % boilerplate
+
+% Intialize Data from Table - each row is a new marker, column (1) = i coordinates, etc.
+preMarkers = [0, 0; 0.98, -0.02; -0.01, 1.01; 0.97, 1.02; 0, 0; 0.97, 0.03; -0.04, 1.03; 0.97, 1.02];
+postMarkers = [-0.07, -0.05; 1.03, -0.04; -0.05, 1.09; 1.04, 1.08; 0.02, 0.04; 0.95, 0.12; 0.09, 0.95; 1.06, 0.97];
+
+%% a) Plot points for before and after deformation
+
+% Indicate number of each spot
+labels = cellstr( num2str([1:4]') );
+labels2 = cellstr( num2str([5:8]') );
+
+% Plot the first area
+figure(1), subplot(1, 2, 1)
+plot(preMarkers(1:4,1), preMarkers(1:4,2), 'go'), hold on
+plot(postMarkers(1:4, 1), postMarkers(1:4, 2), 'ro')
+% Label the points from 1->4
+text(preMarkers(1:4,1), preMarkers(1:4,2), labels, 'VerticalAlignment','bottom', 'HorizontalAlignment','right')
+text(postMarkers(1:4,1), postMarkers(1:4,2), labels, 'VerticalAlignment','bottom', 'HorizontalAlignment','right')
+legend('Original Coordinates', 'Coordinate After Deformation', 'Location','SouthEast'), title('Area 1'), xlabel('i'),  ylabel('j'), axis([-0.3, 1.5, -0.3, 1.2]) , hold off
+hold off
+
+% Plot the second area
+subplot(1, 2, 2)
+plot(preMarkers(5:8,1), preMarkers(5:8,2), 'go'), hold on
+plot(postMarkers(5:8, 1), postMarkers(5:8, 2), 'ro')
+% Label the points from 5->8
+text(preMarkers(5:8,1), preMarkers(5:8,2), labels2, 'VerticalAlignment','bottom', 'HorizontalAlignment','right')
+text(postMarkers(5:8,1), postMarkers(5:8,2), labels2, 'VerticalAlignment','bottom', 'HorizontalAlignment','right')
+legend('Original Coordinates', 'Coordinate After Deformation', 'Location','SouthEast'), title('Area 2'), xlabel('i'),  ylabel('j'), axis([-0.3, 1.5, -0.3, 1.2]) , hold off
+hold off
+
+% Intialize Marker Table of initial point, final point, and displacement
+markerTable = zeros(8, 6);
+for i = 1:8
+  for j = 1:2
+    markerTable(i,j) = preMarkers(i, j);
+    markerTable(i, j+2) = postMarkers(i,j);
+    % Find the displacement in columns 5 and 6 of markerTable
+    markerTable(i, j+3) = postMarkers(i,1) - preMarkers(i, 1);
+    markerTable(i, j+4) = postMarkers(i,2) - preMarkers(i, 2);
+  end
+end
+% markerTable % for testing
+
+%% b) find the four displacement gradients, âu/âx0
+% point 1-2, 3-4, 5-6, 7-8 for âu/âx0i
+for areaAnalysis = 0:4:4
+  sumiMark = 0; sumjMark = 0;
+  for i = 2:2:4
+    sumiMark = sumiMark + ((markerTable(i+areaAnalysis, 5) - markerTable(i-1+areaAnalysis, 5))/(markerTable(i+areaAnalysis, 1) - markerTable(i-1+areaAnalysis, 1)));
+    sumjMark = sumjMark + ((markerTable(i+areaAnalysis, 6) - markerTable(i-1+areaAnalysis, 6))/(markerTable(i+areaAnalysis, 1) - markerTable(i-1+areaAnalysis, 1)));
+  end
+  duidxi(areaAnalysis/4+1) = (1/2)*sumiMark;
+  dujdxi(areaAnalysis/4+1) = (1/2)*sumjMark;
+
+  % 1-3, 2-4, 5-7, 6-8 to calculate âu/âx0j
+  sumiMark = 0; sumjMark = 0;
+  for i = 3:1:4
+    sumiMark = sumiMark + ((markerTable(i+areaAnalysis, 5) - markerTable(i-2+areaAnalysis, 5))/(markerTable(i+areaAnalysis, 2) - markerTable(i-2+areaAnalysis, 2)));
+    sumjMark = sumjMark + ((markerTable(i+areaAnalysis, 6) - markerTable(i-2+areaAnalysis, 6))/(markerTable(i+areaAnalysis, 2) - markerTable(i-2+areaAnalysis, 2)));
+  end
+  duidxj(areaAnalysis/4+1) = (1/2)*sumiMark;
+  dujdxj(areaAnalysis/4+1) = (1/2)*sumjMark;
+end
+
+% Print answers
+disp([' In order of: ' 'Area 1' ' then Area 2'])
+
+duidxi
+dujdxi
+duidxj
+dujdxj
+
+%% c) Utilize these displacement gradients to compute the Lagrangian strain tensor, E, and the infinitessimal strain tensor, Îµ,for each quadrant.
+
+for areaAnalysis = 1:2
+  Eii(areaAnalysis) = (1/2)*(2*duidxi(areaAnalysis) + duidxi(areaAnalysis)^2 + duidxj(areaAnalysis)^2);
+  Eij(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis) + duidxj(areaAnalysis)*duidxi(areaAnalysis) + dujdxi(areaAnalysis)*dujdxj(areaAnalysis));
+  Eji(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis) + duidxj(areaAnalysis)*duidxi(areaAnalysis) + dujdxi(areaAnalysis)*dujdxj(areaAnalysis));
+  Ejj(areaAnalysis) = (1/2)*(2*dujdxj(areaAnalysis) + dujdxi(areaAnalysis)^2 + dujdxj(areaAnalysis)^2);
+
+
+  eii(areaAnalysis) = (1/2)*(2*duidxi(areaAnalysis));
+  eij(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis));
+  eji(areaAnalysis) = (1/2)*(duidxj(areaAnalysis) + dujdxi(areaAnalysis));
+  ejj(areaAnalysis) = (1/2)*(2*dujdxj(areaAnalysis));
+end
+
+% Lagrangian
+EareaOne = [Eii(1), Eij(1); Eji(1), Ejj(1)]
+% Infinitesimal
+eareaOne = [eii(1), eij(1); eji(1), ejj(1)]
+
+
+EareaTwo = [Eii(2), Eij(2); Eji(2), Ejj(2)]
+eareaTwo = [eii(2), eij(2); eji(2), ejj(2)]
+
+%% d) Which strain tensor, Lagrangian or infinitesimal, is more appropriate for describing this deformation?
+
+disp('Lagrangian tensor analysis works best for large strains where the squared term represents a similar magnitude value of the summation, whereas the infinitesimal strain is best for minuscule strains such as those in cells of tissue. In this case the strain is great enough to warrant the more specific analysis of the Lagrangian strain tensor as the infinitesimal strain tensor deviates greater than 1% from the Lagrangian calculation')
+
+%% e) Do the two areas indicate that there is homogeneous deformation across the tissue?
+
+disp('There is non-homogeneous deformation as indicated by the variation in the duidxi, dujdxi, duidxj, and dujdxj terms for both areas')
+##### SOURCE END #####
+--></body></html>

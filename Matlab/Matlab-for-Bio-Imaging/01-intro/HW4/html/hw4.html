@@ -1,0 +1,248 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>hw4</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-05-01"><meta name="DC.source" content="hw4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 4</span>
+<span class="comment">% Kyle King</span>
+<span class="comment">% BIOE420 - 0101</span>
+clc, clear <span class="string">all</span>, close <span class="string">all</span>
+disp(<span class="string">'Question 3'</span>)
+
+<span class="comment">% Set Variables</span>
+T13 = 760; <span class="comment">% ms</span>
+T23 = 77; <span class="comment">% ms</span>
+alpha = pi/3;
+Mo = 1; <span class="comment">% Note, Mo is the relaxation position and can be treated as 100 percent = 1</span>
+t = linspace(0,1000, 1000); <span class="comment">% ms</span>
+
+<span class="comment">% Functions from notes:</span>
+Mz3 = Mo*(1 + (cos(alpha)-1)*exp(-t/T13)); <span class="comment">% Longitudal - Mz</span>
+Mxy3 = Mo*sin(alpha)*exp(-t/T23); <span class="comment">% Transverse - Mxy</span>
+
+<span class="comment">% Plot above functions</span>
+<span class="comment">% h = figure;</span>
+figure, hold <span class="string">all</span>, plot(t, Mz3,<span class="string">'.'</span>, t, Mxy3, <span class="string">'.-'</span>)
+
+<span class="comment">% Plot time of interest and display value</span>
+tarray = [100, 1000];
+bump = [0,0.05];
+
+disp(<span class="string">'Longitudal - Mz'</span>)
+<span class="keyword">for</span> (i = 1:2) <span class="comment">% Sort through both time points</span>
+  str = [<span class="string">'\leftarrow '</span>  num2str(Mz3(tarray(i))*100) <span class="string">' % Mo'</span>];
+  text(tarray(i), Mz3(tarray(i)), str) <span class="comment">% Plot text</span>
+  disp([<span class="string">'Percent relaxation at t = '</span> num2str(tarray(i)) <span class="string">'ms is '</span> num2str(Mz3(tarray(i))*100) <span class="string">'%'</span>])
+<span class="keyword">end</span>
+
+disp(<span class="string">'Transverse - Mxy'</span>)
+<span class="keyword">for</span> (i = 1:2) <span class="comment">% Sort through both time points</span>
+  str = [<span class="string">'\leftarrow '</span>  num2str(Mxy3(tarray(i))*100) <span class="string">' % Mo'</span>];
+  text(tarray(i), Mxy3(tarray(i)), str) <span class="comment">% Plot text</span>
+  disp([<span class="string">'Percent relaxation at t = '</span> num2str(tarray(i)) <span class="string">'ms is '</span> num2str(Mxy3(tarray(i))*100) <span class="string">'%'</span>])
+<span class="keyword">end</span>
+
+
+disp(<span class="string">'Question 4'</span>)
+<span class="comment">% Set Variables</span>
+T14 = 510; <span class="comment">% ms</span>
+T24 = 67; <span class="comment">% ms</span>
+
+<span class="comment">% Functions from notes:</span>
+Mz4 = Mo*(1 + (cos(alpha)-1)*exp(-t/T14)); <span class="comment">% Longitudal - Mz4</span>
+Mxy4 = Mo*sin(alpha)*exp(-t/T24); <span class="comment">% Transverse - Mxy4</span>
+
+<span class="comment">% Plot above functions</span>
+plot(t, Mz4, <span class="string">'-'</span>, t, Mxy4)
+title(<span class="string">'Q3 and Q4: Modulation Transfer Function'</span>)
+xlabel(<span class="string">'Time (ms)'</span>), ylabel(<span class="string">'% Mo'</span>)
+legend(<span class="string">'Longitudal - Mz3'</span>, <span class="string">'Transverse - Mxy3'</span>,<span class="string">'Longitudal - Mz4'</span>, <span class="string">'Transverse - Mxy4'</span>, <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>)
+
+<span class="comment">% Plot time of interest and display value</span>
+<span class="comment">% Use variables declared above</span>
+disp(<span class="string">' '</span>) <span class="comment">% Line Break</span>
+disp(<span class="string">'Longitudal - Mz4'</span>)
+<span class="keyword">for</span> (i = 1:2) <span class="comment">% Sort through both time points</span>
+  str = [<span class="string">'\leftarrow '</span>  num2str(Mz4(tarray(i))*100) <span class="string">' % Mo'</span>];
+  text(tarray(i), Mz4(tarray(i)), str) <span class="comment">% Plot text</span>
+  disp([<span class="string">'Percent relaxation at t = '</span> num2str(tarray(i)) <span class="string">'ms is '</span> num2str(Mz4(tarray(i))*100) <span class="string">'%'</span>])
+<span class="keyword">end</span>
+disp(<span class="string">'Transverse - Mxy4'</span>)
+<span class="keyword">for</span> (i = 1:2) <span class="comment">% Sort through both time points</span>
+  str = [<span class="string">'\leftarrow '</span>  num2str(Mxy4(tarray(i))*100) <span class="string">' % Mo'</span>];
+  text(tarray(i), Mxy4(tarray(i)) - bump(i), str) <span class="comment">% Plot text</span>
+  disp([<span class="string">'Percent relaxation at t = '</span> num2str(tarray(i)) <span class="string">'ms is '</span> num2str(Mxy4(tarray(i))*100) <span class="string">'%'</span>])
+<span class="keyword">end</span>
+
+<span class="comment">% differencexy = Mxy4 - Mxy3;</span>
+<span class="comment">% differencez = Mz4 - Mz3;</span>
+<span class="comment">% figure, plot(t, differencez, t, differencexy)</span>
+
+<span class="comment">% syms t</span>
+<span class="comment">% diff(exp(-t/T23) - exp(-t/T24))</span>
+
+<span class="comment">% log(T13/T14)/(1/T14 - 1/T13)</span>
+<span class="comment">% log(T23/T24)/(1/T24 - 1/T23)</span>
+</pre><pre class="codeoutput">Question 3
+Longitudal - Mz
+Percent relaxation at t = 100ms is 56.1125%
+Percent relaxation at t = 1000ms is 86.5869%
+Transverse - Mxy
+Percent relaxation at t = 100ms is 23.9107%
+Percent relaxation at t = 1000ms is 0.00019831%
+Question 4
+ 
+Longitudal - Mz4
+Percent relaxation at t = 100ms is 58.83%
+Percent relaxation at t = 1000ms is 92.9626%
+Transverse - Mxy4
+Percent relaxation at t = 100ms is 19.7319%
+Percent relaxation at t = 1000ms is 2.8545e-05%
+</pre><img vspace="5" hspace="5" src="hw4_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 4
+% Kyle King
+% BIOE420 - 0101
+clc, clear all, close all
+disp('Question 3')
+
+% Set Variables
+T13 = 760; % ms
+T23 = 77; % ms
+alpha = pi/3;
+Mo = 1; % Note, Mo is the relaxation position and can be treated as 100 percent = 1
+t = linspace(0,1000, 1000); % ms
+
+% Functions from notes:
+Mz3 = Mo*(1 + (cos(alpha)-1)*exp(-t/T13)); % Longitudal - Mz
+Mxy3 = Mo*sin(alpha)*exp(-t/T23); % Transverse - Mxy
+
+% Plot above functions
+% h = figure;
+figure, hold all, plot(t, Mz3,'.', t, Mxy3, '.-')
+
+% Plot time of interest and display value
+tarray = [100, 1000];
+bump = [0,0.05];
+
+disp('Longitudal - Mz')
+for (i = 1:2) % Sort through both time points
+  str = ['\leftarrow '  num2str(Mz3(tarray(i))*100) ' % Mo'];
+  text(tarray(i), Mz3(tarray(i)), str) % Plot text
+  disp(['Percent relaxation at t = ' num2str(tarray(i)) 'ms is ' num2str(Mz3(tarray(i))*100) '%'])
+end
+
+disp('Transverse - Mxy')
+for (i = 1:2) % Sort through both time points
+  str = ['\leftarrow '  num2str(Mxy3(tarray(i))*100) ' % Mo'];
+  text(tarray(i), Mxy3(tarray(i)), str) % Plot text
+  disp(['Percent relaxation at t = ' num2str(tarray(i)) 'ms is ' num2str(Mxy3(tarray(i))*100) '%'])
+end
+
+
+disp('Question 4')
+% Set Variables
+T14 = 510; % ms
+T24 = 67; % ms
+
+% Functions from notes:
+Mz4 = Mo*(1 + (cos(alpha)-1)*exp(-t/T14)); % Longitudal - Mz4
+Mxy4 = Mo*sin(alpha)*exp(-t/T24); % Transverse - Mxy4
+
+% Plot above functions
+plot(t, Mz4, '-', t, Mxy4)
+title('Q3 and Q4: Modulation Transfer Function')
+xlabel('Time (ms)'), ylabel('% Mo')
+legend('Longitudal - Mz3', 'Transverse - Mxy3','Longitudal - Mz4', 'Transverse - Mxy4', 'Location', 'NorthWest')
+
+% Plot time of interest and display value
+% Use variables declared above
+disp(' ') % Line Break
+disp('Longitudal - Mz4')
+for (i = 1:2) % Sort through both time points
+  str = ['\leftarrow '  num2str(Mz4(tarray(i))*100) ' % Mo'];
+  text(tarray(i), Mz4(tarray(i)), str) % Plot text
+  disp(['Percent relaxation at t = ' num2str(tarray(i)) 'ms is ' num2str(Mz4(tarray(i))*100) '%'])
+end
+disp('Transverse - Mxy4')
+for (i = 1:2) % Sort through both time points
+  str = ['\leftarrow '  num2str(Mxy4(tarray(i))*100) ' % Mo'];
+  text(tarray(i), Mxy4(tarray(i)) - bump(i), str) % Plot text
+  disp(['Percent relaxation at t = ' num2str(tarray(i)) 'ms is ' num2str(Mxy4(tarray(i))*100) '%'])
+end
+
+% differencexy = Mxy4 - Mxy3;
+% differencez = Mz4 - Mz3;
+% figure, plot(t, differencez, t, differencexy)
+
+% syms t
+% diff(exp(-t/T23) - exp(-t/T24))
+
+% log(T13/T14)/(1/T14 - 1/T13)
+% log(T23/T24)/(1/T24 - 1/T23)
+
+##### SOURCE END #####
+--></body></html>

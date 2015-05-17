@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.idqajqfe1j86yhtsq5a4i" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="DisallowOverscroll" value="false" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value=".25" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="true" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="TopActivityIndicator" value="gray" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <preference name="PaginationBreakingMode" value="page" />
+    <preference name="PaginationMode" value="unpaginated" />
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="CordovaUpdate">
+        <param name="ios-package" value="CordovaUpdate" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <icon height="60" src="resources/iphone.icon.png" width="60" />
+    <icon height="29" src="resources/iphone.icon.png" width="29" />
+    <icon height="40" src="resources/iphone.icon.png" width="40" />
+    <icon height="50" src="resources/iphone.icon.png" width="50" />
+    <icon height="57" src="resources/iphone.icon.png" width="57" />
+    <icon height="58" src="resources/iphone.icon.png" width="58" />
+    <icon height="120" src="resources/iphone_2x.icon.png" width="120" />
+    <icon height="80" src="resources/iphone_2x.icon.png" width="80" />
+    <icon height="100" src="resources/iphone_2x.icon.png" width="100" />
+    <icon height="114" src="resources/iphone_2x.icon.png" width="114" />
+    <icon height="180" src="resources/iphone_3x.icon.png" width="180" />
+    <icon height="76" src="resources/ipad.icon.png" width="76" />
+    <icon height="72" src="resources/ipad.icon.png" width="72" />
+    <icon height="152" src="resources/ipad_2x.icon.png" width="152" />
+    <icon height="144" src="resources/ipad_2x.icon.png" width="144" />
+    <splash height="480" src="resources/iphone.splash.png" width="320" />
+    <splash height="960" src="resources/iphone_2x.splash.png" width="640" />
+    <splash height="1136" src="resources/iphone5.splash.png" width="640" />
+    <splash height="1334" src="resources/iphone6.splash.png" width="750" />
+    <splash height="2208" src="resources/iphone6p_portrait.splash.png" width="1242" />
+    <splash height="1242" src="resources/iphone6p_landscape.splash.png" width="2208" />
+    <splash height="1004" src="resources/ipad_portrait.splash.png" width="768" />
+    <splash height="1024" src="resources/ipad_portrait.splash.png" width="768" />
+    <splash height="2008" src="resources/ipad_portrait_2x.splash.png" width="1536" />
+    <splash height="2048" src="resources/ipad_portrait_2x.splash.png" width="1536" />
+    <splash height="748" src="resources/ipad_landscape.splash.png" width="1024" />
+    <splash height="768" src="resources/ipad_landscape.splash.png" width="1024" />
+    <splash height="1496" src="resources/ipad_landscape_2x.splash.png" width="2048" />
+    <splash height="1536" src="resources/ipad_landscape_2x.splash.png" width="2048" />
+    <name>testProject</name>
+    <description>New Meteor Mobile App</description>
+    <author email="n/a" href="n/a">A Meteor Developer</author>
+    <preference name="webviewbounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

@@ -1,0 +1,250 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW1</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-17"><meta name="DC.source" content="HW1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 1</span>
+<span class="comment">% Kyle King</span>
+<span class="comment">% BIOE420 - 0101</span>
+clc, clear <span class="string">all</span>, close <span class="string">all</span>
+
+<span class="comment">% Question 4</span>
+disp(<span class="string">'Question 4'</span>)
+  <span class="comment">% Part A</span>
+    <span class="comment">% 1. Plot LSF</span>
+      <span class="comment">% Given parameters</span>
+      alpha = 3; <span class="comment">% rad/cm</span>
+      x = linspace(-pi/3, pi/3, 1E6);
+
+      <span class="comment">% Calculate piecewise function</span>
+      nonZeroRange = find(abs(alpha*x) &lt;= pi/2);
+      LSF(nonZeroRange) = cos(alpha*x(nonZeroRange));
+      ZeroRange = find(abs(alpha*x) &gt; pi/2);
+      LSF(ZeroRange) = 0;
+
+      figure
+      subplot(2, 2, 1), hold <span class="string">all</span>, plot(x, LSF)
+      title(<span class="string">'Q4-A: Line Spread Function'</span>)
+      xlabel(<span class="string">'Position (cm)'</span>), ylabel(<span class="string">'Amplitude'</span>)
+
+    <span class="comment">% 2. Determine spatial resolution in cm</span>
+      [SpatialResolution, events] = fwhm(x, LSF);
+      disp([<span class="string">'Spatial Resolution = '</span> num2str(SpatialResolution) <span class="string">' cm'</span>])
+      <span class="comment">% Plot fwhm</span>
+      [~,centerIndex] = max(LSF);
+      plot(x(centerIndex), LSF(centerIndex), <span class="string">'b+'</span>)
+      plot(x(events), LSF(events), <span class="string">'r+'</span>)
+      plot([x(events(1)); x(events(2))], [LSF(events(1)); LSF(events(2))], <span class="string">'r-'</span>);
+      str = [<span class="string">'\leftarrow Width = '</span> num2str(SpatialResolution) <span class="string">' cm'</span>];
+      text(x(events(2)), LSF(events(2)), str)
+
+clear <span class="string">all</span>
+
+  <span class="comment">% Part B</span>
+    <span class="comment">% 1. Plot LSF</span>
+      <span class="comment">% Given parameters</span>
+      x = linspace(-5, 5, 1E6);
+      LSF =(1/(2*pi))*exp(-(x.^2)/2);
+
+      subplot(2, 2, 2), hold <span class="string">all</span>, plot(x, LSF)
+      title(<span class="string">'Q4-B: Line Spread Function'</span>)
+      xlabel(<span class="string">'Position (cm)'</span>), ylabel(<span class="string">'Amplitude'</span>)
+
+    <span class="comment">% 2. Determine spatial resolution in cm</span>
+      [SpatialResolution, events] = fwhm(x, LSF);
+      disp([<span class="string">'Spatial Resolution = '</span> num2str(SpatialResolution) <span class="string">' cm'</span>])
+      <span class="comment">% Plot fwhm</span>
+      [~,centerIndex] = max(LSF);
+      plot(x(centerIndex), LSF(centerIndex), <span class="string">'b+'</span>)
+      plot(x(events), LSF(events), <span class="string">'r+'</span>)
+      plot([x(events(1)); x(events(2))], [LSF(events(1)); LSF(events(2))], <span class="string">'r-'</span>);
+      str = [<span class="string">'\leftarrow Width = '</span> num2str(SpatialResolution) <span class="string">' cm'</span>];
+      text(x(events(2)), LSF(events(2)), str)
+
+clear <span class="string">all</span>
+
+<span class="comment">% Question 5</span>
+disp(<span class="string">'Question 5'</span>)
+  <span class="comment">% 1. Plot MTF</span>
+    <span class="comment">% Given parameters</span>
+    u = linspace(0, pi/6, 1E6);
+    MTF = exp(-2*pi^2*u.^2);
+
+    subplot(2, 2, 3), hold <span class="string">all</span>, plot(u, MTF)
+    title(<span class="string">'Q5: Modulation Transfer Function'</span>)
+    xlabel(<span class="string">'Spatial Frequency (Hz)'</span>), ylabel(<span class="string">'% Contrast'</span>)
+
+  <span class="comment">% 2. Determine the output contrast of two input signals</span>
+    <span class="comment">% Calculate frequency of the signal</span>
+    fun{1} = <span class="string">'f(x) = 2 + sin(pi*x)'</span>; <span class="comment">% = 2 + sin(2*pi*f1*x)</span>
+    f(1) = 1/2;
+    fun{2} = <span class="string">'f(x) = 5 + cos(x)'</span>; <span class="comment">%  = 5 + cos(2*pi*f2*x)</span>
+    f(2) = 1/(2*pi);
+
+    <span class="comment">% Plot Contrast on MTF plot</span>
+    contrast = exp(-2*pi^2*f.^2);
+    plot(f, contrast, <span class="string">'r+'</span>)
+    <span class="keyword">for</span> (i = 1:2)
+      str = [<span class="string">'\leftarrow '</span>  fun{i}];
+      text(f(i), contrast(i), str)
+      disp([<span class="string">'Contrast of Signal '</span> num2str(i) <span class="string">' is = '</span> num2str(contrast(i)*100) <span class="string">'%'</span>])
+    <span class="keyword">end</span>
+</pre><pre class="codeoutput">Question 4
+Spatial Resolution = 0.69813 cm
+Spatial Resolution = 2.3548 cm
+Question 5
+Contrast of Signal 1 is = 0.71919%
+Contrast of Signal 2 is = 60.6531%
+</pre><img vspace="5" hspace="5" src="HW1_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 1
+% Kyle King
+% BIOE420 - 0101
+clc, clear all, close all
+
+% Question 4
+disp('Question 4')
+  % Part A
+    % 1. Plot LSF
+      % Given parameters
+      alpha = 3; % rad/cm
+      x = linspace(-pi/3, pi/3, 1E6);
+
+      % Calculate piecewise function
+      nonZeroRange = find(abs(alpha*x) <= pi/2);
+      LSF(nonZeroRange) = cos(alpha*x(nonZeroRange));
+      ZeroRange = find(abs(alpha*x) > pi/2);
+      LSF(ZeroRange) = 0;
+
+      figure
+      subplot(2, 2, 1), hold all, plot(x, LSF)
+      title('Q4-A: Line Spread Function')
+      xlabel('Position (cm)'), ylabel('Amplitude')
+
+    % 2. Determine spatial resolution in cm
+      [SpatialResolution, events] = fwhm(x, LSF);
+      disp(['Spatial Resolution = ' num2str(SpatialResolution) ' cm'])
+      % Plot fwhm
+      [~,centerIndex] = max(LSF);
+      plot(x(centerIndex), LSF(centerIndex), 'b+')
+      plot(x(events), LSF(events), 'r+')
+      plot([x(events(1)); x(events(2))], [LSF(events(1)); LSF(events(2))], 'r-');
+      str = ['\leftarrow Width = ' num2str(SpatialResolution) ' cm'];
+      text(x(events(2)), LSF(events(2)), str)
+
+clear all
+
+  % Part B
+    % 1. Plot LSF
+      % Given parameters
+      x = linspace(-5, 5, 1E6);
+      LSF =(1/(2*pi))*exp(-(x.^2)/2);
+
+      subplot(2, 2, 2), hold all, plot(x, LSF)
+      title('Q4-B: Line Spread Function')
+      xlabel('Position (cm)'), ylabel('Amplitude')
+
+    % 2. Determine spatial resolution in cm
+      [SpatialResolution, events] = fwhm(x, LSF);
+      disp(['Spatial Resolution = ' num2str(SpatialResolution) ' cm'])
+      % Plot fwhm
+      [~,centerIndex] = max(LSF);
+      plot(x(centerIndex), LSF(centerIndex), 'b+')
+      plot(x(events), LSF(events), 'r+')
+      plot([x(events(1)); x(events(2))], [LSF(events(1)); LSF(events(2))], 'r-');
+      str = ['\leftarrow Width = ' num2str(SpatialResolution) ' cm'];
+      text(x(events(2)), LSF(events(2)), str)
+
+clear all
+
+% Question 5
+disp('Question 5')
+  % 1. Plot MTF
+    % Given parameters
+    u = linspace(0, pi/6, 1E6);
+    MTF = exp(-2*pi^2*u.^2);
+
+    subplot(2, 2, 3), hold all, plot(u, MTF)
+    title('Q5: Modulation Transfer Function')
+    xlabel('Spatial Frequency (Hz)'), ylabel('% Contrast')
+
+  % 2. Determine the output contrast of two input signals
+    % Calculate frequency of the signal
+    fun{1} = 'f(x) = 2 + sin(pi*x)'; % = 2 + sin(2*pi*f1*x)
+    f(1) = 1/2;
+    fun{2} = 'f(x) = 5 + cos(x)'; %  = 5 + cos(2*pi*f2*x)
+    f(2) = 1/(2*pi);
+
+    % Plot Contrast on MTF plot
+    contrast = exp(-2*pi^2*f.^2);
+    plot(f, contrast, 'r+')
+    for (i = 1:2)
+      str = ['\leftarrow '  fun{i}];
+      text(f(i), contrast(i), str)
+      disp(['Contrast of Signal ' num2str(i) ' is = ' num2str(contrast(i)*100) '%'])
+    end
+##### SOURCE END #####
+--></body></html>

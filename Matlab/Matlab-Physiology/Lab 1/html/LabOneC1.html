@@ -1,0 +1,275 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>LabOneC1</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-09-30"><meta name="DC.source" content="LabOneC1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> [gausselim, m_X, solution]= LabOneC1(A,m_X,b)
+    <span class="comment">% LabOneC1 calculates the concentration at different distance/time points</span>
+    <span class="comment">% LabOneC1(A,m_X,b)</span>
+    <span class="comment">% A: Square matrix for the constants multiplied by the variables</span>
+    <span class="comment">% m_X: variables of interest - need to be in cells, use form: { 'x', ...}</span>
+    <span class="comment">% b: Answers to the system</span>
+    <span class="comment">%</span>
+    <span class="comment">% see also LabOne.m and LabOneB1.m</span>
+
+<span class="comment">% clc, clear all</span>
+<span class="comment">% A = [33.4, 8.1, 34.5, 35.2; 49.4, 4.2, 49.4, 47.5; 68.3, 6.0, 38.5, 25.1; 57.1, 3.2, 31.2, 61.2];</span>
+<span class="comment">% syms Po C Ph U; m_X = [Po; C; Ph; U];</span>
+<span class="comment">% b = [489.8; 598.2; 692.7; 588.4];</span>
+
+<span class="comment">% Set up variables for:</span>
+sizeB = size(b);
+lengthB = sizeB(1); <span class="comment">% the length of b (i.e. n = length(b))</span>
+sizeA = size(A); <span class="comment">% the size of A (i.e. [f g] = size(A))</span>
+orderA = sizeA(1); <span class="comment">% the order (i.e. order = [1:n])</span>
+
+<span class="comment">% Use conditional statements to evaluate each scenario (i.e. if A is square and if A and b are the same length)</span>
+<span class="keyword">if</span> (sizeA(1) == sizeA(2) &amp;&amp; sizeA(1) == sizeB(1) )
+  Sizecheck = 1; <span class="comment">% pass</span>
+<span class="keyword">else</span>
+  Sizecheck = 0; <span class="comment">% fail, not square or equal</span>
+<span class="keyword">end</span>
+<span class="comment">% Include error messages that will alert the user of the program if these two ` requirements are not met</span>
+<span class="keyword">if</span> Sizecheck == 0
+  disp(<span class="string">'A is not square and/or A and b are different lengths. Fix it pronto.'</span>)
+  warning(<span class="string">'off'</span>)
+<span class="keyword">end</span>
+
+<span class="comment">%initialize the orderArow vector</span>
+<span class="keyword">for</span> i = 1:orderA
+    orderArow(i) = i;
+<span class="keyword">end</span>
+orderArow = orderArow';
+
+<span class="comment">% Create an augmented matrix made up of A and b as discussed in class</span>
+Ab = [A, b];
+
+<span class="comment">% Intialize a loop to check each column</span>
+<span class="keyword">for</span> c =1:orderA-1;
+    max = 0;
+    r = 0;
+
+    <span class="comment">% 1. Find the maximum pivot element</span>
+    <span class="keyword">for</span> countM = c:orderA
+        <span class="keyword">if</span> abs(Ab(orderArow(countM),c))&gt;max <span class="comment">% Location of max value</span>
+            max = abs(Ab(orderArow(countM),c));
+            r = countM; <span class="comment">% simplify only to the first maximum value through loops</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Create a unit vector using the MATLAB functions diag and ones()</span>
+    eyeI = diag(ones(orderA, 1)'); <span class="comment">% Same as eye(orderA)</span>
+    alterI = eyeI; <span class="comment">% final I value</span>
+    <span class="comment">% Make the rotated top quad</span>
+    <span class="keyword">for</span> j =1:2
+        altereyeI(j, 1) = eyeI(j, 2);
+        altereyeI(j, 2) = eyeI(j, 1);
+    <span class="keyword">end</span>
+
+    <span class="comment">% This method isn't consistent</span>
+    <span class="comment">% IA = alterI*A;</span>
+    <span class="comment">% IB = alterI*b;</span>
+
+    <span class="comment">% 2. Interchange the rows and columns to set the maximum element as the pivot</span>
+    tempAb = Ab;
+    Ab(c, :) = tempAb(r, :);
+    Ab(r, :) = tempAb(c, :);
+    tempm_X = m_X;
+    m_X(c) = tempm_X(r);
+    m_X(r) = tempm_X(c);
+
+    <span class="comment">% 3. Perform Gaussian elimination</span>
+    <span class="keyword">for</span> i = (c+1):orderA <span class="comment">% cycle through each row except for the first</span>
+        R(i,c) = -Ab(i,c)/Ab(c,c);
+        <span class="keyword">for</span> j = c:orderA+1 <span class="comment">% cycle through each column including the augmented one</span>
+            Ab(i,j) = Ab(i,j) + R(i,c)*Ab(c,j);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% 4. Perform back substitution to obtain a solution for x, y, and z</span>
+sol(orderA) = 0;
+sol = sol';
+
+sol(orderA) = Ab(orderArow(orderA),orderA+1)/Ab(orderArow(orderA),orderA);
+i = orderA-1;
+
+<span class="keyword">while</span> i &gt; 0
+    sol(i) = (Ab(i,orderA+1) - Ab(i,i+1:orderA)*sol(i+1:orderA))/(Ab(i,i));
+   i = i-1;
+<span class="keyword">end</span>
+
+<span class="comment">% Return values to the user</span>
+gausselim = Ab;
+m_X = m_X;
+solution = double(sol);
+</pre><pre class="codeoutput error">Error using LabOneC1 (line 16)
+Not enough input arguments.
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [gausselim, m_X, solution]= LabOneC1(A,m_X,b)
+    % LabOneC1 calculates the concentration at different distance/time points
+    % LabOneC1(A,m_X,b)
+    % A: Square matrix for the constants multiplied by the variables
+    % m_X: variables of interest - need to be in cells, use form: { 'x', ...}
+    % b: Answers to the system
+    %
+    % see also LabOne.m and LabOneB1.m
+
+% clc, clear all
+% A = [33.4, 8.1, 34.5, 35.2; 49.4, 4.2, 49.4, 47.5; 68.3, 6.0, 38.5, 25.1; 57.1, 3.2, 31.2, 61.2];
+% syms Po C Ph U; m_X = [Po; C; Ph; U];
+% b = [489.8; 598.2; 692.7; 588.4];
+
+% Set up variables for:
+sizeB = size(b);
+lengthB = sizeB(1); % the length of b (i.e. n = length(b))
+sizeA = size(A); % the size of A (i.e. [f g] = size(A))
+orderA = sizeA(1); % the order (i.e. order = [1:n])
+
+% Use conditional statements to evaluate each scenario (i.e. if A is square and if A and b are the same length)
+if (sizeA(1) == sizeA(2) && sizeA(1) == sizeB(1) )
+  Sizecheck = 1; % pass
+else
+  Sizecheck = 0; % fail, not square or equal
+end
+% Include error messages that will alert the user of the program if these two ` requirements are not met
+if Sizecheck == 0
+  disp('A is not square and/or A and b are different lengths. Fix it pronto.')
+  warning('off')
+end
+
+%initialize the orderArow vector
+for i = 1:orderA
+    orderArow(i) = i;
+end
+orderArow = orderArow';
+
+% Create an augmented matrix made up of A and b as discussed in class
+Ab = [A, b];
+
+% Intialize a loop to check each column
+for c =1:orderA-1;
+    max = 0;
+    r = 0;
+
+    % 1. Find the maximum pivot element
+    for countM = c:orderA
+        if abs(Ab(orderArow(countM),c))>max % Location of max value
+            max = abs(Ab(orderArow(countM),c));
+            r = countM; % simplify only to the first maximum value through loops
+        end
+    end
+
+    % Create a unit vector using the MATLAB functions diag and ones()
+    eyeI = diag(ones(orderA, 1)'); % Same as eye(orderA)
+    alterI = eyeI; % final I value
+    % Make the rotated top quad
+    for j =1:2
+        altereyeI(j, 1) = eyeI(j, 2);
+        altereyeI(j, 2) = eyeI(j, 1);
+    end
+
+    % This method isn't consistent
+    % IA = alterI*A;
+    % IB = alterI*b;
+
+    % 2. Interchange the rows and columns to set the maximum element as the pivot
+    tempAb = Ab;
+    Ab(c, :) = tempAb(r, :);
+    Ab(r, :) = tempAb(c, :);
+    tempm_X = m_X;
+    m_X(c) = tempm_X(r);
+    m_X(r) = tempm_X(c);
+
+    % 3. Perform Gaussian elimination
+    for i = (c+1):orderA % cycle through each row except for the first
+        R(i,c) = -Ab(i,c)/Ab(c,c);
+        for j = c:orderA+1 % cycle through each column including the augmented one
+            Ab(i,j) = Ab(i,j) + R(i,c)*Ab(c,j);
+        end
+    end
+end
+
+% 4. Perform back substitution to obtain a solution for x, y, and z
+sol(orderA) = 0;
+sol = sol';
+
+sol(orderA) = Ab(orderArow(orderA),orderA+1)/Ab(orderArow(orderA),orderA);
+i = orderA-1;
+
+while i > 0
+    sol(i) = (Ab(i,orderA+1) - Ab(i,i+1:orderA)*sol(i+1:orderA))/(Ab(i,i));
+   i = i-1;
+end
+
+% Return values to the user
+gausselim = Ab;
+m_X = m_X;
+solution = double(sol);
+
+##### SOURCE END #####
+--></body></html>

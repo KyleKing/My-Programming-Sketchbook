@@ -1,0 +1,294 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>complement</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-09"><meta name="DC.source" content="complement.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> [str2, str1] = complement(str1)
+<span class="comment">% complement find the reverse complement of the given nucleotide string as str2</span>
+<span class="comment">% str is the input string</span>
+<span class="comment">%</span>
+<span class="comment">%   See also cleanString.m</span>
+
+  <span class="comment">% % For testing:</span>
+  <span class="comment">% clc, clear all</span>
+  <span class="comment">% str1 = ['ACCCCCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'];</span>
+
+
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  <span class="comment">% For given sequence, take the complememnt and store in reverse order</span>
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+
+  <span class="comment">% Find length of input sequence</span>
+  lenStr1 = length(str1);
+
+  <span class="comment">% For length of given sequence</span>
+  <span class="keyword">for</span> i = 1:lenStr1
+    <span class="comment">% Check for nucleotide base and store pair in tmp data structure</span>
+    <span class="keyword">if</span> str1(i) == <span class="string">'C'</span>
+      tmp = <span class="string">'G'</span>;
+    <span class="keyword">elseif</span> str1(i) == <span class="string">'G'</span>
+      tmp = <span class="string">'C'</span>;
+    <span class="keyword">elseif</span> str1(i) == <span class="string">'A'</span>
+      tmp = <span class="string">'T'</span>;
+    <span class="keyword">elseif</span> str1(i) == <span class="string">'T'</span>
+      tmp = <span class="string">'A'</span>;
+    <span class="keyword">else</span>
+      <span class="comment">% If no nucleotide is detected or protein sequence is run. Return error code:</span>
+      disp(<span class="string">'Double check that this a DNA sequence (in all CAPS) and remove any non-ACTG characters. Please!'</span>)
+      <span class="keyword">return</span> <span class="comment">% end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Make the reverse complement by filling in the string backwards (i.e. Final position - current)</span>
+    tmpPos = lenStr1 - i + 1; <span class="comment">% '+1' is added to make the math work</span>
+    str2(tmpPos) = tmp; <span class="comment">% Write to reverseComlement</span>
+  <span class="keyword">end</span>
+
+  <span class="comment">% Use cleanstring file to chunk long sequence into readable text (30 bp long)</span>
+  [cleanStr1, cleanExtStr1] = cleanString(str1);
+  [cleanStr2, cleanExtStr2] = cleanString(str2);
+
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  <span class="comment">% For reference, the m-function file is included below:</span>
+  <span class="comment">%</span>
+  <span class="comment">%</span>
+  <span class="comment">% function [cleanStr2, cleanExtStr2] = cleanString(str2)</span>
+  <span class="comment">% % complement find the reverse complement of the given nucleotide string</span>
+  <span class="comment">% %</span>
+  <span class="comment">% %   See also complement.m</span>
+
+  <span class="comment">%   % Manipulate the length of the string</span>
+  <span class="comment">%   lenStr2 = length(str2);</span>
+  <span class="comment">%   lines = lenStr2/30; % arbitrary number that looked good for max width</span>
+  <span class="comment">%   % Round the sequence</span>
+  <span class="comment">%   ceilLines = ceil(lines);</span>
+  <span class="comment">%   flrLines = floor(lines);</span>
+
+  <span class="comment">%   %</span>
+  <span class="comment">%   %</span>
+  <span class="comment">%   % Truncate sequence into 30 bp shorter sequences</span>
+  <span class="comment">%   %</span>
+  <span class="comment">%   %</span>
+
+  <span class="comment">%   % If seq chunk is less than 30, run extension to avoid range issues</span>
+  <span class="comment">%   extension = lenStr2 - 30*flrLines; % Find remainder of dividing by 30</span>
+  <span class="comment">%   if (extension ~= 0)</span>
+  <span class="comment">%     jlastLast = 30*flrLines + 1; % find start of last 30 base chunk</span>
+  <span class="comment">%     cleanExtStr2 = str2(jlastLast:(flrLines*30 + extension)); % store it</span>
+  <span class="comment">%   else</span>
+  <span class="comment">%     cleanExtStr2 = ''; % empty second header is divisible in 30 base chunks</span>
+  <span class="comment">%   end</span>
+
+  <span class="comment">%   % If seq chunk is = to 30, run standard analysis</span>
+  <span class="comment">%   if flrLines &gt;= 1 % Check to see if the sequence is longer than 30 characters</span>
+  <span class="comment">%     jlast = 1; % initialize counter variable</span>
+  <span class="comment">%     for i=1:flrLines</span>
+  <span class="comment">%       % For each 30 base chunk (i)</span>
+  <span class="comment">%       tempStr2 = str2(jlast:i*30); % length(tempStr2) % for testing</span>
+  <span class="comment">%       cleanStr2(i, :) = tempStr2; % save short sequence as new line</span>
+  <span class="comment">%       jlast = jlast + 30; % shift to next 30 base string</span>
+  <span class="comment">%     end</span>
+  <span class="comment">%   else % If not &gt; 30 characters, just display the extension sequence</span>
+  <span class="comment">%     cleanStr2 = cleanExtStr2; % Swap short sequence to first header</span>
+  <span class="comment">%     cleanExtStr2 = ''; % then empty second header</span>
+  <span class="comment">%   end</span>
+  <span class="comment">% end</span>
+
+
+  <span class="comment">% Display original string</span>
+  disp([13 <span class="string">'Given string:'</span> 13])
+  disp(cleanStr1)
+  <span class="keyword">if</span> length(cleanExtStr1) ~= 0
+    disp(cleanExtStr1)
+  <span class="keyword">end</span>
+
+  <span class="comment">% Display output of string manipulation</span>
+  disp([13 <span class="string">'The reverse complement is:'</span> 13])
+  disp(cleanStr2)
+  <span class="keyword">if</span> length(cleanExtStr2) ~= 0
+    disp(cleanExtStr2)
+  <span class="keyword">end</span>
+
+  <span class="keyword">return</span> <span class="comment">% end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Error using complement (line 19)
+Not enough input arguments.
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [str2, str1] = complement(str1)
+% complement find the reverse complement of the given nucleotide string as str2
+% str is the input string
+%
+%   See also cleanString.m
+
+  % % For testing:
+  % clc, clear all
+  % str1 = ['ACCCCCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'];
+
+
+  %
+  %
+  % For given sequence, take the complememnt and store in reverse order
+  %
+  %
+
+  % Find length of input sequence
+  lenStr1 = length(str1);
+
+  % For length of given sequence
+  for i = 1:lenStr1
+    % Check for nucleotide base and store pair in tmp data structure
+    if str1(i) == 'C'
+      tmp = 'G';
+    elseif str1(i) == 'G'
+      tmp = 'C';
+    elseif str1(i) == 'A'
+      tmp = 'T';
+    elseif str1(i) == 'T'
+      tmp = 'A';
+    else
+      % If no nucleotide is detected or protein sequence is run. Return error code:
+      disp('Double check that this a DNA sequence (in all CAPS) and remove any non-ACTG characters. Please!')
+      return % end
+    end
+
+    % Make the reverse complement by filling in the string backwards (i.e. Final position - current)
+    tmpPos = lenStr1 - i + 1; % '+1' is added to make the math work
+    str2(tmpPos) = tmp; % Write to reverseComlement
+  end
+
+  % Use cleanstring file to chunk long sequence into readable text (30 bp long)
+  [cleanStr1, cleanExtStr1] = cleanString(str1);
+  [cleanStr2, cleanExtStr2] = cleanString(str2);
+
+  %
+  %
+  % For reference, the m-function file is included below:
+  %
+  %
+  % function [cleanStr2, cleanExtStr2] = cleanString(str2)
+  % % complement find the reverse complement of the given nucleotide string
+  % %
+  % %   See also complement.m
+
+  %   % Manipulate the length of the string
+  %   lenStr2 = length(str2);
+  %   lines = lenStr2/30; % arbitrary number that looked good for max width
+  %   % Round the sequence
+  %   ceilLines = ceil(lines);
+  %   flrLines = floor(lines);
+
+  %   %
+  %   %
+  %   % Truncate sequence into 30 bp shorter sequences
+  %   %
+  %   %
+
+  %   % If seq chunk is less than 30, run extension to avoid range issues
+  %   extension = lenStr2 - 30*flrLines; % Find remainder of dividing by 30
+  %   if (extension ~= 0)
+  %     jlastLast = 30*flrLines + 1; % find start of last 30 base chunk
+  %     cleanExtStr2 = str2(jlastLast:(flrLines*30 + extension)); % store it
+  %   else
+  %     cleanExtStr2 = ''; % empty second header is divisible in 30 base chunks
+  %   end
+
+  %   % If seq chunk is = to 30, run standard analysis
+  %   if flrLines >= 1 % Check to see if the sequence is longer than 30 characters
+  %     jlast = 1; % initialize counter variable
+  %     for i=1:flrLines
+  %       % For each 30 base chunk (i)
+  %       tempStr2 = str2(jlast:i*30); % length(tempStr2) % for testing
+  %       cleanStr2(i, :) = tempStr2; % save short sequence as new line
+  %       jlast = jlast + 30; % shift to next 30 base string
+  %     end
+  %   else % If not > 30 characters, just display the extension sequence
+  %     cleanStr2 = cleanExtStr2; % Swap short sequence to first header
+  %     cleanExtStr2 = ''; % then empty second header
+  %   end
+  % end
+
+
+  % Display original string
+  disp([13 'Given string:' 13])
+  disp(cleanStr1)
+  if length(cleanExtStr1) ~= 0
+    disp(cleanExtStr1)
+  end
+
+  % Display output of string manipulation
+  disp([13 'The reverse complement is:' 13])
+  disp(cleanStr2)
+  if length(cleanExtStr2) ~= 0
+    disp(cleanExtStr2)
+  end
+
+  return % end
+end
+##### SOURCE END #####
+--></body></html>

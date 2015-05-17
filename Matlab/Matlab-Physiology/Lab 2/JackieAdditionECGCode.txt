@@ -1,0 +1,45 @@
+% 2) Identify and report key features of the mean ECG signal
+ 
+% a. Heart Rate between peaks
+ 
+%HR = 
+ 
+Rpeak = [];
+Rint = [];
+ 
+% Find all R peaks
+for a =1:length(Rt)
+    if peakName(a) == 3
+        Rpeak = [Rpeak; Rt(a) R(a)];
+    end
+end
+% Find time between all R peaks
+for b = 2:length(Rpeak)
+    tInt = Rpeak(b,1) - Rpeak(b-1,1);
+    Rint = [Rint; tInt];
+end
+ 
+HR = 60/mean(tInt)
+ 
+% b. Indicate the QRS complex and T and P wave on a graphical representation of the data;
+% c. Maximum and minimum voltage;
+maxVoltage = max(R)
+minVoltage = min(R)
+% d. Average P-Q, P-R or Q-T interval.
+ 
+% Find all P peaks
+Ppeak = [];
+for a =1:length(Rt)
+    if peakName(a) == 1
+        Ppeak = [Ppeak; Rt(a) R(a)];
+    end
+end
+ 
+if Ppeak(1,1)>Rpeak(1,1)
+    q = 2;
+else
+    q = 1;
+end
+ 
+d=1;
+PRint = [];

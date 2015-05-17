@@ -1,0 +1,454 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW4</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-10-02"><meta name="DC.source" content="HW4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Kyle King</span>
+<span class="comment">% BIOE404</span>
+<span class="comment">% Section 0103</span>
+<span class="comment">% 10-03-2014</span>
+
+clc, clear <span class="string">all</span> <span class="comment">% boilerplate</span>
+
+<span class="comment">% % Global Variables</span>
+<span class="comment">% iglo = [1,0,0];</span>
+<span class="comment">% jglo = [0, 1, 0];</span>
+<span class="comment">% kglo = [0,0,1];</span>
+
+<span class="comment">%</span>
+<span class="comment">% Declare constants</span>
+<span class="comment">%</span>
+rua = [0, -0.40, 0]; <span class="comment">% m in local j direction</span>
+frameRate = 1/10; <span class="comment">% 10 hz</span>
+
+ti = -frameRate;
+M1pre =[100.0, 150.0, -250.0];
+M1dur = [115.0, 155.0, -244.0];
+M1aft = [128.0, 152.0, -251.0];
+t0 = 0;
+M2pre =[100.0, 150.0, -253.0];
+M2dur = [114.6, 156.7, -246.4];
+M2aft = [126.0, 154.3, -251.4];
+tf = frameRate;
+M3pre =[101.5, 147.4, -250.0];
+M3dur = [116.2, 152.9, -245.7];
+M3aft = [128.5, 152.0, -254.0];
+
+<span class="comment">%</span>
+<span class="comment">% Part A:  Write local coordinate axis vectors at each of the data points.</span>
+disp(<span class="string">'Part A.'</span>)
+<span class="comment">%</span>
+<span class="comment">% Pre, t = -1 s</span>
+<span class="comment">% Solve for local in terms of global then normalize</span>
+ipre = M2pre - M1pre; ipre = ipre/norm(ipre)
+jpre = M3pre - M1pre; jpre = jpre/norm(jpre)
+kpre = cross(ipre, jpre) <span class="comment">% Already a unit vector</span>
+<span class="comment">% During, t = 0</span>
+idur = M2dur - M1dur; idur = idur/norm(idur)
+jdur = M3dur - M1dur; jdur = jdur/norm(jdur)
+kdur = cross(idur, jdur)
+<span class="comment">% After, t = 1 s</span>
+iaft = M2aft - M1aft; iaft = iaft/norm(iaft)
+jaft = M3aft - M1aft; jaft = jaft/norm(jaft)
+kaft = cross(iaft, jaft)
+
+
+<span class="comment">%</span>
+<span class="comment">% Part B. Find the Orientation Matrices (M)</span>
+disp(<span class="string">'Part B.'</span>)
+<span class="comment">%</span>
+<span class="comment">% Pre, t = -1 s</span>
+preM = [ipre' jpre' kpre']
+<span class="comment">% During, t = 0</span>
+durM = [idur' jdur' kdur']
+<span class="comment">% After, t = 1 s</span>
+aftM = [iaft' jaft' kaft']
+
+
+<span class="comment">%</span>
+<span class="comment">% Part C. Calculate the rotation matrices governing the angular motion between data points (t-1 and t0, t0 and t+1).</span>
+disp(<span class="string">'Part C.'</span>)
+<span class="comment">%</span>
+<span class="comment">% Start in &eth;&#157;&#144;&#145;&eth;&#157;&#159;&#143;&eth;&#157;&#159;&#144; &acirc;&#136;&#153; &eth;&#157;&#144;&#140;&eth;&#157;&#159;&#143; = &eth;&#157;&#144;&#140;&eth;&#157;&#159;&#144; form then divide (transpose, since Orientation Matrix)</span>
+<span class="comment">% t-1 and t0</span>
+Rpredur = durM*transpose(preM)
+<span class="comment">% t0 and t1</span>
+Rduraft = aftM*transpose(durM)
+
+
+<span class="comment">%</span>
+<span class="comment">% Part D. In global coordinates, calculate the angular velocity vectors of the forearm (by finding the change in forearm angle per time increment) between t-1 and t0 and between t0 and t+1.</span>
+disp(<span class="string">'Part D.'</span>)
+<span class="comment">%</span>
+<span class="comment">% Declare vars</span>
+syms <span class="string">angleNumber</span>;
+<span class="comment">% Normalize each column of the orientation matrix</span>
+<span class="comment">% Only considering the change in the linear motion of the arm (i.e. j dimension)</span>
+jpreM = preM(:,2)./norm(preM(:,2));
+jdurM = durM(:,2)./norm(durM(:,2));
+jaftM = aftM(:,2)./norm(aftM(:,2));
+<span class="comment">% Take the dot product of columns of original</span>
+tempWpredur = dot(jpreM, jdurM);
+tempWduraft = dot(jdurM, jaftM);
+<span class="comment">% Solve for the angle using the theorem for dot product</span>
+<span class="comment">% Note: magnitude of vectors will be one anyway</span>
+thetapre = solve(tempWpredur == cos(angleNumber), angleNumber);
+thetaaft = solve(tempWduraft == cos(angleNumber), angleNumber);
+<span class="comment">% Then divide by time (r/s) and only want positive angle</span>
+rWpredur = double(thetapre(1)./frameRate);
+rWduraft = double(thetaaft(1)./frameRate);
+
+<span class="comment">% Cross the j-unit-vectors to find the direction of omega</span>
+tempWpredur = cross(jpreM, jdurM)/norm(cross(jpreM, jdurM));
+tempWduraft = cross(jdurM, jaftM)/norm(cross(jdurM, jaftM));
+
+<span class="comment">% Multiply the magnitude of omega by the direction</span>
+Wpredur = tempWpredur*rWpredur
+Wduraft = tempWduraft*rWduraft
+
+
+<span class="comment">%</span>
+<span class="comment">% Part E. Now calculate the angular acceleration vector (again, in global coordinates) of the forearm using the angular velocities. Take the direction of the angular acceleration vector to be the average directions of the angular velocities.</span>
+disp(<span class="string">'Part E.'</span>)
+<span class="comment">%</span>
+<span class="comment">% Find average of the velocities and normalize to get acceleration direction</span>
+Adir = (tempWpredur + tempWduraft)./(2);
+Adir = Adir/norm(Adir);
+<span class="comment">% Find acceleration magnitude</span>
+Amag = abs((rWpredur-rWduraft)/(t0 - ti));
+<span class="comment">% Find the acceleration</span>
+A = Adir.*Amag
+
+
+<span class="comment">%</span>
+<span class="comment">% Part F. Suppose you are interested in the tangential acceleration of the pitcher&acirc;&#128;&#153;s hand at t0 due to the angular motion of the forearm only. Calculate the tangential acceleration vector with respect to the global coordinate system. Transform the tangential acceleration vector into its expression in the local coordinate system at t0.</span>
+disp(<span class="string">'Part F.'</span>)
+<span class="comment">% find the tangential acceleration by using the cross product or rxA, but first transform the unit vector of r along the j dimension at t0</span>
+Atang = cross(jdurM.*(-0.4), A);
+<span class="comment">% Transform back into local coordinates with a transposed Orientation Matrix</span>
+Atangdur = transpose(durM)*Atang
+
+
+<span class="comment">% Unused</span>
+<span class="comment">% % Angular Rotational Matrices</span>
+<span class="comment">% syms rPsi rTheta rPhi;</span>
+<span class="comment">% Ri = [1, 0, 0; 0, cos(rPhi), -sin(rPhi); 0, sin(rPhi), cos(rPhi)];</span>
+<span class="comment">% Rj = [cos(rTheta), 0, sin(rTheta); 0, 1, 0; -sin(rTheta), 0, cos(rTheta)];</span>
+<span class="comment">% Rk = [cos(rPsi), -sin(rPsi), 0;  sin(rPsi), cos(rPsi), 0; 0, 0, 1];</span>
+
+<span class="comment">% Rot = Rk*Rj*Ri;</span>
+</pre><pre class="codeoutput">Part A.
+
+ipre =
+
+     0     0    -1
+
+
+jpre =
+
+    0.4997   -0.8662         0
+
+
+kpre =
+
+   -0.8662   -0.4997         0
+
+
+idur =
+
+   -0.1348    0.5727   -0.8086
+
+
+jdur =
+
+    0.4059   -0.7103   -0.5750
+
+
+kdur =
+
+   -0.9037   -0.4057   -0.1368
+
+
+iaft =
+
+   -0.6506    0.7482   -0.1301
+
+
+jaft =
+
+    0.1644         0   -0.9864
+
+
+kaft =
+
+   -0.7380   -0.6631   -0.1230
+
+Part B.
+
+preM =
+
+         0    0.4997   -0.8662
+         0   -0.8662   -0.4997
+   -1.0000         0         0
+
+
+durM =
+
+   -0.1348    0.4059   -0.9037
+    0.5727   -0.7103   -0.4057
+   -0.8086   -0.5750   -0.1368
+
+
+aftM =
+
+   -0.6506    0.1644   -0.7380
+    0.7482         0   -0.6631
+   -0.1301   -0.9864   -0.1230
+
+Part C.
+
+Rpredur =
+
+    0.9856    0.1000    0.1348
+   -0.0036    0.8180   -0.5727
+   -0.1689    0.5664    0.8086
+
+
+Rduraft =
+
+    0.8214   -0.1900    0.5325
+    0.4985    0.6976   -0.5143
+   -0.2717    0.6760    0.6892
+
+Part D.
+
+Wpredur =
+
+    5.3067
+    3.0615
+   -0.0360
+
+
+Wduraft =
+
+    8.0103
+    3.4966
+    1.3351
+
+Part E.
+
+A =
+
+   24.1694
+   12.2089
+    1.9792
+
+Part F.
+
+Atangdur =
+
+   10.8264
+   -0.0000
+    0.8540
+
+</pre><img vspace="5" hspace="5" src="HW4_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Kyle King
+% BIOE404
+% Section 0103
+% 10-03-2014
+
+clc, clear all % boilerplate
+
+% % Global Variables
+% iglo = [1,0,0];
+% jglo = [0, 1, 0];
+% kglo = [0,0,1];
+
+%
+% Declare constants
+%
+rua = [0, -0.40, 0]; % m in local j direction
+frameRate = 1/10; % 10 hz
+
+ti = -frameRate;
+M1pre =[100.0, 150.0, -250.0];
+M1dur = [115.0, 155.0, -244.0];
+M1aft = [128.0, 152.0, -251.0];
+t0 = 0;
+M2pre =[100.0, 150.0, -253.0];
+M2dur = [114.6, 156.7, -246.4];
+M2aft = [126.0, 154.3, -251.4];
+tf = frameRate;
+M3pre =[101.5, 147.4, -250.0];
+M3dur = [116.2, 152.9, -245.7];
+M3aft = [128.5, 152.0, -254.0];
+
+%
+% Part A:  Write local coordinate axis vectors at each of the data points.
+disp('Part A.')
+%
+% Pre, t = -1 s
+% Solve for local in terms of global then normalize
+ipre = M2pre - M1pre; ipre = ipre/norm(ipre)
+jpre = M3pre - M1pre; jpre = jpre/norm(jpre)
+kpre = cross(ipre, jpre) % Already a unit vector
+% During, t = 0
+idur = M2dur - M1dur; idur = idur/norm(idur)
+jdur = M3dur - M1dur; jdur = jdur/norm(jdur)
+kdur = cross(idur, jdur)
+% After, t = 1 s
+iaft = M2aft - M1aft; iaft = iaft/norm(iaft)
+jaft = M3aft - M1aft; jaft = jaft/norm(jaft)
+kaft = cross(iaft, jaft)
+
+
+%
+% Part B. Find the Orientation Matrices (M)
+disp('Part B.')
+%
+% Pre, t = -1 s
+preM = [ipre' jpre' kpre']
+% During, t = 0
+durM = [idur' jdur' kdur']
+% After, t = 1 s
+aftM = [iaft' jaft' kaft']
+
+
+%
+% Part C. Calculate the rotation matrices governing the angular motion between data points (t-1 and t0, t0 and t+1).
+disp('Part C.')
+%
+% Start in ððð â ðð = ðð form then divide (transpose, since Orientation Matrix)
+% t-1 and t0
+Rpredur = durM*transpose(preM)
+% t0 and t1
+Rduraft = aftM*transpose(durM)
+
+
+%
+% Part D. In global coordinates, calculate the angular velocity vectors of the forearm (by finding the change in forearm angle per time increment) between t-1 and t0 and between t0 and t+1.
+disp('Part D.')
+%
+% Declare vars
+syms angleNumber;
+% Normalize each column of the orientation matrix
+% Only considering the change in the linear motion of the arm (i.e. j dimension)
+jpreM = preM(:,2)./norm(preM(:,2));
+jdurM = durM(:,2)./norm(durM(:,2));
+jaftM = aftM(:,2)./norm(aftM(:,2));
+% Take the dot product of columns of original
+tempWpredur = dot(jpreM, jdurM);
+tempWduraft = dot(jdurM, jaftM);
+% Solve for the angle using the theorem for dot product
+% Note: magnitude of vectors will be one anyway
+thetapre = solve(tempWpredur == cos(angleNumber), angleNumber);
+thetaaft = solve(tempWduraft == cos(angleNumber), angleNumber);
+% Then divide by time (r/s) and only want positive angle
+rWpredur = double(thetapre(1)./frameRate);
+rWduraft = double(thetaaft(1)./frameRate);
+
+% Cross the j-unit-vectors to find the direction of omega
+tempWpredur = cross(jpreM, jdurM)/norm(cross(jpreM, jdurM));
+tempWduraft = cross(jdurM, jaftM)/norm(cross(jdurM, jaftM));
+
+% Multiply the magnitude of omega by the direction
+Wpredur = tempWpredur*rWpredur
+Wduraft = tempWduraft*rWduraft
+
+
+%
+% Part E. Now calculate the angular acceleration vector (again, in global coordinates) of the forearm using the angular velocities. Take the direction of the angular acceleration vector to be the average directions of the angular velocities.
+disp('Part E.')
+%
+% Find average of the velocities and normalize to get acceleration direction
+Adir = (tempWpredur + tempWduraft)./(2);
+Adir = Adir/norm(Adir);
+% Find acceleration magnitude
+Amag = abs((rWpredur-rWduraft)/(t0 - ti));
+% Find the acceleration
+A = Adir.*Amag
+
+
+%
+% Part F. Suppose you are interested in the tangential acceleration of the pitcherâs hand at t0 due to the angular motion of the forearm only. Calculate the tangential acceleration vector with respect to the global coordinate system. Transform the tangential acceleration vector into its expression in the local coordinate system at t0.
+disp('Part F.')
+% find the tangential acceleration by using the cross product or rxA, but first transform the unit vector of r along the j dimension at t0
+Atang = cross(jdurM.*(-0.4), A);
+% Transform back into local coordinates with a transposed Orientation Matrix
+Atangdur = transpose(durM)*Atang
+
+
+% Unused
+% % Angular Rotational Matrices
+% syms rPsi rTheta rPhi;
+% Ri = [1, 0, 0; 0, cos(rPhi), -sin(rPhi); 0, sin(rPhi), cos(rPhi)];
+% Rj = [cos(rTheta), 0, sin(rTheta); 0, 1, 0; -sin(rTheta), 0, cos(rTheta)];
+% Rk = [cos(rPsi), -sin(rPsi), 0;  sin(rPsi), cos(rPsi), 0; 0, 0, 1];
+
+% Rot = Rk*Rj*Ri;
+##### SOURCE END #####
+--></body></html>

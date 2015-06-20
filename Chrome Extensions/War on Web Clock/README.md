@@ -13,5 +13,6 @@ I'm not a huge fan of my employer's web clock interface and would often mistake 
 
 - This guide got me started by [Carl Topham](https://carl-topham.com/theblog/post/creating-chrome-extension-uses-jquery-manipulate-dom-page/) make sure to see his update at the bottom with fixes for Manifest Version 2
 - Described as overkill, but turned out to be perfect for this application. A hide_text function was copied from [TJ Crowder's extensive answer](http://stackoverflow.com/questions/5824091/jquery-hiding-text-only-in-h2-block-not-background)
+- The icon is from [this wonderful article](http://webdesign.tutsplus.com/articles/making-web-icons-smarter--webdesign-15586)
 - [Eloquent Javascript is my go to reference](http://eloquentjavascript.net/03_functions.html)
-- Built in [Atom.io](https://atom.io/)
+- Built in [Atom.io](https://atom.io/) with quick [reloads](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid)

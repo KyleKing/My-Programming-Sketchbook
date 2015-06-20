@@ -1,0 +1,43 @@
+/*  Read about this page here: https://developer.chrome.com/extensions/content_scripts.html */
+
+/*Make Columns full width so they stack*/
+.button-column {
+  width: 100% !important;
+}
+
+/* Universal Classes added/removed by jQuery*/
+.hide {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}
+.button {
+  height: 100px;
+  background-color: #F4F4F4 !important;
+}
+.myDescriptors {
+  padding-top: 10px;
+  font-size: 40px !important;
+}
+
+/*Add some fun colors*/
+a.IN_FOR_DAY.primary-button:hover {
+  background-color: #9197AE !important;
+}
+a.OUT_FOR_DAY.primary-button:hover {
+  background-color: #B04D5F !important;
+}
+
+/* Hide unnecessary buttons */
+/*TIME_SHEET*/
+.TIME_SHEET {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}
+/*LOGOUT*/
+.LOGOUT.primary-button {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}

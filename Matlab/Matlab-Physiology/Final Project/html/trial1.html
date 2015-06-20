@@ -1,0 +1,296 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>trial1</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-12-09"><meta name="DC.source" content="trial1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Final Physiology Project</a></li><li><a href="#2">Create Input Array</a></li><li><a href="#3">Run analysis</a></li><li><a href="#4">Manipulate glucose model values</a></li></ul></div><h2>Final Physiology Project<a name="1"></a></h2><p>By Abby Iacangelo, Kyle King, Ben Tunick, Jackie Weber BIOE340 Section 0102</p><pre class="codeinput">clc, clear <span class="string">all</span>, close <span class="string">all</span>
+</pre><h2>Create Input Array<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Set maximum peak value as determined by paper</span>
+peak = 700; <span class="comment">% mg glucose/meal</span>
+<span class="comment">% Set time values</span>
+num_hrs = 37;
+array_time = linspace(0, num_hrs, num_hrs);
+hour = length(array_time)/num_hrs;
+
+<span class="comment">% Set intake to match the graph seen in the paper</span>
+intake = [];
+<span class="keyword">for</span> b = 1:8*hour
+    intake = [intake; 0];
+<span class="keyword">end</span>
+<span class="comment">% Add the three peaks</span>
+<span class="keyword">for</span> a = 1:3
+  <span class="comment">% Peak up</span>
+  <span class="keyword">for</span> i = 1:hour
+    intake = [intake; i*(peak/1)/hour];
+  <span class="keyword">end</span>
+  <span class="comment">% Peak down</span>
+  <span class="keyword">for</span> k = 1:3*hour
+    intake = [intake; peak-k*(peak/3)/(hour)];
+  <span class="keyword">end</span>
+  <span class="comment">% Flat line</span>
+  <span class="keyword">for</span> j = 1:hour
+    intake = [intake; 0];
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">for</span> j = 1:9*hour
+  intake = [intake; 0];
+<span class="keyword">end</span>
+<span class="keyword">for</span> i = 1:hour
+intake = [intake; i*(peak/1)/hour];
+<span class="keyword">end</span>
+<span class="comment">% Peak down</span>
+<span class="keyword">for</span> k = 1:3*hour
+intake = [intake; peak-k*(peak/3)/(hour)];
+<span class="keyword">end</span>
+<span class="comment">% Flat line</span>
+<span class="keyword">for</span> j = 1:hour
+intake = [intake; 0];
+<span class="keyword">end</span>
+
+<span class="comment">% Plot the intake</span>
+figure
+plot(array_time, intake, <span class="string">'k'</span>), xlabel(<span class="string">'Time of Day (Hour)'</span>), ylabel(<span class="string">'Glucose input (mg/min)'</span>), title(<span class="string">'Glucose Input from 3 Meals'</span>)
+axis([0 num_hrs 0 800])
+</pre><img vspace="5" hspace="5" src="trial1_01.png" alt=""> <h2>Run analysis<a name="3"></a></h2><p>Calculate the output function G and in terms of ATP</p><pre class="codeinput">G = model2(intake);
+G_moles = (G./1000)./180.1559;
+ATP_mol_gen = G_moles.*32;
+
+<span class="comment">% Plot Results</span>
+figure
+plot(array_time, (-G+10000),<span class="string">'k'</span>), xlabel(<span class="string">'Time of Day (Hour)'</span>), ylabel(<span class="string">'Glucose (mg)'</span>), axis <span class="string">on</span>, title(<span class="string">'Total Amount of Glucose in the Plasma'</span>)
+axis([0 num_hrs 8000 16000]), set(gca, <span class="string">'YTickLabel'</span>, num2str(get(gca,<span class="string">'YTick'</span>)',<span class="string">'%d'</span>))
+
+<span class="comment">% Set physiological rate of caloric consumption (kcal)</span>
+laying_down = 1650; <span class="comment">% C/day</span>
+eating = 200;
+sitting = 150;
+net = laying_down + eating + sitting; <span class="comment">% kcal</span>
+rate_consumed = net/(length(array_time)*686); <span class="comment">% moles glucose/hour</span>
+r_ATP_deplete = (2000*32)/(length(array_time)*456); <span class="comment">% molesATP/hr</span>
+</pre><img vspace="5" hspace="5" src="trial1_02.png" alt=""> <h2>Manipulate glucose model values<a name="4"></a></h2><p>Initialize values for loop</p><pre class="codeinput">labs = [];
+glu_moles_metabolisable(1) = G_moles(1);
+glu_moles_store(1) = 0;
+store_init = zeros(1, length(intake));
+intake = intake./(1000/180.1556); <span class="comment">% moles glucose/hour, 1000 is a conversion from mg to g</span>
+moles_ATP(1) = intake(1)*glu_moles_metabolisable(1) - r_ATP_deplete;
+
+<span class="comment">% Create new graph</span>
+figure
+<span class="comment">% Loop through various storage moduli</span>
+<span class="keyword">for</span> glu_storage_rate = [0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8]
+  <span class="comment">% Loop through time</span>
+  <span class="keyword">for</span> t = 2:length(intake)
+    glu_moles_metabolisable(t) = intake(t)*(1-glu_storage_rate) + (store_init(t-1) + glu_moles_metabolisable(t-1))*(1 - rate_consumed);
+    glu_moles_store(t) = glu_moles_store(t-1) + intake(t)*glu_storage_rate;
+    <span class="comment">% If there's glucose to metabolize, don't change the storage value</span>
+    <span class="keyword">if</span> (glu_moles_metabolisable(t) &gt;= 0)
+      store_init(t) = 0;
+    <span class="comment">% if there's no glucose to metabolize and you're not eating</span>
+    <span class="keyword">elseif</span> (glu_moles_metabolisable(t) &lt;= 10000 &amp;&amp; intake(t) == 0)
+      store_init(t) = glu_moles_store(t-1);
+      glu_moles_metabolisable(t) = store_init(t);
+      glu_moles_store(t) = glu_moles_store(t-1)-store_init(t);
+    <span class="comment">% if there's no glucose to metabolize and you're not eating</span>
+    <span class="keyword">elseif</span> (glu_moles_metabolisable(t) &gt; glu_moles_store(t) &amp;&amp; glu_moles_metabolisable(t) &lt; 0)
+      store_init(t) = -glu_moles_metabolisable(t);
+      glu_moles_store(t) = (glu_moles_store(t-1) + store_init(t));
+    <span class="keyword">end</span>
+    <span class="comment">% Deplete what is consumed</span>
+    moles_ATP(t) = rate_consumed*glu_moles_metabolisable(t-1) - r_ATP_deplete;
+  <span class="keyword">end</span>
+  <span class="comment">% Plot values from time loop</span>
+  hold <span class="string">on</span>, plot(array_time, moles_ATP)
+<span class="keyword">end</span>
+xlabel(<span class="string">'Time of Day (Hour)'</span>), ylabel(<span class="string">'ATP (moles)'</span>), title(<span class="string">'Total ATP'</span>), axis([0 num_hrs 0 40])
+
+<span class="comment">% Create legend</span>
+<span class="keyword">for</span> z = [0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8]
+    label = cellstr([<span class="string">'Glucose Storage Rate = '</span>,num2str(z)]);
+    labs = [labs label];
+    legend(labs);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="trial1_03.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Final Physiology Project
+% By Abby Iacangelo, Kyle King, Ben Tunick, Jackie Weber
+% BIOE340
+% Section 0102
+
+clc, clear all, close all
+
+%% Create Input Array
+
+% Set maximum peak value as determined by paper
+peak = 700; % mg glucose/meal
+% Set time values
+num_hrs = 37;
+array_time = linspace(0, num_hrs, num_hrs);
+hour = length(array_time)/num_hrs;
+
+% Set intake to match the graph seen in the paper
+intake = [];
+for b = 1:8*hour
+    intake = [intake; 0];
+end
+% Add the three peaks
+for a = 1:3
+  % Peak up
+  for i = 1:hour
+    intake = [intake; i*(peak/1)/hour];
+  end
+  % Peak down
+  for k = 1:3*hour
+    intake = [intake; peak-k*(peak/3)/(hour)];
+  end
+  % Flat line
+  for j = 1:hour
+    intake = [intake; 0];
+  end
+end
+for j = 1:9*hour
+  intake = [intake; 0];
+end
+for i = 1:hour
+intake = [intake; i*(peak/1)/hour];
+end
+% Peak down
+for k = 1:3*hour
+intake = [intake; peak-k*(peak/3)/(hour)];
+end
+% Flat line
+for j = 1:hour
+intake = [intake; 0];
+end
+
+% Plot the intake
+figure
+plot(array_time, intake, 'k'), xlabel('Time of Day (Hour)'), ylabel('Glucose input (mg/min)'), title('Glucose Input from 3 Meals')
+axis([0 num_hrs 0 800])
+
+%% Run analysis
+% Calculate the output function G and in terms of ATP
+G = model2(intake);
+G_moles = (G./1000)./180.1559;
+ATP_mol_gen = G_moles.*32;
+
+% Plot Results
+figure
+plot(array_time, (-G+10000),'k'), xlabel('Time of Day (Hour)'), ylabel('Glucose (mg)'), axis on, title('Total Amount of Glucose in the Plasma')
+axis([0 num_hrs 8000 16000]), set(gca, 'YTickLabel', num2str(get(gca,'YTick')','%d'))
+
+% Set physiological rate of caloric consumption (kcal)
+laying_down = 1650; % C/day
+eating = 200;
+sitting = 150;
+net = laying_down + eating + sitting; % kcal
+rate_consumed = net/(length(array_time)*686); % moles glucose/hour
+r_ATP_deplete = (2000*32)/(length(array_time)*456); % molesATP/hr
+
+%% Manipulate glucose model values
+% Initialize values for loop
+labs = [];
+glu_moles_metabolisable(1) = G_moles(1);
+glu_moles_store(1) = 0;
+store_init = zeros(1, length(intake));
+intake = intake./(1000/180.1556); % moles glucose/hour, 1000 is a conversion from mg to g
+moles_ATP(1) = intake(1)*glu_moles_metabolisable(1) - r_ATP_deplete;
+
+% Create new graph
+figure
+% Loop through various storage moduli
+for glu_storage_rate = [0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8]
+  % Loop through time
+  for t = 2:length(intake)
+    glu_moles_metabolisable(t) = intake(t)*(1-glu_storage_rate) + (store_init(t-1) + glu_moles_metabolisable(t-1))*(1 - rate_consumed);
+    glu_moles_store(t) = glu_moles_store(t-1) + intake(t)*glu_storage_rate;
+    % If there's glucose to metabolize, don't change the storage value
+    if (glu_moles_metabolisable(t) >= 0)
+      store_init(t) = 0;
+    % if there's no glucose to metabolize and you're not eating
+    elseif (glu_moles_metabolisable(t) <= 10000 && intake(t) == 0)
+      store_init(t) = glu_moles_store(t-1);
+      glu_moles_metabolisable(t) = store_init(t);
+      glu_moles_store(t) = glu_moles_store(t-1)-store_init(t);
+    % if there's no glucose to metabolize and you're not eating
+    elseif (glu_moles_metabolisable(t) > glu_moles_store(t) && glu_moles_metabolisable(t) < 0)
+      store_init(t) = -glu_moles_metabolisable(t);
+      glu_moles_store(t) = (glu_moles_store(t-1) + store_init(t));
+    end
+    % Deplete what is consumed
+    moles_ATP(t) = rate_consumed*glu_moles_metabolisable(t-1) - r_ATP_deplete;
+  end
+  % Plot values from time loop
+  hold on, plot(array_time, moles_ATP)
+end
+xlabel('Time of Day (Hour)'), ylabel('ATP (moles)'), title('Total ATP'), axis([0 num_hrs 0 40])
+
+% Create legend
+for z = [0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8]
+    label = cellstr(['Glucose Storage Rate = ',num2str(z)]);
+    labs = [labs label];
+    legend(labs);
+end
+##### SOURCE END #####
+--></body></html>

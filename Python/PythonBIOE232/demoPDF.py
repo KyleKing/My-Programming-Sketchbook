@@ -18,13 +18,13 @@
 #' ),
 #' but you do need one line of whitespace between text and code.
 #' If you want to define options you can do it on using a line starting with
-#' `#+`. just before code e.g. `#+ term=True, caption='Fancy plots.'`. 
+#' `#+`. just before code e.g. `#+ term=True, caption='Fancy plots.'`.
 #' If you're viewing the HTML version have a look at the
 #' [source](FIR_design.py) to see the markup.
 
 #' The code and text below comes mostly
 #' from my blog post [FIR design with SciPy](http://mpastell.com/2010/01/18/fir-with-scipy/),
-#' but I've updated it to reflect new features in SciPy. 
+#' but I've updated it to reflect new features in SciPy.
 
 #' # FIR Filter Design
 
@@ -42,7 +42,7 @@
 # Import the pylab essentials
 from pylab import *
 import scipy.signal as signal
-    
+
 #Plot frequency and phase response
 def mfreqz(b,a=1):
     w,h = signal.freqz(b,a)
@@ -61,12 +61,15 @@ def mfreqz(b,a=1):
     title(r'Phase response')
     subplots_adjust(hspace=0.5)
 
-#Plot step and impulse response
-def impz(b,a=1):
+# Plot step and impulse response
+
+
+def impz(b, a=1):
     l = len(b)
-    impulse = repeat(0.,l); impulse[0] =1.
-    x = arange(0,l)
-    response = signal.lfilter(b,a,impulse)
+    impulse = repeat(0., l)
+    impulse[0] = 1.
+    x = arange(0, l)
+    response = signal.lfilter(b, a, impulse)
     subplot(211)
     stem(x, response)
     ylabel('Amplitude')
@@ -87,7 +90,7 @@ def impz(b,a=1):
 #' window.
 
 #' The Hamming window is defined as:
-#' $w(n) = \alpha - \beta\cos\frac{2\pi n}{N-1}$, where $\alpha=0.54$ and $\beta=0.46$ 
+#' $w(n) = \alpha - \beta\cos\frac{2\pi n}{N-1}$, where $\alpha=0.54$ and $\beta=0.46$
 
 #' The next code chunk is executed in term mode, see the [Python script](FIR_design.py) for syntax.
 #' Notice also that Pweave can now catch multiple figures/code chunk.

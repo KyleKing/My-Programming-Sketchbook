@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+
+  "name": "Web CLock UX",
+  "description": "Stores last clock action and only displays the opposite action.",
+  "version": "0.1",
+
+  "permissions": [
+    "storage"
+  ],
+
+	"content_scripts": [ {
+		"js": [ "noClick/jquery-2.1.4.min.js", "background.js" ],
+		"css": ["modifications.css"],
+		"matches": [ "file:///users/kyleking/Downloads/Web%20Clock.html", "https://time-entry-cusa.workforcehosting.com/workforce/WebClock.do*/*" ]
+	}]
+}

@@ -1,4 +1,54 @@
 // The code that is fired upon page load
+jQuery(function($) {
+  // Who doesn't like a wonderful set of scalable icons?
+  $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
+  // chrome.storage.sync.set({'status': 'Relaxing'}, function (result) {
+  //   chrome.storage.sync.get('status', function (result) {
+  //     alert(result.status);
+  //   });
+  // });
+  CheckStatus(MainLogic);
+});
+
+// Check status of the user
+function CheckStatus(callback) {
+  chrome.storage.sync.get("status", function (obj) {
+    console.log('From inside CheckStatus: obj.status = ' + obj.status);
+    callback(obj.status);
+  });
+}
+
+// Determine which button to show and change DOM
+function MainLogic(val) {
+  // Based on UserStatus determine if currently clocked out or in respectively
+  if (val != 'Working') {
+    var UserStatus = '.IN_FOR_DAY';
+    var antiUserStatus = '.OUT_FOR_DAY';
+    var direction = 'in';
+  } else {
+    var UserStatus = '.OUT_FOR_DAY';
+    var antiUserStatus = '.IN_FOR_DAY';
+    var direction = 'out';
+  }
+
+  // Use jQuery to manipulate the DOM
+  jQuery(function($) {
+    $(UserStatus).hideText();
+    $(UserStatus).append("<h2 class='myDescriptors'><i class='fa fa-sign-" + direction + " fa-1x'></i>&nbsp;  Clock " + direction + "</h2>");
+    $(UserStatus).click(function() {
+      // Stop the link for testing
+      event.preventDefault();
+      // Update internal db with user status
+      ClickAction(val);
+    });
+    // The Hero
+    $(UserStatus).removeClass("hide");
+    $(UserStatus).addClass("button");
+    // The Villian
+    $(antiUserStatus).addClass("hide");
+    $(antiUserStatus).removeClass("button");
+  });
+}
 
 // Perfectly overkill for hiding the less than stellar text
 // Source: from: http://jsbin.com/evafa5/edit?html,js,output
@@ -43,56 +93,3 @@ var ClickAction = function(val) {
   // Rerun original function to rerender the page
   CheckStatus(MainLogic);
 };
-
-
-
-// Determine which button to show and change DOM
-function MainLogic(val) {
-  // Based on UserStatus determine if currently clocked out or in respectively
-  if (val != 'Working') {
-    var UserStatus = '.IN_FOR_DAY';
-    var antiUserStatus = '.OUT_FOR_DAY';
-    var direction = 'in';
-  } else {
-    var UserStatus = '.OUT_FOR_DAY';
-    var antiUserStatus = '.IN_FOR_DAY';
-    var direction = 'out';
-  }
-
-  // Use jQuery to manipulate the DOM
-  jQuery(function($) {
-    $(UserStatus).hideText();
-    $(UserStatus).append("<h2 class='myDescriptors'><i class='fa fa-sign-" + direction + " fa-1x'></i>&nbsp;  Clock " + direction + "</h2>");
-    $(UserStatus).click(function() {
-      // Stop the link for testing
-      event.preventDefault();
-      // Update internal db with user status
-      ClickAction(val);
-    });
-    // The Hero
-    $(UserStatus).removeClass("hide");
-    $(UserStatus).addClass("button");
-    // The Villian
-    $(antiUserStatus).addClass("hide");
-    $(antiUserStatus).removeClass("button");
-  });
-}
-
-// Check status of the user
-function CheckStatus(callback) {
-  chrome.storage.sync.get("status", function (obj) {
-    console.log('From inside CheckStatus: obj.status = ' + obj.status);
-    callback(obj.status);
-  });
-}
-
-jQuery(function($) {
-  // Who doesn't like a wonderful set of scalable icons?
-  $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
-  // chrome.storage.sync.set({'status': 'Relaxing'}, function (result) {
-  //   chrome.storage.sync.get('status', function (result) {
-  //     alert(result.status);
-  //   });
-  // });
-  CheckStatus(MainLogic);
-});

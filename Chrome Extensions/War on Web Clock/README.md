@@ -4,6 +4,6 @@ Followed this guide to get started: https://carl-topham.com/theblog/post/creatin
 Temporarily using this icon.png: http://www.tidydesign.com/blog/downloads/tidy-clock-icon.png
 
 # TODO
-- Add some icons:
-  http://fortawesome.github.io/Font-Awesome/icon/sign-in/
-  http://fortawesome.github.io/Font-Awesome/icon/sign-out/
+- Add options for first time user to correct an issue with original sync status
+- Make those buttons less terrifying
+  http://cssdeck.com/labs/beautiful-flat-buttons

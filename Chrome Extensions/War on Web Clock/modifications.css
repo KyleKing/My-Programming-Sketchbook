@@ -13,19 +13,23 @@
 }
 .button {
   height: 100px;
-  background-color: #F4F4F4 !important;
+  /*background-color: #F4F4F4 !important;*/
 }
 .myDescriptors {
   padding-top: 10px;
   font-size: 40px !important;
+  color: white !important;
 }
 
 /*Add some fun colors*/
-a.IN_FOR_DAY.primary-button:hover {
+a.IN_FOR_DAY.primary-button {
   background-color: #9197AE !important;
 }
-a.OUT_FOR_DAY.primary-button:hover {
+a.OUT_FOR_DAY.primary-button {
   background-color: #B04D5F !important;
+}
+.fa {
+  color: white;
 }
 
 /* Hide unnecessary buttons */

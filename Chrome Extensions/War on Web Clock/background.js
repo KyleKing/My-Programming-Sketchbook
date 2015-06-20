@@ -52,17 +52,17 @@ function MainLogic(val) {
   if (val != 'Working') {
     var UserStatus = '.IN_FOR_DAY';
     var antiUserStatus = '.OUT_FOR_DAY';
-    var direction = 'In';
+    var direction = 'in';
   } else {
     var UserStatus = '.OUT_FOR_DAY';
     var antiUserStatus = '.IN_FOR_DAY';
-    var direction = 'Out';
+    var direction = 'out';
   }
 
   // Use jQuery to manipulate the DOM
   jQuery(function($) {
     $(UserStatus).hideText();
-    $(UserStatus).append("<h2 class='myDescriptors'>Clock " + direction + "</h2>");
+    $(UserStatus).append("<h2 class='myDescriptors'><i class='fa fa-sign-" + direction + " fa-1x'></i>&nbsp;  Clock " + direction + "</h2>");
     $(UserStatus).click(function() {
       // Stop the link for testing
       event.preventDefault();
@@ -87,23 +87,12 @@ function CheckStatus(callback) {
 }
 
 jQuery(function($) {
+  // Who doesn't like a wonderful set of scalable icons?
+  $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
   // chrome.storage.sync.set({'status': 'Relaxing'}, function (result) {
   //   chrome.storage.sync.get('status', function (result) {
   //     alert(result.status);
   //   });
   // });
   CheckStatus(MainLogic);
-
-
-  // $(".OUT_FOR_DAY").hideText();
-  // $(".OUT_FOR_DAY").append("<h2 class='myDescriptors'>Clock Out</h2>");
-  // $(".OUT_FOR_DAY").click(function() {
-  //   event.preventDefault();
-  //   // Save value using the Chrome extension storage API.
-  //   chrome.storage.sync.set({'status': "Working"}, function (result) {
-  //     chrome.storage.sync.get('status', function (result) {
-  //       alert(result.status);
-  //     });
-  //   });
-  // });
 });

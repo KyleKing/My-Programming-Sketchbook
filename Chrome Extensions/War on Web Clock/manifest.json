@@ -10,8 +10,8 @@
   ],
 
 	"content_scripts": [ {
-		"js": [ "noClick/jquery-2.1.4.min.js", "background.js" ],
+		"js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
 		"css": ["modifications.css"],
-		"matches": [ "file:///users/kyleking/Downloads/Web%20Clock.html", "https://time-entry-cusa.workforcehosting.com/workforce/WebClock.do*/*" ]
+		"matches": [ "file:///users/kyleking/Downloads/Web%20Clock.html", "https://*/workforce/WebClock.do*" ]
 	}]
 }

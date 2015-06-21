@@ -22,10 +22,17 @@
 			"default_popup": "popup/popup.html"
 	},
 
-  "permissions": ["webRequest", "webRequestBlocking",
-                  "https://i.chzbgr.com/*"],
+  "permissions": ["webRequest", "webRequestBlocking","tabs",
+                  "*://*/*"],
+
+  "content_scripts": [ {
+    "js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
+    "css": [ ],
+    "matches": [ "http://pubs.rsc.org/en/*" ]
+  }],
+
   "background": {
-    "scripts": ["loldogs.js", "redirect.js"]
+    "scripts": ["redirect.js"]
   },
 
 	"homepage_url": "http://kyleking.github.io"

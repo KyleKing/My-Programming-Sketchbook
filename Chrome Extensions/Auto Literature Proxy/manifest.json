@@ -23,17 +23,13 @@
 	},
 
   "permissions": [
-    "storage"
+    "<all_urls>","webRequest","webRequestBlocking", "storage", "tabs"
   ],
 
-	"content_scripts": [ {
-		"js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
-		"css": [ ],
-		"matches": [
-			"file:///Users/kyleking/Downloads/Web%20Clock.html",
-			"https://*/workforce/WebClock.do*"
-			]
-	}],
+  "background": {
+    "scripts": ["redirect.js"],
+    "persistent": true
+  },
 
 	"homepage_url": "http://kyleking.github.io"
 }

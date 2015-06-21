@@ -1,0 +1,13 @@
+{
+  "name": "Chrome webrequest test",
+  "version": "0.1",
+  "description": "A test for webrequest",
+  "manifest_version": 2,
+  "permissions": [
+    "<all_urls>","webRequest","webRequestBlocking"
+  ],
+  "background": {
+    "scripts": ["redirect.js"],
+    "persistent": true
+  }
+}

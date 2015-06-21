@@ -1,19 +1,23 @@
 {
 	"manifest_version": 2,
 
-  "name": "Web CLock UX",
-  "description": "Make the WebClock interface better.",
-  "version": "0.3.2",
+  "name": "Web Clock UX",
+	"short_name": "UX",
+  "description": "Instantly improve the WebClock interface.",
+	"author": "Kyle King",
+  "version": "0.3.3",
+	"version_name": "Beta Release",
 
 	"icons": {
 			"40": "images/logo@0.5x.png",
 			"80": "images/logo@1x.png",
+			"128": "images/logo@128.png",
 			"160": "images/logo.png"
 	},
 
 	"browser_action": {
 			"default_title": "browser_action: default_title",
-      "default_icon": "images/logo@0.5x.png",
+      "default_icon": "images/logo@1x.png",
       "default_title": "WebClock UX",
 			"default_popup": "popup/popup.html"
 	},

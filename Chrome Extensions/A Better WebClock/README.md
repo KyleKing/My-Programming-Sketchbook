@@ -1,9 +1,12 @@
 A Better Web Clock
 ===================
+> I wanted to improve the WebClock interface as I would often mistake clocking in/out.
 
+
+Here's the difference:
 ![Comparison](../A%20Better%20WebClock%20Comparison%20Images/Comparison.png)
 
-I'm not a huge fan of the WebClock interface and would often mistake clocking in and clocking out. It was fun building my first extension and am looking forward to future projects!
+It was fun building my first extension and am looking forward to future projects!
 
 ## The things to be developed:
 1. ~~Add option to manually override synced status~~

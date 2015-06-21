@@ -46,19 +46,24 @@ function MainLogic(val) {
     $(UserStatus).append("<h2 class='myDescriptors'><i class='fa fa-sign-" + direction + " fa-1x'></i>&nbsp;  Clock " + direction + "</h2>");
     $(UserStatus).click(function() {
       // Stop the link for testing, but doesn't work in production...
-      event.preventDefault();
+      // event.preventDefault();
       // Update internal db with user status
       ClickAction(val);
     });
     // The Hero
     $(UserStatus).removeClass("hide");
-    $(UserStatus).addClass("button");
+    $(UserStatus).addClass("flat_button");
     // The Villain
     $(antiUserStatus).addClass("hide");
-    $(antiUserStatus).removeClass("button");
+    $(antiUserStatus).removeClass("flat_button");
 
     // Get rid of the borders
     $('.last-border').addClass("hide");
+
+    // Add return to Time Sheet button to the main screen
+    var link = document.getElementById('8459448626').getAttribute('href');
+    // console.log(link);
+    $('.primary-buttons').append("<div class='button-column' style='width: 50%;'><a href='" + link + "' class='TIME_SHEET_ALT primary-button flat_button' id='8459448626'><h2 class='small_myDescriptors'><i class='fa fa-calculator fa-1x'></i>&nbsp;  Back to Timesheet</h2></a> </div>");
   });
 }
 

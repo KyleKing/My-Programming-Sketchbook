@@ -11,29 +11,72 @@
    top: -9999px !important;
    left: -9999px !important;
 }
-.button {
-  height: 100px;
-  border: none !important;
+
+.flat_button {
+	border: none !important;
+
+  margin: 10px !important;
+	padding: 30px !important;
+
+  /*Flat Button styles*/
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+  cursor: pointer;
+
+  transition: background 0.1s ease-in-out;
+	-webkit-transition: background 0.1s ease-in-out;
+	-moz-transition: background 0.1s ease-in-out;
+	-ms-transition: background 0.1s ease-in-out;
+	-o-transition: background 0.1s ease-in-out;
+
   border-radius: 10px !important;
-  margin-top: 15px !important;
-  /*background-color: #F4F4F4 !important;*/
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
+
 .myDescriptors {
-  padding-top: 10px;
+  padding-top: 15px !important;
   font-size: 40px !important;
   color: white !important;
+  font-weight: bold;
+}
+.small_myDescriptors {
+  padding-top: 20px !important;
+  font-size: 20px !important;
+  color: white !important;
+  font-weight: bold;
 }
 
 /*Add some fun colors*/
 a.IN_FOR_DAY.primary-button {
-  background-color: #9197AE !important;
+  background-color: #3fb8e8 !important;
+	box-shadow: 0px 10px 0px 0px #3293ba !important;
+  /*background-color: #9197AE !important;*/
 }
+a.IN_FOR_DAY.primary-button:hover {
+	background-color: #1baae3 !important;
+}
+
 a.OUT_FOR_DAY.primary-button {
-  background-color: #B04D5F !important;
+	background-color: #f06060 !important;
+	box-shadow: 0px 10px 0px 0px #cd1313 !important;
+  /*background-color: #B04D5F !important;*/
 }
-.fa {
+a.OUT_FOR_DAY.primary-button:hover {
+	background-color: #ed4444 !important;
+}
+
+.TIME_SHEET_ALT {
+	background-color: #975FEF !important;
+	box-shadow: 0px 10px 0px 0px #5912CC !important;
+	/*background-color: #1baae3 !important;*/
+}
+.TIME_SHEET_ALT:hover {
+	background-color: #8544ED !important;
+}
+
+/*.fa {
   color: white;
-}
+}*/
 
 /* Hide unnecessary buttons */
 /*TIME_SHEET*/

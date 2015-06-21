@@ -27,7 +27,7 @@
 	"content_scripts": [ {
 		"js": [ "lib/jquery-2.1.4.min.js", "background.js", "lib/waves.min.js" ],
 		"css": ["modifications.css", "lib/waves.min.css" ],
-		"matches": [ "file:///users/kyleking/Downloads/Web%20Clock.html", "https://*/workforce/WebClock.do*" ]
+		"matches": [ "file:///Users/kyleking/Downloads/Web%20Clock.html", "https://*/workforce/WebClock.do*" ]
 	}],
 
 	"homepage_url": "http://kyleking.github.io"

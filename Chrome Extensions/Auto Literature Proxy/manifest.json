@@ -22,13 +22,10 @@
 			"default_popup": "popup/popup.html"
 	},
 
-  "permissions": [
-    "<all_urls>","webRequest","webRequestBlocking", "storage", "tabs"
-  ],
-
+  "permissions": ["webRequest", "webRequestBlocking",
+                  "https://i.chzbgr.com/*"],
   "background": {
-    "scripts": ["redirect.js"],
-    "persistent": true
+    "scripts": ["loldogs.js", "redirect.js"]
   },
 
 	"homepage_url": "http://kyleking.github.io"

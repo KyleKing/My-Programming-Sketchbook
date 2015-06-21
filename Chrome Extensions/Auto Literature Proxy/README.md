@@ -16,6 +16,9 @@ Take advantage of the wealth of publications that UMD purchases for us. When off
 
 - Built with [Bootstrap-Switch](http://www.bootstrap-switch.org/), Bootstrap, jQuery, and plenty of guides
 - [Eloquent JavaScript is my go to reference](http://eloquentjavascript.net/03_functions.html)
+- It always helps to know where the [invisible background page is](http://stackoverflow.com/questions/10257301/where-to-read-console-messages-from-background-js-in-a-chrome-extension)
+- [Or a good example to get started](https://developer.chrome.com/extensions/samples#search:webrequest) [scroll to CatBlock] and the [more general guide](https://developer.chrome.com/extensions/webRequest#event-onBeforeRequest)
+- And if I ever use Regexp, I [will start here](http://regexr.com/) and use [match.index](http://stackoverflow.com/questions/2295657/return-positions-of-a-regex-match-in-javascript) and possibly this [example code](https://github.com/blunderboy/requestly/blob/master/src/background/background.js#L148) or this [answer](http://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url)
 - Built in [Atom.io](https://atom.io/) with quick [reloads](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid) and [lots of color choices](http://coolors.co/app/)
 
 

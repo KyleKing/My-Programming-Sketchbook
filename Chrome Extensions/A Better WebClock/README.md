@@ -1,7 +1,9 @@
 A Better Web Clock
 ===================
 
-I'm not a huge fan of the WebClock interface and would often mistake clocking in and clocking out. After adding a bit of logic inside my first Chrome extension, only the button I want is visible.
+![Comparison](../A%20Better%20WebClock%20Comparison%20Images/Comparison.png)
+
+I'm not a huge fan of the WebClock interface and would often mistake clocking in and clocking out. It was fun building my first extension and am looking forward to future projects!
 
 ## The things to be developed:
 1. ~~Add option to manually override synced status~~

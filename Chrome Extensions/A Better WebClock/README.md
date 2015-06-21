@@ -6,13 +6,21 @@ A Better Web Clock
 Here's the difference:
 ![Comparison](../A%20Better%20WebClock%20Comparison%20Images/Comparison.png)
 
-It was fun building my first extension and am looking forward to future projects!
+# From the [chrome webstore app page](https://chrome.google.com/webstore/detail/bemigfbpfihgefbnbncjddfbgknchfaf/publish-accepted?authuser=1)
+This app simplifies the clock in/out screen by remembering the the last user event. I.e. when you clock out, the app knows that you are clocked out and hides the clock out button because who clocks in twice in a row? When you're ready to clock back in, the clock in button is the only visible button.
+
+- Bigger, color-coded buttons
+- Simplified interface, only quick link to timesheet and the clock action
+
+If the app shows the wrong button, click the icon and switch the bar to the proper position. Refresh the page and the button should change. If it doesn't please comment and let me know.
 
 ## The things to be developed:
 1. ~~Add option to manually override synced status~~
 2. ~~Create button that takes link from ".TIME_SHEET" and adds button below clock button~~
 1. ~~Stylize the [buttons](http://cssdeck.com/labs/beautiful-flat-buttons) and probably the whole page, while I'm at it~~ Not going any farther with design, tried [Wave](http://fian.my.id/Waves/#start) but looks too difficult
 1. ~~[Upload to the chrome web store](https://developer.chrome.com/webstore/publish)~~
+
+It was fun building my first extension and am looking forward to future projects!
 
 ## References
 > This was my first extension after all

@@ -6,17 +6,15 @@
   "version": "0.3",
 
 	"icons": {
-			"19": "images/icon.png",
-			"38": "images/icon.png",
-			"128": "images/icon.png"
+			"40": "images/logo@0.5x.png",
+			"80": "images/logo@1x.png",
+			"160": "images/logo.png"
 	},
 
 	"browser_action": {
 			"default_title": "browser_action: default_title",
-			"default_icon": {
-					"19": "images/icon.png",
-					"38": "images/icon.png"
-			},
+      "default_icon": "images/logo@0.5x.png",
+      "default_title": "WebClock UX",
 			"default_popup": "popup/popup.html"
 	},
 

@@ -3,7 +3,7 @@
 
   "name": "Web CLock UX",
   "description": "Stores last clock action and only displays the opposite action.",
-  "version": "0.2",
+  "version": "0.3",
 
 	"icons": {
 			"19": "images/icon.png",
@@ -25,8 +25,8 @@
   ],
 
 	"content_scripts": [ {
-		"js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
-		"css": ["modifications.css"],
+		"js": [ "lib/jquery-2.1.4.min.js", "background.js", "lib/waves.min.js" ],
+		"css": ["modifications.css", "lib/waves.min.css" ],
 		"matches": [ "file:///users/kyleking/Downloads/Web%20Clock.html", "https://*/workforce/WebClock.do*" ]
 	}],
 

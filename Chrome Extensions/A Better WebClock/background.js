@@ -2,6 +2,9 @@
 jQuery(function($) {
   // Who doesn't like a wonderful set of scalable icons?
   $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
+  // The material ripple
+  $('body').append('<script type="text/javascript"> Waves.attach(".time-button"); Waves.init(); </script>');
+
   // chrome.storage.sync.set({'status': 'Relaxing'}, function (result) {
   //   chrome.storage.sync.get('status', function (result) {
   //     alert(result.status);
@@ -14,6 +17,12 @@ jQuery(function($) {
 function CheckStatus(callback) {
   chrome.storage.sync.get("status", function (obj) {
     console.log('From inside CheckStatus: obj.status = ' + obj.status);
+    // SOmetimes this is undefined or otherwise weird...
+    if (obj.status != 'Working' && obj.status != 'Relaxing') {
+      // Send it to be updated
+      obj.status = 'Working';
+      ClickAction(obj.status);
+    }
     callback(obj.status);
   });
 }
@@ -36,7 +45,7 @@ function MainLogic(val) {
     $(UserStatus).hideText();
     $(UserStatus).append("<h2 class='myDescriptors'><i class='fa fa-sign-" + direction + " fa-1x'></i>&nbsp;  Clock " + direction + "</h2>");
     $(UserStatus).click(function() {
-      // Stop the link for testing
+      // Stop the link for testing, but doesn't work in production...
       event.preventDefault();
       // Update internal db with user status
       ClickAction(val);
@@ -44,9 +53,12 @@ function MainLogic(val) {
     // The Hero
     $(UserStatus).removeClass("hide");
     $(UserStatus).addClass("button");
-    // The Villian
+    // The Villain
     $(antiUserStatus).addClass("hide");
     $(antiUserStatus).removeClass("button");
+
+    // Get rid of the borders
+    $('.last-border').addClass("hide");
   });
 }
 
@@ -86,10 +98,10 @@ var ClickAction = function(val) {
   chrome.storage.sync.set({'status': UpdateStatus}, function (result) {
     chrome.storage.sync.get('status', function (result) {
       console.log('From inside ClickAction/chrome.storage.sync.set: val = ' + result.status);
-    //   alert(result.status);
+      // alert(result.status);
     });
   });
 
-  // Rerun original function to rerender the page
+  // Rerun original function to re-render the page
   CheckStatus(MainLogic);
 };

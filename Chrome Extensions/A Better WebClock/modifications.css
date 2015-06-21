@@ -13,6 +13,9 @@
 }
 .button {
   height: 100px;
+  border: none !important;
+  border-radius: 10px !important;
+  margin-top: 15px !important;
   /*background-color: #F4F4F4 !important;*/
 }
 .myDescriptors {

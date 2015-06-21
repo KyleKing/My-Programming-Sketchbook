@@ -2,8 +2,8 @@
 	"manifest_version": 2,
 
   "name": "Web CLock UX",
-  "description": "Stores last clock action and only displays the opposite action.",
-  "version": "0.3",
+  "description": "Make the WebClock interface better.",
+  "version": "0.3.2",
 
 	"icons": {
 			"40": "images/logo@0.5x.png",

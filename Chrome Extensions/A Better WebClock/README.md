@@ -7,7 +7,7 @@ I'm not a huge fan of the WebClock interface and would often mistake clocking in
 1. ~~Add option to manually override synced status~~
 2. ~~Create button that takes link from ".TIME_SHEET" and adds button below clock button~~
 1. ~~Stylize the [buttons](http://cssdeck.com/labs/beautiful-flat-buttons) and probably the whole page, while I'm at it~~ Not going any farther with design, tried [Wave](http://fian.my.id/Waves/#start) but looks too difficult
-1. [Upload to the chrome web store](https://developer.chrome.com/webstore/publish)
+1. ~~[Upload to the chrome web store](https://developer.chrome.com/webstore/publish)~~
 
 ## References
 > This was my first extension after all

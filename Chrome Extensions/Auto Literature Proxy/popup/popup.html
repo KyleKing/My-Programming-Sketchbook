@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stores last clock action and only displays the opposite action.">
+    <meta name="author" content="Kyle King">
+    <title>Better WebClock</title>
+    <!-- I got that library of style -->
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap-switch.css" rel="stylesheet">
+</head>
+<body>
+    <main id="content" role="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-2 col-lg-2 text-center">
+            <h2 class="h4">State</h2>
+            <p>I am currently clocked....</p>
+            <p>
+              <input id="switch-state" type="checkbox" checked>
+            </p>
+            <small>
+                <p>Once selected, reload the page to see corrected button</p>
+            </small>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- JavaScript -->
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-switch.js"></script>
+    <!-- The only custom import -->
+    <script src="popup.js"></script>
+</body></html>

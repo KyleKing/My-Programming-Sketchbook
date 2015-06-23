@@ -43,11 +43,11 @@ Template.map.rendered = ->
     markers = new (L.MarkerClusterGroup)
     map.addLayer markers
     # Collect bike location data
-    bikesData = Current.find().fetch()
+    bikesData = AvailableBikeLocations.find().fetch()
     i = bikesData.length - 1
     while i >= 1
-      if !isNaN(bikesData[i].lat)
-        markers.addLayer new (L.Marker)(new (L.LatLng)(bikesData[i].lat, bikesData[i].lng), icon: redBike)
+      if !isNaN(bikesData[i].Positions.Lat)
+        markers.addLayer new (L.Marker)(new (L.LatLng)(bikesData[i].Positions.Lat, bikesData[i].Positions.Lng), icon: redBike)
         # console.log(bikesData[i]);
       else
         console.log 'Bad Bike Location (NaN) - i.e. the current database is empty'
@@ -73,6 +73,6 @@ Template.map.rendered = ->
         e.latitude
         e.longitude
       ], icon: meMarker).addTo(map)
-      console.log([e.latitude, e.longitude]);
+      # console.log([e.latitude, e.longitude]);
     return
   return

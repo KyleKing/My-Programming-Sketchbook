@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2,
+
+  "name": "Auto Literature Proxy",
+	"short_name": "Auto Proxy",
+  "description": "Redirect to the UMD proxy for free journal access.",
+	"author": "Kyle King",
+  "version": "0.1",
+	"version_name": "Alpha Release",
+
+	"icons": {
+			"40": "images/logo@0.5x.png",
+			"80": "images/logo@1x.png",
+			"128": "images/logo@128.png",
+			"160": "images/logo.png"
+	},
+
+	"browser_action": {
+			"default_title": "browser_action: default_title",
+      "default_icon": "images/logo@1x.png",
+      "default_title": "Auto Proxy",
+			"default_popup": "popup/popup.html"
+	},
+
+  "permissions": ["webRequest", "webRequestBlocking","tabs",
+                  "*://*/*"],
+
+  "content_scripts": [ {
+    "js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
+    "css": [ ],
+    "matches": [ "http://pubs.rsc.org/en/*" ]
+  }],
+
+  "background": {
+    "scripts": ["redirect.js"]
+  },
+
+	"homepage_url": "http://kyleking.github.io"
+}

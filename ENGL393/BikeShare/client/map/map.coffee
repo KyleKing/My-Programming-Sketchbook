@@ -1,7 +1,7 @@
 Template.map.rendered = ->
+  Meteor.subscribe 'AvailableBikeLocationsPub'
   if Meteor.isClient
-    console.log 'loaded'
-
+    console.log AvailableBikeLocations.find().count()
     ###*******************************************###
     ###   Configure Leaflet Map                   ###
     ###******************************************###
@@ -21,16 +21,12 @@ Template.map.rendered = ->
       base: 'aerial'
       minZoom: 0
       maxZoom: 20).addTo(map)
-    # var OpenCycleMap = L.tileLayer("http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png", {
-    #   attribution: "&copy; <a href=\"http://www.opencyclemap.org\">OpenCycleMap</a>, &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"
-    # }).addTo(map);
+
     zoomControl = L.control.zoom(position: 'bottomleft')
     map.addControl zoomControl
 
     ###*******************************************###
-
     ###   Plot 'current' collection with available bike locations  ###
-
     ###******************************************###
 
     # Creates a red marker with the coffee icon
@@ -42,13 +38,16 @@ Template.map.rendered = ->
     # Use Leaflet markercluster group plugin
     markers = new (L.MarkerClusterGroup)
     map.addLayer markers
+
     # Collect bike location data
     bikesData = AvailableBikeLocations.find().fetch()
+    console.log bikesData
+
     i = bikesData.length - 1
     while i >= 1
       if !isNaN(bikesData[i].Positions.Lat)
         markers.addLayer new (L.Marker)(new (L.LatLng)(bikesData[i].Positions.Lat, bikesData[i].Positions.Lng), icon: redBike)
-        # console.log(bikesData[i]);
+        console.log(bikesData[i]);
       else
         console.log 'Bad Bike Location (NaN) - i.e. the current database is empty'
         console.log bikesData[i]
@@ -72,7 +71,6 @@ Template.map.rendered = ->
       marker = L.marker([
         e.latitude
         e.longitude
-      ], icon: meMarker).addTo(map)
+      ], icon: redMarker).addTo(map)
       # console.log([e.latitude, e.longitude]);
-    return
   return

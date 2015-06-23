@@ -31,8 +31,6 @@ function Initiate() {
 	$("#switch-state").bootstrapSwitch();
 
 	$("#switch-state").on('switchChange.bootstrapSwitch', function(event, state) {
-	  // console.log(this); // DOM element
-	  // console.log(event); // jQuery event
 	  console.log(state); // true | false
 	  // Convert T/F logic to Working/Relaxing
 	  // True = Working
@@ -45,71 +43,14 @@ function Initiate() {
 	  chrome.storage.sync.set({'status': status}, function (result) {
 	    chrome.storage.sync.get('status', function (result) {
 	      console.log('From inside ClickAction/chrome.storage.sync.set: val = ' + result.status);
-	    //   alert(result.status);
 	    });
 	  });
+
+    // Reload current tab
+    // Source: http://stackoverflow.com/questions/8342756/chrome-extension-api-for-refreshing-the-page/25246060#25246060
+    chrome.tabs.query({active: true, currentWindow: true}, function (arrayOfTabs) {
+      var code = 'window.location.reload();';
+      chrome.tabs.executeScript(arrayOfTabs[0].id, {code: code});
+    });
 	});
 }
-
-// Original from examples page
-// Anonymous function
-// (function() {
-//   var $confirm;
-
-//   $confirm = null;
-
-//   $(function() {
-//     var $createDestroy, $window, sectionTop;
-//     $window = $(window);
-//     sectionTop = $(".top").outerHeight() + 20;
-//     $createDestroy = $("#switch-create-destroy");
-//     $("a[href*=\"#\"]").on("click", function(event) {
-//       var $target;
-//       event.preventDefault();
-//       $target = $($(this).attr("href").slice("#"));
-//       if ($target.length) {
-//         return $window.scrollTop($target.offset().top - sectionTop);
-//       }
-//     });
-//     $("input[type=\"checkbox\"], input[type=\"radio\"]").not("[data-switch-no-init]").bootstrapSwitch();
-//     $("[data-switch-get]").on("click", function() {
-//       var type;
-//       type = $(this).data("switch-get");
-//       return alert($("#switch-" + type).bootstrapSwitch(type));
-//     });
-//     $("[data-switch-set]").on("click", function() {
-//       var type;
-//       type = $(this).data("switch-set");
-//       return $("#switch-" + type).bootstrapSwitch(type, $(this).data("switch-value"));
-//     });
-//     $("[data-switch-toggle]").on("click", function() {
-//       var type;
-//       type = $(this).data("switch-toggle");
-//       return $("#switch-" + type).bootstrapSwitch("toggle" + type.charAt(0).toUpperCase() + type.slice(1));
-//     });
-//     $("[data-switch-set-value]").on("input", function(event) {
-//       var type, value;
-//       event.preventDefault();
-//       type = $(this).data("switch-set-value");
-//       value = $.trim($(this).val());
-//       if ($(this).data("value") === value) {
-//         return;
-//       }
-//       return $("#switch-" + type).bootstrapSwitch(type, value);
-//     });
-//     $("[data-switch-create-destroy]").on("click", function() {
-//       var isSwitch;
-//       isSwitch = $createDestroy.data("bootstrap-switch");
-//       $createDestroy.bootstrapSwitch((isSwitch ? "destroy" : null));
-//       return $(this).button((isSwitch ? "reset" : "destroy"));
-//     });
-//     return $confirm = $("#confirm").bootstrapSwitch({
-//       size: "large",
-//       onSwitchChange: function(event, state) {
-//         event.preventDefault();
-//         return console.log(state, event.isDefaultPrevented());
-//       }
-//     });
-//   });
-
-// }).call(this);

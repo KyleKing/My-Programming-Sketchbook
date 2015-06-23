@@ -7,12 +7,15 @@ Here's the difference:
 ![Comparison](../A%20Better%20WebClock%20Comparison%20Images/Comparison.png)
 
 # From the [chrome webstore app page](https://chrome.google.com/webstore/detail/bemigfbpfihgefbnbncjddfbgknchfaf/publish-accepted?authuser=1)
-This app simplifies the clock in/out screen by remembering the the last user event. I.e. when you clock out, the app knows that you are clocked out and hides the clock out button because who clocks in twice in a row? When you're ready to clock back in, the clock in button is the only visible button.
+This app simplifies the "clock in"/out screen by remembering the the last user event. When you "clock out", the app hides the "clock out" button and only displays the "clock in" button.
 
 - Bigger, color-coded buttons
-- Simplified interface, only quick link to timesheet and the clock action
+- Simplified interface (1/2 the buttons!)
+- AND only the button you want (either "clock in" or out!)
 
-If the app shows the wrong button, click the icon and switch the bar to the proper position. Refresh the page and the button should change. If it doesn't please comment and let me know.
+To get started, add the extension to chrome. Click the browser icon in the top right corner, which prompts a popup menu. Select your current status and refresh the current page to see an update.
+
+Disclaimer: This extension is not associated with WorkForce in any way and may interfere with clocking in and out. Please always confirm that this doesn't interfere with regular use.
 
 ## The things to be developed:
 1. ~~Add option to manually override synced status~~

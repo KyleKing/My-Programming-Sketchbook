@@ -5,7 +5,7 @@
 	"short_name": "UX",
   "description": "Instantly improve the WebClock interface.",
 	"author": "Kyle King",
-  "version": "0.3.4",
+  "version": "0.3.5",
 	"version_name": "Beta Release",
 
 	"icons": {
@@ -27,8 +27,8 @@
   ],
 
 	"content_scripts": [ {
-		"js": [ "lib/jquery-2.1.4.min.js", "background.js", "lib/waves.min.js" ],
-		"css": ["modifications.css", "lib/waves.min.css" ],
+		"js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
+		"css": ["modifications.css" ],
 		"matches": [ "file:///Users/kyleking/Downloads/Web%20Clock.html", "https://*/workforce/WebClock.do*" ]
 	}],
 

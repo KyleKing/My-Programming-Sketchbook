@@ -7,3 +7,32 @@
 meteor-platform
 autopublish
 insecure
+
+# Authentication
+# accounts-password
+# alanning:roles
+# useraccounts:bootstrap
+
+# Seed Data
+# dburles:factory
+# anti:fake
+
+# Preprocessors
+mquandalle:jade
+coffeescript
+stylus
+kyleking:customizable-bootstrap-stylus
+
+# JS Libraries - Tools
+# momentjs:moment
+# mrt:underscore-string-latest
+
+
+mrt:leaflet
+# fuatsengul:leaflet-markercluster
+# appshore:leaflet-awesome-markers
+
+
+# fortawesome:fontawesome
+
+# digilord:faker

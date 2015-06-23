@@ -5,8 +5,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
+# autopublish
+# insecure
 
 # Authentication
 # accounts-password
@@ -24,13 +24,13 @@ stylus
 kyleking:customizable-bootstrap-stylus
 
 # JS Libraries - Tools
-# momentjs:moment
+momentjs:moment
 # mrt:underscore-string-latest
 
 
 mrt:leaflet
-# fuatsengul:leaflet-markercluster
-# appshore:leaflet-awesome-markers
+fuatsengul:leaflet-markercluster
+appshore:leaflet-awesome-markers
 
 
 # fortawesome:fontawesome

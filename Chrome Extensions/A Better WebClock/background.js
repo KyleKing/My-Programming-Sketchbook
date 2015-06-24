@@ -3,6 +3,9 @@ jQuery(function($) {
   // Who doesn't like a wonderful set of scalable icons?
   $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
 
+  // Add return to Time Sheet button to the main screen
+  var link = document.getElementById('8459448626').getAttribute('href');
+  // console.log(link);
   $('.primary-buttons').append("<div class='button-column' style='width: 50%;'><a href='" + link + "' class='TIME_SHEET_ALT primary-button flat_button' id='8459448626'><h2 class='small_myDescriptors'><i class='fa fa-calculator fa-1x'></i>&nbsp;  Back to Timesheet</h2></a> </div>");
 
   // chrome.storage.sync.set({'status': 'Relaxing'}, function (result) {
@@ -59,10 +62,6 @@ function MainLogic(val) {
 
     // Get rid of the borders
     $('.last-border').addClass("hide");
-
-    // Add return to Time Sheet button to the main screen
-    var link = document.getElementById('8459448626').getAttribute('href');
-    // console.log(link);
   });
 }
 

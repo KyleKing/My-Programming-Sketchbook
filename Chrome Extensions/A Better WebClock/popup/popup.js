@@ -45,12 +45,5 @@ function Initiate() {
 	      console.log('From inside ClickAction/chrome.storage.sync.set: val = ' + result.status);
 	    });
 	  });
-
-    // Reload current tab
-    // Source: http://stackoverflow.com/questions/8342756/chrome-extension-api-for-refreshing-the-page/25246060#25246060
-    chrome.tabs.query({active: true, currentWindow: true}, function (arrayOfTabs) {
-      var code = 'window.location.reload();';
-      chrome.tabs.executeScript(arrayOfTabs[0].id, {code: code});
-    });
 	});
 }

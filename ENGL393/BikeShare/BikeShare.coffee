@@ -1,3 +1,26 @@
+Template.map.rendered = ->
+  console.log 'template rendered'
+  # if Meteor.isClient
+  #   # Configure a Leaflet Map
+
+  #   # L.Icon.Default.imagePath = 'leaflet/images';
+  #   map = new (L.Map)('ourMap',
+  #     center: new (L.LatLng)(38.987701, -76.940989)
+  #     maxZoom: 20
+  #     zoom: 16
+  #     zoomControl: false)
+  #   HERE_hybridDayMobile = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}',
+  #     attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>'
+  #     subdomains: '1234'
+  #     mapID: 'newest'
+  #     app_id: 'JIX0epTdHneK1hQlqfkr'
+  #     app_code: 'PchnUPPBcZ5VAuHmovac8g'
+  #     base: 'aerial'
+  #     minZoom: 0
+  #     maxZoom: 20).addTo(map)
+  # return
+return
+
 # Template.map.rendered = ->
 #   return Meteor.subscribe('AvailableBikeLocationsPub', ->
 #     if Meteor.isClient

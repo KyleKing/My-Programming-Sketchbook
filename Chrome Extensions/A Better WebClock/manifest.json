@@ -6,7 +6,7 @@
   "description": "Instantly improve the WebClock interface.",
 	"author": "Kyle King",
   "version": "0.4",
-	"version_name": "Beta Release",
+	"version_name": "0.5 - Stable Beta Release",
 
 	"icons": {
 			"40": "images/logo@0.5x.png",

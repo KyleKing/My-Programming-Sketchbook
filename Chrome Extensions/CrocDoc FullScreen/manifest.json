@@ -1,67 +1,12 @@
-// {
-// 	"manifest_version": 2,
-
-//   "name": "CrocDoc FullScreen",
-// 	"short_name": "CrocDoc",
-//   "description": "Open the iframe element in a new screen.",
-// 	"author": "Kyle King",
-//   "version": "0.1",
-// 	"version_name": "Alpha Release",
-
-// 	"icons": {
-// 			"40": "images/logo@0.5x.png",
-// 			"80": "images/logo@1x.png",
-// 			"128": "images/logo@128.png",
-// 			"160": "images/logo.png"
-// 	},
-
-// 	// "browser_action": {
-// 	// 		"default_title": "browser_action: default_title",
-//  //      "default_icon": "images/logo@1x.png",
-//  //      "default_title": "CrocDoc",
-// 	// 		"default_popup": "popup/popup.html"
-// 	// },
-
-//   "permissions": ["webRequest", "webRequestBlocking", "tabs",
-//   							"*://*/*"],
-
-//   // "background": {
-//   //   "scripts": ["background.js"],
-//   //   "persistent": false
-//   // },
-
-//   "content_scripts": [ {
-//     "js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
-// 		"css": [ ],
-//     "matches": ["*://*/*"],
-//     "all_frames": true
-//   }]
-// }
-
-// {
-//   "name": "Open Frame",
-//   "manifest_version": 2,
-//   "description": "Adds context menu items to open a frame (or iframe) in the current tab, a new tab, new window, or incognito window.",
-//   "version": "7",
-//   "permissions": [
-//     "clipboardWrite",
-//     "contextMenus"
-//   ],
-//   "background": {
-//     "scripts": ["background.js"],
-//     "persistent": false
-//   }
-// }
-
 {
 	"manifest_version": 2,
 
-  "name": "CrocoDoc FullScreen",
-	"short_name": "CrocDoc",
-  "description": "Open the iframe element in a new screen.",
+  "name": "ELMS and CrocoDoc FullScreen",
+	"short_name": "CrocoDoc",
+  "description": "Make comments and view feedback in FullScreen.",
 	"author": "Kyle King",
-  "version": "0.1",
-	"version_name": "Alpha Release",
+  "version": "0.5",
+	"version_name": "0.5 - beta release",
 
 	"icons": {
 			"40": "images/logo@0.5x.png",
@@ -70,29 +15,12 @@
 			"160": "images/logo.png"
 	},
 
-	"browser_action": {
-			"default_title": "browser_action: default_title",
-      "default_icon": "images/logo@1x.png",
-      "default_title": "CrocDoc",
-			"default_popup": "popup/popup.html"
-	},
-
-  "permissions": ["webRequest", "webRequestBlocking", "tabs",
-  							"*://*/*"],
-
   "content_scripts": [ {
     "js": [ "lib/jquery-2.1.4.min.js", "background.js" ],
 		"css": ["modifications.css" ],
-    "matches": ["*://*/*"],
+    "matches": ["*://myelms.umd.edu/*"],
     "all_frames": true
   }],
 
 	"homepage_url": "http://kyleking.github.io"
 }
-
-
-// myelms.umd.edu
-
-  // "background": {
-  //   "scripts": ["redirect.js"]
-  // },

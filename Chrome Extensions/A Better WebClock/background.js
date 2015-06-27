@@ -1,6 +1,6 @@
 // The code that is fired upon page load
 jQuery(function($) {
-  // Who doesn't like a wonderful set of scalable icons?
+  // Who doesn't like a wonderful set of scalable icons? Insert Font Awesome CDN!
   $('head').append('<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">');
 
   // Add return to Time Sheet button to the main screen

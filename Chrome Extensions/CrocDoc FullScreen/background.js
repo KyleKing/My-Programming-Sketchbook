@@ -1,38 +1,99 @@
-// The code that is fired upon page load
-jQuery(function($) {
-  // get currnet url
-  var str =  window.location.href;
-  console.log("window.location.href = " + str);
+// jQuery(function($) {
+$( document ).ready(function() {
+  var theLink = $('a.modal_preview_link.Button--link').eq(0).attr('data-crocodoc_session_url');
+  console.log('theLink = ' + theLink);
 
-  // Hard code the proxy link
-  var proxyLink = '.proxy-um.researchport.umd.edu';
+  var host = 'https://myelms.umd.edu/';
+  var url = host + theLink;
+  console.log(url);
 
-  // Example string split function with clean output
-  // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
-  function splitString(stringToSplit, separator) {
-    var arrayOfStrings = stringToSplit.split(separator);
+  // console.log(theLink);
 
-    console.log('The original string is: "' + stringToSplit + '"');
-
-    // Catch error case
-    if (arrayOfStrings.length != 2){
-      console.log('Split error, there are ' + arrayOfStrings.length + ' elements');
-      return 'Error';
-    }
-
-    // Request redirect to split and joined url
-    var redirectUrl = arrayOfStrings.join(separator + proxyLink);
-    console.log('The array has ' + arrayOfStrings.length + ' elements: ' + redirectUrl);
-
-    chrome.extension.sendRequest({redirect: redirectUrl});
-    // Controllable test
-    // chrome.extension.sendRequest({redirect: 'http://www.google.com'});
-    console.log('Request Sent');
-  }
-
-  // The goal:
-  // http://pubs.rsc.org.proxy-um.researchport.umd.edu/en/Content/ArticleLanding/2007/LC/b712893m#!divAbstract
-  // http://pubs.rsc.org/en/content/articlelanding/2007/lc/b712893m#!divAbstract
-  // Need check for when the site has redirected to stop redirecting because the links are identicalit
-  splitString(str, '.org');
 });
+
+
+
+
+
+
+// var COMMANDS = {
+//   'log-to-console': {
+//     label: 'Log!',
+//     handler: function(url, tab) {
+//       alert('Open Background page to see me!');
+//       console.log('url = ' + url);
+//       console.log('tab = ' + tab);
+//     }
+//   }
+
+//   // 'open-this-tab': {
+//   //   label: 'In this tab',
+//   //   handler: function(url, tab) {
+//   //     chrome.tabs.update(tab.id, {url: url});
+//   //   }
+//   // },
+
+//   // 'open-new-tab': {
+//   //   label: 'In a new tab',
+//   //   handler: function(url, tab) {
+//   //     chrome.tabs.create({url: url});
+//   //   }
+//   // },
+
+//   // 'open-new-window': {
+//   //   label: 'In a new window',
+//   //   handler: function(url, tab) {
+//   //     chrome.windows.create({url: url});
+//   //   }
+//   // },
+
+//   // 'open-new-incognito-window': {
+//   //   label: 'In a new incognito window',
+//   //   handler: function(url, tab) {
+//   //     chrome.windows.create({url: url, incognito: true});
+//   //   }
+//   // },
+
+//   // 'copy-url': {
+//   //   label: 'Copy frame URL',
+//   //   handler: function(url, tab) {
+//   //     var bufferNode = document.createElement('textarea');
+//   //     document.body.appendChild(bufferNode);
+//   //     bufferNode.value = url;
+//   //     bufferNode.focus();
+//   //     bufferNode.selectionStart = 0;
+//   //     bufferNode.selectionEnd = url.length;
+//   //     document.execCommand('copy');
+//   //     document.body.removeChild(bufferNode);
+//   //   },
+//   //   insertSeparatorBefore: true
+//   // }
+// }
+
+// chrome.runtime.onInstalled.addListener(function() {
+//   for (var commandId in COMMANDS) {
+//     var command = COMMANDS[commandId];
+
+//     if (command.insertSeparatorBefore) {
+//       chrome.contextMenus.create({
+//         type: 'separator',
+//         contexts: ['frame'],
+//         // ID should not be required (http://crbug.com/154644)
+//         id: commandId + '-separator'
+//       });
+//     }
+
+//     chrome.contextMenus.create({
+//       title: command.label,
+//       contexts: ['frame'],
+//       id: commandId
+//     });
+//   }
+// });
+
+// chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
+//   var url = clickData.frameUrl || clickData.pageUrl;
+//   var handler = COMMANDS[clickData.menuItemId].handler;
+
+//   handler(url, tab);
+// });

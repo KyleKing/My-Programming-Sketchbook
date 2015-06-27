@@ -1,9 +1,10 @@
+// Clearly display what is the wrong link
+.modal_preview_link {
+	color: red !important;
+}
+// Then hide it! Muhahahahahaha
 .hide {
    position: absolute !important;
    top: -9999px !important;
    left: -9999px !important;
-}
-
-.modal_preview_link {
-	color: red !important;
 }

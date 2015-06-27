@@ -19,6 +19,6 @@ If you are looking for an alternative option to open any iframe in a new tab, se
 - Built with Bootstrap, jQuery, and plenty of guides
 - Sometimes it helps to return to the [fundamentals](http://jqfundamentals.com/chapter/jquery-basics)
 - [Eloquent JavaScript is my go to reference](http://eloquentjavascript.net/03_functions.html)
-- This [StackOverflow](http://stackoverflow.com/a/4990263/3219667) answer helped overcome a small bug with font awesome
+- This [StackOverflow](http://stackoverflow.com/a/13756526/3219667) answer helped overcome a small bug with font awesome
 - It always helps to know where the [invisible background page is](http://stackoverflow.com/questions/10257301/where-to-read-console-messages-from-background-js-in-a-chrome-extension)
 - Built in [Sublime](https://atom.io/) with quick [reloads](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid) and [lots of color choices](http://coolors.co/app/)

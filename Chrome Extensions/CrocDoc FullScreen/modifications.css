@@ -1,17 +1,10 @@
+.hide {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}
+
 .modal_preview_link {
 	color: red !important;
 	/*padding: 100em !important;*/
-}
-
-
-
-.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable.ui-resizable {
-	color: red !important;
-	background-color: green !important;
-
-}
-
-
-.Re-submit.Assignment {
-	font-size: 15em !important;
 }

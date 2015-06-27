@@ -1,19 +1,18 @@
 // jQuery(function($) {
 $( document ).ready(function() {
-  var theLink = $('a.modal_preview_link.Button--link').eq(0).attr('data-crocodoc_session_url');
-  console.log('theLink = ' + theLink);
+  var TheA = $('a.modal_preview_link.Button--link');
+  var theLink = TheA.eq(0).attr('data-crocodoc_session_url');
+  // console.log('theLink = ' + theLink);
 
-  var host = 'https://myelms.umd.edu/';
-  var url = host + theLink;
-  console.log(url);
+  if (typeof theLink !== 'undefined') {
+    var host = 'https://myelms.umd.edu/';
+    var url = host + theLink;
+    console.log(url);
 
-  // console.log(theLink);
-
+    $('div.col-xs-5.align-right').append("<a class='fullscreen-Widget-Kyle' href='" + url + "' target='_top' >View Full Feedback</a>");
+    TheA.addClass("hide");
+  }
 });
-
-
-
-
 
 
 // var COMMANDS = {

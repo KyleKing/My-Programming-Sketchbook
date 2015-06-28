@@ -2,7 +2,7 @@ ELMS and CrocoDoc FullScreen
 ===================
 > Canvas has a great set of tools for editing, but everything is trapped in a tiny view. This extension just directly opens the feedback in the same window, full screen!
 
-# From the [chrome webstore app page](https://chrome.google.com/webstore/detail/plmlhafmgopajgbdobknemohlcnohbgb/publish-delayed?hl=en-US&authuser=1)
+# From the [chrome webstore app page](https://chrome.google.com/webstore/detail/elms-and-crocodoc-fullscr/plmlhafmgopajgbdobknemohlcnohbgb?utm_source=gmail)
 Canvas has a great set of tools for editing (CrocoDoc), but everything is trapped in a tiny view. You can manually inspect the source code of the page and open the feedback form in a new tab; however, this extension does it for you. The extension changes the link of the "View Feedback" button to open the document in the same page or by clicking the arrow in a new tab.
 
 If you are looking for an alternative option to open any iframe in a new tab, see [Open Frame](https://chrome.google.com/webstore/detail/open-frame/kdhjgkkaacdhdioocfbpmhjidbinfajj)

@@ -15,24 +15,26 @@ My audience are front-end web developers and tech-company entrepreneurs with lim
 - https://projects.knightlab.com/projects/juxtaposejs
 - https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/ENGL393
 # Sharing for Access
-Building cheap and efficient web applications that can manage a database of inventory and a large user base is a difficult task. Meteor simplifies this process and is superior to other alternative web development frameworks. The software simplifies developer decisions and makes it possible for a smaller, less technical team, to build a market-viable product (MVP). To demonstrate the effectiveness of Meteor for building secure and robust applications, this tutorial will explain the development of a sample bike sharing application.
+  Building cheap and efficient web applications that can manage a database of inventory and a large user base is a difficult task. Meteor simplifies this process and is superior to other alternative web development frameworks. The software simplifies developer decisions and makes it possible for a smaller, less technical team, to build a market-viable product (MVP). To demonstrate the effectiveness of Meteor for building secure and robust applications, this tutorial will explain the development of a sample bike sharing application.
 
 ## Configuring Meteor
-Meteor is a software package that needs to be installed onto a computer, like Node.js and its other competitors. However, installing Meteor is a significantly easier process. For a Windows computer, the official installer is downloaded from https://www.meteor.com/install. Likewise, terminal is used to download Meteor on a Mac or Linux machine (Meteor Development Group, n.d.)⁠. The command is as follows:
 
+Meteor is a software package that needs to be installed onto a computer, like Node.js and its other competitors. However, installing Meteor is a significantly easier process. For a Windows computer, the official installer is downloaded from https://www.meteor.com/install. Likewise, terminal is used to download Meteor on a Mac or Linux machine (Meteor Development Group, n.d.)⁠. The command is as follows:
 ```shell
 curl https://install.Meteor.com/ | sh
 ```
+
 After completely downloaded, the first Meteor application can be created. Using Meteor's included build tools, enter, ```meteor create BikeShare``` into the command line. This command creates an application called BikeShare. To initiate the newly created application, navigate to the directory, ```cd BikeShare``` and run the application with ```meteor```.
 
 After running these three commands, the browser will display the Meteor application. The application has boilerplate code that displays a simple user interface and reactively stores data as seen in Illustration 1. Each time the button is clicked, the current count of button presses is saved and displayed instantly. Altering this code will introduce the core meteor concepts of reactivity, data storage, and rapid prototyping.
 
 ## Creating a Meteor Boilerplate
+
 To begin developing a meteor application, a text editor is required to view and edit application files. Although there are a multitude of  text editor options, Atom and Sublime are recommended due to their simplicity and ease of use. Both support a wide array of computer operating systems and offer extensive functionality that simplifies writing code  (Atom, n.d.; Sublime, n.d.)⁠. Once a text editor is selected, open the folder “BikeShare.” Within the “BikeShare” folder, there will be a second folder and three files. The folder, “.meteor,” holds all of the Meteor core functionality and remains largely untouched throughout the application development.. The files “BikeShare.css”, “BikeShare.html”, and “BikeShare.js” create the simple application shown in Illustration 1. The Cascading Style Sheets (CSS) file controls the page’s visual settings, such as color and font. The HTML file holds the text content of the page, such as the header, buttons, and paragraphs. The JavaScript (JS) file counts the number of button clicks and then stores the number in a special variable, called a session variable.
 
 ## Using Data in Meteor
-Meteor has several methods for storing information, such as through a session variable. These variables are only available while the user is logged in. When they log out or leave the app the variable is reset. They are very useful for working with complex views or r short term data. In the bike share example, the variables are used to store the number of button clicks since the window was last opened. Inside the BikeShare.js file, the session variable is created by this code snippet.
 
+Meteor has several methods for storing information, such as through a session variable. These variables are only available while the user is logged in. When they log out or leave the app the variable is reset. They are very useful for working with complex views or r short term data. In the bike share example, the variables are used to store the number of button clicks since the window was last opened. Inside the BikeShare.js file, the session variable is created by this code snippet.
 ```js
  // counter starts at 0
   Session.setDefault('counter', 0);
@@ -46,7 +48,6 @@ Meteor has several methods for storing information, such as through a session va
 ```
 
 A Meteor template is used to watch the button for clicks. These templates encase the HTML content within its designated section. Without the templates, the html content is rendered on every page, once routing control is added. This template structure reduces the amount of HTML and allows JS functions to trigger based on template events. To select the template to render, the syntax, ```{{> hello}}``` is used (Meteor, n.d.)⁠. In the boilerplate code, this is used to include the 'hello' template in the body element.
-
 ```js
   Template.hello.helpers({
     counter: function () {
@@ -58,11 +59,9 @@ A Meteor template is used to watch the button for clicks. These templates encase
 To render the data for the user, Meteor uses Spacebars, a tool for actively manipulating the HTML document. When given a value from a JS file like the snippet above, Spacebars renders the value in HTML. In this case, the session variable counter is created in BikeShare.js and shown as a component of the HTML through this syntax: ```{{counter}}```. This looks very similar to the template inclusion syntax and serves a similar function. Anytime the session variable-counter is updated, the HTML content is automatically re-rendered and updated by Meteor. Building a tool that reactively updates and displays data is easily prototyped with Meteor.
 
 Session variables are effective for short term data storage. For long term storage, Meteor comes equipped with Mongo DataBase that stores information. Mongo is like a binder with many documents inside it. On each document there are fields with information that can be accessed through a query, a request. To create the document, this line is run in JS, ```new Mongo.Collection('bikes');```. To interact with this document, a link to the document is created by assigning a variable that can be accessed throughout the app known as a global variable. The code snippet below creates a sample database of bike data and the subsequent table to view the data. These successive files can replace the boilerplate BikeShare.html and BikShare.js respectively.
-
 ```html
 (Code not finished - Table to display the new data)
 ```
-
 ```js
 DailyBikeData = new Mongo.Collection('dailyBikeData');
 
@@ -122,8 +121,9 @@ if (Meteor.isClient) {
 }
 ```
 
-With this short code, bike positions are randomly generated and then stored in a database. In a published application, changes made on one computer would be visible to every user; however, displaying geographical locations in a table format is inefficient. To display the data in a meaningful way, the bike positions should be visible on a map that considers the user's current location. There is a package that already makes this possible called Leaflet maps. Leaflet is an open source mapping software similar to Google. Leaflet can be added by entering ```meteor add bevanhunt:leaflet```. After a short download, the entire Leaflet library will be available. To select where the map will be rendered and with what information, the HTML, CSS, and JS files need the following code snippets appended.
+First, the JS file creates the database of bike locations on the server. The client automatically can see these changes and retrieves the values with, ```var bikesData = DailyBikeData.find().fetch();```. The HTML file creates a table with Spacebars syntax to render every available value in array. In this case, the table renders the array of bike positions and information in a long list of locations.
 
+With this short code, bike positions are randomly generated and then stored in a database. In a published application, changes made on one computer would be visible to every user. Displaying geographical locations in a table format is ineffective. To display the data in a meaningful way, the bike positions should be visible on a map that considers the user's current location. There is a package that already makes this possible called Leaflet maps. Leaflet is an open source mapping software similar to Google. Leaflet can be added by entering ```meteor add bevanhunt:leaflet```. After a short download, the entire Leaflet library will be available. To select where the map will be rendered and with what information, the HTML, CSS, and JS files need the following code snippets appended.
 ```html
 <body>
   {{> map}}
@@ -133,7 +133,6 @@ With this short code, bike positions are randomly generated and then stored in a
   <div id="BikeMap" class="map-style"></div>
 </template>
 ```
-
 ```JS
 if (Meteor.isClient) {
   // Create the Leaflet Map
@@ -168,21 +167,17 @@ if (Meteor.isClient) {
 }
 ```
 
-The JS file includes a segment of code that first retrieves all available bike locations and then displays the data as markers on the leaflet map. To improve this basic code, each bike could be tagged to determine the status of the inventory and choose what is visible to each user. With a small tweak to the code, only bikes tagged “available” will be shown in the map. For example, if```var bikesData = DailyBikeData.find().fetch();``` is replaced with, ```var bikesData = DailyBikeData.find({tag: 'Available'}).fetch();```, only available bikes will be returned.
+The first file creates a template called 'map' that contains an element with the tag, 'BikeMap'. This tells Leaflet where to initiate the map. The short CSS declarations additionally determine the size of the map, as it would otherwise have a height of zero pixels. The JS file determines the map's configuration. By using the Leaflet API, a bike-friendly map from HERE maps is chosen and displayed in window. With Leaflet there a multitude of map styles and options to match any need.
+
+To display the bike locations on the map. The positions are pulled inside of a for loop to select the appropriate location. After first retrieving all available bike locations, the data is displayed as markers on the leaflet map. Using Leaflet's simple API, the user location can then be located and displayed with a short function. To improve this basic code, each bike could be tagged to determine the status of the inventory. With a small tweak to the code, only bikes tagged “Available” will be shown in the map. For example, if```var bikesData = DailyBikeData.find().fetch();``` is replaced with, ```var bikesData = DailyBikeData.find({tag: 'Available'}).fetch();```, only available bikes will be returned.
 
 This simple demonstration rapidly prototypes a bike sharing application that can store inventory locations and sort through the data to display only available bikes on a Leaflet map. The extent of this tutorial discusses only a portion of what is possible with Meteor. The same package manager that simplified adding Leaflet can add complicated packages that can control user interaction or entire libraries of code that simplify creating visual elements for the website. This tutorial covers creating the most basic components of a web application to show the value of Meteor.
 
 # Works Cited
 Atom. (n.d.). Atom. Retrieved June 24, 2015, from https://atom.io/
-
 Bootstrap. (2015). Bootstrap · The world’s most popular mobile-first and responsive front-end framework. Retrieved June 21, 2015, from http://getbootstrap.com/
-
 Firdaus, T. (2013). Responsive Web Design by Example Beginner’s Guide. Packt Publishing Ltd.
-
 Jain, N. (2014). Review of Different Responsive CSS Front-End Frameworks. Journal of Global Research in Computer Science, 5(11), 5.
-
 Meteor. (n.d.). Documentation - Meteor. Retrieved June 21, 2015, from http://docs.meteor.com/#/full/
-
 Meteor Development Group. (n.d.). Try Meteor. Retrieved June 24, 2015, from https://www.meteor.com/install
-
 Sublime. (n.d.). Sublime Text: The text editor you’ll fall in love with. Retrieved June 24, 2015, from http://www.sublimetext.com/

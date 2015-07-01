@@ -5,8 +5,34 @@
 
 <body>
   {{> map}}
+  {{> table}}
 </body>
 
 <template name="map">
   <div id="BikeMap" class="map-style"></div>
+</template>
+
+<template name = "table">
+	<table>
+	<!-- .table.table-hover.table-condensed -->
+
+		<thead>
+		<tr>
+			<th>Bike Number</th>
+			<th>Lat</th>
+			<th>Lng</th>
+		</tr>
+		</thead>
+
+		<tbody>
+			{{#each bikeInfo}}
+		<tr>
+	      <td>{{Bike}}</td>
+	      <td>{{Positions.lat}}</td>
+	      <td>{{Positions.lng}}</td>
+	   </tr>
+       {{/each}}
+		</tbody>
+
+	</table>
 </template>

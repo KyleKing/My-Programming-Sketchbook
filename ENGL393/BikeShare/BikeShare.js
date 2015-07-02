@@ -1,3 +1,6 @@
+
+// Version 2
+
 DailyBikeData = new Mongo.Collection('dailyBikeData');
 
 if (Meteor.isServer) {
@@ -36,6 +39,9 @@ if (Meteor.isServer) {
 }
 
 
+// Version 2
+
+
 if (Meteor.isClient) {
   Template.table.helpers({
     bikeInfo: function () {
@@ -45,11 +51,6 @@ if (Meteor.isClient) {
 }
 
 
-
-
-
-
-
-
+// Version 3
 
 

@@ -1,18 +1,19 @@
+
+
+<!-- Version 2 -->
+
+
 <!-- BikeShare.html -->
 <head>
   <title>BikeShare</title>
 </head>
 
 <body>
-  {{> map}}
   {{> table}}
+  {{> map}}
 </body>
 
-<template name="map">
-  <div id="BikeMap" class="map-style"></div>
-</template>
-
-<template name = "table">
+<template name="table">
 	<table>
 	<!-- .table.table-hover.table-condensed -->
 
@@ -35,4 +36,11 @@
 		</tbody>
 
 	</table>
+</template>
+
+
+<!-- Version 3 -->
+
+<template name="map">
+  <div id="BikeMap" class="map-style"></div>
 </template>

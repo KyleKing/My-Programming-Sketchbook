@@ -8,6 +8,9 @@ meteor-platform
 autopublish
 insecure
 
+mrt:leaflet
+
+
 # Authentication
 # accounts-password
 # alanning:roles
@@ -26,9 +29,6 @@ insecure
 # JS Libraries - Tools
 # momentjs:moment
 # mrt:underscore-string-latest
-
-
-mrt:leaflet
 # fuatsengul:leaflet-markercluster
 # appshore:leaflet-awesome-markers
 

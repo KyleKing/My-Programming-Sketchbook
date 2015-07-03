@@ -53,14 +53,12 @@ if (Meteor.isClient) {
 // Version 3
 
 if (Meteor.isClient) {
-
-  // Create the Leaflet Map
   Template.map.rendered = function() {
-    L.Icon.Default.imagePath = 'leaflet/images';
-    var HERE_hybridDayMobile, map;
+    // Create the Leaflet Map
+    L.Icon.Default.imagePath = '/packages/mrt_leaflet/images' ;
     if (Meteor.isClient) {
-      map = new L.Map('BikeMap', { center: new L.LatLng(38.987701, -76.940989) });
-      HERE_hybridDayMobile = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
+      var map = new L.Map('BikeMap', { center: new L.LatLng(38.987701, -76.940989) });
+      var HERE_hybridDayMobile = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
         attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
         subdomains: '1234',
         mapID: 'newest',
@@ -70,18 +68,15 @@ if (Meteor.isClient) {
       }).addTo(map);
     }
 
-    // Receive data from server and display on map
-    var bikesData = DailyBikeData.find().fetch();
-    var i = bikesData.length - 1;
-    while (i >= 1) {
-      var marker = L.marker([bikesData[i].Positions.lat, bikesData[i].Positions.lng]).addTo(map);
-      i--;
-    }
-
-    // Display user location
-    map.locate({ setView: true }).on("locationfound", function(e) {
-      var marker = L.marker([e.latitude, e.longitude]).addTo(map);
+    // Receive data from server and display on map and rerun on server updates
+    Meteor.autorun(function() {
+      var bikesData = DailyBikeData.find().fetch();
+      bikesData.forEach(function(bike) {
+        var marker = L.marker([bike.Positions.lat, bike.Positions.lng]).addTo(map);
+      });
     });
-  };
 
+    // Zoom to user location
+    map.locate({ setView: true })
+  };
 }

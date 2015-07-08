@@ -26,7 +26,7 @@ curl https://install.Meteor.com/ | sh
 
 Once downloaded, the first Meteor application can be created. Using Meteor's included build tools, enter, ```meteor create BikeShare``` into the command line. This command creates an application called BikeShare. To initiate the newly created application, navigate to the directory, ```cd BikeShare``` and run the application with ```meteor```.
 
-[Illustration 1](Solution Paper.png)
+![Illustration 1](Solution Paper.png)
 Illustration 1: Meteor example welcome page
 
 After running these three commands, the browser will display the Meteor application. The application runs a “hello world” example of the most basic code to prove proper initiation of the software. The has hello world example displays a simple user interface and reactively stores data as seen in illustration 1. Each time the button is clicked, the current count of button presses is saved and displayed instantly. Altering this code will introduce the core meteor concepts of reactivity, data storage, and rapid prototyping.

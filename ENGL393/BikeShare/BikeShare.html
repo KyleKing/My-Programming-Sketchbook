@@ -1,18 +1,26 @@
-<!-- Version 1 -->
-
-
-<!-- Version 2 -->
-
-
 <!-- BikeShare.html -->
 <head>
   <title>BikeShare</title>
 </head>
 
 <body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
   {{> table}}
   {{> map}}
 </body>
+
+
+<!-- Version 1 -->
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+
+<!-- Version 2 -->
 
 <template name="table">
 	<table>

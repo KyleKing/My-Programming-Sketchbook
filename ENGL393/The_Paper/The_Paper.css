@@ -1,42 +1,26 @@
-/* CSS declarations go here */
-// Sizing: http://reeddesign.co.uk/test/points-pixels.html
-h1 {
-	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-size: 23px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 23px;
+body {
+	max-width: 8in;
+	font-family: "Liberation Serif", serif;
+	so-language: en-US;
 }
-h3 {
-	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-size: 17px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 23px;
+
+h1 { font-size: 25pt; }
+h2 { font-size: 18pt; }
+
+p.TransmittalLetter {
+	font-size: 12pt;
+	text-align: left;
+	line-height: 150%;
 }
-p {
-	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-size: 14px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 23px;
+
+.western {
+	font-size: 12pt;
+	line-height: 200%;
 }
-blockquote {
-	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-size: 17px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 23px;
-}
-pre {
-	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-size: 11px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 23px;
-}
+
+p.western { text-indent: 0.5in; }
+
+.Center { text-align: center; }
+.Break { page-break-before: always; }
+
+@page { margin-left: 1.5in; margin-right: 1.5in; margin-top: 1in; margin-bottom: 1in }

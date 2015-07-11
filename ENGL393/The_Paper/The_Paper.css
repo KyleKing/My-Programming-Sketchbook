@@ -1,7 +1,6 @@
 body {
 	max-width: 8in;
-	font-family: "Liberation Serif", serif;
-	so-language: en-US;
+	font-family: "Times New Roman";
 }
 
 h1 { font-size: 25pt; }
@@ -10,14 +9,13 @@ h2 { font-size: 18pt; }
 p.TransmittalLetter {
 	font-size: 12pt;
 	text-align: left;
-	line-height: 150%;
+	line-height: 160%;
 }
 
 .western {
 	font-size: 12pt;
 	line-height: 200%;
 }
-
 p.western { text-indent: 0.5in; }
 
 .Center { text-align: center; }

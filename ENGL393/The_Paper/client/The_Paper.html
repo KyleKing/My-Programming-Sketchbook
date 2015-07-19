@@ -1,6 +1,18 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="content-type">
+	<!-- General Meta -->
 	<title>ENGL393 - Final Paper</title>
+	<meta name=”description” content="A paper on how to use Meteor hosted inside a Meteor application. This project has inspired me to design a web-based alternative to LaTeX.">
+	<link rel=”author” href="https://google.com/+KyleKingLikesBikes"/>
+	<!-- Social Media -->
+	<meta property=”og:title” content="ENGL393 - Final Paper"/>
+	<meta property=”og:type” content="article"/>
+	<meta property=”og:image” content=”fig3.png”/>
+	<!-- <meta property=”og:url” content=”http://blog.iacquire.com”/> -->
+	<meta property=”og:description” content="A paper on how to use Meteor hosted inside a Meteor application."/>
+	<!-- <meta property=”fb:admins” content=”USER_ID”/> -->
+	<!-- More from Twitter, G+, etc. -->
+	<!-- http://www.iacquire.com/blog/18-meta-tags-every-webpage-should-have-in-2013 -->
 </head>
 
 <body dir="ltr">
@@ -79,7 +91,7 @@
 		</code></pre>
 		<p class="western">Once downloaded, the first Meteor application can be created. Using Meteor's included build tools, enter, ```meteor create BikeShare``` into the command line. This command creates an application called BikeShare. To initiate the newly created application, navigate to the directory, ```cd BikeShare``` and run the application with ```meteor```.
 		</p>
-		<img align="bottom" border="0" id="Image1" name="Image1" src="fig1.png" width="100%" height="auto">
+		<img align="bottom" border="0" id="Image1" name="Image1" src="fig1.png" width="100%" height="auto" data-action="zoom">
 		<i>Illustration 1: Meteor example welcome page</i>
 		<p class="western">After running these three commands, the browser will display the Meteor application. The application runs a “Hello World” example of the most basic code to prove proper initiation of the software. The Hello World example displays a simple user interface and reactively stores data as seen in illustration 1. Each time the button “Click Me” is clicked, the current count of button presses is saved and displayed instantly. To introduce the core meteor concepts of reactivity, data storage, and rapid prototyping, the initial code will be analyzed.
 		</p>
@@ -195,7 +207,7 @@
 			  });
 			}
 		</code></pre>
-		<img align="bottom" border="0" id="Image2" name="Image2" src="fig2.png" width="100%" height="auto">
+		<img align="bottom" border="0" id="Image2" name="Image2" src="fig2.png" width="100%" height="auto" data-action="zoom">
 		<i>Illustration 2: Table of database values</i>
 
 		<h2 class="western">Data Visualization</h2>
@@ -252,7 +264,7 @@
 			  };
 			}
 		</code></pre>
-		<img align="bottom" border="0" id="Image3" name="Image3" src="fig3.png" width="100%" height="auto">
+		<img align="bottom" border="0" id="Image3" name="Image3" src="fig3.png" width="100%" height="auto" data-action="zoom">
 		<i>Illustration 3: Bike positions plotted on a Leaflet map</i>
 		<p class="western">The first file creates a template called 'map' that contains an element with the tag, 'BikeMap'. This tells Leaflet where to initiate the map. In addition, the short CSS declarations determine the size of the map and prevent the creation of an invisible map with a height of zero pixels.. The JS file determines the map's configuration, such as map visual style, user credentials, markers, and other information. Through the Leaflet API, the bike-friendly map from HERE maps is displayed in the user window. The map should appear as shown in Illustration 3. Once the browser retrieves all available bike locations with, ```var bikesData = DailyBikeData.find().fetch();```, the data points are displayed as markers on the Leaflet map from within the for loop. Using Leaflet's simple API, the user location can then be shown by changing the map's center position. With a small tweak to the client code, only bikes tagged “Available” will be shown in the map. For example, if```var bikesData = DailyBikeData.find().fetch();``` is replaced with, ```var bikesData = DailyBikeData.find({tag: 'Available'}).fetch();```, only available bikes will be returned.</p>
 		<p class="western">This simple demonstration rapidly prototypes a bikeshare application that can store inventory locations and sort through the data to display only available bikes on a Leaflet map. The code included in this tutorial can be extended with the addition of Meteor packages, as demonstrated with the leaflet package. Recommended packages such as twbs:bootstrap and useraccounts:bootstrap would aid in the development of visual components and login functionality respectively. With the Meteor web development framework, a developer can rapidly and cost-effectively develop large applications.</p>

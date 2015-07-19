@@ -16,7 +16,8 @@ h2 {
 }
 
 p.TransmittalLetter {
-	font-size: 12pt;
+	/* font-size: 12pt; */
+	font-size: 18pt;
 	text-align: left;
 	line-height: 160%;
 }

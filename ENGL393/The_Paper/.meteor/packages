@@ -8,3 +8,6 @@ meteor-platform
 autopublish
 insecure
 gadicohen:prism
+
+kyleking:customizable-bootstrap-stylus
+jquery

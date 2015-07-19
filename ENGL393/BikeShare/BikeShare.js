@@ -68,7 +68,9 @@ if (Meteor.isClient) {
     Meteor.autorun(function() {
       var bikesData = DailyBikeData.find().fetch();
       bikesData.forEach(function(bike) {
-        var marker = L.marker([bike.Positions.lat, bike.Positions.lng]).addTo(map);
+        var latlng = [bike.Positions.lat, bike.Positions.lng];
+        var marker = L.marker(latlng).addTo(map);
+        marker.bindPopup("#" + bike.Bike + " is " + bike.Tag);
       });
     });
 

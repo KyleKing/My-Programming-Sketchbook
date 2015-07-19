@@ -9,30 +9,3 @@ autopublish
 insecure
 
 mrt:leaflet
-
-
-# Authentication
-# accounts-password
-# alanning:roles
-# useraccounts:bootstrap
-
-# Seed Data
-# dburles:factory
-# anti:fake
-
-# Preprocessors
-# mquandalle:jade
-# coffeescript
-# stylus
-# kyleking:customizable-bootstrap-stylus
-
-# JS Libraries - Tools
-# momentjs:moment
-# mrt:underscore-string-latest
-# fuatsengul:leaflet-markercluster
-# appshore:leaflet-awesome-markers
-
-
-# fortawesome:fontawesome
-
-# digilord:faker

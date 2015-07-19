@@ -58,13 +58,9 @@ if (Meteor.isClient) {
     L.Icon.Default.imagePath = '/packages/mrt_leaflet/images' ;
     if (Meteor.isClient) {
       var map = new L.Map('BikeMap', { center: new L.LatLng(38.987701, -76.940989) });
-      var HERE_hybridDayMobile = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
-        attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
-        subdomains: '1234',
-        mapID: 'newest',
-        app_id: 'JIX0epTdHneK1hQlqfkr',
-        app_code: 'PchnUPPBcZ5VAuHmovac8g',
-        base: 'aerial'
+      var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
     }
 
@@ -75,6 +71,17 @@ if (Meteor.isClient) {
         var marker = L.marker([bike.Positions.lat, bike.Positions.lng]).addTo(map);
       });
     });
+
+
+    var bottomLng = -76.936569; var topLng = -76.950603;
+    var leftLat = 38.994052; var rightLat = 38.981376;
+
+    var polygon = L.polygon([
+      [rightLat, bottomLng],
+      [rightLat, topLng],
+      [leftLat, topLng],
+      [leftLat, bottomLng]
+  ]).addTo(map);
 
     // Zoom to user location
     map.locate({ setView: true })

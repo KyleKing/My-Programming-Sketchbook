@@ -1,6 +1,7 @@
 autopublish@1.0.3
 autoupdate@1.2.1
 base64@1.0.3
+bevanhunt:leaflet@0.3.18
 binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
@@ -28,7 +29,6 @@ minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 mongo@1.1.0
-mrt:leaflet@0.3.8
 observe-sequence@1.0.6
 ordered-dict@1.0.3
 random@1.0.3

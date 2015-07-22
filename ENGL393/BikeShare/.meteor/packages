@@ -8,4 +8,5 @@ meteor-platform
 autopublish
 insecure
 
+meteortoys:allthings@1.2.1 # Pres ctrl-m to activate
 bevanhunt:leaflet

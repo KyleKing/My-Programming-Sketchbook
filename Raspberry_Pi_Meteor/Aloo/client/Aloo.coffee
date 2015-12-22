@@ -7,7 +7,6 @@ Template.hello.helpers counter: ->
   Session.get 'counter'
 
 Template.hello.events 'click button': ->
-  Meteor.call('Pictures')
+  Meteor.call('PicRefresh')
   # increment the counter when button is clicked
-  Session.set 'counter', Session.get('counter') + 1
-  return
+  # Session.set 'counter', Session.get('counter') + 1

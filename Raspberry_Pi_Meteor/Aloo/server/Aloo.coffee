@@ -24,10 +24,10 @@
 
 # The manual approach
 Meteor.startup ->
-  Meteor.call('Pictures')
+  Meteor.call('PicRefresh')
 
 Meteor.methods
-  Pictures: () ->
+  PicRefresh: () ->
     PicCount = Pictures.find().count()
     console.log PicCount
     if PicCount is 0
@@ -35,6 +35,7 @@ Meteor.methods
       # Also address issues of access token expiring
       # Make sure to run with: meteor --settings settings.json
       url = Meteor.settings.URL
+      console.log url
 
       # Fetch information
       response = Meteor.http.get url, {timeout:30000}

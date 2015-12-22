@@ -1,3 +1,25 @@
+//
+//
+// The important part (for later)
+//
+//
+// Code Source: http://stackoverflow.com/a/12751657/3219667
+var fs = require('fs'),
+    request = require('request');
+
+var download = function(uri, filename, callback){
+  request.head(uri, function(err, res, body){
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  });
+};
+
+
+
+
+
 // Example DDP CLient - basically straight from the Github repo
 var DDPClient = require("ddp");
 
@@ -93,11 +115,21 @@ ddpclient.connect(function(error, wasReconnect) {
    * Observe a collection.
    */
   var observer = ddpclient.observe("pictures");
+
+  //
+  //
+  // The important part to download files when MongoDB change
+  //
+  //
   observer.added = function(id) {
     console.log("[ADDED] to " + observer.name + ":  " + id);
-    CurrentURL = ddpclient.collections.pictures[id].URL;
-    console.log('CurrentURL = ' + CurrentURL);
+    var Current = ddpclient.collections.pictures[id];
+    var filename = 'imgs/' + Current.ID + '.jpg';
+    download(Current.URL, filename, function(){
+      console.log(' > Saved (URL = ' + Current.URL + ') as ' + filename);
+    });
   };
+
   observer.changed = function(id, oldFields, clearedFields, newFields) {
     console.log("[CHANGED] in " + observer.name + ":  " + id);
     console.log("[CHANGED] old field values: ", oldFields);
@@ -106,9 +138,16 @@ ddpclient.connect(function(error, wasReconnect) {
   };
   observer.removed = function(id, oldValue) {
     console.log("[REMOVED] in " + observer.name + ":  " + id);
-    console.log("[REMOVED] previous value: ", oldValue);
+    // console.log("[REMOVED] previous value: ", oldValue);
+
+    var Current = oldValue;
+    var filename = 'imgs/' + Current.ID + '.jpg';
+    console.log(filename);
+    fs.unlink(filename, function() {
+        console.log(' > Deleted ' + filename);
+    });
   };
-  setTimeout(function() { observer.stop() }, 6000);
+  // setTimeout(function() { observer.stop() }, 6000);
 
 });
 

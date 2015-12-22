@@ -16,7 +16,7 @@ var jsonfile = require('jsonfile')
 var util = require('util')
 var flickrOptions = jsonfile.readFileSync('secret.json')
 
-var _ = require('Underscore')
+var _ = require('underscore')
 
 var Flickr = require("flickrapi")
 
@@ -252,20 +252,47 @@ Fetch.start()
 // Step 4.2: Create slide show
 //
 // Allow for Scripting
-var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
-// Refresh image every minute
-var SlideShow = new CronJob('00 * * * * *', function() {
-	// console.log(DesiredFiles);
+function MakePictures() {
+	// console.log(DesiredFiles[0]);
 	var RandIndex = Math.round( DesiredFiles.length*Math.random() )
 	var filepath = DesiredFiles[RandIndex]
 	// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
-	var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/' + filepath
+	var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
 	// console.log(command)
-  // var RunShellCommand = spawn('sh', [ command ]);
-  }, function () {
+	var child = exec(command, function (error, stdout, stderr) {
+		if (error) console.log(error)
+		console.log('stdout: ' + stdout)
+		console.log('stderr: ' + stderr)
+	})
+}
+
+// Refresh image every minute
+var SlideShow = new CronJob('00 * * * * *', function() {
+		MakePictures()
+	}, function () {
     /* This function is executed when the job stops */
     console.log('Finished')
   },
-  true /* Start the job right now */
+  false /* Start the job right now */
 )
+
+MakePictures()
+SlideShow.start()
+
+
+// // Source: http://stackoverflow.com/a/3510850/3219667
+// // kill $(ps aux | grep 'fbi' | awk '{print $2}')
+// // ps -ef | grep fbi
+
+// // Then Kill image viewer
+// setTimeout(function() {
+// 	var command = 'sudo pkill fbi'
+// 	console.log(command)
+// 	var KillProcess = exec(command, function (error, stdout, stderr) {
+// 		if (error) console.log(error)
+// 		console.log('stdout: ' + stdout)
+// 		console.log('stderr: ' + stderr)
+// 	})
+// }, 5000)

@@ -133,7 +133,8 @@ Add: cd /home/pi/Raspberry_Pi/Aloo/node/; node flickr.js
 Close and Save
 $ sudo chmod 755 PhotoFrameStart
 $ sudo update-rc.d PhotoFrameStart defaults
-
+Check the script
+$ bash /etc/init.d/PhotoFrameStart
 
 // warning "missing LSB tags and overrides" -> may just need this content:
 // ### BEGIN INIT INFO
@@ -150,4 +151,44 @@ $ sudo update-rc.d PhotoFrameStart defaults
 // #                    do_start(), do_stop() or other functions to
 // #                    override the defaults in /lib/init/init-d-script.
 // ### END INIT INFO
+//
+// Another example from: https://www.raspberrypi.org/forums/viewtopic.php?t=50519&p=392273
+// Oh and check script for run...
+// #!/bin/sh
+// # Start/stop the cron daemon.
+// #
+// ### BEGIN INIT INFO
+// # Provides:          cron
+// # Required-Start:    $remote_fs $syslog $time
+// # Required-Stop:     $remote_fs $syslog $time
+// # Should-Start:      $network $named slapd autofs ypbind nscd nslcd
+// # Should-Stop:       $network $named slapd autofs ypbind nscd nslcd
+// # Default-Start:     2 3 4 5
+// # Default-Stop:
+// # Short-Description: Regular background program processing daemon
+// # Description:       cron is a standard UNIX program that runs user-specified
+// #                    programs at periodic scheduled times. vixie cron adds a
+// #                    number of features to the basic UNIX cron, including better
+// #                    security and more powerful configuration options.
+// ### END INIT INFO
+
+// // What I think might work:
+// // Note: 5 - GUI
+// //
+// #!/bin/sh
+// ### BEGIN INIT INFO
+// # Provides:          PhotoFrameStart
+// # Required-Start:    $remote_fs $syslog
+// # Required-Stop:     $remote_fs $syslog
+// # Default-Start:     5
+// # Default-Stop:      6
+// # Short-Description: Will this work?
+// # Description:       This file should be used to construct scripts to be
+// #                    placed in /etc/init.d.  This example start a
+// #                    single forking daemon capable of writing a pid
+// #                    file.  To get other behavoirs, implemend
+// #                    do_start(), do_stop() or other functions to
+// #                    override the defaults in /lib/init/init-d-script.
+// ### END INIT INFO
+// cd /home/pi/Raspberry_Pi/Aloo/node/; node flickr.js
 

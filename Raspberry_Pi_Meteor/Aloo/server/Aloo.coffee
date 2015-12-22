@@ -24,12 +24,37 @@
 
 # The manual approach
 Meteor.startup ->
-  url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=1272823892.3826c33.d1cf61bb0732471c8550e335bc073428'
+  Meteor.call('Pictures')
 
-  response = Meteor.http.get url, {timeout:30000}
-  Info = JSON.parse(response.content)
-  console.log Info.data[0].images.standard_resolution.url
+Meteor.methods
+  Pictures: () ->
+    PicCount = Pictures.find().count()
+    console.log PicCount
+    if PicCount is 0
+      # To be iterated over each of Aloo's streams
+      # Also address issues of access token expiring
+      # Make sure to run with: meteor --settings settings.json
+      url = Meteor.settings.URL
 
+      # Fetch information
+      response = Meteor.http.get url, {timeout:30000}
+      Info = JSON.parse(response.content)
+      # Parse out each image in the JSON response
+      ImgCount = Info.data.length
+      console.log 'ImgCount = ' + ImgCount
+      while ImgCount isnt 0
+        ImageUrl = Info.data[ImgCount - 1].images.standard_resolution.url
+        Pictures.insert {
+          ID: ImgCount
+          URL: ImageUrl
+          Caption: Info.data[ImgCount - 1].caption
+        }
+        # console.log 'ImageUrl = ' + ImageUrl
+        ImgCount--
+      console.log 'Finished updating Pictures Meteor collection'
+    'OK'
+
+Meteor.publish( 'PicturesData', () => Pictures.find() )
 
 
 # Source: http://stackoverflow.com/q/29571059/3219667

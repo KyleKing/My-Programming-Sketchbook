@@ -177,9 +177,9 @@ function FetchDropboxPhotos() {
 				// Yeah...don't do thie for a binary file...
 			  // console.log(reply.toString(), metadata)
 			})
-			// how to make this synchronous...? Actually! This doesn't need to be synchronous!
-			DeleteExcessFiles(DesiredFiles, 'dropbox')
 		}
+		// how to make this synchronous...? Actually! This doesn't need to be synchronous!
+		DeleteExcessFiles(DesiredFiles, 'dropbox')
 	})
 }
 
@@ -201,9 +201,9 @@ function DeleteExcessFiles(DesiredFiles, subfolder) {
 		var ExistingFiles = files;
 
 		if ( (ExistingFiles.length - DesiredFiles.length) === 0) {
-			console.log('Nothing to report')
+			console.log('Nothing to report for ' + subfolder)
 		} else {
-			console.log('Clearing out the junk');
+			console.log('Attempted to delete unwanted files');
 			// console.log(DesiredFiles);
 			for (var i = 0; i < ExistingFiles.length; i++) {
 				var filename = ExistingFiles[i]
@@ -250,7 +250,7 @@ var Fetch = new CronJob('00 00 9 * * *', function() {
   false /* Start the job right now */
 )
 
-
+// Run everything
 FetchFlickrPhotos()
 FetchDropboxPhotos()
 Fetch.start()

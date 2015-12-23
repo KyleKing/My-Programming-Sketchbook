@@ -38,6 +38,10 @@ var fs = require('fs'),
 // First from Flickr from a specific Gallery
 function FetchFlickrPhotos() {
 	var CollectionPhotos = []
+	// - type jpg/png
+	// - url
+	// - source 'instagram'
+	// - id 'essentially a filename'
 
 	Flickr.tokenOnly(SecretOptions, function(error, flickr) {
 		flickr.galleries.getPhotos({
@@ -69,16 +73,9 @@ function FetchFlickrPhotos() {
 }
 
 // Second, find photo URL's from Instagram
-function FetchInstagramPhotos() {
+function IterateOverInstagramURLs(ii, URLs, callback) {
 	var CollectionPhotos = []
-	// - type jpg/png
-	// - url
-	// - source 'instagram'
-	// - id 'essentially a filename' (already present)
-
-	// Note will eventually have two URL's - one for me and one for Colleen's profile
-	var url = SecretOptions.InstagramAPI.URL;
-	// console.log(url);
+	var url = SecretOptions.InstagramAPI.URLs[ii];
 
 	request(url, function (err, res, body) {
 		if (err) console.log(err)
@@ -88,18 +85,31 @@ function FetchInstagramPhotos() {
 		var Info = JSON.parse(body)
 		var ImgCount = Info.data.length
 		while (ImgCount !== 0) {
+	// console.log('-----THIS SHOULD WORK?-----');
+	// console.log(ii);
+	// console.log(SecretOptions.InstagramAPI.sources[ii]);
 			var tmp = {
 		  	url: Info.data[ImgCount - 1].images.standard_resolution.url,
 		  	id: Info.data[ImgCount - 1].caption.id,
 		  	type: 'jpg',
-		  	source: 'instagram'
+		  	source: 'instagram_' + SecretOptions.InstagramAPI.sources[ii]
 		  }
+		  // console.log(tmp);
 		  CollectionPhotos.push(tmp)
 		  ImgCount--
 		}
-		// Move on to downloading
-		CompleteDownload(CollectionPhotos)
+		callback(CollectionPhotos)
 	})
+}
+
+function FetchInstagramPhotos () {
+	// Will have at least two URL's for me and Colleen, plus anyone else that joins
+	for (var jj = 0; jj < SecretOptions.InstagramAPI.URLs.length; jj++) {
+		IterateOverInstagramURLs(jj, SecretOptions.InstagramAPI.URLs, function(CollectionPhotos) {
+			// Move on to downloading
+			CompleteDownload(CollectionPhotos)
+		})
+	}
 }
 
 //
@@ -107,6 +117,8 @@ function FetchInstagramPhotos() {
 //
 function CompleteDownload(CollectionPhotos) {
 	var DesiredFiles = []
+	// 'Just the local path to a file to compare against existing files'
+
 	glob("imgs/" + CollectionPhotos[0].source + "/*.*", function (er, files) {
 		// files is an array of filenames.
 		// If the `nonull` option is set, and nothing

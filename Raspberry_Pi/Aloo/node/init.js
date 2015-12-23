@@ -1,56 +1,56 @@
-//
-//
-// Testing execute functions
-//
-//
-var exec = require('child_process').exec;
-var RandIndex = 0 // Math.round( DesiredFiles.length*Math.random() )
-var filepath = 'imgs/flickr_7518494028.jpg' // DesiredFiles[RandIndex]
-	// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
-var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
-console.log(command)
+// //
+// //
+// // Testing execute functions
+// //
+// //
+// var exec = require('child_process').exec;
+// var RandIndex = 0 // Math.round( DesiredFiles.length*Math.random() )
+// var filepath = 'imgs/flickr_7518494028.jpg' // DesiredFiles[RandIndex]
+// 	// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
+// var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
+// console.log(command)
 
-// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/flickr_7518494028.jpg
-// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/flickr_13879984345.jpg
-// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/google.png
-// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/google.png
+// // sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/flickr_7518494028.jpg
+// // sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/flickr_13879984345.jpg
+// // sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/google.png
+// // sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/google.png
 
-// Using Exec:
-var child = exec(command, function (error, stdout, stderr) {
-	if (error) console.log(error)
-	console.log('stdout: ' + stdout)
-	console.log('stderr: ' + stderr)
-})
+// // Using Exec:
+// var child = exec(command, function (error, stdout, stderr) {
+// 	if (error) console.log(error)
+// 	console.log('stdout: ' + stdout)
+// 	console.log('stderr: ' + stderr)
+// })
 
-// Old Way with spawn:
-// var RunShellCommand = spawn('sh', [ command ])
+// // Old Way with spawn:
+// // var RunShellCommand = spawn('sh', [ command ])
 
-// RunShellCommand.stdout.on('data', function (data) {
-//   console.log('stdout: ' + data);
-// });
+// // RunShellCommand.stdout.on('data', function (data) {
+// //   console.log('stdout: ' + data);
+// // });
 
-// RunShellCommand.stderr.on('data', function (data) {
-//   console.log('stderr: ' + data);
-// });
+// // RunShellCommand.stderr.on('data', function (data) {
+// //   console.log('stderr: ' + data);
+// // });
 
-// RunShellCommand.on('close', function (code) {
-//   console.log('child process exited with code ' + code);
-// });
+// // RunShellCommand.on('close', function (code) {
+// //   console.log('child process exited with code ' + code);
+// // });
 
-// Source: http://stackoverflow.com/a/3510850/3219667
-// kill $(ps aux | grep 'fbi' | awk '{print $2}')
-// ps -ef | grep fbi
+// // Source: http://stackoverflow.com/a/3510850/3219667
+// // kill $(ps aux | grep 'fbi' | awk '{print $2}')
+// // ps -ef | grep fbi
 
-// Then Kill image viewer
-setTimeout(function() {
-	var command = 'sudo pkill fbi'
-	console.log(command)
-	var KillProcess = exec(command, function (error, stdout, stderr) {
-		if (error) console.log(error)
-		console.log('stdout: ' + stdout)
-		console.log('stderr: ' + stderr)
-	})
-}, 5000)
+// // Then Kill image viewer
+// setTimeout(function() {
+// 	var command = 'sudo pkill fbi'
+// 	console.log(command)
+// 	var KillProcess = exec(command, function (error, stdout, stderr) {
+// 		if (error) console.log(error)
+// 		console.log('stdout: ' + stdout)
+// 		console.log('stderr: ' + stderr)
+// 	})
+// }, 5000)
 
 
 // //

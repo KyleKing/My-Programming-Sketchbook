@@ -1,10 +1,11 @@
 // The code:
+// Step 0 - Requirements, globals, etc.
 // Step 1 - Get Photos
 // Step 2 - Clean up the Photos
-// Step 3 - Play Nice SLideshow
-// Step 4 - Put this all on a Cron task
+// Step 3 - Schedule update tasks to fetch new photos and prune old ones
+// Step 4 - Create updating slideshow
+// Step Nada - All the things that I didn't have time for
 // Written By Kyle King for Alex Gabitzer's Christmas Gift
-
 
 //
 // Step Zero
@@ -146,10 +147,11 @@ function CompleteDownload(CollectionPhotos) {
 		}
 		// Carry on
 		if (download) {
-			DeleteExcessFiles(DesiredFiles, CollectionPhotos[0].source)
-		}
-		if (raspberry_pi) {
-			MakePictures(DesiredFiles)
+			var source = CollectionPhotos[0].source
+			DeleteExcessFiles(DesiredFiles, source)
+			jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
+			  if (err) console.error(err)
+			})
 		}
 	}
 	function DownloadFromURL(uri, filename, callback) {
@@ -224,7 +226,11 @@ function FetchDropboxPhotos() {
 			  // console.log(reply.toString(), metadata)
 			})
 		}
-		DeleteExcessFiles(DesiredFiles, 'dropbox')
+		var source = 'dropbox'
+		DeleteExcessFiles(DesiredFiles, source)
+		jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
+		  if (err) console.error(err)
+		})
 	})
 }
 
@@ -314,52 +320,42 @@ Fetch.start()
 //
 // Run only on raspberry pi
 if (raspberry_pi) {
-	function MakePictures(DesiredFiles) {
-		// console.log(DesiredFiles[0]);
-		// var RandIndex = Math.round( DesiredFiles.length*Math.random() )
-		// var filepath = DesiredFiles[RandIndex]
-		console.log('filepath')
-		// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
-		// var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
-		// console.log(command)
-		// var child = exec(command, function (error, stdout, stderr) {
-		// 	if (error) console.log(error)
-		// 	console.log('stdout: ' + stdout)
-		// 	console.log('stderr: ' + stderr)
-		// })
+	function MakePictures(source) {
+		// console.log(source) - could be useful, but can't run in the below callback
+		glob("imgs/" + "*.json", function (er, files) {
+			if (er) console.log(er)
+			var source = files[ Math.round((files.length-1)*Math.random()) ]
+			// console.log(source)
+			var DesiredFiles = jsonfile.readFileSync(source)
+			// console.log(DesiredFiles);
+			var filepath = DesiredFiles[Math.round( (DesiredFiles.length-1)*Math.random() )]
+			// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
+			var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
+			console.log(command)
+			var child = exec(command, function (error, stdout, stderr) {
+				if (error) console.log(error)
+				console.log('stdout: ' + stdout)
+				console.log('stderr: ' + stderr)
+			})
+		})
 	}
 
 	// Refresh image every minute
 	var SlideShow = new CronJob('00 * * * * *', function() {
-			MakePictures()
+			// if (raspberry_pi) MakePictures('imgs/'+subfolder+'.json')
+			MakePictures(null)
 		}, function () {
 	    /* This function is executed when the job stops */
 	    console.log('Finished')
 	  },
 	  true /* Start the job right now */
 	)
-
-	// Notes for ending the fbi process and returning to GUI
-	// // Source: http://stackoverflow.com/a/3510850/3219667
-	// // kill $(ps aux | grep 'fbi' | awk '{print $2}')
-	// // ps -ef | grep fbi
-
-	// // Then Kill image viewer
-	// setTimeout(function() {
-	// 	var command = 'sudo pkill fbi'
-	// 	console.log(command)
-	// 	var KillProcess = exec(command, function (error, stdout, stderr) {
-	// 		if (error) console.log(error)
-	// 		console.log('stdout: ' + stdout)
-	// 		console.log('stderr: ' + stderr)
-	// 	})
-	// }, 5000)
 }
 
 
 //
 //
-// Step Nada: Not implemented
+// Step Nada [Not implemented Things]
 //
 //
 // USB
@@ -373,6 +369,9 @@ if (raspberry_pi) {
 // Notes are in a separate file (init.js), if real-world sensor, can turn display on/off
 // Additionally, the power button could be hardwired to the pi and controlled via GPIO
 //
+// Wifi
+// Still a work in progress (see: wifi/steps.md)
+//
 // //
 // // For ending the program
 // //
@@ -380,3 +379,22 @@ if (raspberry_pi) {
 //  // Stop code after completeDownload
 //  if (status) process.exit()
 // }
+//
+//
+// // Notes for ending the fbi process and returning to GUI
+// // // Source: http://stackoverflow.com/a/3510850/3219667
+// // // kill $(ps aux | grep 'fbi' | awk '{print $2}')
+// // // ps -ef | grep fbi
+
+// // // Then Kill image viewer
+// // setTimeout(function() {
+// // 	var command = 'sudo pkill fbi'
+// // 	console.log(command)
+// // 	var KillProcess = exec(command, function (error, stdout, stderr) {
+// // 		if (error) console.log(error)
+// // 		console.log('stdout: ' + stdout)
+// // 		console.log('stderr: ' + stderr)
+// // 	})
+// // }, 5000)
+//
+//

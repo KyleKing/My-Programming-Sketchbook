@@ -14,27 +14,13 @@ var ExistingFiles = []
 // Store secret information, somewhat secretly
 var jsonfile = require('jsonfile')
 var util = require('util')
-var flickrOptions = jsonfile.readFileSync('secret.json')
+var SecretOptions = jsonfile.readFileSync('secret.json')
 
 var _ = require('underscore')
 
 var Flickr = require("flickrapi")
-
 function FetchPhotos() {
-	Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-		//
-		//
-		// Helpful for finding Gallery ID
-		//
-		//
-		// flickr.galleries.getList({
-		//    api_key: flickrOptions.api_key,
-		//    user_id: flickrOptions.user_id
-		// }, function(err, result) {
-		//  console.log('---------**------')
-		//  if (err) console.log(err)
-		//   console.log(result.galleries.gallery.id)
-		// })
+	Flickr.tokenOnly(SecretOptions, function(error, flickr) {
 
 		//
 		//
@@ -42,8 +28,8 @@ function FetchPhotos() {
 		//
 		//
 		flickr.galleries.getPhotos({
-			api_key: flickrOptions.api_key,
-			gallery_id: flickrOptions.gallery_id,
+			api_key: SecretOptions.api_key,
+			gallery_id: SecretOptions.gallery_id,
 			extras: 'original_format, url_o',
 			page: 1,
 			per_page: 100
@@ -68,58 +54,62 @@ function FetchPhotos() {
 				CompleteDownload(true)
 			}
 		})
-
-
-		//
-		//
-		// Finds all photos with the text: 'Kangaroo'
-		//
-		//
-		//  // we can now use "flickr" as our API object,
-		//  // but we can only call public methods and access public data
-		//  // console.log(flickr)
-		//  flickr.photos.search({
-		//    api_key: flickrOptions.api_key,
-		//   text: 'kangaroo',
-		//   extras: 'original_format, url_o',
-		//   page: 1,
-		//   per_page: 10
-		// }, function(err, result) {
-		//  console.log('---------------')
-		//  if (err) console.log(err)
-		//   // result is Flickr's response
-		//   // console.log(result)
-		//   if (result.photos) console.log(result.photos.photo[0])
-		// })
-
-
-		//
-		//
-		// All recently posted photos to Flickr, not very helpful to say the least
-		//
-		//
-		//  // Searching recent photos
-		// flickr.photos.getRecent({
-		//   api_key: flickrOptions.api_key,
-		//   user_id: flickrOptions.user_id,
-		//   text: 'orca',
-		//   extras: 'original_format, url_o',
-		//   // extras: 'license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o',
-		//   page: 1,
-		//   per_page: 10
-		// }, function(err, result) {
-		//  if (err) console.log(err)
-		//   /*
-		//     This will now give all public and private results,
-		//     because we explicitly ran this as an authenticated call
-		//   */
-		//   // Original URL (Full Size)
-		//   console.log(result.photos.photo[0])
-		//   console.log(result.photos.photo[0].url_o)
-		// })
 	})
 }
 
+//
+//
+// Step 1.1: Fetch Static Images from Dropbox
+//
+// var node_dropbox = require('node-dropbox')
+var fs = require('fs'),
+		request = require('request'),
+		path = require('path')
+
+// Follow arduous authentication process:
+var dbox  = require("dbox")
+var app   = dbox.app({ "app_key": SecretOptions.D_Key, "app_secret": SecretOptions.D_Secret })
+// // Step 1:
+// // Copy request_token into SecretOptions and then visit URL to grant approval
+// app.requesttoken(function(status, request_token){
+//   console.log(request_token)
+//   console.log(request_token.authorize_url)
+// })
+// console.log(SecretOptions.request_token);
+// // Step 2:
+// // Comment out above snippet and load save value
+// app.accesstoken(SecretOptions.request_token, function(status, access_token){
+//   console.log(access_token)
+// })
+// Step 3:
+// Copy Access Token into secret.json
+var client = app.client(SecretOptions.Dropbox_Token)
+
+// HELLO WORLD!
+// client.account(function(status, reply){
+//   console.log(reply)
+// })
+
+// Find Files
+var options = {
+  root: "dropbox" // optional - defaults to "Sandbox" - i.e. "app folder"
+}
+var dropboxdir = 'Public/AlooPhotos'
+client.metadata(dropboxdir, options, function(status, reply){
+	// console.log(reply.contents[0])
+  var filepath = reply.contents[0].path
+  console.log(filepath)
+	client.get(filepath, options, function(status, reply, metadata){
+  	var filename = path.basename(filepath)
+		var localpath = 'imgs/dropbox_' + filename
+		var wstream = fs.createWriteStream(localpath)
+		wstream.write(reply)
+		wstream.end(function () { console.log('done') })
+
+		// Yeah...don't do thie for a binary file...
+	  // console.log(reply.toString(), metadata)
+	})
+})
 
 //
 //
@@ -141,7 +131,7 @@ glob("imgs/*.*", function (er, files) {
 
 //
 //
-// Part 3: Download Photos
+// Part 3: Download [Flickr] Photos
 //
 //
 

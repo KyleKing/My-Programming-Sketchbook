@@ -11,7 +11,7 @@
 //
 // Globals
 var download = 1,
-		raspberry_pi = 0
+		raspberry_pi = 1
 
 // Store secret information, somewhat secretly
 var jsonfile = require('jsonfile'),
@@ -23,10 +23,8 @@ var fs = require('fs'),
 		path = require('path'),
 		_ = require('underscore'),
 		Flickr = require("flickrapi"),
-		InstAPI = require('instagram-node').instagram(), // not used...http request was easier
 		dbox  = require("dbox"),
 		app   = dbox.app({ "app_key": SecretOptions.D_Key, "app_secret": SecretOptions.D_Secret }),
-		async = require('async'),
 		glob = require("glob"),
 		exec = require('child_process').exec;
 
@@ -318,16 +316,17 @@ Fetch.start()
 if (raspberry_pi) {
 	function MakePictures(DesiredFiles) {
 		// console.log(DesiredFiles[0]);
-		var RandIndex = Math.round( DesiredFiles.length*Math.random() )
-		var filepath = DesiredFiles[RandIndex]
+		// var RandIndex = Math.round( DesiredFiles.length*Math.random() )
+		// var filepath = DesiredFiles[RandIndex]
+		console.log('filepath')
 		// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
-		var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
+		// var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
 		// console.log(command)
-		var child = exec(command, function (error, stdout, stderr) {
-			if (error) console.log(error)
-			console.log('stdout: ' + stdout)
-			console.log('stderr: ' + stderr)
-		})
+		// var child = exec(command, function (error, stdout, stderr) {
+		// 	if (error) console.log(error)
+		// 	console.log('stdout: ' + stdout)
+		// 	console.log('stderr: ' + stderr)
+		// })
 	}
 
 	// Refresh image every minute

@@ -465,7 +465,7 @@ MakePictures(null)
 // Additionally, the power button could be hardwired to the pi and controlled via GPIO
 //
 // Wifi
-// Still a work in progress (see: wifi/steps.md)
+// Still a work in progress (see: wifi/steps.md) [ this is probably what you want: $ sudo ifconfig ]
 //
 // //
 // // For ending the program
@@ -509,6 +509,6 @@ MakePictures(null)
 // Left to be done!
 // ⍻ Make images random, but non-redundant
 // - Check last time queried database and stop query if recently accomplished (Almost done: 'if (download) {}' )
-// ⍻ What is causing a crash? Maybe too many processes?
-// - optimize image size for faster loading? -> flickr seems to be the biggest issue (non issue?)
-// - Handle bad filenames (i.e. '() ...') => actually may be a format issue?
+// ⍻ What is causing a crash? Maybe too many processes? (Possibly fixed with sudo killall)
+// - optimize image size for faster loading? -> flickr seems to be the biggest issue (fixed for flickr)
+// - Handle bad filenames (i.e. '() ...') => actually may be a format issue with Care's photos and not a '()' character issue? (Attempted imageoptim)

@@ -24,7 +24,7 @@
 // Step Zero
 //
 // Globals
-var download = 0,
+var download = 1,
 		raspberry_pi = 1,
 		raspberry_pi_exec = 1
 
@@ -60,7 +60,7 @@ function FetchFlickrPhotos() {
 		flickr.galleries.getPhotos({
 			api_key: SecretOptions.api_key,
 			gallery_id: SecretOptions.gallery_id,
-			extras: 'original_format, url_o',
+			extras: 'original_format, url_z, url_o',
 			page: 1,
 			per_page: 100
 		}, function(err, result) {
@@ -71,9 +71,24 @@ function FetchFlickrPhotos() {
 				CollectionPhotos = _.map(CollectionPhotos, function(photo) {
 					photo.source = 'flickr'
 					// photo._id = photo.id
-					photo.url = photo.url_o
+					// photo.url = photo.url_o
+					//
+					// Choose smaller image to download and faster load for FBI (optimization)
+					// b = large -> see: https://www.flickr.com/services/api/misc.urls.html
+					if (photo.url_b != undefined) {
+						photo.url = photo.url_b
+					} else if (photo.url_z != undefined) {
+						photo.url = photo.url_z
+					} else if (photo.url_c != undefined) {
+						photo.url = photo.url_c
+					} else {
+						photo.url = photo.url_o
+					}
+
 					// photo.type = (photo.originalformat) ? photo.originalformat : 'jpg'
 					photo.type = photo.originalformat
+					// console.log('testing URL')
+					// console.log(photo)
 					return photo
 				})
 				// For debugging:
@@ -430,8 +445,6 @@ if (raspberry_pi) {
 	)
 }
 
-
-
 MakePictures(null)
 
 
@@ -495,7 +508,7 @@ MakePictures(null)
 //
 // Left to be done!
 // ⍻ Make images random, but non-redundant
-// - Check last time queried database and stop query if recently accomplished (halfway done - download if)
+// - Check last time queried database and stop query if recently accomplished (Almost done: 'if (download) {}' )
 // ⍻ What is causing a crash? Maybe too many processes?
 // - optimize image size for faster loading? -> flickr seems to be the biggest issue (non issue?)
 // - Handle bad filenames (i.e. '() ...') => actually may be a format issue?

@@ -1,3 +1,16 @@
+/*
+  _____                    _____ _       _     _
+ |     |___ ___ ___ _ _   |     | |_ ___|_|___| |_ _____ ___ ___
+ | | | | -_|  _|  _| | |  |   --|   |  _| |_ -|  _|     | .'|_ -|
+ |_|_|_|___|_| |_| |_  |  |_____|_|_|_| |_|___|_| |_|_|_|__,|___|
+                   |___|
+                                        __
+                        _____ _        |  |
+                       |  _  | |___ _ _|  |
+                       |     | | -_|_'_|__|
+                       |__|__|_|___|_,_|__|
+*/
+
 // The code:
 // Step 0 - Requirements, globals, etc.
 // Step 1 - Get Photos
@@ -11,8 +24,9 @@
 // Step Zero
 //
 // Globals
-var download = 1,
-		raspberry_pi = 1
+var download = 0,
+		raspberry_pi = 1,
+		raspberry_pi_exec = 1
 
 // Store secret information, somewhat secretly
 var jsonfile = require('jsonfile'),
@@ -203,35 +217,37 @@ function FetchDropboxPhotos() {
 	}
 	// var dropboxdir = 'Public/AlooPhotos'
 	var dropboxdir = 'Apps/Balloon.io/alloo'
-	client.metadata(dropboxdir, options, function(status, reply) {
-		var DesiredFiles = [], filepath = [], filename = [], localpath = []
-		for (var i = 0; i < reply.contents.length; i++) {
-			var filepath = reply.contents[i].path
-			DesiredFiles.push( 'imgs/dropbox/' + path.basename(filepath) )
-			client.get(filepath, options, function(status, reply, metadata) {
-				// Grab fresh file path because this is async
-				var localpath = 'imgs/dropbox/' + path.basename(metadata.path)
-				// console.log(localpath);
-				if (fs.existsSync(localpath)) {
-					console.log(' ** ' + localpath + ' already exists')
-				} else {
-					var wstream = fs.createWriteStream(localpath)
-					wstream.write(reply)
-					wstream.end(function () {
-						// console.log(' >> Downloaded a file from Dropbox')
-					})
-					console.log(' >> Downloaded: ' + localpath)
-				}
-				// Yeah...don't do this for a binary file...
-			  // console.log(reply.toString(), metadata)
+	if (download) {
+		client.metadata(dropboxdir, options, function(status, reply) {
+			var DesiredFiles = [], filepath = [], filename = [], localpath = []
+			for (var i = 0; i < reply.contents.length; i++) {
+				var filepath = reply.contents[i].path
+				DesiredFiles.push( 'imgs/dropbox/' + path.basename(filepath) )
+				client.get(filepath, options, function(status, reply, metadata) {
+					// Grab fresh file path because this is async
+					var localpath = 'imgs/dropbox/' + path.basename(metadata.path)
+					// console.log(localpath);
+					if (fs.existsSync(localpath)) {
+						console.log(' ** ' + localpath + ' already exists')
+					} else {
+						var wstream = fs.createWriteStream(localpath)
+						wstream.write(reply)
+						wstream.end(function () {
+							// console.log(' >> Downloaded a file from Dropbox')
+						})
+						console.log(' >> Downloaded: ' + localpath)
+					}
+					// Yeah...don't do this for a binary file...
+				  // console.log(reply.toString(), metadata)
+				})
+			}
+			var source = 'dropbox'
+			DeleteExcessFiles(DesiredFiles, source)
+			jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
+			  if (err) console.error(err)
 			})
-		}
-		var source = 'dropbox'
-		DeleteExcessFiles(DesiredFiles, source)
-		jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
-		  if (err) console.error(err)
 		})
-	})
+	}
 }
 
 
@@ -328,20 +344,61 @@ if (raspberry_pi) {
 			// console.log(source)
 			var DesiredFiles = jsonfile.readFileSync(source)
 			// console.log(DesiredFiles);
-			var filepath = DesiredFiles[Math.round( (DesiredFiles.length-1)*Math.random() )]
-			// sudo fbi -a -noverbose -T 10 /home/pi/Raspberry\ Pi/Aloo/imgs/6.png
-			var command = 'sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/' + filepath
+
+			var LastFiles = {}
+			var HistoryFile = 'History.json'
+			// Too specific, would need to check each source:
+			// jsonfile.readFileSync(HistoryFile)[source] != undefined
+			if (fs.existsSync(HistoryFile)) {
+				// Remove redundancy in slideshow
+				LastFiles = jsonfile.readFileSync(HistoryFile)
+				if (LastFiles[source] === undefined) {
+					LastFiles[source] = []
+				}
+				if (LastFiles[source].length >= 20 || LastFiles[source].length+5 === DesiredFiles.length) {
+					// Remove first entry (i.e. oldest image already shown)
+					LastFiles[source].shift()
+					console.log('Shortening list of last files');
+				}
+				// Keep selecting a random file to find a new file
+				// console.log(LastFiles[source].indexOf(filepath))
+				var filepath = DesiredFiles[Math.round( (DesiredFiles.length-1)*Math.random() )]
+				while (LastFiles[source].indexOf(filepath) != -1) {
+					filepath = DesiredFiles[Math.round( (DesiredFiles.length-1)*Math.random() )]
+					console.log('Repeated filepath!! Selecting a new one!');
+					console.log(filepath)
+				}
+				LastFiles[source].push(filepath)
+				// Save LastFiles object
+				// console.log(LastFiles)
+				jsonfile.writeFileSync(HistoryFile, LastFiles)
+			} else {
+				var filepath = DesiredFiles[Math.round( (DesiredFiles.length-1)*Math.random() )]
+				// console.log(filepath)
+				LastFiles[source] = []
+				LastFiles[source].push(filepath)
+				// console.log(LastFiles)
+				jsonfile.writeFileSync(HistoryFile, LastFiles)
+			}
+			// fbi -a -noverbose -t 10 /home/pi/Raspberry_Pi/Aloo/node/imgs/dropbox/Care_image - 10.jpeg
+			var command = "sudo fbi -a -noverbose -T 10 /home/pi/Raspberry_Pi/Aloo/node/" + filepath
+			// // Only works for timed display if in linux console and not through SSH, etc.
+			// var command = 'fbi -a -noverbose -t 5 /home/pi/Raspberry_Pi/Aloo/node/imgs/dropbox/Care_image - 10.jpeg'
 			console.log(command)
-			var child = exec(command, function (error, stdout, stderr) {
-				if (error) console.log(error)
-				console.log('stdout: ' + stdout)
-				console.log('stderr: ' + stderr)
-			})
+			if (raspberry_pi_exec) {
+				var child = exec(command, function (error, stdout, stderr) {
+					if (error) console.log(error)
+					console.log('stdout: ' + stdout)
+					console.log('stderr: ' + stderr)
+				})
+			}
 		})
 	}
 
 	// Refresh image every minute
-	var SlideShow = new CronJob('00 * * * * *', function() {
+	var SlideShow = new CronJob('00,15,30,45 * * * * *', function() {
+	// var SlideShow = new CronJob('00-40 * * * * *', function() {
+	// var SlideShow = new CronJob('00 39 * * * *', function() {
 			// if (raspberry_pi) MakePictures('imgs/'+subfolder+'.json')
 			MakePictures(null)
 		}, function () {
@@ -350,7 +407,32 @@ if (raspberry_pi) {
 	  },
 	  true /* Start the job right now */
 	)
+
+
+	// Refresh image every minute
+	var KillOldFBI = new CronJob('10 * * * * *', function() {
+		// Also, kill previous processes to avoid too many processes and sudden crashing:
+		var command = "sudo kill $(ps aux | grep 'fbi' | awk '{print $2}');"
+		console.log(command)
+		if (raspberry_pi_exec) {
+			var child = exec(command, function (error, stdout, stderr) {
+				if (error) console.log(error)
+				console.log("Ran: sudo kill $(ps aux | grep 'fbi' | awk '{print $2}');");
+				console.log('stdout: ' + stdout)
+				console.log('stderr: ' + stderr)
+			})
+		}
+		}, function () {
+	    /* This function is executed when the job stops */
+	    console.log('Finished')
+	  },
+	  true /* Start the job right now */
+	)
 }
+
+
+
+MakePictures(null)
 
 
 //
@@ -383,8 +465,21 @@ if (raspberry_pi) {
 //
 // // Notes for ending the fbi process and returning to GUI
 // // // Source: http://stackoverflow.com/a/3510850/3219667
-// // // kill $(ps aux | grep 'fbi' | awk '{print $2}')
+// // // sudo kill $(ps aux | grep 'fbi' | awk '{print $2}')
 // // // ps -ef | grep fbi
+// I wrote this and proved useful, but couldn't stop display: sudo kill -9 $(pidof fbi)
+// actually this is bad and the better way is to to use a keypress: http://manpages.ubuntu.com/manpages/gutsy/man1/fbi.1.html
+// Using this tool: http://xmodulo.com/simulate-key-press-mouse-movement-linux.html (installed and tested)
+// Example $ xdotool key alt+Tab
+// Tested:
+// xdotool key q
+// xdotool key esc
+// -> display (null) -> needed to use export:
+// export DISPLAY=:0.0 && xdotool key q
+// export DISPLAY=:0.0 && xdotool key Escape
+// None worked :(
+
+// Proved not so useful but will try again later
 
 // // // Then Kill image viewer
 // // setTimeout(function() {
@@ -398,3 +493,9 @@ if (raspberry_pi) {
 // // }, 5000)
 //
 //
+// Left to be done!
+// ⍻ Make images random, but non-redundant
+// - Check last time queried database and stop query if recently accomplished (halfway done - download if)
+// ⍻ What is causing a crash? Maybe too many processes?
+// - optimize image size for faster loading? -> flickr seems to be the biggest issue (non issue?)
+// - Handle bad filenames (i.e. '() ...') => actually may be a format issue?

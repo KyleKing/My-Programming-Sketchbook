@@ -1,0 +1,20 @@
+body
+  .container
+    +base
+
+template(name='base')
+  h1 Enter New Event
+  h3 &nbsp;
+  +form
+  hr
+  h1 Recent Events
+  each event
+    +item
+
+template(name='item')
+  h4 [{{formatDate Begin 'MoreBasic'}}, {{formatDate End 'MoreBasic'}}] #{Content}
+
+template(name='form')
+  form
+    input(type='text' name='Input')
+    input(type='submit' value='StartPom')

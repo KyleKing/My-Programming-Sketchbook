@@ -1,10 +1,14 @@
 body
+  //- .container
+  //-   +bpNotificationsCheckbox
+  //- .container
+  //-   +bpNotificationsTest
   .container
     +base
 
 template(name='base')
   h1 Enter New Event
-  h3 &nbsp;
+  h6 &nbsp;
   +form
   hr
   h1 Recent Events
@@ -12,9 +16,11 @@ template(name='base')
     +item
 
 template(name='item')
-  h4 [{{formatDate Begin 'MoreBasic'}}, {{formatDate End 'MoreBasic'}}] #{Content}
+  //- Display the Begin Time, Time of Process, Title, (afterward..) Completion (y/n), Summary
+  h4(style="color:{{Color}};") [{{formatDate Begin 'MoreBasic'}}, {{formatDate End 'MoreBasic'}}] #{Content}
 
 template(name='form')
   form
-    input(type='text' name='Input')
+    //- input(type='checkbox' id='push-button')
+    input(type='text' name='Input' checked="checked")
     input(type='submit' value='StartPom')

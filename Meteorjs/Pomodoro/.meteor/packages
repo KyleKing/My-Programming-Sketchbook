@@ -32,4 +32,5 @@ percolate:synced-cron
 mrt:underscore-string-latest
 
 # raix:push
-canotto90:chrome-push-notifications
+# canotto90:chrome-push-notifications
+# femiveys:browser-push-notifications

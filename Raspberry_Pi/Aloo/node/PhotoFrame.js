@@ -64,7 +64,7 @@ function FetchFlickrPhotos() {
 			page: 1,
 			per_page: 100
 		}, function(err, result) {
-			if (err) console.log(err)
+			if (err) console.warn(err)
 			if (result.photos) {
 				CollectionPhotos = result.photos.photo
 				// Indicate Image Source and unify object scheme
@@ -106,7 +106,7 @@ function IterateOverInstagramURLs(ii, URLs, callback) {
 	var url = SecretOptions.InstagramAPI.URLs[ii];
 
 	request(url, function (err, res, body) {
-		if (err) console.log(err)
+		if (err) console.warn(err)
 	  // if (!err && res.statusCode == 200) {
 			// console.log('content-type:', res.headers['content-type'])
 			// console.log('content-length:', res.headers['content-length'])
@@ -152,7 +152,7 @@ function CompleteDownload(CollectionPhotos) {
 		// If the `nonull` option is set, and nothing
 		// was found, then files is ["**/*.js"]
 		// er is an error object or null.
-		if (er) console.log(er);
+		if (er) console.warn(er);
 		var ExistingFiles = files;
 		// console.log(files);
 		Download(ExistingFiles)
@@ -164,8 +164,8 @@ function CompleteDownload(CollectionPhotos) {
 			if (download === 0) {
 				console.log('Downloads turned off');
 			} else if (url === undefined || filename === undefined || CollectionPhotos[i].type === undefined) {
-				console.log('---------failed-----------')
-				console.log(CollectionPhotos[i])
+				console.warn('---------failed-----------')
+				console.warn(CollectionPhotos[i])
 			} else {
 				// Store properly formatted files
 				DesiredFiles.push(filename)
@@ -179,7 +179,7 @@ function CompleteDownload(CollectionPhotos) {
 			var source = CollectionPhotos[0].source
 			DeleteExcessFiles(DesiredFiles, source)
 			jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
-			  if (err) console.error(err)
+			  if (err) console.warn(err)
 			})
 		}
 	}
@@ -259,7 +259,7 @@ function FetchDropboxPhotos() {
 			var source = 'dropbox'
 			DeleteExcessFiles(DesiredFiles, source)
 			jsonfile.writeFile('imgs/'+source+'.json', DesiredFiles, function (err) {
-			  if (err) console.error(err)
+			  if (err) console.warn(err)
 			})
 		})
 	}
@@ -277,7 +277,7 @@ function DeleteExcessFiles(DesiredFiles, subfolder) {
 		// If the `nonull` option is set, and nothing
 		// was found, then files is ["**/*.js"]
 		// er is an error object or null.
-		if (er) console.log(er);
+		if (er) console.warn(er);
 		var ExistingFiles = files;
 
 		// For debugging:

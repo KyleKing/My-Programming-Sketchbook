@@ -49,15 +49,8 @@ var ddpclient = new DDPClient({
 ddpclient.connect(function(error, wasReconnect) {
   // If autoReconnect is true, this callback will be invoked each time
   // a server connection is re-established
-  if (error) {
-    console.log('DDP connection error!');
-    return;
-  }
-
-  if (wasReconnect) {
-    console.log('Reestablishment of a connection.');
-  }
-
+  if (error) console.error('DDP connection error!');
+  if (wasReconnect) console.log('Reestablishment of a connection.');
   console.log('connected!');
 
   // setTimeout(function () {

@@ -1,0 +1,64 @@
+body
+  .container
+    .page-header
+      h2 Tabular Collection Helper Search Demo
+      p Meteor-Tabular + search & sort support for collection helpers by
+        a(href='https://github.com/KyleKing')
+          |  @kyleking
+      //- p Note on performance: This is the fastest way to search and sort a collection when displaying a collection helper, because the data is sorted and published on the client rather than ALL of the data sent to the client and sorted. This does create limitations in the amount of manipulation possible. For example, joining data between documents in different collection is not possible. Almost all operations take effect on the client. This is still possible with a collection helper, but to maximize the performance of MongoDB (when compared to SQL) all data should be normalized when possible. To make this easier, Meteor has extensive reactive tools and there are several packages that simplify this process, such as ...
+      //- This was built because the FullName() shown is virtual and can't be searched or sorted efficiently
+  .container
+    h3 Reformat a String using a RegExp
+    //- p > Often a full URL is unnecessary and user may want to only see the hostname or some other substring of a string stored in a MongoDB document. This is a sample case to demonstrate the much wider application of displaying and working with substrings. Potentially the RegExp could even be reactive and change based on user needs (i.e. mobile vs. desktop).
+    p > In this case, the URLHelper() column is only the host name of the URL stored in MongoDB. Using this RegExp, 'https?:\/\/(?:w{3})?[.]?([^\/]*)'[0], defined once on the client, Meteor-Tabular can now intuitively search the appropriate substring. Any string typed into either search bar will only search the hostname. This way a user will have a predictable search experience even when the table presents data from a collection helper at minimal performance cost.
+    //- p Warn: Depending on the RegExp, the sort will not work as expected since Mongo does not allow sort based on a particular RegExp. Instead you could potentially define an index to sort by (not yet tested) that would be reactively updated on each update, removal, or insert on the collection - in this case it may be easier to simply duplicate the substring into a new field upon any CRUD operation. Alternatively, the search can be turned off using the prescribed options as shown below.
+    //- h5 TODO searchable: false causes breaking issues
+    h6 Try it out:
+    ul
+      li
+        p Search 'blob' in the URl column vs. 'blob' in the URLHelper() column
+      li
+        p You should see that the first search returns the Github url row because 'blob' matches part of the URl; however in the helper column, the search is limited to the host name, so no content is returned
+    +BooksTemplate
+  .container
+    h3 Join two+ fields in SAME collection and use RegExp's
+    p > In this case, the FullName() column is a function of the first and first two letters of the last name.
+    //- p So, when you search, you are really searching the first or last name. Search is set by the user. If the class is specified, then the first space-separated value of the string is searched. In this case, the class is defined as "firstName lastName" referencing the two fields the helper functions relies on. Since firstName is first, the column will then be sorted based on the firstName field.
+    //- p Note: Any and all of these options are optional. By specifying additional options you gain greater support and specificity to the default search bar, which extends the functionality without sacrificing the features that make Meteor-Tabular so great.
+    //- p > Additionally, this search extends regular expressions, so that if you apply a regular expression to one or more of the fields, you can then specify a regular expression to search the matching field in the database. In this case, only the first two letters of the last name are displayed. So when searching the last name field, only the first two letters are considered.
+    //- p > Even more so, the user may want to search exactly what they see on the table. While this may be nearly impossible to recreate, there are several cases where this makes sense. Luckily DataTables already supports splitting a query by a split or by whitespace. For this case, a space separated query would search both the first and last name for either of the strings separated by a whitespace.
+    //- h5 TODO ISSUE: Some sort of reactive issue, when first pressed to sort, no such sort occurs on column 0 or 2? But no issue on the other two tables? And the issue is found in the 'without' example...
+    //- h5 TODO Also, the tabular.js file appears to run twice? Why the redundancy?
+    //- h5 TODO the per-column search fails...
+    h6 Try it out:
+    ul
+      li
+        p Search any string in the full name column and see what happens
+      li
+        p Try searching 'Tom', 'Co', 'Tom Co', or 'Coleman' - (Tom's fullname is Tom Coleman)
+      li
+        p You should see that each search returns the expected result of the query. A search for 'Coleman' won't return any results because there is no visible entry that matches 'Coleman.'
+      li
+        p Also note that you can both search by column and in the general search across the whole table
+    +EditorsTemplate
+  .container
+    h3 Reformat a number
+    p > DataTables doesn't directly support searching a number from the search bar. This just isn't possible because a number search is usually for some comparator (i.e. &gt; or &lt;).
+    //- p So to search a column with a number, I've extended my per column extension to support searching a number through a specific column.
+    //- h5 IDEAS: Default to some sort of near query? Maybe user provides options and there is a window of any search (i.e. $gte: query-100 and $lte: query+100). Display a symbol to determine which type of query is being performed. Maybe: '&gt;', '=', and '&lt;' (then toggle like sort arrows)
+    h6 Try it out:
+    ul
+      li
+        p (Sorry not yet, still in progress) -> should be able to specify a time limit by
+    +NumbersTemplate
+
+
+template(name='BooksTemplate')
+  +tabular table=TabularTables.Books class="table table-striped table-hover table-bordered table-condensed" selector=currentSelector id="BooksID"
+
+template(name='EditorsTemplate')
+  +tabular table=TabularTables.Editors class="table table-striped table-hover table-bordered table-condensed" selector=currentSelector id="EditorsID"
+
+template(name='NumbersTemplate')
+  +tabular table=TabularTables.Numbers class="table table-striped table-hover table-bordered table-condensed" selector=currentSelector id="NumbersID"
+

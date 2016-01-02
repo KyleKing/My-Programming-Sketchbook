@@ -115,12 +115,10 @@ TabularTables.Numbers = new (Tabular.Table)(
     {
       data: 'TimeStamp'
       title: 'TimeStamp'
-      class: 'TimeStamp'
     }
     {
       data: 'NiceDate()'
       title: 'NiceDate()'
-      class: 'TimeStamp'
     }
   ]
 )
@@ -138,3 +136,111 @@ Numbers.helpers NiceDate: ->
     moment(@TimeStamp).format format
   else
     @TimeStamp
+
+
+urlRegExp = ['^https?:\\/\\/(?:w{3})?[.]?([^\\/]*)', '[^\\/]*', '[^\\/]*', null]
+
+TabularTables.Books = new (Tabular.Table)(
+  name: 'BookList'
+  collection: Books
+  columns: [
+    {
+      data: 'title'
+      title: 'Title'
+      class: 'title'
+    }
+    {
+      data: 'url'
+      title: 'URL'
+      class: 'url'
+      # options: {
+        # searchable: false
+      # }
+    }
+    {
+      data: 'urlParse()'
+      title: 'urlParse()'
+      class: 'url'
+      options: {
+        SplitBy: ','
+        # To turn RegExp off:
+        # regex: ['^https?:\/\/(?:w{3})?[.]?([^\/]*)', null, '[^\/]*']
+        # Reliable RegExp that uses grouping for client:
+        # Note the '^' should help speed up the regex search
+        regex: urlRegExp
+        # # Stronger (not reliable...) RegExp that only captures the
+        # # hostname, if used without global flag
+        # regex: ['[^(?:http)(?:https)\/(?:w{3})\.][^\/]*', '[^\/]*', '[^\/]*']
+        orderable: false
+        # searchable: false
+      }
+    }
+    {
+      data: 'parent.0.child'
+      title: 'Sample Dot Notation'
+      class: 'parent.0.child'
+    }
+  ]
+  extraFields: ['url']
+)
+
+Books.helpers urlParse: ->
+  # column = _.filter columns, (item, index) ->
+  #   if Troubleshoot is TableID
+  #     console.log 'filter '+(item.title is ColTitle)+' for '+index
+  #   # From SO: http://stackoverflow.com/a/32879608/3219667
+  #   _.contains( [ColTitle], item.title)
+  # TODO FIX WHEN #columns changes...
+  regex = new RegExp urlRegExp[0]
+  @url.match(regex)[1]
+
+
+
+TabularTables.Lots = new (Tabular.Table)(
+  name: 'LotsList'
+  collection: Lots
+  columns: [
+    {
+      data: 'title'
+      title: 'Title'
+    }
+    # {
+    #   data: 'firstName'
+    #   title: 'fullName()'
+    #   class: 'firstName'
+    # }
+    # {
+    #   data: 'url'
+    #   title: 'urlParse()'
+    #   class: 'url'
+    # }
+    {
+      data: 'fullName()'
+      title: 'fullName()'
+      class: 'firstName lastName'
+      options: {
+        # Multiple RegExp example:
+        regex: [
+          [null]
+          ['^[', null, ']{1,2}', 2]
+        ]
+      }
+    }
+    {
+      data: 'urlParse()'
+      title: 'urlParse()'
+      class: 'url'
+      options: {
+        regex: urlRegExp
+      }
+    }
+  ]
+  extraFields: ['firstName', 'lastName', 'url']
+)
+
+Lots.helpers
+  fullName: ->
+    @firstName+' '+@lastName.match(/\D{2}/)+'.'
+  urlParse: ->
+    regex = new RegExp urlRegExp[0]
+    @url.match(regex)[1]

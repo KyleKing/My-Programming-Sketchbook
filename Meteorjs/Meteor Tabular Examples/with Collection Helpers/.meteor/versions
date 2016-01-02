@@ -74,6 +74,7 @@ msavin:mongol@1.6.2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+practicalmeteor:faker@3.0.1_1
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
@@ -89,7 +90,6 @@ spacebars-compiler@1.0.7
 standard-minifiers@1.0.2
 templating@1.1.5
 templating-tools@1.0.0
-tinytest@1.0.6
 tracker@1.0.9
 twbs:bootstrap@3.3.6
 ui@1.0.8

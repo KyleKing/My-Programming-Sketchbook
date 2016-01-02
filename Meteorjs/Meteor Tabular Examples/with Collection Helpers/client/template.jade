@@ -21,7 +21,7 @@ body
         p You should see that the first search returns the Github url row because 'blob' matches part of the URl; however in the helper column, the search is limited to the host name, so no content is returned
     +BooksTemplate
   .container
-    h3 Join two+ fields in SAME collection and use RegExp's
+    h3 Join two+ fields in SAME document along with string formatting with RegExp's
     p > In this case, the FullName() column is a function of the first and first two letters of the last name.
     //- p So, when you search, you are really searching the first or last name. Search is set by the user. If the class is specified, then the first space-separated value of the string is searched. In this case, the class is defined as "firstName lastName" referencing the two fields the helper functions relies on. Since firstName is first, the column will then be sorted based on the firstName field.
     //- p Note: Any and all of these options are optional. By specifying additional options you gain greater support and specificity to the default search bar, which extends the functionality without sacrificing the features that make Meteor-Tabular so great.
@@ -51,6 +51,16 @@ body
       li
         p (Sorry not yet, still in progress) -> should be able to specify a time limit by
     +NumbersTemplate
+  .container
+    h3 Performance
+    p > Should be ~1000 documents, let see how fast this approach is:
+    +LotsTemplate
+  .container
+    h3 What's next?
+    p > These examples could be expanded to cover many use cases. For example, I'm working on creating a simple, reusable lookup workaround when using a field from a related collection (i.e. when one collection has a User ID and you would rather display a user name or user email respectively). Found a problem or have a suggestion? Just tag '@kyleking' in an issue at
+      a(href="https://github.com/aldeed/meteor-tabular")
+        |  https://github.com/aldeed/meteor-tabular
+      | .
 
 
 template(name='BooksTemplate')
@@ -61,4 +71,7 @@ template(name='EditorsTemplate')
 
 template(name='NumbersTemplate')
   +tabular table=TabularTables.Numbers class="table table-striped table-hover table-bordered table-condensed" selector=currentSelector id="NumbersID"
+
+template(name='LotsTemplate')
+  +tabular table=TabularTables.Lots class="table table-striped table-hover table-bordered table-condensed" selector=currentSelector id="LotsID"
 

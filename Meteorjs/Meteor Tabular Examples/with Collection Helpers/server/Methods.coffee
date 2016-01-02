@@ -1,4 +1,4 @@
-Meteor.methods SquareZero: () ->
+Meteor.methods SquareOne: () ->
   # Generally a bad idea...but...
   Books.remove({})
   Editors.remove({})
@@ -20,23 +20,23 @@ Meteor.methods FreshStart: () ->
   books = [
     {
       title: 'Discover Meteor'
-      author: 'Tom Coleman and Sacha Grief'
+      author: faker.name.findName()
       url: 'http://www.dd.com/aaaaaa'
       parent: [{
         child: 'dd'
       }]
     }
     {
-      title: 'Discover Meteor'
-      author: 'Tom Coleman and Sacha Grief'
+      title: faker.commerce.productName()
+      author: faker.name.findName()
       url: 'https://.bb.com/bbbbb'
       parent: [{
         child: 'bb'
       }]
     }
     {
-      title: 'Discover Meteor'
-      author: 'Tom Coleman and Sacha Grief'
+      title: faker.commerce.productAdjective()
+      author: faker.name.findName()
       url: 'https://www.cc.com/cccccc'
       parent: [{
         child: 'cc'
@@ -75,7 +75,7 @@ Meteor.methods FreshStart: () ->
       }]
     }
     {
-      title: 'Discover Meteor'
+      title: faker.company.companyName()
       author: 'Tom Coleman and Sacha Grief'
       url: 'http://www.aa.com/'
       parent: [{
@@ -92,11 +92,12 @@ Meteor.methods FreshStart: () ->
     }
   ]
   _.each books, (book) ->
-    # This isn't exciting, but demonstrates a collection helper in use
-    FirstName = book.author.split(' ')[0].trim()
-    book.editorid = Editors.findOne({
-      firstName: FirstName
-    })._id
+    # For later to show lookup between collections/documents
+    # # This isn't exciting, but demonstrates a collection helper in use
+    # FirstName = book.author.split(' ')[0].trim()
+    # book.editorid = Editors.findOne({
+    #   firstName: FirstName
+    # })._id
     Books.insert book
 
   CurrentDay = ->
@@ -122,5 +123,17 @@ Meteor.methods FreshStart: () ->
       Text: number.Text
       TimeStamp: now - (1000000 * number.TimeStamp)
     }
+
+
+  # Now just add a ton of documents:
+  j = 0
+  while j < 1000
+    Lots.insert {
+      title: 'Fake Data'
+      firstName: faker.name.firstName()
+      lastName: faker.name.lastName()
+      url: faker.internet.url()+'/'+faker.company.catchPhrase().replace(/\s/g, '/')
+    }
+    j++
 
   'mission accomplished'

@@ -9,6 +9,7 @@ Template.BooksTemplate.helpers
   currentSelector: ->
     TabularSelectorHelper('BooksID')
 
+# Basically just repeated calls, but for each specific template
 Template.EditorsTemplate.created = ->
   TabularSelectorInit('EditorsID')
 Template.EditorsTemplate.rendered = ->
@@ -24,4 +25,13 @@ Template.NumbersTemplate.rendered = ->
 Template.NumbersTemplate.helpers
   currentSelector: ->
     TabularSelectorHelper('NumbersID')
+
+Template.LotsTemplate.created = ->
+  TabularSelectorInit('LotsID')
+Template.LotsTemplate.rendered = ->
+  TabularSelectorMain('LotsID', 'Lots')
+Template.LotsTemplate.helpers
+  currentSelector: ->
+    TabularSelectorHelper('LotsID')
+
 

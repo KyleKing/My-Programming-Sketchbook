@@ -11,28 +11,26 @@ blaze-html-templates    # Compile .html files into Meteor Blaze views
 session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
+
 standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
+
 # autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 
-meteortoys:allthings@2.3.1 # Pres ctrl-m to activate
-
-aldeed:tabular
-reactive-var
-
+# Only necessary Packages:
 twbs:bootstrap
-coffeescript
-mquandalle:jade
+aldeed:tabular
 
+# For Client-Side Manipulation
 dburles:collection-helpers
 momentjs:moment
-# https://www.discovermeteor.com/blog/reactive-joins-in-meteor/
-# peerlibrary:reactive-publish
-# https://github.com/yeputons/meteor-smart-publish/
-# https://github.com/peerlibrary/meteor-peerdb
-# https://github.com/svasva/meteor-publish-with-relations
-# reywood:publish-composite
+reactive-var
+# Added for random sample data:
+practicalmeteor:faker
 
-tinytest
+# My Preferences
+meteortoys:allthings@2.3.1 # Pres ctrl-m to activate
+coffeescript
+mquandalle:jade

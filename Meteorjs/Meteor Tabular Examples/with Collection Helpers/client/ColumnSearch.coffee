@@ -1,10 +1,10 @@
 # If you want to see this in JS, try: http://js2.coffee/
 
 # Nice for controlled debugging
-Troubleshoot = 'EditorsID'
+# Troubleshoot = 'EditorsID'
 # Troubleshoot = 'NumbersID'
 # Troubleshoot = 'BooksID'
-# Troubleshoot = null
+Troubleshoot = null
 
 # The [TableID] allows for multiple tables in the same template
 # This function is called once to initialize necessary variables

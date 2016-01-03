@@ -91,6 +91,9 @@ Meteor.methods FreshStart: () ->
       }]
     }
   ]
+  # Create Regex
+  regex = new RegExp /^https?:\/\/(?:w{3})?[.]?([^\/]{2})[^\/]*/
+  console.log 'regex: '+regex
   _.each books, (book) ->
     # For later to show lookup between collections/documents
     # # This isn't exciting, but demonstrates a collection helper in use
@@ -98,6 +101,10 @@ Meteor.methods FreshStart: () ->
     # book.editorid = Editors.findOne({
     #   firstName: FirstName
     # })._id
+    #
+    # Make field to sort the urlParse fields by:
+    book.URLSort = book.url.match(regex)[1]
+    console.log 'book.URLSort: '+book.URLSort
     Books.insert book
 
   CurrentDay = ->
@@ -128,11 +135,13 @@ Meteor.methods FreshStart: () ->
   # Now just add a ton of documents:
   j = 0
   while j < 1000
+    Link = faker.internet.url()+'/'+faker.company.catchPhrase().replace(/\s/g, '/')
     Lots.insert {
       title: 'Fake Data'
       firstName: faker.name.firstName()
       lastName: faker.name.lastName()
-      url: faker.internet.url()+'/'+faker.company.catchPhrase().replace(/\s/g, '/')
+      url: Link
+      URLSort: Link.match(regex)[1]
     }
     j++
 

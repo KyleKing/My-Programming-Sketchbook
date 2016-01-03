@@ -3,6 +3,9 @@
 
 Meteor.isClient and Template.registerHelper('TabularTables', TabularTables)
 
+# Used several times:
+urlRegExp = ['^https?:\\/\\/(?:w{3})?[.]?([^\\/]*)', '[^\\/]*', '[^\\/]*', null]
+
 TabularTables.Books = new (Tabular.Table)(
   name: 'BookList'
   collection: Books
@@ -16,27 +19,32 @@ TabularTables.Books = new (Tabular.Table)(
       data: 'url'
       title: 'URL'
       class: 'url'
-      # options: {
-        # searchable: false
-      # }
+      # searchable: false
     }
     {
       data: 'urlParse()'
       title: 'urlParse()'
       class: 'url'
+      # orderable: false
+      # searchable: false
       options: {
         SplitBy: ','
         # To turn RegExp off:
         # regex: ['^https?:\/\/(?:w{3})?[.]?([^\/]*)', null, '[^\/]*']
         # Reliable RegExp that uses grouping for client:
         # Note the '^' should help speed up the regex search
-        regex: ['^https?:\\/\\/(?:w{3})?[.]?([^\\/]*)', '[^\\/]*', '[^\\/]*', null]
+        regex: urlRegExp
         # # Stronger (not reliable...) RegExp that only captures the
         # # hostname, if used without global flag
         # regex: ['[^(?:http)(?:https)\/(?:w{3})\.][^\/]*', '[^\/]*', '[^\/]*']
-        orderable: false
-        # searchable: false
+        sortfield: 'URLSort'
       }
+    }
+    {
+      data: 'URLSort'
+      title: 'URLSort'
+      searchable: false
+      # orderable: false
     }
     {
       data: 'parent.0.child'
@@ -44,7 +52,7 @@ TabularTables.Books = new (Tabular.Table)(
       class: 'parent.0.child'
     }
   ]
-  extraFields: ['url']
+  extraFields: ['url', 'URLSort']
 )
 
 Books.helpers urlParse: ->
@@ -54,7 +62,7 @@ Books.helpers urlParse: ->
   #   # From SO: http://stackoverflow.com/a/32879608/3219667
   #   _.contains( [ColTitle], item.title)
   # TODO FIX WHEN #columns changes...
-  regex = new RegExp TabularTables.Books.options.columns[2].options.regex[0]
+  regex = new RegExp urlRegExp[0]
   @url.match(regex)[1]
 
 
@@ -138,63 +146,6 @@ Numbers.helpers NiceDate: ->
     @TimeStamp
 
 
-urlRegExp = ['^https?:\\/\\/(?:w{3})?[.]?([^\\/]*)', '[^\\/]*', '[^\\/]*', null]
-
-TabularTables.Books = new (Tabular.Table)(
-  name: 'BookList'
-  collection: Books
-  columns: [
-    {
-      data: 'title'
-      title: 'Title'
-      class: 'title'
-    }
-    {
-      data: 'url'
-      title: 'URL'
-      class: 'url'
-      # options: {
-        # searchable: false
-      # }
-    }
-    {
-      data: 'urlParse()'
-      title: 'urlParse()'
-      class: 'url'
-      options: {
-        SplitBy: ','
-        # To turn RegExp off:
-        # regex: ['^https?:\/\/(?:w{3})?[.]?([^\/]*)', null, '[^\/]*']
-        # Reliable RegExp that uses grouping for client:
-        # Note the '^' should help speed up the regex search
-        regex: urlRegExp
-        # # Stronger (not reliable...) RegExp that only captures the
-        # # hostname, if used without global flag
-        # regex: ['[^(?:http)(?:https)\/(?:w{3})\.][^\/]*', '[^\/]*', '[^\/]*']
-        orderable: false
-        # searchable: false
-      }
-    }
-    {
-      data: 'parent.0.child'
-      title: 'Sample Dot Notation'
-      class: 'parent.0.child'
-    }
-  ]
-  extraFields: ['url']
-)
-
-Books.helpers urlParse: ->
-  # column = _.filter columns, (item, index) ->
-  #   if Troubleshoot is TableID
-  #     console.log 'filter '+(item.title is ColTitle)+' for '+index
-  #   # From SO: http://stackoverflow.com/a/32879608/3219667
-  #   _.contains( [ColTitle], item.title)
-  # TODO FIX WHEN #columns changes...
-  regex = new RegExp urlRegExp[0]
-  @url.match(regex)[1]
-
-
 
 TabularTables.Lots = new (Tabular.Table)(
   name: 'LotsList'
@@ -203,17 +154,8 @@ TabularTables.Lots = new (Tabular.Table)(
     {
       data: 'title'
       title: 'Title'
+      searchable: false
     }
-    # {
-    #   data: 'firstName'
-    #   title: 'fullName()'
-    #   class: 'firstName'
-    # }
-    # {
-    #   data: 'url'
-    #   title: 'urlParse()'
-    #   class: 'url'
-    # }
     {
       data: 'fullName()'
       title: 'fullName()'
@@ -232,10 +174,11 @@ TabularTables.Lots = new (Tabular.Table)(
       class: 'url'
       options: {
         regex: urlRegExp
+        sortfield: 'URLSort'
       }
     }
   ]
-  extraFields: ['firstName', 'lastName', 'url']
+  extraFields: ['firstName', 'lastName', 'url', 'URLSort']
 )
 
 Lots.helpers
@@ -244,3 +187,5 @@ Lots.helpers
   urlParse: ->
     regex = new RegExp urlRegExp[0]
     @url.match(regex)[1]
+
+

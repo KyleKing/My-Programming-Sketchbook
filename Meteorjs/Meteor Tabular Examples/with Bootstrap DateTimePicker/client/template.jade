@@ -49,10 +49,7 @@ template(name='TabularTableContent')
     p > DataTables doesn't directly support searching a number from the search bar. This just isn't possible because a number search is usually for some comparator (i.e. &gt; or &lt;).
     //- p So to search a column with a number, I've extended my per column extension to support searching a number through a specific column.
     //- h5 IDEAS: Default to some sort of near query? Maybe user provides options and there is a window of any search (i.e. $gte: query-100 and $lte: query+100). Display a symbol to determine which type of query is being performed. Maybe: '&gt;', '=', and '&lt;' (then toggle like sort arrows)
-    h6 Try it out:
-    ul
-      li
-        p (Sorry not yet, still in progress) -> should be able to specify a time limit by '&gt;', '=', and '&lt;' icons (then toggle like sort arrows) or:
+    h3 With a two-step filter:
     .row
       .col-md-1
         h4.text-left From:
@@ -70,16 +67,18 @@ template(name='TabularTableContent')
           span.input-group-addon
             i.glyphicon.glyphicon-calendar
           input.set-due-date.form-control(type='text')
+
     .row
-      h5 &nbsp;
+      .col-md-4.col-md-push-4
+        h3 With a single search bar:
     .row
       .col-md-4.col-md-push-4
         .input-group#datetimepickerSingle
-          span.input-group-addon
-            i.glyphicon.glyphicon-calendar
-          input.set-due-date.form-control(type='text')
           span#iconToggle #{icon}
             //- i.glyphicon(class="#{icon}")
+          input.set-due-date.form-control(type='text')
+          span.input-group-addon
+            i.glyphicon.glyphicon-calendar
     .row
       h5 &nbsp;
   .container

@@ -55,7 +55,7 @@ template(name='TabularTableContent')
         p (Sorry not yet, still in progress) -> should be able to specify a time limit by '&gt;', '=', and '&lt;' icons (then toggle like sort arrows) or:
     .row
       .col-md-1
-        h4.text-right From:
+        h4.text-left From:
       .col-md-5
         //- +dateTimePickerPre
         .input-group#datetimepickerPre
@@ -71,7 +71,17 @@ template(name='TabularTableContent')
             i.glyphicon.glyphicon-calendar
           input.set-due-date.form-control(type='text')
     .row
-      h6 &nbsp;
+      h5 &nbsp;
+    .row
+      .col-md-4.col-md-push-4
+        .input-group#datetimepickerSingle
+          span.input-group-addon
+            i.glyphicon.glyphicon-calendar
+          input.set-due-date.form-control(type='text')
+          span#iconToggle #{icon}
+            //- i.glyphicon(class="#{icon}")
+    .row
+      h5 &nbsp;
   .container
     +NumbersTemplate
   //- .container

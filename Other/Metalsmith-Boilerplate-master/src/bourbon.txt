@@ -1,0 +1,34 @@
+//- extends jade-partials/layout-blocks/layout
+//- block content
+//-   //- Example
+//-   include jade-partials/refills_examples/hero_unit
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example
+//-   include jade-partials/refills_examples/iconbulletpoints
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example
+//-   include jade-partials/refills_examples/device
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example
+//-   include jade-partials/refills_examples/sideImage
+//-   include jade-partials/refills_examples/spacing
+//-   //- Article Styles
+//-   //- Add these to the layout.jade file to work (will overwrite set styles so add after style.css)
+//-   //- link(href='http://fonts.googleapis.com/css?family=Lusitana:400,700', rel='stylesheet', type='text/css')
+//-   //- link(href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
+//-   //- link(href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,300italic,400italic,700italic,700,800,800italic', rel='stylesheet', type='text/css')
+//-   include jade-partials/refills_examples/cards
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example
+//-   include jade-partials/refills_examples/browser
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example
+//-   include jade-partials/refills_examples/comments
+//-   include jade-partials/refills_examples/spacing
+//-   //- Example Grid Items
+//-   include jade-partials/refills_examples/grid-items
+//-   include jade-partials/refills_examples/spacing
+
+
+
+

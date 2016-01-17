@@ -1,0 +1,20 @@
+@mixin admin_chart_scaling($width, $ratio) {
+    @include media($mobile) {
+      text-align: center;
+      @include span-columns($width/$ratio);
+    }
+    @include media($desktop) {
+      @include span-columns($width);
+    }
+}
+
+// Admin style sheet
+.dataFacts {
+  @include outer-container;
+    .Quick-Info {
+      @include admin_chart_scaling(4, 1);
+    }
+    #container-area {
+      @include admin_chart_scaling(12, 3);
+    }
+}

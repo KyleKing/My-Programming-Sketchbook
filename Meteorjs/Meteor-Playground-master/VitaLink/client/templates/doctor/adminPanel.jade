@@ -1,0 +1,16 @@
+template(name='adminPanel')
+  h1.intro
+    | Currently Logged in as Dr. Doctor
+  each Patients
+    form
+      .form-group
+        label.control-label(for='name') Name of Patient
+        .controls
+          input.form-control(name='name', type='text', value='{{name}}', placeholder='Change Patient Name')
+      .form-group
+        label.control-label(for='type') Diagnosis
+        .controls
+          input.form-control(name='type', type='text', value='{{type}}', placeholder='Select Diagnosis')
+      input.btn.btn-primary.submit(type='submit', value='Submit')
+      hr
+      a.delete(href='#') Delete Patient

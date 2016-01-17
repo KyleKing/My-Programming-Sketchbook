@@ -1,0 +1,38 @@
+{
+  "name": "Metalsmith-Boilerplate",
+  "version": "0.0.2",
+  "description": "A fresh replacement for Jekyll Pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleKing/Metalsmith-Boilerplate.git"
+  },
+  "author": "Robin Thrift <thrift.d.robin@googlemail.com>",
+  "editor": "Kyle King <KmKing72@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KyleKing/Metalsmith-Boilerplate/issues"
+  },
+  "homepage": "build.dev/metalsmith-tutorial",
+  "devDependencies": {
+    "metalsmith": "^=0.10.0",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-templates": "^0.4.0",
+    "handlebars": "^2.0.0-alpha.2",
+    "metalsmith-collections": "^0.4.0",
+    "metalsmith-permalinks": "^0.3.0",
+    "metalsmith-coffee": "^0.0.1",
+    "metalsmith-sass": "^=0.3.0",
+    "metalsmith-watch": "^0.1.1",
+    "metalsmith-drafts": "^0.0.1",
+    "metalsmith-excerpts": "^=1.0.0",
+    "metalsmith-jade": "^=0.0.1",
+    "metalsmith-ignore": "^=0.1.2",
+    "metalsmith-tags": "^=0.6.1",
+    "metalsmith-atom": "^=0.0.4",
+    "metalsmith-copy": "0.1.2"
+  }
+}

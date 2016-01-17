@@ -1,0 +1,23 @@
+template(name='doctorView')
+  h1.intro
+    | Currently Logged in as Dr. Doctor Viewing the Treatment Plan of
+    = patientName.name
+  each templatePlanItem
+    if date
+      h3.date= date
+    if alert
+      p.alert= alert
+    if medication
+      h6.medication Take
+        = medicationAmt
+        = medication
+        | at
+        = medicationTime
+    if symptoms
+      p.symptom
+        = sympTime
+        | you will see your
+        = symptoms
+        | fade
+    a(href="{{pathFor 'edit'}}")
+      button.spacing edit

@@ -1,0 +1,55 @@
+// Nav Bar
+// Red bar with altered opaciity with list of nav items across and white bottom border
+.navMenu {
+  position: fixed; top: 0px;
+  z-index: 999; // Keep on top of map element
+  // red background bar
+  width: 100%;
+  height: em(80); // Testing more responsive height
+  // height: 50px;
+  // background: tint(red, 30%);
+  background: rgba(52, 73, 94, 1);
+}
+.navIcon {
+  // Push icon to the left
+  position: fixed;
+  left: 0;
+  display: inline-block; // Avoid skipping a line
+  img {
+    // Cap the size normally 400px square
+    height: 70px;
+    width: 70px;
+  }
+}
+.navItems {
+  list-style-type: none;
+  li.navButton {
+    // Add some crumbs
+    z-index: 99; // Keep on top of map element
+    font-size: 1.5em;
+    a {
+      display: inline-block; // Keep it all inline, get it?
+      cursor: pointer;
+      // Mess with Text
+      font-weight: bold;
+      color: rgb(236, 240, 241); // tint(white, 30%);
+      text-decoration: none;
+      // Space everything out
+      position: relative;
+      padding: 15px;
+      &:hover {
+        border-bottom: 5px solid rgb(236, 240, 241); // tint(white, 30%);
+        // border-bottom: 5px solid tint(white, 30%);
+      }
+    }
+    &.left {
+      margin-left: 10px;
+      float: left; }
+    &.left:first-child { margin-left: 75px; } // give space for icon
+    &.right {
+      // push content to right side
+      margin-right: 10px;
+      float: right;
+    }
+  }
+}

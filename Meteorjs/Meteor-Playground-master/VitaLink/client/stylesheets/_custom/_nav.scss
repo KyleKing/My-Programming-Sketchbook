@@ -1,0 +1,212 @@
+// Mobile Nav style settings
+$sliding-menu-border-color: $flat-blue-4;
+$sliding-menu-background: lighten($sliding-menu-border-color, 5);
+$sliding-menu-color: $flat-gray-1;
+$sliding-menu-border: 1px solid $sliding-menu-border-color;
+$sliding-menu-background-hover: $base-accent-color;
+$sliding-menu-color-hover: $flat-gray-1;
+
+// Provide spacing to keep content under nav
+.nav { margin-top: em(100); }
+
+.navItems {
+  list-style-type: none;
+  font-size: em(30);
+  li.navButton {
+    a {
+      display: inline-block; // Keep it all inline, get it?
+      cursor: pointer;
+      // Mess with Text
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      // Space everything out
+      position: relative;
+      padding: em(10);
+      &:hover {
+        border-bottom: em(5) solid tint($flat-blue-1, 30%);
+      }
+    }
+    &.left {
+      // push content to right side
+      margin-left: em(90);
+      float: left;
+      @include media($mobile) {
+        display: none;
+      }
+    }
+    &.right {
+      // push content to right side
+      margin-right: em(10);
+      float: right;
+    }
+  }
+}
+
+
+.mobile_nav {
+  // Add translucent background element
+  background: rgba($flat-midnight-blue, 0.95);
+  position: fixed; top: 0px;
+  z-index: 99;
+  width: 100%;
+  min-height: em(85);
+  .navIcon {
+    // Push icon to the left
+    position: fixed;
+    left: 0px;
+    margin: em(10);
+    display: inline-block; // Avoid skipping a line
+    img {
+      // Cap the size normally 400px square
+      height: auto;
+      width: em(150);
+    }
+  }
+}
+
+// // Mobile Nav style settings
+// $sliding-menu-border-color: $flat-blue-4;
+// $sliding-menu-background: lighten($sliding-menu-border-color, 5);
+// $sliding-menu-color: $flat-gray-1;
+// $sliding-menu-border: 1px solid $sliding-menu-border-color;
+// $sliding-menu-background-hover: $base-accent-color;
+// $sliding-menu-color-hover: $flat-gray-1;
+
+// // Provide spacing to keep content under nav
+// .nav { margin-top: em(100); }
+
+// .mobile_nav {
+//   // Add translucent background element
+//   background: rgba($flat-midnight-blue, 0.95);
+//   position: fixed; top: 0px;
+//   z-index: 99; // Keep on top of map element
+//   // red background bar
+//   width: 100%;
+//   min-height: em(85); // Testing more responsive height
+//   // background: rgba(255, 255, 255, 0.75);
+//   .navIcon {
+//     // Push icon to the left
+//     position: fixed;
+//     left: 0px;
+//     margin: em(10);
+//     display: inline-block; // Avoid skipping a line
+//     img {
+//       // Cap the size normally 400px square
+//       height: em(65);
+//       width: em(65);
+//     }
+//   }
+//   .sliding-menu-button {
+//     @include inline-block;
+//     cursor: pointer;
+//     font-size: $base-font-size;
+//     margin: em(10);
+//     // Push icon to the right
+//     position: fixed;
+//     right: 0px;
+//     outline: none;
+
+//     img {
+//       height: em(35);
+//     }
+//   }
+// }
+
+// // For mobile devices only:
+// @include media($mobile) {
+//   .content {
+//     &.is-hidden {
+//       @include transform(translateX(em(-220)));
+//       @include transition(all .25s linear);
+//     }
+//   }
+//   .sliding-menu-content {
+//     @include position(fixed, 0px 0px 0px auto);
+//     @include size(em(220) 100%);
+//     @include transform(translateX(em(220)));
+//     @include transition(all .25s linear);
+//     background: $sliding-menu-background;
+//     z-index: 999999;
+//     overflow-y: scroll;
+//     -webkit-overflow-scrolling: touch;
+
+//     li a {
+//       border-bottom: $sliding-menu-border;
+//       color: $sliding-menu-color;
+//       display: block;
+//       font-weight: bold;
+//       padding: 1em;
+
+//       &:hover {
+//         background-color: $sliding-menu-background-hover;
+//         color: $sliding-menu-color-hover;
+//       }
+//     }
+
+//     &.is-visible {
+//       @include transform(translateX(0));
+//     }
+//   }
+
+//   .menu-screen {
+//     @include position(fixed, 0px 0px 0px 0px);
+//     @include transition;
+//     background: $sliding-menu-border-color;
+//     opacity: 0;
+//     visibility: hidden;
+//     z-index: 999998;
+
+//     &.is-visible {
+//       opacity: .4;
+//       visibility: visible;
+//     }
+//   }
+// }
+
+// // Based on code by Diego Eis
+
+// // Desktop Version
+// @include media($desktop) {
+//   button.js-menu-trigger.sliding-menu-button {
+//     display: none;
+//   }
+//   .navItems {
+//     list-style-type: none;
+//     font-size: em(30);
+//     li.navButton {
+//       a {
+//         display: inline-block; // Keep it all inline, get it?
+//         cursor: pointer;
+//         // Mess with Text
+//         font-weight: bold;
+//         color: white;
+//         text-decoration: none;
+//         // Space everything out
+//         position: relative;
+//         padding: em(10);
+//         &:hover {
+//           border-bottom: em(5) solid tint($flat-blue-1, 30%);
+//         }
+//       }
+//       &.left {
+//         margin-left: em(10);
+//         float: left; }
+//       &.left:first-child { margin-left: em(50); } // give space for icon
+//       &.right {
+//         // push content to right side
+//         margin-right: em(10);
+//         float: right;
+//       }
+//       .dropdown-toggle {
+//         float: right;
+//         margin: 0px;
+//       }
+//       &:hover {
+//         .dropdown-menu {
+//           display: block;
+//         }
+//       }
+//     }
+//   }
+// }

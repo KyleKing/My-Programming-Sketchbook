@@ -70,7 +70,7 @@ Troubleshoot = 'BooksID'
           #   console.log ' '
           # Util function from Meteor-Tabular
           sel[ThisClass].value = Util.getPubSelector({}, SearchString,
-            {}, true, column)
+            {}, true, true, column)
         else
           # Otherwise clear text box
           delete sel[ThisClass]

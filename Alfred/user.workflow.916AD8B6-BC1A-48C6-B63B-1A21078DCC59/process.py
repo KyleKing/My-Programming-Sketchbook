@@ -23,6 +23,7 @@ def parse_query_value(query_str):
     try:
         query_str = str(query_str).strip('"\' ')
         # [mhdwMy] min, hour, day, week, Month, year
+        # Fixed logical order and regexp
         match = re.match('(\+|\-)(\d+)(\S)', query_str)
         if match is None:
             if query_str == 'now':
@@ -56,7 +57,7 @@ def shift_time(op, value, measure):
     elif measure == 'w':
         multiplier = ((60*60)*24)*7
     elif measure == 'M':
-        multiplier = ((60*60)*24)*30  # egh..
+        multiplier = ((60*60)*24)*30  # egh.. FIXME
     elif measure == 'y':
         multiplier = ((60*60)*24)*365
 

@@ -1,0 +1,14 @@
+<head>
+  <title>Minimal</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+  <a href='https://github.com/KyleKing/My-Programming-Sketchbook/issues/3'>This is a demo app to tackle an open issue on Github</a>
+
+  {{> TableContainer}}
+</body>
+
+<template name="TableContainer">
+  {{> tabular table=TabularTables.sales selector=currentSelector class="table table-striped table-bordered table-hover" id="salesdata" width="100%"}}
+</template>

@@ -1,7 +1,8 @@
 -- Loaded files and functions:
 local Utility = require("Utility")
-local reloadConfig = require("HelloWorld")
+dofile("HelloWorld.lua")
 dofile("MacUtilities.lua")
+dofile("windowTiling.lua")
 
 local WIP = require("z_In Progress")
 

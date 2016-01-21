@@ -1,4 +1,4 @@
-local Utility = require("universalFunctions")
+local Utility = require("Utility")
 
 --------------------------------------------------
 -- Window Tiling

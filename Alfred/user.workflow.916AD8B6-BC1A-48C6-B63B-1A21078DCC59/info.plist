@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.Kyle.michaelwaterfall.datetime-format-converter</string>
+	<string>com.michaelwaterfall.KyleKingEdited.datetime-format-converter</string>
 	<key>category</key>
 	<string>Tools</string>
 	<key>connections</key>
@@ -27,7 +27,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Datetime Format Converter (Kyle Edited)</string>
+	<string>_Datetime Format Converter</string>
 	<key>objects</key>
 	<array>
 		<dict>

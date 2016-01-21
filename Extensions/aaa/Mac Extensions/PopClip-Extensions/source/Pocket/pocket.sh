@@ -1,1 +1,0 @@
-open "pocket://add?url=$POPCLIP_TEXT"

@@ -12,7 +12,7 @@ Everything that I work on that doesn't have its own repository. To see more info
 
 ## Extensions
 
-> Currently unorganized and not much to look at yet, but will contain my chrome extensions and Popclip extension(s)
+> Currently unorganized and not much to look at yet, but will contain my chrome extensions and possibly a few others
 
 *Chrome Extensions*
 
@@ -67,3 +67,12 @@ Everything that I work on that doesn't have its own repository. To see more info
 ## iOS
 
 > Currently empty, but will change soon
+
+
+# Note to self
+
+## TODO
+
+- [ ] [Check all broken links with GIRL](https://github.com/bamos/girl)
+- [ ] Improve Documentation throughout folder
+- [ ] ORGANIZE random documents

@@ -1,1 +1,0 @@
-tell application "LaunchBar" to set selection to "{popclip text}"

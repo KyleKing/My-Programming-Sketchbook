@@ -1,4 +1,4 @@
-# Programming Sketchbook
+# My Programming Sketchbook
 
 Everything that I work on that doesn't have its own repository. To see more info, check out the README for each individual, which will include more in-depth documentation for the included contents. This page only serves to highlight my most interesting or useful folders
 
@@ -10,7 +10,7 @@ Everything that I work on that doesn't have its own repository. To see more info
 
 > Currently unorganized and not much to look at yet, but will contain my chrome extensions and Popclip extension(s)
 
-### Chrome Extensions
+*Chrome Extensions*
 
 - [A Better WebClock UI - only shows the correct button - either "clock in" or "clock out"](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Chrome%20Extensions/A%20Better%20WebClock)
 - [CrocoDoc FullScreen - opens view feedback button as full screen rather than as the tiny iframe](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Chrome%20Extensions/CrocDoc%20FullScreen)

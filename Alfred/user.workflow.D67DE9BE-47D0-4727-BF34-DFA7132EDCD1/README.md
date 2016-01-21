@@ -2,7 +2,7 @@
 
 This workflow calls an aptly-named function, ```AlfredFunction()```, which returns a user-defined list of functions and other arguments in a JSON format. The JSON is then parsed and searched to create a list of actionable items.
 
-*Note: As this is a two-part program (part-Alfred & part-Hammerspoon), you should also checkout my [```.hammerspoon``` directory](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Lua/.hammerspoon), in particular the [```ini.lua``` file](https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Lua/.hammerspoon/init.lua) for a complete example.*
+*Note: As this is a two-part program (part-Alfred & part-Hammerspoon), you should also checkout my [```.hammerspoon``` directory](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Scripts/.hammerspoon), in particular the [```ini.lua``` file](https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Scripts/.hammerspoon/init.lua) for a complete example.*
 
 For example, you can define this in your ```init.lua``` file:
 ```lua

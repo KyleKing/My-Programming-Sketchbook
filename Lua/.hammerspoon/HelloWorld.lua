@@ -4,6 +4,11 @@
 
 local Utility = require("Utility")
 
+function AlertUser(term)
+  hs.alert.show(term)
+end
+-- AlertUser("it works")
+
 -- -- Basic Hello World:
 -- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
 --   hs.alert.show("Hello World!")

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.KyleKing</string>
+	<string>com.KyleKing.SmartHammerspoon</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
@@ -23,7 +23,7 @@
 	<key>createdby</key>
 	<string>Kyle King</string>
 	<key>description</key>
-	<string>Smart and Stuff</string>
+	<string>Finds function names and links from .lua file</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -38,10 +38,11 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>query="{query}"
+				<string># query="AlertUser('lkj hkjh')"
+query="{query}"
 
 # Alfred doesn't load full path...so give it some guidance:
-/usr/local/bin/hs -c $query</string>
+/usr/local/bin/hs -c "$query"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -91,7 +92,7 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Personal links to useful websites</string>
+	<string>Create a function: AlfredFunction() in your init.lua file. To see an example, visit: https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Lua/.hammerspoon/init.lua</string>
 	<key>uidata</key>
 	<dict>
 		<key>4E0EEC0F-3A96-42BE-8B76-EFF4BEF691DA</key>

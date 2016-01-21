@@ -18,6 +18,12 @@ end
 function AlfredFunctions()
 	local sometable = {
 		{
+			["func_name"]="AlertUser",
+			["description"]="Custom Notification",
+			["icon"]='icon.png',
+			["arg"]='string'
+		},
+		{
 			["func_name"]="manualReload",
 			["description"]="Reloads Hammerspoon",
 			["icon"]='icon.png'
@@ -35,8 +41,7 @@ function AlfredFunctions()
 	};
 	Utility:printJSON(sometable)
 end
-AlfredFunctions()
-
+-- AlfredFunctions()
 
 -- Learn LUA quickly!
 -- https://learnxinyminutes.com/docs/lua/

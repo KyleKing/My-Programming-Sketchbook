@@ -2,6 +2,10 @@
 
 Everything that I work on that doesn't have its own repository. To see more info, check out the README for each individual, which will include more in-depth documentation for the included contents. This page only serves to highlight my most interesting or useful folders
 
+## Alfred
+
+> A couple of workflows that I'm working on, will be udpated once the workflows are on Packal! See the README for more info
+
 ## C
 
 > Currently unorganized and not much to look at yet, but will contain Arduino and Microduiono ```.ino``` files and a couple of C functions
@@ -15,10 +19,6 @@ Everything that I work on that doesn't have its own repository. To see more info
 - [A Better WebClock UI - only shows the correct button - either "clock in" or "clock out"](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Chrome%20Extensions/A%20Better%20WebClock)
 - [CrocoDoc FullScreen - opens view feedback button as full screen rather than as the tiny iframe](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Chrome%20Extensions/CrocDoc%20FullScreen)
 - [Auto Literature Proxy - automatically redirects the user to the on-campus prozy that provides free access to journal articles](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Chrome%20Extensions/Auto%20Literature%20Proxy)
-
-## iOS
-
-> Currently empty, but will change soon
 
 ## JavaScript
 
@@ -63,3 +63,7 @@ Everything that I work on that doesn't have its own repository. To see more info
 ## Scripts
 
 > My Hammerspoon configuration file, some bash scripts, and applescripts
+
+## iOS
+
+> Currently empty, but will change soon

@@ -1,0 +1,370 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DF32DF511C1692EA00D8EDC3 /* helpicon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF32DF501C1692EA00D8EDC3 /* helpicon.png */; };
+		DFACEC211C0ED81600EEFEE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC201C0ED81600EEFEE1 /* main.m */; };
+		DFACEC2C1C0ED81600EEFEE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFACEC2B1C0ED81600EEFEE1 /* Assets.xcassets */; };
+		DFACEC371C0ED95200EEFEE1 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFACEC361C0ED95200EEFEE1 /* CoreBluetooth.framework */; };
+		DFACEC5A1C0EDD1A00EEFEE1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC511C0EDD1A00EEFEE1 /* AppDelegate.m */; };
+		DFACEC5B1C0EDD1A00EEFEE1 /* GradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC531C0EDD1A00EEFEE1 /* GradientBackground.m */; };
+		DFACEC5C1C0EDD1A00EEFEE1 /* LapTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC551C0EDD1A00EEFEE1 /* LapTimer.m */; };
+		DFACEC5D1C0EDD1A00EEFEE1 /* LTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC571C0EDD1A00EEFEE1 /* LTMainViewController.m */; };
+		DFACEC5E1C0EDD1A00EEFEE1 /* LTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFACEC591C0EDD1A00EEFEE1 /* LTSettingsViewController.m */; };
+		DFACEC631C0EDD4B00EEFEE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFACEC5F1C0EDD4B00EEFEE1 /* LaunchScreen.storyboard */; };
+		DFACEC641C0EDD4B00EEFEE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFACEC611C0EDD4B00EEFEE1 /* Main.storyboard */; };
+		E43AD4671C3061B20092D730 /* MisfitLinkSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43AD4661C3061B20092D730 /* MisfitLinkSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DF32DF501C1692EA00D8EDC3 /* helpicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpicon.png; sourceTree = "<group>"; };
+		DFACEC1D1C0ED81600EEFEE1 /* LapTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LapTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFACEC201C0ED81600EEFEE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DFACEC2B1C0ED81600EEFEE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFACEC301C0ED81600EEFEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFACEC361C0ED95200EEFEE1 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		DFACEC501C0EDD1A00EEFEE1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DFACEC511C0EDD1A00EEFEE1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DFACEC521C0EDD1A00EEFEE1 /* GradientBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientBackground.h; path = LapTimer/GradientBackground.h; sourceTree = "<group>"; };
+		DFACEC531C0EDD1A00EEFEE1 /* GradientBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientBackground.m; path = LapTimer/GradientBackground.m; sourceTree = "<group>"; };
+		DFACEC541C0EDD1A00EEFEE1 /* LapTImer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapTImer.h; sourceTree = "<group>"; };
+		DFACEC551C0EDD1A00EEFEE1 /* LapTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapTimer.m; sourceTree = "<group>"; };
+		DFACEC561C0EDD1A00EEFEE1 /* LTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTMainViewController.h; sourceTree = "<group>"; };
+		DFACEC571C0EDD1A00EEFEE1 /* LTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTMainViewController.m; sourceTree = "<group>"; };
+		DFACEC581C0EDD1A00EEFEE1 /* LTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSettingsViewController.h; sourceTree = "<group>"; };
+		DFACEC591C0EDD1A00EEFEE1 /* LTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSettingsViewController.m; sourceTree = "<group>"; };
+		DFACEC601C0EDD4B00EEFEE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DFACEC621C0EDD4B00EEFEE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E43AD4661C3061B20092D730 /* MisfitLinkSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MisfitLinkSDK.framework; path = MisfitLinkSDK/MisfitLinkSDK.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DFACEC1A1C0ED81600EEFEE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E43AD4671C3061B20092D730 /* MisfitLinkSDK.framework in Frameworks */,
+				DFACEC371C0ED95200EEFEE1 /* CoreBluetooth.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DFACEBF61C0ED80300EEFEE1 = {
+			isa = PBXGroup;
+			children = (
+				E43AD4661C3061B20092D730 /* MisfitLinkSDK.framework */,
+				DFACEC361C0ED95200EEFEE1 /* CoreBluetooth.framework */,
+				DFACEC1E1C0ED81600EEFEE1 /* LapTimer */,
+				DFACEC001C0ED80300EEFEE1 /* Products */,
+				DFACEC3A1C0ED97B00EEFEE1 /* Common */,
+			);
+			sourceTree = "<group>";
+		};
+		DFACEC001C0ED80300EEFEE1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DFACEC1D1C0ED81600EEFEE1 /* LapTimer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DFACEC1E1C0ED81600EEFEE1 /* LapTimer */ = {
+			isa = PBXGroup;
+			children = (
+				DFACEC5F1C0EDD4B00EEFEE1 /* LaunchScreen.storyboard */,
+				DFACEC611C0EDD4B00EEFEE1 /* Main.storyboard */,
+				DFACEC501C0EDD1A00EEFEE1 /* AppDelegate.h */,
+				DFACEC511C0EDD1A00EEFEE1 /* AppDelegate.m */,
+				DFACEC541C0EDD1A00EEFEE1 /* LapTImer.h */,
+				DFACEC551C0EDD1A00EEFEE1 /* LapTimer.m */,
+				DFACEC561C0EDD1A00EEFEE1 /* LTMainViewController.h */,
+				DFACEC571C0EDD1A00EEFEE1 /* LTMainViewController.m */,
+				DFACEC581C0EDD1A00EEFEE1 /* LTSettingsViewController.h */,
+				DFACEC591C0EDD1A00EEFEE1 /* LTSettingsViewController.m */,
+				DFACEC2B1C0ED81600EEFEE1 /* Assets.xcassets */,
+				DFACEC301C0ED81600EEFEE1 /* Info.plist */,
+				DFACEC1F1C0ED81600EEFEE1 /* Supporting Files */,
+			);
+			path = LapTimer;
+			sourceTree = "<group>";
+		};
+		DFACEC1F1C0ED81600EEFEE1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DF32DF501C1692EA00D8EDC3 /* helpicon.png */,
+				DFACEC201C0ED81600EEFEE1 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DFACEC3A1C0ED97B00EEFEE1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DFACEC521C0EDD1A00EEFEE1 /* GradientBackground.h */,
+				DFACEC531C0EDD1A00EEFEE1 /* GradientBackground.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DFACEC1C1C0ED81600EEFEE1 /* LapTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFACEC311C0ED81600EEFEE1 /* Build configuration list for PBXNativeTarget "LapTimer" */;
+			buildPhases = (
+				DFACEC191C0ED81600EEFEE1 /* Sources */,
+				DFACEC1A1C0ED81600EEFEE1 /* Frameworks */,
+				DFACEC1B1C0ED81600EEFEE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LapTimer;
+			productName = LapTimer;
+			productReference = DFACEC1D1C0ED81600EEFEE1 /* LapTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DFACEBF71C0ED80300EEFEE1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = misfitwearables;
+				TargetAttributes = {
+					DFACEC1C1C0ED81600EEFEE1 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 4KFZN3SDMA;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = DFACEBFA1C0ED80300EEFEE1 /* Build configuration list for PBXProject "LinkSDKExamples" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DFACEBF61C0ED80300EEFEE1;
+			productRefGroup = DFACEC001C0ED80300EEFEE1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DFACEC1C1C0ED81600EEFEE1 /* LapTimer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DFACEC1B1C0ED81600EEFEE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFACEC631C0EDD4B00EEFEE1 /* LaunchScreen.storyboard in Resources */,
+				DF32DF511C1692EA00D8EDC3 /* helpicon.png in Resources */,
+				DFACEC2C1C0ED81600EEFEE1 /* Assets.xcassets in Resources */,
+				DFACEC641C0EDD4B00EEFEE1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DFACEC191C0ED81600EEFEE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFACEC5B1C0EDD1A00EEFEE1 /* GradientBackground.m in Sources */,
+				DFACEC5A1C0EDD1A00EEFEE1 /* AppDelegate.m in Sources */,
+				DFACEC5D1C0EDD1A00EEFEE1 /* LTMainViewController.m in Sources */,
+				DFACEC5E1C0EDD1A00EEFEE1 /* LTSettingsViewController.m in Sources */,
+				DFACEC211C0ED81600EEFEE1 /* main.m in Sources */,
+				DFACEC5C1C0EDD1A00EEFEE1 /* LapTimer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DFACEC5F1C0EDD4B00EEFEE1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFACEC601C0EDD4B00EEFEE1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DFACEC611C0EDD4B00EEFEE1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFACEC621C0EDD4B00EEFEE1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DFACEC141C0ED80300EEFEE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DFACEC151C0ED80300EEFEE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DFACEC321C0ED81600EEFEE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/MisfitLinkSDK",
+				);
+				INFOPLIST_FILE = LapTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyle.misfit.LapTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		DFACEC331C0ED81600EEFEE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/MisfitLinkSDK",
+				);
+				INFOPLIST_FILE = LapTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyle.misfit.LapTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DFACEBFA1C0ED80300EEFEE1 /* Build configuration list for PBXProject "LinkSDKExamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFACEC141C0ED80300EEFEE1 /* Debug */,
+				DFACEC151C0ED80300EEFEE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFACEC311C0ED81600EEFEE1 /* Build configuration list for PBXNativeTarget "LapTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFACEC321C0ED81600EEFEE1 /* Debug */,
+				DFACEC331C0ED81600EEFEE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DFACEBF71C0ED80300EEFEE1 /* Project object */;
+}

@@ -156,4 +156,4 @@ Template.NumbersTemplate.helpers
 		console.log ShouldBeVal is ThisValRight
 
 		# return ShouldBeVal
-		return ThisValRight
+		return ShouldBeVal

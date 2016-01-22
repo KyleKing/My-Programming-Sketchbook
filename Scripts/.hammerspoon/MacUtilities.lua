@@ -1,19 +1,29 @@
 local Utility = require("Utility")
 
+print('')
+print('>> Loading Mac Utilities for:')
+print('   Battery Watcher')
+print('   Spotify')
+print('   Dot Files')
+
 --------------------------------------------------
 -- Macbook utilities
 --------------------------------------------------
+
+local Mac = {}
 
 -- Basic Battery Watcher (Three additional examples are also available
 -- (example code from: https://github.com/Hammerspoon/hammerspoon/issues/166#issuecomment-68320784)
 pct_prev = nil
 function batt_watch_low()
     pct = hs.battery.percentage()
-    if pct ~= pct_prev and not hs.battery.isCharging() and pct < 22 then
-        hs.alert.show(string.format(
-        "Plug-in the power, only %d%% left!!", pct))
+    if type(pct) == 'number' then
+      if pct ~= pct_prev and not hs.battery.isCharging() and pct < 22 then
+          hs.alert.show(string.format(
+            "Plug-in the power, only %d%% left!!", pct))
+      end
+      pct_prev = pct
     end
-    pct_prev = pct
 end
 hs.battery.watcher.new(batt_watch_low):start()
 
@@ -51,3 +61,9 @@ function showFiles()
   ok,result = hs.applescript('do shell script "defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"')
   hs.alert.show("Files Shown, like bright moon deceives enemy")
 end
+
+function Mac.blueutil(value)
+  os.execute('/usr/local/bin/blueutil '..value)
+end
+
+return Mac

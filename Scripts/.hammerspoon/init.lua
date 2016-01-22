@@ -1,10 +1,22 @@
--- Loaded files and functions:
-local Utility = require("Utility")
-dofile("HelloWorld.lua")
-dofile("MacUtilities.lua")
-dofile("windowTiling.lua")
+print('')
+print('>> STARTED LOADING HS Profile')
+print('')
 
+-- Loaded files and functions:
+dofile("HelloWorld.lua")
+local Utility = require("Utility")
+local Tiling = require("windowTiling")
+dofile("peripheral_events.lua")
+local Mac = require("MacUtilities")
 local WIP = require("z_In Progress")
+
+
+-- Dash should always be open and is really only closed when computer first opens
+-- So run load order script to open set of helpers on HS startup
+local app = hs.appfinder.appFromName('Dash')
+if app == nill then
+	os.execute('osascript ~/Library/Services/load_order.scpt')
+end
 
 ----------------------------------------------------
 -- Custom Alfred Triggers

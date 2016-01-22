@@ -68,6 +68,9 @@ Everything that I work on that doesn't have its own repository. To see more info
 
 > Currently empty, but will change soon
 
+## Sketch
+
+A couple of small projects for quick designs
 
 # Note to self
 

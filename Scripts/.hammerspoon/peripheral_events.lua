@@ -8,15 +8,15 @@ print('		Proscope and Ethernet USBWatching')
 -- USB Watcher for Proscope Application
 local usbWatcher = nil
 function usbDeviceCallback(data)
-	Utility:printTables(data)
+	Utility.printTables(data)
 	-- Turn on Internet sharing for Raspberry Pi development
 	if (data["productName"] == "Apple USB Ethernet Adapter") then
 		if (data["eventType"] == "added") then
-			print('Start internet sharing')
-			os.execute('osascript ~/Library/Services/InternetSharing.scpt on')
+			-- print('Start internet sharing')
+			ToggleInternetSharing('on')
 		elseif (data["eventType"] == "removed") then
-			print('stop Internet sharing')
-			os.execute('osascript ~/Library/Services/InternetSharing.scpt off')
+			-- print('stop Internet sharing')
+			ToggleInternetSharing('off')
 		end
 	end
 	-- Turn on microscope software when USB camera connected
@@ -27,14 +27,14 @@ function usbDeviceCallback(data)
 			local win = nil
 			while win == nil do
 				win = hs.window('Proscope')
-				if not Utility:isEmpty(win) then
+				if not Utility.isEmpty(win) then
 					Tiling.MoveWindow ( 0, 0, 10/12, 1, win )
 				end
 			end
 		elseif (data["eventType"] == "removed") then
 			-- Quit Proscope HR App
 			local app = hs.window('Proscope')
-			if not Utility:isEmpty(app) then
+			if not Utility.isEmpty(app) then
 				app = app:application()
 				app:kill()
 			end
@@ -44,12 +44,14 @@ end
 usbWatcher = hs.usb.watcher.new(usbDeviceCallback)
 usbWatcher:start()
 
--- For testing
-hs.hotkey.bind(Utility.mash, "t", function()
+function ToggleInternetSharing(setting)
+	-- Where setting is 'on' or 'off'
+	os.execute('osascript ~/Library/Services/InternetSharing.scpt '..setting)
+end
 
-	-- local win = hs.window.frontmostWindow()
-	-- print(win:title())
-	-- local app = hs.window('Proscope')
-	-- print(app:name())
-end)
+-- -- For testing
+-- hs.hotkey.bind(Utility.mash, "t", function()
+-- 	print('Testing!')
+
+-- end)
 

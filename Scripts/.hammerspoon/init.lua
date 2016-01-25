@@ -50,11 +50,17 @@ function AlfredFunctions()
 			["func_name"]="showFiles",
 			["description"]="Shows dot files",
 			["icon"]='/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/BookmarkIcon.icns'
+		},
+		{
+			["func_name"]="ToggleInternetSharing",
+			["description"]="Toggle Internet Sharing, need off or on",
+			["icon"]='icon.png',
+			["arg"]='string'
 		}
 	};
-	Utility:printJSON(sometable)
+	Utility.printJSON(sometable)
 end
--- AlfredFunctions()
+AlfredFunctions()
 
 -- Learn LUA quickly!
 -- https://learnxinyminutes.com/docs/lua/

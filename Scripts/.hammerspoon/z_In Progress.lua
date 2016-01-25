@@ -86,63 +86,14 @@ local WIP = {}
 
 
 -- Cool:
--- Watch for number of changes to a file? Or would Github be better?
-	-- filesystem watchers: http://www.hammerspoon.org/docs/hs.fs.html
-	-- Also this may make hardlinking files inside of a meteor package easier
 -- Get location: docs » hs.location http://www.hammerspoon.org/docs/hs.location.html
--- Use one of the wifi watchers? http://www.hammerspoon.org/docs/hs.wifi.watcher.html
 -- Get lux values using brightness module (i.e. how dark/bright is room?)
 -- Communicate over URL from chrome extension to log url changes
 
 
+--------------------------------------------------
 
 
-
-
-
-
--- -- From: https://gist.github.com/TwoLeaves/a9d226ac98be5109a226
--- -- Update the fan and temp. Needs iStats CLI tool from homebrew.
--- local function updateStats()
---   fanSpeed = os.capture("iStats fan speed | cut -c14- | sed 's/\\..*//'")
---   temp = os.capture("iStats cpu temp | cut -c11- | sed 's/\\..*//'")
--- end
--- -- Makes (and updates) the topbar menu filled with the current Space, the
--- -- temperature and the fan speed. The Space only updates if the space is changed
--- -- with the Hammerspoon shortcut (option + arrows does not work).
--- local function makeStatsMenu(calledFromWhere)
---   if statsMenu == nil then
---     statsMenu = hs.menubar.new()
---   end
---   if calledFromWhere == "spaceChange" then
---     currentSpace = tostring(spaces.currentSpace())
---   else
---     updateStats()
---   end
---   statsMenu:setTitle("Space " .. currentSpace)
---   -- statsMenu:setTitle("Space " .. currentSpace .. " | Fan: " .. fanSpeed .. " | Temp: " .. temp)
--- end
--- -- Gets a list of windows and iterates until the window title is non-empty.
--- -- This avoids focusing the hidden windows apparently placed on top of all
--- -- Google Chrome windows. It also checks if the empty title belongs to Chrome,
--- -- because some apps don't give any of their windows a title, and should still
--- -- be focused.
--- local function spaceChange()
--- 	-- print('currentSpace = '..currentSpace)
---   makeStatsMenu("spaceChange")
---   visibleWindows = hs.window.orderedWindows()
---   for i, window in ipairs(visibleWindows) do
---     if window:application():title() == "Google Chrome" then
---       if window:title() ~= "" then
---         window:focus()
---         break
---       end
---     else
---       window:focus()
---       break
---     end
---   end
--- end
 -- -- Unsupported Spaces extension. Uses private APIs but works okay.
 -- -- (http://github.com/asmagill/hammerspoon_asm.undocumented)
 -- -- Make sure to download release and unarchive:
@@ -160,6 +111,12 @@ local WIP = {}
 --   spaceChange()
 -- end)
 -- currentSpace = tostring(spaces.currentSpace())
+
+
+--------------------------------------------------
+
+
+
 
 
 -- -- Playing around with windows:
@@ -221,40 +178,6 @@ local WIP = {}
 
 --------------------------------------------------
 
-
--- On connect to an external display:
--- Watch for change in resolution
-	-- docs » hs.screen.watcher - http://www.hammerspoon.org/docs/hs.screen.watcher.html
--- Watching a movie:
--- - Turn DnD on, After delay...turn brightness off, keyboard brightness?
--- Tools:
--- Delay/Timing: docs » hs.timer http://www.hammerspoon.org/docs/hs.timer.html
--- Mute: docs » hs.audiodevice http://www.hammerspoon.org/docs/hs.audiodevice.html
--- Brightness: docs » hs.brightness http://www.hammerspoon.org/docs/hs.brightness.html
-	-- Turn brightness back up when done
-
---------------------------------------------------
-
--- Fix boom issue, on Boom close, change audio to defaults:
-	-- docs » hs.audiodevice http://www.hammerspoon.org/docs/hs.audiodevice.html
-
---------------------------------------------------
-
--- RPI:
--- Manage network service order?
-	-- docs » hs.usb.watcher http://www.hammerspoon.org/docs/hs.usb.watcher.html
-	-- and get list of USB's http://www.hammerspoon.org/docs/hs.usb.html
-
---------------------------------------------------
-
--- Quick paste second item in clipboard?
-	-- Save item in clipboard and cycle through a temporary variable
-	-- Essentially a second clipboard bound to a special keypress (i.e. Utility.mash + v)
-	-- docs » hs.pasteboard http://www.hammerspoon.org/docs/hs.pasteboard.html
-
-
---------------------------------------------------
-
 -- Simple way to keep track of all available shortcut keys:
 -- http://www.hammerspoon.org/docs/hs.hotkey.html#showHotkeys
 
@@ -280,8 +203,31 @@ local WIP = {}
 
 --------------------------------------------------
 
--- - Reduce Sound Effect Volume when using headphones..
+
+-- On connect to an external display:
+-- Watch for change in resolution
+	-- docs » hs.screen.watcher - http://www.hammerspoon.org/docs/hs.screen.watcher.html
+-- Control screen brightness for watching a movie or other service on a larger monitor:
+function WIP.ToggleBrightness()
+	local brightness = hs.brightness.get()
+	if Utility.isEmpty(brightness) or brightness > 20 then
+		Utility.Brightness('96', 0)
+	else
+		Utility.Brightness('97', 30)
+	end
+end
+hs.hotkey.bind(Utility.mash, "t", function()
+	local brightness = hs.brightness.get()
+	if Utility.isEmpty(brightness) or brightness > 20 then
+		Utility.Brightness('96', 0)
+	else
+		Utility.Brightness('97', 30)
+	end
+end)
+-- Fix boom issue, on Boom close, change audio to defaults:
+	-- docs » hs.audiodevice http://www.hammerspoon.org/docs/hs.audiodevice.html
 
 --------------------------------------------------
+
 
 return WIP

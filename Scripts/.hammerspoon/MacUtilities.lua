@@ -12,6 +12,13 @@ print('   Dot Files')
 
 local Mac = {}
 
+-- Quick paste second item in clipboard?
+  -- Save item in clipboard and cycle through a temporary variable
+  -- Essentially a second clipboard bound to a special keypress (i.e. Utility.mash + v)
+  -- docs » hs.pasteboard http://www.hammerspoon.org/docs/hs.pasteboard.html
+
+
+
 -- Basic Battery Watcher (Three additional examples are also available
 -- (example code from: https://github.com/Hammerspoon/hammerspoon/issues/166#issuecomment-68320784)
 pct_prev = nil
@@ -45,18 +52,18 @@ hs.hotkey.bind(Utility.mash, "j", function()
 	local track = hs.spotify.getCurrentTrack()
 	hs.alert.show(track)
 	local artist = hs.spotify.getCurrentArtist()
-	if not isEmpty(artist) then
+	if not Utility.isEmpty(artist) then
 		hs.alert.show(artist)
 	end
 end)
 
 -- Show or hide dot files
-function hideFiles()
+function Mac.hideFiles()
   -- alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
   ok,result = hs.applescript('do shell script "defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"')
   hs.alert.show("Files Hid, like blazing sun hides enemy")
 end
-function showFiles()
+function Mac.showFiles()
   -- alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
   ok,result = hs.applescript('do shell script "defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"')
   hs.alert.show("Files Shown, like bright moon deceives enemy")

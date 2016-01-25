@@ -19,12 +19,12 @@ function Tiling.MoveWindow ( WidthOffset, HeightOffset, WidthModifier, HeightMod
 	local max = screen:frame()
 
 	-- Determine start coordinates
-	if (WidthOffset == 0) or Utility:isEmpty(WidthOffset) then
+	if (WidthOffset == 0) or Utility.isEmpty(WidthOffset) then
 		f.x = max.x
 	else
 		f.x = max.x + (max.w * WidthOffset)
 	end
-	if (HeightOffset == 0) or Utility:isEmpty(HeightOffset) then
+	if (HeightOffset == 0) or Utility.isEmpty(HeightOffset) then
 		f.y = max.y
 	else
 		f.y = max.y + (max.h * HeightOffset)

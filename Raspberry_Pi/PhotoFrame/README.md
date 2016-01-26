@@ -3,7 +3,18 @@
 
 ## What is it?
 
-This is a Raspberry Pi program that downloads photos and displays them on any HDMI display. In my case, I setup a small HDMI display inside of a frame to create a really fancy smart photo frame. The images are pulled from a special Dropbox folder that can be updated by anyone through the Baloon.io application. To prevent unneccessary downloads, the script includes logic to download only new photos and delete old photos on a regular basis.
+This is a Raspberry Pi program that downloads photos and displays them on any HDMI display. In my case, I setup a small HDMI display inside of a frame to create a really fancy smart photo frame.
+
+![Fancy PhotoFrame](README/in_progress.jpg)
+
+The images are pulled from a special Dropbox folder that can be updated by [anyone with the passcode through the Baloon.io application](https://balloon.io/). To prevent unneccessary downloads, the script includes logic to download only new photos and delete old photos on a regular basis.
+
+![Balloon.io](README/balloon.png)
+
+The project has still progressed and the frame is starting to come together:
+
+![PhotoFrame back](README/back_view.jpg)
+![PhotoFrame front](README/fron_view.jpg)
 
 ## How to install
 

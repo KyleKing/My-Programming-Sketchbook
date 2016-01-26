@@ -1,4 +1,5 @@
-// in order:
+// FIXME: operate without a Wifi connection
+
 // TODO setup wifi
 // Works, but a WPA2 network would be ideal
 
@@ -16,9 +17,7 @@
 // Need Alex to configure
 
 // TODO: create Readme to allow anyone to use this script
-//
-
-
+// Better than before... See section in README for what needs to be done
 
 /*
 	_____                    _____ _       _     _

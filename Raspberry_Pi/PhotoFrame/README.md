@@ -46,8 +46,8 @@ The project has still progressed and the frame is starting to come together:
 	app.accesstoken(SecretOptions.request_token, function(status, access_token){
 	  console.log(access_token)
 	})
-	Step 3:
-	Copy Access Token into secret.json
+	// Step 3:
+	// Copy Access Token into secret.json
 	```
 7. Once the Secret.json file is setup, run ```node PhotoFrame.js``` and images should start downloading
 8. If this all works, amazing! you might be the first to try to install this! If not, please open an issue and I will try to help you out! Otherwise, time to move onto setting up the iamges to start on boot (scroll down a bit further)
@@ -58,6 +58,7 @@ You need to change the route to the Balloon.io file and set other settings. A fu
 
 Include a quick guide to install the necessary files and such
 
+Also should mention Wifi
 
 ## How to Start Slideshow on Boot
 

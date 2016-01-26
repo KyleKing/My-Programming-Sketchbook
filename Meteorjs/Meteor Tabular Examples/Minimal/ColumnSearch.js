@@ -31,7 +31,8 @@ if (Meteor.isClient) {
       if (!(typeof ThisClass === 'undefined' || ThisClass === '')) {
         // Edited in JS implementation and not in Coffee, yet:
         htmlSnippet = '<input type="text" placeholder="Search ';
-        var widthFix = ' style="width:inherit;"'
+        // Account for extra ~5px from border and padding of input
+        var widthFix = ' style="width:98%;"'
         $input = $(htmlSnippet+ColTitle+'"'+'class="'+ThisClass+'"'+widthFix+'/>');
         // Back to normal:
         $(this).html($input);

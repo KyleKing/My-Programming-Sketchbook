@@ -1,8 +1,22 @@
 // in order:
 // TODO setup wifi
+// Works, but a WPA2 network would be ideal
+
 // TODO: Compress images -> Gulp?
-// TODO: Automate Dropbox sign up and switch to Alex's account and new folder
-// TODO: create readme to allow anyone to use this script
+// Example Code: https://gist.github.com/ryantbrown/239dfdad465ce4932c81
+// NPM packages that might be worth using:
+// https://www.npmjs.com/package/gulp-image
+// https://www.npmjs.com/package/gulp-imagemin
+// https://www.npmjs.com/package/gulp-image-resize
+// https://www.npmjs.com/package/gulp-responsive
+// https://www.npmjs.com/package/gulp-sharp
+// Will need to resize to: 800x480 px
+
+// TODO: Switch to Alex's account and setup Balloon.io
+// Need Alex to configure
+
+// TODO: create Readme to allow anyone to use this script
+//
 
 
 

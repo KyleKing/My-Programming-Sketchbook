@@ -1,3 +1,11 @@
+// in order:
+// TODO setup wifi
+// TODO: Compress images -> Gulp?
+// TODO: Automate Dropbox sign up and switch to Alex's account and new folder
+// TODO: create readme to allow anyone to use this script
+
+
+
 /*
 	_____                    _____ _       _     _
  |     |___ ___ ___ _ _   |     | |_ ___|_|___| |_ _____ ___ ___
@@ -52,17 +60,6 @@ var realerr = err.underline
 var war = clc.yellow
 var inf = clc.blue
 var ign = clc.xterm(8)
-
-
-
-
-// FIXME: Change filenames to remove ' ', '(', etc.
-// TODO: Compress images -> Gulp?
-// TODO: Automate Dropbox sign up and switch to Alex's account and new folder
-// TODO: create readme to allow anyone to use this script
-
-
-
 
 //
 // Step 1: Download Photos from Dropbox (Uploaded via balloon.io/alloo
@@ -232,11 +229,10 @@ if (is_raspberry_pi) {
 	// Should remove all instances of FBI, but always reports: "command failed"?
 	// When actually seems to work?
 	var KillOldFBI = new CronJob('10 * * * * *', function() {
-	console.log(war('\nStarting KillOldFBI CronJob'))
 	if (is_raspberry_pi) {
 		var CheckPIDCommand = "ps aux | grep 'fbi' | awk '{print $2}'"
 			var child = exec(CheckPIDCommand, function (error, stdout, stderr) {
-				console.log(inf("\nChecking List of PID"))
+				console.log(war("\nChecking List of PID"))
 				if (error) console.log(realerr(error))
 				console.log(inf(CheckPIDCommand))
 				if (stdout) console.log(war('stdout: '))
@@ -247,7 +243,7 @@ if (is_raspberry_pi) {
 			// Also, kill previous processes to avoid too many processes and sudden crashing:
 			var command = "sudo kill $(ps aux | grep 'fbi' | awk '{print $2}');"
 			var child = exec(command, function (error, stdout, stderr) {
-				console.log(inf("\nAttempting to clear list of PID"))
+				console.log(war("\nAttempting to clear list of PID"))
 				if (error) {
 					console.log(realerr(error))
 					if (error.code) console.log('error.code: '+error.code)

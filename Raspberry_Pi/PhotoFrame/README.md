@@ -1,3 +1,6 @@
+
+# Add to /etc/
+```bash
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          PhotoFrameStart
@@ -13,4 +16,19 @@
 #                    do_start(), do_stop() or other functions to
 #                    override the defaults in /lib/init/init-d-script.
 ### END INIT INFO
-# cd /home/pi/Raspberry_Pi/Aloo/node/; node PhotoFrame.js
+cd /home/pi/Documents/PhotoFrame/; node PhotoFrame.js
+```
+
+sudo nano /etc/init.d/PhotoFrameStart
+
+## Boot on Startup
+```bash
+cd /etc/init.d/
+sudo nano PhotoFrameStart
+# Make sure above code is accurate ^ then close and save
+
+sudo chmod 755 PhotoFrameStart
+sudo update-rc.d PhotoFrameStart defaults
+
+bash /etc/init.d/PhotoFrameStart # Check the script
+```

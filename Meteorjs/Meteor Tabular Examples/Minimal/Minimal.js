@@ -1,8 +1,8 @@
-// Could be in lib/collections.js
+// First create a collection
+// Note: not created with 'var' because we want this to a global value
 sales = new Mongo.Collection('sales');
 
-// Declared on both client and server, so could be in a folder called 'both'
-// But not in the client or server folders
+// This is the basic code for creating Tabular Tables
 TabularTables = {};
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 TabularTables.sales = new Tabular.Table({
@@ -12,19 +12,19 @@ TabularTables.sales = new Tabular.Table({
     "dom": 'firt<"bottom"lp><"clear">',
     "lengthMenu": [5, 10, 25, 50],
     columns: [
-      { data: "date", title: "date", class: "date"},
-      { data: "quantity", title: "quantity", class: "quantity"},
-      { data: "sales", title: "sales", class: "sales"},
-      { data: "discount", title: "discount", class: "discount"},
-      { data: "profit", title: "profit", class: "profit"},
-      { data: "region", title: "region", class: "region"},
-      { data: "segment", title: "segment", class: "segment"},
-      { data: "category", title: "category", class: "category"},
-      { tmpl: Meteor.isClient && Template.SalesActionBtns, title: "Edit/Delete"}
+      { data: "date", title: "date", class: "date", width: "12%"},
+      { data: "quantity", title: "quantity", class: "quantity", width: "12%"},
+      { data: "sales", title: "sales", class: "sales", width: "11%"},
+      { data: "discount", title: "discount", class: "discount", width: "11%"},
+      { data: "profit", title: "profit", class: "profit", width: "11%"},
+      { data: "region", title: "region", class: "region", width: "11%"},
+      { data: "segment", title: "segment", class: "segment", width: "12%"},
+      { data: "category", title: "category", class: "category", width: "12%"},
+      { tmpl: Meteor.isClient && Template.SalesActionBtns, title: "Edit/Delete", width: '8%'}
     ]
 });
 
-// Could be somewhere in the client folder:
+// Initiate the tabular tables functions for searching
 if (Meteor.isClient) {
 	Template.TableContainer.created = function() {
 	    return TabularSelectorInit('salesdata');
@@ -39,8 +39,12 @@ if (Meteor.isClient) {
 	});
 }
 
+// Not implemented:
+// Template.TableContainer.created = function(){
+//     Meteor.subscribe("singlesale", Session.get('salesID'));
+// }
 
-// Could be in server/seed_data.js
+// Create some really fake seed data
 if (Meteor.isServer && sales.find().count() === 0) {
   sales.insert({date: 'test 1', quantity: 2, sales: 3, discount: 4, profit: 12, region: 15, segment: 16, category: 1});
   sales.insert({date: 'test 3', quantity: 3, sales: 3, discount: 4, profit: 12, region: 15, segment: 16, category: 1});

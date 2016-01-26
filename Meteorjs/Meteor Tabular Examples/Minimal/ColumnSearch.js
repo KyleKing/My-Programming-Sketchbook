@@ -1,8 +1,11 @@
+// Custom search function
+// Will be part of a package eventually, but for now must be included manually
+
 if (Meteor.isClient) {
 
   var Troubleshoot = 'salesdata';
 
-  this.TabularSelectorInit = function(TableID) {
+  window.TabularSelectorInit = function(TableID) {
     var sel;
     if (typeof window.TabularSelector === 'undefined') {
       window.TabularSelector = new ReactiveVar({});
@@ -13,7 +16,7 @@ if (Meteor.isClient) {
     return window.TabularSelector.set(sel);
   };
 
-  this.TabularSelectorMain = function(TableID, collection) {
+  window.TabularSelectorMain = function(TableID, collection) {
     var SelectedTable;
     SelectedTable = '#' + TableID + ' thead th';
     return $(SelectedTable).each(function() {
@@ -26,8 +29,11 @@ if (Meteor.isClient) {
         sel.TheseClasses.push(ThisClass);
       }
       if (!(typeof ThisClass === 'undefined' || ThisClass === '')) {
+        // Edited in JS implementation and not in Coffee, yet:
         htmlSnippet = '<input type="text" placeholder="Search ';
-        $input = $(htmlSnippet + ColTitle + '"' + 'class="' + ThisClass + '"/>');
+        var widthFix = ' style="width:inherit;"'
+        $input = $(htmlSnippet+ColTitle+'"'+'class="'+ThisClass+'"'+widthFix+'/>');
+        // Back to normal:
         $(this).html($input);
         $input.on('click', function(e) {
           return e.stopPropagation();
@@ -58,7 +64,7 @@ if (Meteor.isClient) {
     });
   };
 
-  this.TabularSelectorHelper = function(TableID) {
+  window.TabularSelectorHelper = function(TableID) {
     var ReactiveTest, sel;
     sel = window.TabularSelector.get();
     sel = sel[TableID];

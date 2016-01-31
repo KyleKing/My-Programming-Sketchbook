@@ -13,9 +13,13 @@ local WIP = require("z_In Progress")
 
 -- Dash should always be open and is really only closed when computer first opens
 -- So run load order script to open set of helpers on HS startup
+function Load_Order()
+	os.execute('osascript ~/Library/Services/load_order.scpt')
+end
+
 local app = hs.appfinder.appFromName('Dash')
 if app == nill then
-	os.execute('osascript ~/Library/Services/load_order.scpt')
+	Load_Order()
 end
 
 ----------------------------------------------------
@@ -56,6 +60,11 @@ function AlfredFunctions()
 			["description"]="Toggle Internet Sharing, need off or on",
 			["icon"]='icon.png',
 			["arg"]='string'
+		},
+		{
+			["func_name"]="Load_Order",
+			["description"]="Reset List of Applications",
+			["icon"]='icon.png'
 		}
 	};
 	Utility.printJSON(sometable)

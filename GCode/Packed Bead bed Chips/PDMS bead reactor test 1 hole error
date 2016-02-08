@@ -1,0 +1,27 @@
+(H channel for Monolith prep)
+(Tool 2 has a width of  350µm, tool 3 has width 50µm,  and Tool 4 is for creating the interface)
+(Coordinate system of G57)
+%
+
+M06 T1
+G43 H1
+G21
+G57
+
+M03
+S6000
+
+G00 X0.0 Y0.0
+G00 Z5.0
+G00 Z2.5
+
+G00 X2.5 Y7.5 Z2.5
+F15.0
+G98 G83 Z-3.7 Q0.5
+G00 Z2.5
+
+
+(Tool Return)
+M06 T0
+M30
+%

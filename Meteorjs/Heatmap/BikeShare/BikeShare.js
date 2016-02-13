@@ -45,7 +45,10 @@ if (Meteor.isClient) {
   Template.map.rendered = function() {
     // Create the Leaflet Map
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
-    var map = new L.Map('BikeMap', { center: new L.LatLng(38.987701, -76.940989) });
+    var map = new L.Map('BikeMap', {
+      center: new L.LatLng(38.987701, -76.940989),
+      zoom: 4
+      });
     L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
     map.spin(false);
 
@@ -531,11 +534,11 @@ if (Meteor.isClient) {
       }
       cleanData.push([ d[1], d[2], LinearizedValue ]);
 
-      // var latlng = [ d[1], d[2] ];
-      // var marker = L.marker(latlng,
-      //     {title: "#" + d[0],
-      //     opacity: 0.5} // Adjust the opacity
-      //     ).addTo(map);
+      var latlng = [ d[1], d[2] ];
+      var marker = L.marker(latlng,
+          {title: "#" + LinearizedValue,
+          opacity: 0.5} // Adjust the opacity
+          ).addTo(map);
     });
 
     console.log(cleanData);

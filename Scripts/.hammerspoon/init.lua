@@ -10,6 +10,7 @@ dofile("peripheral_events.lua")
 local Mac = require("MacUtilities")
 local WIP = require("z_In Progress")
 
+hs.hotkey.bind({"cmd", "alt"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
 
 -- Dash should always be open and is really only closed when computer first opens
 -- So run load order script to open set of helpers on HS startup

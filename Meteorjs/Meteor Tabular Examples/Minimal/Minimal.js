@@ -27,14 +27,14 @@ TabularTables.sales = new Tabular.Table({
 // Initiate the tabular tables functions for searching
 if (Meteor.isClient) {
 	Template.TableContainer.created = function() {
-	    return TabularSelectorInit('salesdata');
+	    return TCS.Created('salesdata');
 	};
 	Template.TableContainer.rendered = function() {
-	    return TabularSelectorMain('salesdata', 'sales');
+	    return TCS.Rendered('salesdata', 'sales');
 	};
 	Template.TableContainer.helpers({
 	    currentSelector: function() {
-	        return TabularSelectorHelper('salesdata');
+	        return TCS.Helper('salesdata');
 	    }
 	});
 }

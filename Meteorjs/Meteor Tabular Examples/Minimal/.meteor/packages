@@ -19,10 +19,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 # autopublish             # Publish all data to the clients (for prototyping)
 # insecure                # Allow all DB writes from clients (for prototyping)
 
-# Only necessary Packages:
-twbs:bootstrap
-aldeed:tabular
-
-# Used for custom implementation of my sort function
-reactive-var
-
+kyleking:tabular-column-search
+kyleking:tabular
+# reactive-var
+# twbs:bootstrap

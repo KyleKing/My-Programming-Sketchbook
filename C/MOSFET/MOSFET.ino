@@ -34,22 +34,3 @@ void loop()  {
   analogWrite(MOSFET, power );
   // analogWrite(LED, power );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

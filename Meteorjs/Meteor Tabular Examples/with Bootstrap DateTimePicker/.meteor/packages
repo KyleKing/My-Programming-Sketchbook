@@ -22,6 +22,7 @@ insecure                # Allow all DB writes from clients (for prototyping)
 # Only necessary Packages:
 twbs:bootstrap
 aldeed:tabular
+kyleking:tabular-datetime
 
 # For Client-Side Manipulation
 dburles:collection-helpers

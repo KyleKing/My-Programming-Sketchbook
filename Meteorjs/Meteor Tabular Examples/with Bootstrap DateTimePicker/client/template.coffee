@@ -140,13 +140,17 @@ Template.NumbersTemplate.helpers
     console.log ThisValRight
 
     ShouldBeVal = {
-      $and: [
-        $or:
-          [
-            'TimeStamp': {
-              $gte: 1452220878982
+      "$and": [
+        {}
+        {
+          "$or": [
+            {
+              "TimeStamp": {
+                "$gte": 1454216400000
+              }
             }
           ]
+        }
       ]
     }
     console.log 'ShouldBeVal'

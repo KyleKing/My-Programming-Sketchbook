@@ -23,14 +23,15 @@ local Mac = {}
 -- (example code from: https://github.com/Hammerspoon/hammerspoon/issues/166#issuecomment-68320784)
 pct_prev = nil
 function batt_watch_low()
-    pct = hs.battery.percentage()
-    if type(pct) == 'number' then
-      if pct ~= pct_prev and not hs.battery.isCharging() and pct < 22 then
-          hs.alert.show(string.format(
-            "Plug-in the power, only %d%% left!!", pct))
-      end
-      pct_prev = pct
+  pct = hs.battery.percentage()
+  if type(pct) == 'number' then
+    if pct ~= pct_prev and not hs.battery.isCharging() and pct < 30 then
+      pct_int = math.floor(pct)
+      hs.alert.show(string.format(
+        "Plug-in the power, only %d%% left!!", pct_int))
     end
+    pct_prev = pct_int
+  end
 end
 hs.battery.watcher.new(batt_watch_low):start()
 

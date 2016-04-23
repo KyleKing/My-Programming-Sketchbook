@@ -24,38 +24,65 @@ local Mac = {}
 pct_prev = nil
 function batt_watch_low()
   pct = hs.battery.percentage()
-  if type(pct) == 'number' then
-    if pct ~= pct_prev and not hs.battery.isCharging() and pct < 30 then
-      pct_int = math.floor(pct)
+  pct_int = math.floor(pct)
+  if type(pct_int) == 'number' then
+    if pct_int ~= pct_prev and not hs.battery.isCharging() and pct_int < 30 then
       hs.alert.show(string.format(
-        "Plug-in the power, only %d%% left!!", pct_int))
+        "GIVE ME POWER! Only %d%% left!", pct_int))
     end
     pct_prev = pct_int
   end
 end
 hs.battery.watcher.new(batt_watch_low):start()
 
--- If iTunes is open, the play pause buttons can cause conflicts
--- Force Spotify to play using a set of override keys
+-- Display current track name and artist
+function spotify_track()
+  -- hs.spotify.displayCurrentTrack()
+  local track = hs.spotify.getCurrentTrack()
+  hs.alert.show(track)
+  local artist = hs.spotify.getCurrentArtist()
+  if Utility.isEmpty(artist) then
+    volume_prev = hs.audiodevice.defaultOutputDevice():volume()
+    mute_ads()
+  else
+    hs.alert.show(artist)
+  end
+end
+
+-- Mute ads
+function mute_ads()
+  local artist = hs.spotify.getCurrentArtist()
+  if Utility.isEmpty(artist) then
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.audiodevice.defaultOutputDevice():setMuted(true)
+    -- hs.alert.show('MUTING')
+    mute_timer = hs.timer.doAfter(5, function() mute_ads() end)
+  else
+    if not type(volume_prev) == 'number' then
+      volume_prev = 20
+    end
+    hs.audiodevice.defaultOutputDevice():setVolume(volume_prev)
+    hs.audiodevice.defaultOutputDevice():setMuted(false)
+    hs.alert.show('UN-muting')
+  end
+end
+
+-- If iTunes or Chrome (STreamkeys) are open, the play pause buttons
+-- can conflict. Force Spotify to play using a set of override keys
 hs.hotkey.bind(Utility.mash, 'b', function ()
 	hs.spotify.previous()
+  show_track_timer = hs.timer.doAfter(1, function() spotify_track() end)
 end)
 hs.hotkey.bind(Utility.mash, 'n', function ()
 	hs.spotify.playpause()
 end)
 hs.hotkey.bind(Utility.mash, 'm', function ()
   hs.spotify.next()
+  show_track_timer = hs.timer.doAfter(1, function() spotify_track() end)
 end)
-
 -- Custom display track/artist:
-hs.hotkey.bind(Utility.mash, "j", function()
-	-- hs.spotify.displayCurrentTrack()
-	local track = hs.spotify.getCurrentTrack()
-	hs.alert.show(track)
-	local artist = hs.spotify.getCurrentArtist()
-	if not Utility.isEmpty(artist) then
-		hs.alert.show(artist)
-	end
+hs.hotkey.bind(Utility.mash, "j", function ()
+  spotify_track()
 end)
 
 -- Show or hide dot files

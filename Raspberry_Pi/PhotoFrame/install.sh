@@ -3,14 +3,14 @@
 
 # Only works for Jessie Distribution of Raspbian
 # Needs to be run as root:
-# 	To make executable, use: chmod +rwx ./Install.sh
-# 	then, bash Install.sh
+# 	sudo su
+# 	To make executable, use: chmod +rwx ./install.sh
+# 	then, bash install.sh
 
 # Begin by updating RPI
 echo ""
 echo "Searching for out of date packages, installing updates, and cleaning up afterward"
 echo ""
-sudo bash
 apt-get update
 apt-get upgrade -y # automatic yes to prompts
 apt-get dist-upgrade -y
@@ -19,7 +19,7 @@ apt-get autoremove && apt-get autoclean
 echo ""
 echo "Installing necessary packages for Node/Meteor"
 echo ""
-apt-get install build-essential debian-keyring autoconf automake libtool flex bison mongodb
+apt-get install build-essential debian-keyring autoconf automake libtool flex bison mongodb -y
 apt-get autoremove --purge
 apt-get clean
 
@@ -38,10 +38,12 @@ make install
 node --version
 npm --version
 
+# Now the component for the PhotoFrame
+
 echo ""
 echo "Installing framebuffer imageviewer (fbi)"
 echo ""
-apt-get install fbi -y
+sudo apt-get install fbi -y
 # Test fbi
 chmod +rwxrwx ./slideshow.sh
 bash ./slideshow.sh

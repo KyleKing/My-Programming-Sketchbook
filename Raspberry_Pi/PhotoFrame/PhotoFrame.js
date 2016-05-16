@@ -43,7 +43,7 @@
 //
 // Step 0 - Globals
 //
-var dropboxdir = 'Apps/Balloon.io/alloo',
+var dropboxdir = 'Apps/Balloon.io/aloo',
 		l_img_dir = 'imgs/'
 
 var clc = require('cli-color'),
@@ -70,27 +70,32 @@ var fs = require('fs'),
 		glob = require("glob"),
 		exec = require('child_process').exec
 
+
 //
-// Step 1: Download Photos from Dropbox (Uploaded via balloon.io/alloo
+// Step 0.1 - Follow Dropbox authentication process:
+//
+// // Step 1:
+// https://www.dropbox.com/developers/apps
+// Create a new dropbox app at the above line and copy the Dropbox keys
+// 	(D_Keyand and D_Secret) into the secret.json file
+// // Step 2:
+// // Get the request token object
+// app.requesttoken(function(status, request_token){
+//   console.log(request_token)
+//   console.log(request_token.authorize_url)
+// })
+// // Copy request_token into SecretOptions and then visit URL to grant approval
+// // Step 3:
+// app.accesstoken(SecretOptions.request_token, function(status, access_token){
+//   console.log(access_token)
+// })
+// // Copy Access Token into secret.json
+
+//
+// Step 1: Download Photos from Dropbox (Uploaded via https:balloon.io/aloo)
 //
 function FetchDropboxPhotos() {
-	// Follow Dropbox authentication process:
-	// // Step 1:
-	// // Copy request_token into SecretOptions and then visit URL to grant approval
-	// app.requesttoken(function(status, request_token){
-	//   console.log(request_token)
-	//   console.log(request_token.authorize_url)
-	// })
-	// console.log(SecretOptions.request_token);
-	// // Step 2:
-	// // Comment out above snippet and load save value
-	// app.accesstoken(SecretOptions.request_token, function(status, access_token){
-	//   console.log(access_token)
-	// })
-	// Step 3:
-	// Copy Access Token into secret.json
-
-	// console.log(inf('Starting FetchDropboxPhotos'))
+	console.log(inf('Starting FetchDropboxPhotos'))
 	var subfolder = 'dropbox'
 	var options = { root: "dropbox" }
 	var client = app.client(SecretOptions.Dropbox_Token)
@@ -126,7 +131,7 @@ function FetchDropboxPhotos() {
 // Part 2: Clean up directories
 //
 function DeleteExcessFiles(DesiredFiles, subfolder) {
-	// console.log(inf('Starting DeleteExcessFiles'))
+	console.log(inf('Starting DeleteExcessFiles'))
 	glob("imgs/" + subfolder + "/*.*", function(er, ExistingFiles) {
 		if (er) console.log(err(er))
 		if ((ExistingFiles.length - DesiredFiles.length) === 0) {
@@ -176,7 +181,7 @@ var Fetch = new CronJob('00 00 9 * * *',
 // Step 4: Create slide show by scheduling updated images
 //
 function MakePictures(unused_source) {
-	// console.log(inf('Starting MakePictures'))
+	console.log(inf('Starting MakePictures'))
 	glob("imgs/" + "*.json", function(er, files) {
 		if (er) console.log(er)
 		var LastFiles = {}
@@ -230,7 +235,7 @@ function MakePictures(unused_source) {
 
 	// Refresh image every 1/4 minute
 	var SlideShow = new CronJob('05,15,25,35,45,55 * * * * *', function() {
-			// console.log(inf('Starting SlideShow CronJob'))
+			console.log(inf('Starting SlideShow CronJob'))
 			if (is_raspberry_pi) MakePictures('imgs/dropbox.json')
 		},
 		function() {},

@@ -13,3 +13,5 @@ Meteorjs/Meteor-Playground-master/VitaLink/settings.json
 *.mov
 *.mp4
 Raspberry_Pi/PhotoFrame/secret.json
+node_modules
+Raspberry_Pi/PhotoFrame/secret_backup.json

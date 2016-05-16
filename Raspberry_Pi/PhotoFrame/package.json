@@ -1,21 +1,13 @@
 {
-  "name": "Aloo",
-  "version": "0.0.1",
-  "description": "An example module to illustrate the usage of a package.json",
-  "author": "Your Name <you.name@example.org>",
-  "contributors": [
-    {
-      "name": "Kyle King",
-      "email": "foo.bar@example.com"
-    }
-  ],
+  "name": "PhotoFrame",
+  "version": "0.1.0",
+  "description": "A RPI smart photoframe that pulls photos from a Dropbox folder",
+  "author": "Kyle King <dev.act.kyle@gmail.com>",
   "dependencies": {
     "async": "^1.5.0",
     "cron": "^1.1.0",
     "dbox": "^0.6.4",
-    "flickrapi": "^0.3.36",
     "glob": "^6.0.1",
-    "instagram-node": "^0.5.8",
     "jsonfile": "^2.2.3",
     "request": "^2.67.0",
     "underscore": "^1.8.3",

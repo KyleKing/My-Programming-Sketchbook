@@ -2,7 +2,7 @@
 
 This workflow calls an aptly-named function, ```AlfredFunction()```, which returns a user-defined list of functions and other arguments in a JSON format. The JSON is then parsed and searched to create a list of actionable items.
 
-*Note: As this is a two-part program (part-Alfred & part-Hammerspoon), you should also checkout my [```.hammerspoon``` directory](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Scripts/.hammerspoon), in particular the [```ini.lua``` file](https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Scripts/.hammerspoon/init.lua) for a complete example.*
+*Note: As this is a two-part program (part-Alfred & part-Hammerspoon), you should also checkout my [```.hammerspoon``` directory](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Scripts/.hammerspoon), in particular the [```ini.lua``` file](https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Scripts/.hammerspoon/init.lua) for additional examples.*
 
 For example, you can define this in your ```init.lua``` file:
 ```lua
@@ -32,12 +32,15 @@ if ( hs.ipc.cliStatus() == false ) then
 end
 -- Call by typing /usr/local/bin/hs -c 'hideFiles()' or just $ hs -c 'hideFiles()'
 
+-- This directory has the relative path of the Workflow folder
+local dir = 'imgs/'
+
 function AlfredFunctions()
     local sometable = {
         {
             ["func_name"]="AlertUser",
             ["description"]="Custom Notification",
-            ["icon"]='icon.png',
+            ["icon"]=dir..'icon.png',
             ["arg"]='string'
         }
     }
@@ -49,7 +52,11 @@ end
 --------------------------------------------------
 
 function AlertUser(term)
-  hs.alert.show(term)
+  if term then
+    hs.alert.show(term)
+  else
+    hs.alert.show("Need some argument (i.e. 'it works!')")
+  end
 end
 -- AlertUser("it works")
 
@@ -70,7 +77,4 @@ The options for declaring a function triggerable by Alfred are:
 
 ## TODO
 
-- [ ] Make the workflow more robust, because right now, you can trigger a function without an argument, even when it needs one to work
-- [ ] Make adding custom images easier
-- [ ] Account for variable paths to .hammerspoon directory (TODO make adding custom images easier - possibly make path to .hammerspoon/icons/*.png/jpg)
 - [ ] Make package available on packal or otherwise make it installable by someone who isn't me

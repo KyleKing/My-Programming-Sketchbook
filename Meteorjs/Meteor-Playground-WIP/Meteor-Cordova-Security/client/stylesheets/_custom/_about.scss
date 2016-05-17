@@ -1,0 +1,47 @@
+//
+//
+// Global Things
+//
+//
+
+// .about_content { margin-top: 50px; } // For the nav bar
+.first { padding-top: 50px; } // For the nav bar
+
+.outerBox { @include outer-container; }
+
+.col_twelve { @include span-columns(12); }
+
+.col_five { @include span-columns(5); }
+
+.cntr { text-align: center; }
+
+//
+//
+// Mixins and stuff
+//
+//
+
+
+// Repeated Rows
+@mixin full-row($r, $g, $b, $opacity) {
+  background-color: rgba($r,$g,$b,$opacity);
+  width: 100%;
+}
+
+@mixin box-row($r, $g, $b, $opacity) {
+  @include outer-container;
+  padding: 20px 20px 20px 20px;
+  background-color: rgba($r,$g,$b,$opacity);
+  text-align: center;
+  vertical-align: middle;
+}
+
+//
+//
+// Basics
+//
+//
+
+.content {
+  @include box-row(255, 255, 255, .1);
+}

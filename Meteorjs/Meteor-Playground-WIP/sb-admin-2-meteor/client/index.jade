@@ -1,0 +1,167 @@
+template(name="mainLayout")
+  +head
+  +topbar
+  +container
+  +loginModal
+
+template(name="head")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="description", content="")
+    meta(name="author", content="")
+    title SB Admin 2 Meteor
+
+template(name="topbar")
+  #wrapper
+    // Navigation
+    nav.navbar.navbar-default.navbar-static-top(role="navigation", style="margin-bottom: 0")
+      .navbar-header
+        button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href="/") SB Admin v2.0
+      // /.navbar-header
+      ul.nav.navbar-top-links.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.fa.fa-envelope.fa-fw
+            i.fa.fa-caret-down
+          ul.dropdown-menu.dropdown-messages
+            +emailDropdownElement(href="#" name="John Smith" when="Yesterday" summary="Lorem ipsum dolor sit amet, consectetur...")
+            +emailDropdownElement(href="#" name="John Smith" when="Yesterday" summary="Lorem ipsum dolor sit amet, consectetur...")
+            +emailDropdownElement(href="#" name="John Smith" when="Yesterday" summary="Lorem ipsum dolor sit amet, consectetur...")
+            li
+              a.text-center(href="#")
+                strong Read All Messages
+                i.fa.fa-angle-right
+          // /.dropdown-messages
+        // /.dropdown
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.fa.fa-tasks.fa-fw
+            i.fa.fa-caret-down
+          ul.dropdown-menu.dropdown-tasks
+            +taskDropdownElement(href="#" task="Task 1" percentComplete=40 type="success")
+            +taskDropdownElement(href="#" task="Task 2" percentComplete=20 type="info")
+            +taskDropdownElement(href="#" task="Task 3" percentComplete=60 type="warning")
+            +taskDropdownElement(href="#" task="Task 4" percentComplete=80 type="danger")
+            +taskDropdownElement(href="#" task="Task 5" percentComplete=100 type="")
+            li
+              a.text-center(href="#")
+                strong See All Tasks
+                i.fa.fa-angle-right
+          // /.dropdown-tasks
+        // /.dropdown
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.fa.fa-bell.fa-fw
+            i.fa.fa-caret-down
+          ul.dropdown-menu.dropdown-alerts
+            +notificationsElement(href="#" icon="fa-comment" text="New Comment" when="4 minutes ago")
+            +notificationsElement(href="#" icon="fa-twitter" text="3 New Followers" when="12 minutes ago")
+            +notificationsElement(href="#" icon="fa-envelope" text="Message Sent" when="14 minutes ago")
+            +notificationsElement(href="#" icon="fa-tasks" text="New Task" when="14 minutes ago")
+            +notificationsElement(href="#" icon="fa-upload" text="Server Rebooted" when="14 minutes ago")
+            li
+              a.text-center(href="#")
+                strong See All Alerts
+                i.fa.fa-angle-right
+          // /.dropdown-alerts
+        // /.dropdown
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.fa.fa-user.fa-fw
+            i.fa.fa-caret-down
+          ul.dropdown-menu.dropdown-user
+            li
+              a(href="#")
+                i.fa.fa-user.fa-fw
+                | User Profile
+            li
+              a(href="#")
+                i.fa.fa-gear.fa-fw
+                | Settings
+            li.divider
+            li
+              a#sign-out(href="#")
+                i.fa.fa-sign-in.fa-fw
+                | Sign Out
+            li
+              a#login(href="#")
+                i.fa.fa-sign-in.fa-fw
+                | Login
+          // /.dropdown-user
+        // /.dropdown
+      // /.navbar-top-links
+
+template(name="emailDropdownElement")
+  li
+    a(href=href)
+      div
+        strong #{name}
+        span.pull-right.text-muted
+          em #{when}
+      div
+        | #{summary}
+  li.divider
+
+template(name="taskDropdownElement")
+  li
+    a(href=href)
+      div
+        p
+          strong #{task}
+          span.pull-right.text-muted #{percentComplete}% Complete
+        .progress.progress-striped.active
+          .progress-bar(class=progressBarType role="progressbar", aria-valuenow=percentComplete, aria-valuemin="0", aria-valuemax="100", style=style)
+            span.sr-only #{percentComplete}% Complete (#{type})
+  li.divider
+
+template(name="notificationsElement")
+  li
+    a(href=href)
+      div
+        i.fa.fa-fw(class=icon)
+        | #{text}
+        span.pull-right.text-muted.small #{when}
+  li.divider
+
+template(name="container")
+  +sidebar
+  +page
+
+template(name="sidebar")
+  .navbar-default.sidebar(role="navigation")
+    .sidebar-nav.navbar-collapse
+      ul#side-menu.nav
+        li.sidebar-search
+          .input-group.custom-search-form
+            input.form-control(type="text", placeholder="Search...")
+            span.input-group-btn
+              button.btn.btn-default(type="button")
+                i.fa.fa-search
+          // /input-group
+        each navElements
+          +navElement
+
+template(name="navElement")
+  li
+    a(href=path class=isActive)
+      if icon
+        i.fa.fa-fw(class=icon)
+      | #{label}
+      if children
+        span.fa.arrow
+    if children
+      ul.nav.nav-second-level
+        each children
+          +navElement
+
+template(name="page")
+  // Put page title and breadcrumbs here with `Router.routes[Session.get('active')]`
+  +yield
+

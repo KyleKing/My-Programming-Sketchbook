@@ -1,0 +1,33 @@
+template(name='edit')
+  form
+    .form-group
+      label.control-label(for='date') Date of Information
+      .controls
+        input.form-control(name='date', type='text', value='{{date}}', placeholder='Select Date')
+    .form-group
+      label.control-label(for='alert') Alert Text
+      .controls
+        input.form-control(name='alert', type='text', value='{{alert}}', placeholder='Select Alert')
+    .form-group
+      label.control-label(for='medication') Medication
+      .controls
+        input.form-control(name='medication', type='text', value='{{medication}}', placeholder='Select medication')
+    .form-group
+      label.control-label(for='medicationAmt') Amount of Medication
+      .controls
+        input.form-control(name='medicationAmt', type='text', value='{{medicationAmt}}', placeholder='Select Date')
+    .form-group
+      label.control-label(for='medicationTime') Time to Take Medication
+      .controls
+        input.form-control(name='medicationTime', type='text', value='{{medicationTime}}', placeholder='Select Date')
+    .form-group
+      label.control-label(for='symptoms') Expected Symptoms
+      .controls
+        input.form-control(name='symptoms', type='text', value='{{symptoms}}', placeholder='Select Date')
+    .form-group
+      label.control-label(for='sympTime') Length of Symptoms
+      .controls
+        input.form-control(name='sympTime', type='text', value='{{sympTime}}', placeholder='Select Date')
+    input.btn.btn-primary.submit(type='submit', value='Submit')
+    hr
+    a.delete(href='#') Delete post

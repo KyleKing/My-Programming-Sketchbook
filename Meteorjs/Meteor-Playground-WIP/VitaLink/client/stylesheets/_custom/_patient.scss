@@ -1,0 +1,64 @@
+// Patient Styles
+// Style info boxes for patients
+$color-medicine: #F2F4C7;
+
+body { background-color: rgba($flat-gray-2, 0.8);}
+
+@mixin border-box($padding, $color, $opacity, $font, $text-color) {
+  font-size: em($font);
+  color: $text-color;
+  background-color: $color;//rgba($color, $opacity);
+  padding: em($padding) em($padding/1.1);
+  @include span-columns(12);
+  @include media($mobile) {
+    @include span-columns(4);
+  }
+  &:first-letter {
+   text-transform:uppercase;
+ }
+}
+
+.date {
+  color: $flat-midnight-blue;
+}
+
+.alert {
+  @include border-box(15, $flat-red-1, 0.8, 14, white);
+}
+
+.medication {
+  @include border-box(20, $flat-green-1, 0.8, 18, $flat-midnight-blue);
+}
+
+.symptom {
+  @include border-box(15, white, 1, 14, $flat-midnight-blue);
+}
+
+.spacing {
+  margin-bottom: em(60);
+}
+
+button {
+  @include button(simple);
+  // float: right;
+  margin: 0 em(10);
+  padding: em(5);
+  img.icon {
+    height: em(20);
+    width: em(20);
+  }
+  &.check {
+    margin-left: em(20);
+  }
+  &.x {
+    background-color: $flat-red-1;
+  }
+}
+
+#center {
+  text-align: center;
+}
+
+h1.intro {
+  @include border-box(15, $flat-gray-2, 1, 22, $flat-midnight-blue);
+}

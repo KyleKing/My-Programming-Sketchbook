@@ -1,0 +1,29 @@
+template(name="menu")
+  //- .mobile_nav
+    //- button.js-menu-trigger.sliding-menu-button(type='button')
+      //- img(src='https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/menu-white.png', alt='Menu Icon')
+  .mobile_nav
+    .navIcon
+      a(href="{{pathFor route='login'}}")
+          img(src='icons/VitaLinklogo.gif')
+    nav.js-menu.sliding-menu-content
+      ul.navItems
+        li.navButton.left
+          a(href="{{pathFor route='login'}}") VitaLink
+        li.navButton.right
+          a(href="{{pathFor route='login'}}") login
+  //- .mobile_nav
+  //-   button.js-menu-trigger.sliding-menu-button(type='button')
+  //-     img(src='https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/menu-white.png', alt='Menu Icon')
+  //-   .navIcon
+  //-     a(href="{{pathFor route='login'}}")
+  //-         img(src='icons/VitaLink-logo.gif')
+  //-   nav.js-menu.sliding-menu-content
+  //-     ul.navItems
+  //-       li.navButton.left
+  //-         a(href="{{pathFor route='login'}}") login
+  //-       //- li.navButton.left
+  //-       //-   a(href="{{pathFor route='patient'}}") patient
+  //-       //- li.navButton.left
+  //-       //-   a(href="{{pathFor route='doctor'}}") doctor
+  //-   .js-menu-screen.menu-screen

@@ -1,9 +1,0 @@
-          </div> {{!-- END .main-wrapper --}}
-      <footer>
-      </footer>
-      <!-- JavaScript/JQUERY placed at the bottom to load page faster-->
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script language="javascript" type="text/javascript" src="/js/main.js"></script>
-
-    </body>
-</html>

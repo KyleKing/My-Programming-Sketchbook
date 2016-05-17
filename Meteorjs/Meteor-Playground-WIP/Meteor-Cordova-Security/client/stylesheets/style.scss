@@ -1,0 +1,27 @@
+/* ------------------------------------------------------------
+               Bourbon.io framework
+               Docs:
+                http://bourbon.io/docs/
+                http://neat.bourbon.io/docs/#variables
+                https://github.com/thoughtbot/bitters
+------------------------------------------------------------*/
+
+// Import files for Bourbon
+@import 'bourbon/bourbon';
+@import 'base/grid-settings';
+@import 'neat/neat';
+@import 'base/base';
+
+// Remove browser-imposed css
+@import '_custom/normalize';
+
+// Bourbon Neat Setup File
+@import '_custom/_layout';
+
+/* ------------------------------------------------------------
+               Custom stylization
+------------------------------------------------------------*/
+
+// Team BIKES page styles
+@import '_custom/_nav';
+@import '_custom/_about';

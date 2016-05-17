@@ -1,0 +1,15 @@
+template(name='doctor')
+  h1.intro
+    | Currently Logged in as Dr. Doctor
+  h1 Current Patients
+  button#patient0 Edit Kylie's Treatment Plan
+  button#patient1 Edit Dr. Bailey's Treatment Plan
+  button#patient2 Edit Dr. Suarez's Treatment Plan
+  each Patients
+    h1.name= name
+    h6.type= type
+    if comment
+      h6 Recent Comments:
+      p.comments= comment
+  a(href="{{pathFor route='adminPanel'}}")
+    button Edit Patient List

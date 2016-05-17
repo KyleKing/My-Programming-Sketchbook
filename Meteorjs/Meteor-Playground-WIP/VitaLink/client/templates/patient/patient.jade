@@ -1,0 +1,43 @@
+template(name='patient')
+  h1.intro
+    | Currently Logged in as
+    = patientName.name
+    | who is currently on the
+    = patientName.type
+    | treatement plan
+  each patientComments
+    if comment
+      p.symptom= comment
+    form
+      .form-group
+        label.control-label(for='comment') Make a Comment for your Doctor
+        .controls
+          input.form-control(name='comment', type='text', value='{{comment}}', placeholder='Write Comment')
+      input.btn.btn-primary.submit(type='submit', value='Submit').spacing
+  each templatePlanItem
+    if date
+      h3.date= date
+    if alert
+      p.alert= alert
+    if medication
+      //- #draggable.ui-widget-content
+      h6.medication Take
+        = medicationAmt
+        = medication
+        | at
+        = medicationTime
+        if dateIS "Today"
+          button.check.meds
+            img(src='icons/check-mark.png').icon
+          button.x.meds
+            img(src="icons/x-mark.png").icon
+    if symptoms
+      p.symptom
+        = sympTime
+        | your
+        = symptoms
+        if dateIS "Today"
+          button.check.sympts
+            img(src='icons/check-mark.png').icon
+          button.x.sympts
+            img(src="icons/x-mark.png").icon

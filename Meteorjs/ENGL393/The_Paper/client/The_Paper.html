@@ -86,9 +86,7 @@
 
 		<h2 class="western">Configuring Meteor for a Hello World Example</h2>
 		<p class="western">Meteor is installed onto a computer in a process similar to Node.js and other development frameworks. However, Meteor can be installed in one command and is significantly easier to install than comparable frameworks. For a Windows computer, the official installer is downloaded from https://www.meteor.com/install. Likewise, terminal is used to download Meteor on a Mac or Linux machine(Meteor Development Group, n.d.). The command is as follows:</p>
-		<pre><code class="language-bash">
-			curl https://install.Meteor.com/ | sh
-		</code></pre>
+<pre><code class="language-bash">curl https://install.Meteor.com/ | sh</code></pre>
 		<p class="western">Once downloaded, the first Meteor application can be created. Using Meteor's included build tools, enter, ```meteor create BikeShare``` into the command line. This command creates an application called BikeShare. To initiate the newly created application, navigate to the directory, ```cd BikeShare``` and run the application with ```meteor```.
 		</p>
 		<img align="bottom" border="0" id="Image1" name="Image1" src="fig1.png" width="100%" height="auto" data-action="zoom">
@@ -100,113 +98,112 @@
 		<h2 class="western">Data in Meteor</h2>
 		<p class="western">Meteor has several methods for storing information, namely through the use of a session variable. These variables are only available while the user is logged in and once the user logs out or leaves the app, the variable is reset. Session variables are very useful when working with complex views or short term data. In the bikeshare example, variables are used to store the number of button clicks since the window was last opened. Inside the BikeShare.js file, the session variable is created by the following code snippet.
 		</p>
-		<pre><code class="language-javascript">
-			// counter starts at 0
-			Session.setDefault('counter', 0);
+<pre><code class="language-javascript">// counter starts at 0
+Session.setDefault('counter', 0);
 
-			Template.hello.events({
-				'click button': function () {
-					// increment the counter when button is clicked
-					Session.set('counter', Session.get('counter') + 1);
-				}
-			});
-		</code></pre>
+Template.hello.events({
+	'click button': function () {
+		// increment the counter when button is clicked
+		Session.set('counter', Session.get('counter') + 1);
+	}
+});
+</code></pre>
 		<p class="western">The core component of a Meteor page is a template that encases the HTML content within its designated section. Without the templates, the HTML content is rendered on every page until routing control is added. This template structure reduces the amount of HTML needed and triggers JS functions based on template events. To select which template to render in a given HTML block, the syntax, ```&lcub;&lcub;&gt; hello&rcub;&rcub;``` is used (Meteor, n.d.). In the Hello World example code, this is used to include the 'hello' template in the body element.</p>
-		<pre><code class="language-javascript">
-		  Template.hello.helpers({
-		    counter: function () {
-		      return Session.get('counter');
-		    }
-		  });
-		</code></pre>
+<pre><code class="language-javascript">Template.hello.helpers({
+	counter: function () {
+		return Session.get('counter');
+	}
+});
+</code></pre>
 		<p class="western">To render the data for the user, Meteor uses Spacebars, a tool for actively manipulating the HTML document. When given a value from a JS file with ```return &lt;value here&gt;```, Spacebars will render the JS value in HTML. In this case, the session variable counter is created in BikeShare.js and shown as a component of the HTML through this syntax: ```&lcub;&lcub;counter&rcub;&rcub;```. This looks very similar to the template inclusion syntax and serves a similar function. Anytime the session variable-counter is updated, the HTML content is automatically re-rendered and updated by Meteor. The Meteor development framework easily prototypes tools that reactively update and display user data.
 		</p>
 		<p class="western">Session variables are only effective for short-term data storage. For long-term storage, Meteor comes equipped with Mongo DataBase, a back-end framework to store information. Mongo stores information in a relational format, similar to a binder with many documents inside it. Each document contains fields of information that can be accessed through a request query. As Mongo is standard with Meteor, an application can quickly store and share information. To demonstrate the use of MongoDB, the code snippet below is meant to replace the code inside BikeShare.js.
 		</p>
-		<pre><code class="language-javascript">
-			DailyBikeData = new Mongo.Collection('dailyBikeData');
+<pre><code class="language-javascript">DailyBikeData = new Mongo.Collection('dailyBikeData');
 
-			if (Meteor.isServer) {
-			  // Create Bike GPS coordinates
-			  function randGPS() {
-			    // Set bounding constraints
-			    var bottomLng = -76.936569; var topLng = -76.950603;
-			    var leftLat = 38.994052; var rightLat = 38.981376;
-			    var TypeConvFactor = 1000000; // To account for the int based getRandomArbitrary function
+if (Meteor.isServer) {
+	// Create Bike GPS coordinates
+	function randGPS() {
+		// Set bounding constraints
+		var bottomLng = -76.936569; var topLng = -76.950603;
+		var leftLat = 38.994052; var rightLat = 38.981376;
+		var ConvFactor = 1000000; // To convert to and from integer value
 
-			    // Create random coordinates
-			    function getRandomArbitrary(min, max) { return Math.random() * (max - min) + min; }
-			    var randCoordinates = {
-			      lat: (getRandomArbitrary(leftLat*TypeConvFactor, rightLat*TypeConvFactor) / TypeConvFactor),
-			      lng: (getRandomArbitrary(bottomLng*TypeConvFactor, topLng*TypeConvFactor) / TypeConvFactor)
-			    };
-			    return randCoordinates;
-			  };
+		// Create random coordinates
+		function getRandomArbitrary(min, max) {
+			return Math.random() * (max - min) + min;
+		}
+		var randCoordinates = {
+			lat: (getRandomArbitrary(leftLat*ConvFactor, rightLat*ConvFactor)
+				/ ConvFactor),
+			lng: (getRandomArbitrary(bottomLng*ConvFactor, topLng*ConvFactor)
+				/ ConvFactor)
+		};
+		return randCoordinates;
+	};
 
-			  // Insert data into the database
-			  if (DailyBikeData.find().count() === 0) {
-			    var i = 1;
-			    while (i &lt;= 50) {
-			      var randCoordinates = randGPS();
-			      DailyBikeData.insert({
-			        Bike: i,
-			        Tag: Math.round(0.65 * Math.random()) === 0 ? 'Available' : 'In Use',
-			        Positions: {
-			          lat: randCoordinates.lat,
-			          lng: randCoordinates.lng
-			        }
-			      });
-			      i++;
-			    }
-			    console.log('Created DailyBikeData data schema');
-			  }
-			}
-		</code></pre>
+	// Insert data into the database
+	if (DailyBikeData.find().count() === 0) {
+		var i = 1;
+		while (i &lt;= 50) {
+			var randCoordinates = randGPS();
+			DailyBikeData.insert({
+				Bike: i,
+				Tag: Math.round(0.65 * Math.random()) === 0 ? 'Available' : 'In Use',
+				Positions: {
+					lat: randCoordinates.lat,
+					lng: randCoordinates.lng
+				}
+			});
+			i++;
+		}
+		console.log('Created DailyBikeData data schema');
+	}
+}
+</code></pre>
 		<p class="western">The code above first creates a collection of documents called DailyBikeData. On the server the database is instantiated with a for loop and a JavaScript object. The math at the beginning of the function allows the random GPS coordinates to be generated within a bounding box. This geographic box is especially useful in designing the application with respect to a geographically-relevant data set. When correctly run, a short string should be printed in the command line tool that says, 'Created DailyBikeData data schema.' This means that the data is now available on the client, but to see it, something needs to be built on the client.
 		</p>
-		<pre><code class="language-markup">
-			&lt;body&gt;
-			  &lt;h1&gt;Welcome to Meteor!&lt;/h1&gt;
+<pre><code class="language-markup">&lt;body&gt;
+	&lt;h1&gt;Welcome to Meteor!&lt;/h1&gt;
 
-			  &lcub;&lcub;&gt; hello&rcub;&rcub;
-			  &lcub;&lcub;&gt; table&rcub;&rcub;
-			&lt;/body&gt;
+	&lcub;&lcub;&gt; hello&rcub;&rcub;
+	&lcub;&lcub;&gt; table&rcub;&rcub;
+&lt;/body&gt;
 
-			&lt;template name="table"&gt;
-				&lt;table&gt;
-					&lt;thead&gt;
-					&lt;tr&gt;
-						&lt;th&gt;Bike Number&lt;/th&gt;
-						&lt;th&gt;Lat&lt;/th&gt;
-						&lt;th&gt;Lng&lt;/th&gt;
-					&lt;/tr&gt;
-					&lt;/thead&gt;
+&lt;template name="table"&gt;
+	&lt;table&gt;
+		&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;Bike Number&lt;/th&gt;
+			&lt;th&gt;Lat&lt;/th&gt;
+			&lt;th&gt;Lng&lt;/th&gt;
+		&lt;/tr&gt;
+		&lt;/thead&gt;
 
-					&lt;tbody&gt;
-						&lcub;&lcub;#each bikeInfo&rcub;&rcub;
-					&lt;tr&gt;
-				      &lt;td&gt;&lcub;&lcub;Bike&rcub;&rcub;&lt;/td&gt;
-				      &lt;td&gt;&lcub;&lcub;Positions.lat&rcub;&rcub;&lt;/td&gt;
-				      &lt;td&gt;&lcub;&lcub;Positions.lng&rcub;&rcub;&lt;/td&gt;
-				   &lt;/tr&gt;
-			       &lcub;&lcub;/each&rcub;&rcub;
-					&lt;/tbody&gt;
+		&lt;tbody&gt;
+			&lcub;&lcub;#each bikeInfo&rcub;&rcub;
+		&lt;tr&gt;
+				&lt;td&gt;&lcub;&lcub;Bike&rcub;&rcub;&lt;/td&gt;
+				&lt;td&gt;&lcub;&lcub;Positions.lat&rcub;&rcub;&lt;/td&gt;
+				&lt;td&gt;&lcub;&lcub;Positions.lng&rcub;&rcub;&lt;/td&gt;
+		 &lt;/tr&gt;
+			 &lcub;&lcub;/each&rcub;&rcub;
+		&lt;/tbody&gt;
 
-				&lt;/table&gt;
-			&lt;/template&gt;
-		</code></pre>
+	&lt;/table&gt;
+&lt;/template&gt;
+</code></pre>
 		<p class="western">Use this above snippet in place of the BikeShare.HTML file. Once the HTML document is updated, the JavaScript file needs the short helper function to populate the HTML table. The combined code changes should load in your browser as shown in Illustration 2.
 		</p>
-		<pre><code class="language-javascript">
-			if (Meteor.isClient) {
-			  // Create Spacebars helper to load bike data into a table
-			  Template.table.helpers({
-			    bikeInfo: function () {
-			      return DailyBikeData.find();
-			    }
-			  });
-			}
-		</code></pre>
+<pre><code class="language-javascript">if (Meteor.isClient) {
+	// Create Spacebars helper to load bike data into a table
+	Template.table.helpers({
+		bikeInfo: function () {
+			return DailyBikeData.find();
+		}
+	});
+}
+</code></pre>
 		<img align="bottom" border="0" id="Image2" name="Image2" src="fig2.png" width="100%" height="auto" data-action="zoom">
 		<i>Illustration 2: Table of database values</i>
 
@@ -215,55 +212,61 @@
 		</p>
 		<p class="western">With this short code, bike positions are randomly generated and then stored in a database. In a published application, changes made on one computer would be visible to every user. However, displaying geographical locations in a table format is ineffective. For the data to be displayed in a meaningful way, the bike positions should be visible on a map that considers the user's current location. Leaflet, an open-source mapping software similar to Google Maps, is a readily available package that makes this process possible. Leaflet can be added by entering ```meteor add bevanhunt:leaflet``` in the command line. After a short download, the entire Leaflet library will be available. To select where in the application the map will be rendered and with what information. To see the maps, there are a few changes that need to be made to create the Leaflet map following their API.
 		</p>
-		<pre><code class="language-markup">
-			&lt;body&gt;
-				&lt;h1&gt;Welcome to Meteor!&lt;/h1&gt;
-				&lcub;&lcub;&gt; map&rcub;&rcub;
-				&lcub;&lcub;&gt; table&rcub;&rcub;
-			&lt;/body&gt;
+<pre><code class="language-markup">&lt;body&gt;
+	&lt;h1&gt;Welcome to Meteor!&lt;/h1&gt;
+	&lcub;&lcub;&gt; map&rcub;&rcub;
+	&lcub;&lcub;&gt; table&rcub;&rcub;
+&lt;/body&gt;
 
-			&lt;template name=&quot;map&quot;&gt;
-				&lt;div id=&quot;BikeMap&quot; class=&quot;map-style&quot;&gt;&lt;/div&gt;
-			&lt;/template&gt;
-		</code></pre>
-		<pre><code class="language-css">
-			.map-style {
-			  position: absolute;
-			  width: 100%;
-			  height: 500px;
-			  z-index: 1;
-			}
-		</code></pre>
-		<pre><code class="language-javascript">
-			if (Meteor.isClient) {
-			  Template.map.rendered = function() {
-			    // Create the Leaflet Map
-			    L.Icon.Default.imagePath = '/packages/mrt_leaflet/images' ;
-			    if (Meteor.isClient) {
-			      var map = new L.Map('BikeMap', { center: new L.LatLng(38.987701, -76.940989) });
-			      var HERE_hybridDayMobile = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
-			        attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
-			        subdomains: '1234',
-			        mapID: 'newest',
-			        app_id: 'JIX0epTdHneK1hQlqfkr',
-			        app_code: 'PchnUPPBcZ5VAuHmovac8g',
-			        base: 'aerial'
-			      }).addTo(map);
-			    }
+&lt;template name=&quot;map&quot;&gt;
+	&lt;div id=&quot;BikeMap&quot; class=&quot;map-style&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="language-css">.map-style {
+	position: absolute;
+	width: 100%;
+	height: 500px;
+	z-index: 1;
+}
+</code></pre>
+<pre><code class="language-javascript">if (Meteor.isClient) {
+	Template.map.rendered = function() {
+		// Create the Leaflet Map
+		L.Icon.Default.imagePath = '/packages/mrt_leaflet/images' ;
+		if (Meteor.isClient) {
+			var map = new L.Map('BikeMap', {
+				center: new L.LatLng(38.987701, -76.940989)
+			});
+			var url = 'http://{s}.{base}.maps.cit.api.here.com/'+
+				'maptile/2.1/maptile/{mapID}/hybrid.day.mobile/{z}/{x}/{y}/'+
+				'256/png8?app_id={app_id}&app_code={app_code}';
+			var HERE_hybridDayMobile = L.tileLayer(url, {
+				attribution: 'Map &copy; 1987-2014 '+
+					'<a href="http://developer.here.com">HERE</a>',
+				subdomains: '1234',
+				mapID: 'newest',
+				app_id: 'JIX0epTdHneK1hQlqfkr',
+				app_code: 'PchnUPPBcZ5VAuHmovac8g',
+				base: 'aerial'
+			}).addTo(map);
+		}
 
-			    // Receive data from server and display on map and rerun on server updates
-			    Meteor.autorun(function() {
-			      var bikesData = DailyBikeData.find().fetch();
-			      bikesData.forEach(function(bike) {
-			        var marker = L.marker([bike.Positions.lat, bike.Positions.lng]).addTo(map);
-			      });
-			    });
+		// Receive data from server and display on map and rerun on server updates
+		Meteor.autorun(function() {
+			var bikesData = DailyBikeData.find().fetch();
+			bikesData.forEach(function(bike) {
+				var marker = L.marker([
+						bike.Positions.lat,
+						bike.Positions.lng
+					]).addTo(map);
+			});
+		});
 
-			    // Zoom to user location
-			    map.locate({ setView: true })
-			  };
-			}
-		</code></pre>
+		// Zoom to user location
+		map.locate({ setView: true })
+	};
+}
+</code></pre>
 		<img align="bottom" border="0" id="Image3" name="Image3" src="fig3.png" width="100%" height="auto" data-action="zoom">
 		<i>Illustration 3: Bike positions plotted on a Leaflet map</i>
 		<p class="western">The first file creates a template called 'map' that contains an element with the tag, 'BikeMap'. This tells Leaflet where to initiate the map. In addition, the short CSS declarations determine the size of the map and prevent the creation of an invisible map with a height of zero pixels.. The JS file determines the map's configuration, such as map visual style, user credentials, markers, and other information. Through the Leaflet API, the bike-friendly map from HERE maps is displayed in the user window. The map should appear as shown in Illustration 3. Once the browser retrieves all available bike locations with, ```var bikesData = DailyBikeData.find().fetch();```, the data points are displayed as markers on the Leaflet map from within the for loop. Using Leaflet's simple API, the user location can then be shown by changing the map's center position. With a small tweak to the client code, only bikes tagged “Available” will be shown in the map. For example, if```var bikesData = DailyBikeData.find().fetch();``` is replaced with, ```var bikesData = DailyBikeData.find({tag: 'Available'}).fetch();```, only available bikes will be returned.</p>

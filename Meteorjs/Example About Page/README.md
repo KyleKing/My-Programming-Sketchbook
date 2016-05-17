@@ -6,12 +6,8 @@
 ## Getting Started
 > Note for the latest release without Meteor support, go to [the official Start Bootstrap site](http://startbootstrap.com/template-overviews/agency/)
 
-1. Open terminal and download the repository:
+1. Download the repository and just extract this folder
 
-  ```
-  git clone https://github.com/KyleKing/meteor-startbootstrap-agency
-  cd meteor-startbootstrap-agency
-  ```
 
 2. If you don't have meteor installed, install it with:
 
@@ -22,21 +18,22 @@
 3. Run Meteor [[Guide ](http://docs.meteor.com)]:
 
   ```
+  cd meteor-startbootstrap-agency
   meteor
   ```
 
 4. Point your browser to [Localhost:3000 ](http://localhost:3000)
 5. Then you should see this:
 
-  ![screenshot](public/github/screenshot.png)
+<p align="center">
+  <img width="450px" height=auto src="public/github/screenshot.png">
+</p>
+
+  <!--![screenshot](public/github/screenshot.png)-->
 
 ## To Be Added:
 
-- (Working) PHP contact form
-
-## Bugs and Issues
-
-Have a bug or an issue with this theme? [Open a new issue](https://github.com/KyleKing/startbootstrap-agency/issues)
+- (Working) Contact form
 
 ## Creator
 

@@ -1,40 +1,75 @@
-body {
-  margin-left: auto;
-  margin-right: auto;
-	max-width: 8in;
-	font-family: "Times New Roman";
-	color: #333333 !important;
+@media print {
+	body {
+		max-width: 8in;
+		font-family: "Times New Roman";
+	}
+
+	h1 { font-size: 25pt; }
+	h2 { font-size: 18pt; }
+
+	p.TransmittalLetter {
+		font-size: 12pt;
+		text-align: left;
+		line-height: 160%;
+	}
+
+	.western {
+		font-size: 12pt;
+		line-height: 200%;
+	}
+	p.western { text-indent: 0.5in; }
+
+	.Center { text-align: center; }
+	.Break { page-break-before: always; }
+
+	@page { margin-left: 1.5in; margin-right: 1.5in; margin-top: 1in; margin-bottom: 1in }
+
+	// Fix markup on code blocks
+	// Doesn't appear to help at all
+	span.token {
+		font-size: 8px !important;
+	}
+	pre {
+    background: #272822;
+	}
 }
 
-h1 {
-	/* font-size: 25pt; */
-	font-size: 30pt;
-}
-h2 {
-	/* font-size: 18pt; */
-	font-size: 25pt;
-}
 
-p.TransmittalLetter {
-	/* font-size: 12pt; */
-	font-size: 18pt;
-	text-align: left;
-	line-height: 160%;
-}
+@media screen {
+	body {
+	  margin-left: auto;
+	  margin-right: auto;
+		max-width: 8in;
+		font-family: "Times New Roman";
+		color: #333333 !important;
+	}
 
-.western {
-	/* font-size: 12pt; */
-	font-size: 18pt;
-	line-height: 200%;
-}
-p.western {
-	text-indent: 0.5in;
-}
+	h1 {
+		font-size: 30pt;
+	}
+	h2 {
+		font-size: 25pt;
+	}
 
-.Center { text-align: center; }
-.Break {
-	margin-top: 100px;
-	page-break-before: always;
-}
+	p.TransmittalLetter {
+		font-size: 18pt;
+		text-align: left;
+		line-height: 160%;
+	}
 
-/* @page { margin-left: 1.5in; margin-right: 1.5in; margin-top: 1in; margin-bottom: 1in } */
+	.western {
+		font-size: 18pt;
+		line-height: 200%;
+	}
+	p.western {
+		text-indent: 0.5in;
+	}
+
+	.Center {
+		text-align: center;
+	}
+	.Break {
+		margin-top: 100px;
+		page-break-before: always;
+	}
+}

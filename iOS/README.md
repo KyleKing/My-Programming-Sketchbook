@@ -1,3 +1,3 @@
-# iOS
+# My iOS Apps
 
-Will be updated soon!
+Kind of fun side projects, but not under major development right now.

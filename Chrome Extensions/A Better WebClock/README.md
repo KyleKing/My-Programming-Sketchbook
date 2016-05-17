@@ -1,12 +1,12 @@
 A Better Web Clock
 ===================
-> I wanted to improve the WebClock interface as I would often mistake clocking in/out.
 
+I wanted to improve the WebClock interface as I would often mistake clocking in/out.
 
 Here's the difference:
 ![Comparison](../A%20Better%20WebClock%20Promotional/Comparison.png)
 
-# From the [chrome webstore app page](https://chrome.google.com/webstore/detail/web-clock-ux/bemigfbpfihgefbnbncjddfbgknchfaf)
+# Available for free on the [chrome appstore](https://chrome.google.com/webstore/detail/web-clock-ux/bemigfbpfihgefbnbncjddfbgknchfaf)
 This app simplifies the "clock in"/out screen by remembering the the last user event. When you "clock out", the app hides the "clock out" button and only displays the "clock in" button.
 
 - Bigger, color-coded buttons

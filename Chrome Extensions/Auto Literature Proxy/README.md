@@ -2,7 +2,10 @@ Auto Literature Proxy
 ===================
 > Redirect to the UMD proxy for free journal access.
 
-# From the [chrome webstore app page]
+# Still in development
+
+<!-- # Available for free on the [chrome appstore](link) -->
+
 Take advantage of the wealth of publications that UMD purchases for us. When off campus, this app will redirect you to the login page and give you direct access to journal articles without any manual searching. Use google scholar and be free of the limited library.umd.edu search
 
 ## The things to be developed:

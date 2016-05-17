@@ -23,7 +23,7 @@ if (Meteor.isServer) {
   // Insert data into the database
   if (DailyBikeData.find().count() === 0) {
     var i = 1;
-    while (i <= 2) {
+    while (i <= 20) {
       var randCoordinates = randGPS();
       DailyBikeData.insert({
         Bike: i,

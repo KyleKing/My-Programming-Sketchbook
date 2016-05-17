@@ -110,15 +110,15 @@ def main(wf):
     # the list of results for Alfred
     for func in funcs:
         if "arg" not in func:
-            func_call = func['func_name']+'()'
+            func_call = func['func_name'] + '()'
         elif argument and func["arg"] == 'string':
-            func_call = func['func_name']+"('"+argument+"')"
+            func_call = func['func_name'] + "('" + argument + "')"
         elif argument and func["arg"] == 'number':
-            func_call = func['func_name']+'('+argument+')'
+            func_call = func['func_name'] + '(' + argument + ')'
         else:
             # Maybe support multiple arguments?
             # Split on successive spaces? Or accept a csv list?
-            func_call = func['func_name']+'()'
+            func_call = func['func_name'] + '()'
         # arg is a special command that will pass on whatever its contents are
         # to the next command
         wf.add_item(title=func['func_name'],

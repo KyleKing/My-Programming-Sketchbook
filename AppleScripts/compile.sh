@@ -2,6 +2,7 @@
 
 # Modified from: http://stackoverflow.com/a/1957258/3219667
 # Recursive compile of all .applescript files
+# bash /Users/kyleking/Developer/My-Programming-Sketchbook/AppleScripts/compile.bash
 while IFS= read -r -d $'\0' file; do
   dirname="${file%/*}/"
   basename="${file:${#dirname}}"
@@ -19,5 +20,10 @@ while IFS= read -r -d $'\0' file; do
 	  newName="$dirname""compiled/${basename%.applescript*}.scpt"
 	  echo Compiling ${basename%.applescript*}
 	  osacompile -o $newName $oldName
+	  tput bel
   fi
 done < <(find . -type f -print0)
+
+# /usr/local/bin/hs -c 'AlertUser("Finished compile.bash")'
+# echo $PWD
+# /usr/local/bin/hs -c 'AlertUser("'$PWD'")'

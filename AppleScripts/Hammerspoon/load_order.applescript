@@ -51,11 +51,8 @@ conditionalopen("Dropshelf")
 -- conditionalopen("BetterTouchTool")
 -- conditionalopen("Focus")
 
--- Desn't open?
--- conditionalopen("Alfred")
 -- Make sure Hammerspoon is open too!
 conditionalopen("Hammerspoon")
-
 
 -- Turn Bluetooth Off
 -- Using "blueutil" installed at:
@@ -68,7 +65,6 @@ end if
 
 -- turn internet sharing off
 -- do shell script "osascript InternetSharing.scpt off"
-
 
 -- Debugging:
 

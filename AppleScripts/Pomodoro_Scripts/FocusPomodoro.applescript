@@ -14,10 +14,8 @@ tell application "KeepingYouAwake"
   else
     set status to "activated."
   end if
-
   delay 0.01 -- allow KYA to close, don't blink!
   launch -- always launch
-
 end tell
 
 -- Doesn't work for Yosemite:

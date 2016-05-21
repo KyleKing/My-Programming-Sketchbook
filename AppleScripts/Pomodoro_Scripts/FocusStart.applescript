@@ -12,11 +12,8 @@ do shell script "open focus://focus?minutes=25"
 
 -- 	delay 0.01 -- allow KYA to close, don't blink!
 -- 	launch -- always launch
-
 -- 	set output to "KeepingYouAwake has been " & status
-
 -- 	return output
-
 -- end tell
 
 -- Turn Do Not Disturb On

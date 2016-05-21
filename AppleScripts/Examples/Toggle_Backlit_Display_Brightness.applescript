@@ -2,6 +2,7 @@ property brightnessLevel : 0.25
 
 ChangeBrightness(brightnessLevel) --Set this value between 0 and 1 to adjust brightness
 
+-- Toggle Brightness
 if brightnessLevel is 0.25 then
 	set brightnessLevel to 0.5
 else
@@ -21,10 +22,8 @@ on ChangeBrightness(BrightnessValue)
 			end repeat
 		end if
 
-
 		tell slider 1 of group 1 of tab group 1 of window 1 to set value to BrightnessValue
 	end tell
-
 
 	tell application "System Preferences" to quit
 end ChangeBrightness

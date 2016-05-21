@@ -1,5 +1,4 @@
 -- Symlinked into ~/Library/Services/ dir to be run as an Apple Service
-
 -- [Inspired by this guide](http://www.makeuseof.com/tag/3-tools-unleash-mac-os-menu-bar/)
 
 to conditionalclose(application_name)
@@ -29,17 +28,19 @@ to conditionalopen(application_name)
 end conditionalopen
 
 -- Quit any unneccessary apps
+conditionalopen("PopClip") -- toggle off/on
 conditionalclose("KeepingYouAwake")
--- conditionalclose("Day One Classic")
 conditionalclose("Vivaldi")
 conditionalclose("CheatSheet")
 conditionalclose("Boom")
 conditionalclose("Acrosync")
+-- conditionalclose("Day One Classic")
+-- if you are not sure about the exact name, start "Activity Monitor" (e.g. search it with Spotlight)
+-- and look up the "Process Name" (first column) in the list of running processes
 
 -- Open apps if not open already:
 conditionalopen("Bartender 2")
 conditionalopen("Sip")
--- conditionalopen("Flux")
 conditionalopen("Dash")
 conditionalopen("Dropbox")
 conditionalopen("EvernoteHelper")
@@ -48,8 +49,9 @@ conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")
 conditionalopen("PopClip")
 conditionalopen("Dropshelf")
--- conditionalopen("BetterTouchTool")
+conditionalopen("Flux")
 -- conditionalopen("Focus")
+-- conditionalopen("BetterTouchTool")
 
 -- Make sure Hammerspoon is open too!
 conditionalopen("Hammerspoon")
@@ -57,20 +59,17 @@ conditionalopen("Hammerspoon")
 -- Turn Bluetooth Off
 -- Using "blueutil" installed at:
 set blueutilpath to "/usr/local/bin/blueutil"
--- Turn Bluetooth Off
 set sb to last word of (do shell script blueutilpath & " status")
 if sb is "on" then
 	do shell script blueutilpath & " off"
 end if
 
--- turn internet sharing off
--- do shell script "osascript InternetSharing.scpt off"
-
 -- Debugging:
-
 -- Use console to log timestamp and info to console upon error
 -- to logit(log_string, log_file)
--- do shell script "echo `date '+%Y-%m-%d %T: '`\"" & log_string & "\" >> $HOME/Library/Logs/" & log_file & ".log"
+-- 	do shell script ¬
+-- 		"echo `date '+%Y-%m-%d %T: '`\"" & log_string & ¬
+-- 		"\" >> $HOME/Library/Logs/" & log_file & ".log"
 -- end logit
 -- Other method of printing results
 set dateStamp to date string of (current date)

@@ -1,3 +1,5 @@
+# Example running a shell script from python
+
 # Source: http://stackoverflow.com/a/13745968/3219667
 # Make sure to call: chmod +x sleep.sh
 import subprocess

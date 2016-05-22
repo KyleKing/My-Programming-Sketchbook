@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kyle King",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "tree-kill": "^1.1.0"
   }

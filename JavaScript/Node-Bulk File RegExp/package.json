@@ -1,0 +1,14 @@
+{
+  "name": "bulkregexp",
+  "version": "0.5.0",
+  "description": "COMSOL Parser and generally good bulk regexp parser",
+  "main": "init.js",
+  "author": "Kyle King",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "fs-extra": "^0.26.4",
+    "glob": "^6.0.4",
+    "underscore": "^1.8.3"
+  }
+}

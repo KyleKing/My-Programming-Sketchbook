@@ -1,3 +1,8 @@
+// Notes and actually works! But very slow because called by HS, then calls a HS function...
+// New script at parseSongInfo.js
+
+// ------------------------------------------------------------------------ //
+
 // var osascript = require('osascript');
 // var fs = require('fs');
 

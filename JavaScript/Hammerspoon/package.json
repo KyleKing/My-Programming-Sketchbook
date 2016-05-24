@@ -1,0 +1,23 @@
+{
+  "name": "hammerspoon-js",
+  "version": "0.0.1",
+  "description": "My hammerspoon Javascript functions",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleKing/My-Programming-Sketchbook.git"
+  },
+  "author": "Kyle King",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KyleKing/My-Programming-Sketchbook/issues"
+  },
+  "homepage": "https://github.com/KyleKing/My-Programming-Sketchbook#readme",
+  "dependencies": {
+    "osascript": "^1.2.0",
+    "underscore": "^1.8.3"
+  }
+}

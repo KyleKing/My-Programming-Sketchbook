@@ -162,7 +162,15 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
     [
         "immiscible",
         "mixin",
-        "polyline"
+        "polyline",
+        "5V",
+        "Agarose",
+        "Arduino",
+        "Bitzer",
+        "Hammerspoon",
+        "unsubscribe",
+        "unsubscription",
+        "unsubscriptions"
     ],
     "binary_file_patterns":
     [
@@ -202,25 +210,10 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
     "highlight_modified_tabs": true,
     "ignored_packages":
     [
-        "Advanced CSV",
-        "Alignment",
-        "Bootstrap 3 Jade Snippets",
-        "Focus File on Sidebar",
-        "Glue",
-        "Markdown",
-        "SublimeLinter-jsdebugmarkers",
         "Vintage"
     ],
     "ignored_words":
     [
-        "5V",
-        "Agarose",
-        "Arduino",
-        "Bitzer",
-        "Hammerspoon",
-        "unsubscribe",
-        "unsubscription",
-        "unsubscriptions"
     ],
     "indent_guide_options":
     [
@@ -247,4 +240,5 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
     "trim_trailing_white_space_on_save": true,
     "word_wrap": true
 }
+
 ```

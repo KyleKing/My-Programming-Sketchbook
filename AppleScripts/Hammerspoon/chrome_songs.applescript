@@ -1,7 +1,32 @@
--- MOTIV & NFCU by SCUP & ??
+-- MOTIV & NFCU by SCOPS & ??
 
--- List tab titles in Google Chrome windows
--- original: https://gist.github.com/dblandin/4659973
+-- Format output:
+set JSArray to "["
+set firstTerm to true
+
+-- Chrome error on any subroutine:
+-- error "Google Chrome got an error: Can’t continue createJSArray." number -1708
+-- Failed subroutine?
+-- on createJSArray(term)
+-- 	-- set delim to "&&&&%"
+-- 	-- set delim to "\\n"
+-- 	-- set delim to return
+-- 	set delim to ", "
+-- 	if firstTerm is true then
+-- 		set JSArray to JSArray & term
+-- 		set firstTerm to false
+-- 	else
+-- 		set JSArray to JSArray & delim & term
+-- 	end
+--  return "true"
+-- end createJSArray
+
+-- Failed subroutine?
+-- Example of complex logging: http://stackoverflow.com/a/21341372/3219667
+-- on space_check(threshold_percentage)
+-- 	log threshold_percentage
+-- end space_check
+-- space_check(20)
 
 -- Returning data from sub-routine:
 -- Source: http://www.macosxautomation.com/applescript/sbrt/
@@ -16,11 +41,28 @@
 -- 	return this_name
 -- end remove_extension
 
--- Format output:
-set stdOut to "
-"
+-- set AppleScript's text item delimiters to "soundcloud.com"
+-- set match to text item 1 of the_URL
+-- if match is "https://" then
+	-- set the_title to "song name by artist group"
+	-- set AppleScript's text item delimiters to " by "
+	-- set song to text item 1 of the_title
+	-- say song -- for troubleshooting
+	-- set artist to text item 2 of the_title
+	-- say artist -- for troubleshooting
+-- end if
 
--- Only chrome because this is meant to work alongside the Streamkeys chrome extension
+-- display dialog "The URL is: " & return & the_title buttons {"OK"} default button 1
+-- set result to createJSArray(the_title)
+
+-- -- Failed subroutine?
+-- on space_check(threshold_percentage)
+-- 	delay threshold_percentage
+-- return "kyle"
+-- end space_check
+
+-- List tab titles in Google Chrome windows to determine current song playing
+-- original: https://gist.github.com/dblandin/4659973
 tell application "Google Chrome"
 	set window_list to every window -- get the windows
 
@@ -28,37 +70,43 @@ tell application "Google Chrome"
 		set tab_list to every tab in the_window -- get the tabs
 
 		repeat with the_tab in tab_list -- for every tab
-			-- Make output accessible from Hammerspoon
+			-- Make output accessible from Hammerspoon/JS
 			set the_URL to the URL of the_tab
 			set the_title to the title of the_tab
-			-- Identify the correct tab:
-			-- --------------------
-			-- Old method:
-			-- set AppleScript's text item delimiters to "soundcloud.com"
-			-- set match to text item 1 of the_URL
-			-- if match is "https://" or match is "https://www." or match is "http://" or match is "http://www." then
-			-- 	set stdOut to the title of the_tab
-			-- 	do shell script "echo " & quoted form of stdOut
-			-- 	-- -- Parse the tab title:
-			-- 	-- set the_title to the title of the_tab
-			-- 	-- set AppleScript's text item delimiters to " by "
-			-- 	-- set song to text item 1 of the_title
-			-- 	-- say song -- for troubleshooting
-			-- 	-- set artist to text item 2 of the_title
-			-- 	-- say artist -- for troubleshooting
-			-- end if
-			-- --------------------
-			-- New Method
+			set delim to ", "
 			if the_URL contains "soundcloud.com" then
-				set stdOut to stdOut & the_title & "*%*%*%*"
+
+				if firstTerm is true then
+					set JSArray to JSArray & the_title
+					set firstTerm to false
+				else
+					set JSArray to JSArray & delim & the_title
+				end
+
 			else if the_URL contains "spotify.com" then
-				set stdOut to stdOut & the_title & "*%*%*%*"
+
+				if firstTerm is true then
+					set JSArray to JSArray & the_title
+					set firstTerm to false
+				else
+					set JSArray to JSArray & delim & the_title
+				end
+
 			else if the_URL contains "pandora.com" then
-				set stdOut to stdOut & the_title & "*%*%*%*"
+
+				if firstTerm is true then
+					set JSArray to JSArray & the_title
+					set firstTerm to false
+				else
+					set JSArray to JSArray & delim & the_title
+				end
+
 			end if
 		end repeat
 	end repeat
+	set JSArray to JSArray & "]"
+	return JSArray
 end tell
 
--- Clever idea: http://stackoverflow.com/a/15605567/3219667
-do shell script "echo " & quoted form of stdOut
+-- -- Echo for stdout idea: http://stackoverflow.com/a/15605567/3219667
+-- do shell script "echo " & quoted form of JSArray

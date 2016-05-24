@@ -1,24 +1,34 @@
 // Receiving Stdin
 // $ echo "[\"foo\"]" | node parseSongInfo.js
+// Full example at bottom:
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function(data) {
-  console.log(data);
+  // console.log(data);
+  data = cleanScptStr(data);
   var input = JSON.parse(data);
   var output = parseData(input);
-	var hs_inputs = '"' + output.song + '","' + output.artist + '"';
+	var hs_inputs = '{"song":"' + output.song + '", "artist":"' + output.artist + '"}';
 	console.log(hs_inputs);
 });
 
+function doesExist(str) {
+	if (str === undefined || str === '') {
+		return false
+	} else {
+		return true
+	}
+}
 
 function cleanScptStr(applescriptStr) {
 	// console.log(applescriptStr);
 	// console.log(applescriptStr.replace(/[`"']/, '!!!'));
-	return applescriptStr.replace(/'/, '`').replace(/"/, '`');
+	return applescriptStr.replace(/'/g, '!!!')
+	// .replace(/"/g, '!!!');
 }
 
 function isSoundcloudAD(song, artist) {
-	if ( artist.match(/SCOPS/) ) {
+	if ( doesExist(artist) && artist.match(/SCOPS/) ) {
 		return true
 	} else {
 		return false
@@ -26,17 +36,24 @@ function isSoundcloudAD(song, artist) {
 }
 
 function splitBy(tab_title, splitter, expectedLength) {
-	tab_title = cleanScptStr(tab_title);
+	// tab_title = cleanScptStr(tab_title);
+	// console.log(tab_title);
 	var data = tab_title.split(splitter);
-	if (data.length === expectedLength) {
-		return {
-			song: data[0],
-			artist: data[1]
-		}
+	// console.log(data);
+	// FIXME: Currently inconsistent
+	return {
+		song: data[0],
+		artist: data[1]
 	}
-	else {
-		return false
-	}
+	// if (data.length === expectedLength) {
+	// 	return {
+	// 		song: data[0],
+	// 		artist: data[2]
+	// 	}
+	// }
+	// else {
+	// 	return false
+	// }
 }
 
 function parseData(input) {
@@ -48,11 +65,23 @@ function parseData(input) {
 
 		// Determine music source and return info
 		if (URL.match(/soundcloud.com/)) {
-			metadata = splitBy(title, / by /, 2);
-			if (isSoundcloudAD(metadata.song, metadata.artist)) {
+			// Account for '-' or 'by' naming conventions:
+			var song, artist
+			// metadata = splitBy(title, /( by | - )/g, 2);
+			metadata = splitBy(title, / by /g, 2);
+			if (metadata.artist) {
+				song = metadata.song;
+				artist = metadata.artist;
+			} else {
+				metadata = splitBy(title, / - /g, 2);
+				song = metadata.artist;
+				artist = metadata.song;
+			}
+			// Check if an ad is playing
+			if (isSoundcloudAD(song, artist)) {
 				return {
-					song: metadata.song,
-					artist: ''
+					song: song,
+					artist: 'mute'
 				}
 			} else {
 				return metadata
@@ -60,6 +89,8 @@ function parseData(input) {
 
 		} else if (URL.match(/play.spotify.com/)) {
 			metadata = splitBy(title, / - /, 3);
+			// FIXME: need a way to return only when prioritized
+			// return metadata
 
 		} else if (URL.match(/pandora.com/)) {
 			metadata = splitBy(title, / - /, 10);
@@ -72,10 +103,12 @@ function parseData(input) {
 }
 
 
-
-
 // Working with UNIX to allow killing script
 process.on('SIGINT', function () {
   console.log('Got a SIGINT. Goodbye cruel world');
   process.exit(0);
 });
+
+
+// Need to get rid of any ' or " from tab titles in applescript function:
+// $ echo '{"tab_titles": ["Intro - Kygo - Spotify", "Couzare x Campbel - Long Way (ft. Cozy) by Couzare", "Florescent animated DJs spinning and dancing to Coops (@CoopsOfficial) - #Musicgeeks"], "tab_URLs": ["https://play.spotify.com/album/0uMIzWh1uEpHEBell4rlF8", "https://soundcloud.com/kyle-king-11", "https://www.musicgeeks.co/coops/?utm_source=Musicgeeks&utm_campaign=16a2b29873-mgnewsletter&utm_medium=email&utm_term=0_e49d1aad34-16a2b29873-344428089"]}' | node parseSongInfo.js

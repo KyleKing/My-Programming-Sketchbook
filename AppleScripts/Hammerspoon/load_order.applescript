@@ -28,10 +28,9 @@ to conditionalopen(application_name)
 end conditionalopen
 
 -- Quit any unneccessary apps
-conditionalopen("PopClip") -- toggle off/on
+conditionalclose("PopClip") -- toggle off/on
 conditionalclose("KeepingYouAwake")
 conditionalclose("Vivaldi")
-conditionalclose("CheatSheet")
 conditionalclose("Boom")
 conditionalclose("Acrosync")
 -- conditionalclose("Day One Classic")
@@ -39,6 +38,7 @@ conditionalclose("Acrosync")
 -- and look up the "Process Name" (first column) in the list of running processes
 
 -- Open apps if not open already:
+conditionalopen("PopClip") -- toggle off/on
 conditionalopen("Bartender 2")
 conditionalopen("Sip")
 conditionalopen("Dash")
@@ -47,22 +47,22 @@ conditionalopen("EvernoteHelper")
 conditionalopen("RescueTime")
 conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")
-conditionalopen("PopClip")
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
+-- conditionalopen("CheatSheet")
 -- conditionalopen("Focus")
 -- conditionalopen("BetterTouchTool")
 
--- Make sure Hammerspoon is open too!
-conditionalopen("Hammerspoon")
+-- -- Make sure Hammerspoon is open too!
+-- conditionalopen("Hammerspoon")
 
--- Turn Bluetooth Off
--- Using "blueutil" installed at:
-set blueutilpath to "/usr/local/bin/blueutil"
-set sb to last word of (do shell script blueutilpath & " status")
-if sb is "on" then
-	do shell script blueutilpath & " off"
-end if
+-- -- Turn Bluetooth Off
+-- -- Using "blueutil" installed at:
+-- set blueutilpath to "/usr/local/bin/blueutil"
+-- set sb to last word of (do shell script blueutilpath & " status")
+-- if sb is "on" then
+-- 	do shell script blueutilpath & " off"
+-- end if
 
 -- Debugging:
 -- Use console to log timestamp and info to console upon error

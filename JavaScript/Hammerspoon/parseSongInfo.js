@@ -5,7 +5,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function(data) {
   // console.log(data);
-  data = cleanScptStr(data);
+  // data = cleanScptStr(data);
   var input = JSON.parse(data);
   var output = parseData(input);
 	var hs_inputs = '{"song":"' + output.song + '", "artist":"' + output.artist + '"}';
@@ -20,12 +20,12 @@ function doesExist(str) {
 	}
 }
 
-function cleanScptStr(applescriptStr) {
-	// console.log(applescriptStr);
-	// console.log(applescriptStr.replace(/[`"']/, '!!!'));
-	return applescriptStr.replace(/'/g, '!!!')
-	// .replace(/"/g, '!!!');
-}
+// function cleanScptStr(applescriptStr) {
+// 	// console.log(applescriptStr);
+// 	// console.log(applescriptStr.replace(/[`"']/, '!!!'));
+// 	return applescriptStr.replace(/'/g, '!!!')
+// 	// .replace(/"/g, '!!!');
+// }
 
 function isSoundcloudAD(song, artist) {
 	if ( doesExist(artist) && artist.match(/SCOPS/) ) {

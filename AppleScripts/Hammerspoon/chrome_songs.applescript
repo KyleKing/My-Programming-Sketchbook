@@ -22,16 +22,28 @@ tell application "Google Chrome"
 
 		repeat with the_tab in tab_list
 			set the_URL to the URL of the_tab
+-- Remove apostrophes (34), quotes (39), and slashes (escape characters) (92)
+-- Character ID appears to be: UTF-16 (decimal)
+-- Used: http://www.fileformat.info/search/google.htm for character codes
+set AppleScript's text item delimiters to {return & linefeed, linefeed, return, character id 34, character id 39, character id 92}
+set the_URL_new to text items of the_URL
+set AppleScript's text item delimiters to {"!"}
+set the_URL_new to the_URL_new as text
 			set the_title to the title of the_tab
+-- Remove apostrophes:
+set AppleScript's text item delimiters to {return & linefeed, linefeed, return, character id 34, character id 39, character id 92}
+set the_title_new to text items of the_title
+set AppleScript's text item delimiters to {"!"}
+set the_title_new to the_title_new as text
 			set delim to ", "
 			if firstTerm is true then
-				set tab_URLs to tab_URLs & "\"" & the_URL & "\""
-				set tab_titles to tab_titles & "\"" & the_title & "\""
+				set tab_URLs to tab_URLs & "\"" & the_URL_new & "\""
+				set tab_titles to tab_titles & "\"" & the_title_new & "\""
 				set firstTerm to false
 			else
-				set tab_URLs to tab_URLs & delim & "\"" & the_URL & "\""
-				set tab_titles to tab_titles & delim & "\"" & the_title & "\""
-			end
+				set tab_URLs to tab_URLs & delim & "\"" & the_URL_new & "\""
+				set tab_titles to tab_titles & delim & "\"" & the_title_new & "\""
+			end if
 		end repeat
 
 	end repeat

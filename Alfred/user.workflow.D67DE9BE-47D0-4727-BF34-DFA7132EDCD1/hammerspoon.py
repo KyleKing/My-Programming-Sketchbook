@@ -83,7 +83,7 @@ def search_key(func):
     # Search multiple values of function
     elements = []
     elements.append(func['func_name'])
-    elements.append(func['description'])
+    # elements.append(func['description'])
     return u' '.join(elements)
 
 
@@ -116,8 +116,6 @@ def main(wf):
         elif argument and func["arg"] == 'number':
             func_call = func['func_name'] + '(' + argument + ')'
         else:
-            # Maybe support multiple arguments?
-            # Split on successive spaces? Or accept a csv list?
             func_call = func['func_name'] + '()'
         # arg is a special command that will pass on whatever its contents are
         # to the next command

@@ -3,8 +3,8 @@
  * It requires the database module that we wrote previously.
  */
 
-var db = require('./database'),
-  photos = db.photos;
+var db = require('./database');
+var photos = db.photos;
 
 module.exports = function(app){
   // Homepage
@@ -17,7 +17,11 @@ module.exports = function(app){
       });
       // var imageToShow = allPhotos[Math.floor(Math.random()*allPhotos.length)];
       var imageToShow = allPhotos[2];
-      res.render('home', {photo: imageToShow, standings: allPhotos});
+      res.render('home', {
+        photo: imageToShow,
+        standings: allPhotos,
+        BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
+      });
     });
   });
 

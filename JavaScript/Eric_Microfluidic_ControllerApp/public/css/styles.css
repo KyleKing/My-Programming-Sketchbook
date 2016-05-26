@@ -7,16 +7,26 @@ header {
 	padding-bottom: 20px;
 }
 
+img {
+  display: block;
+  margin: auto;
+	height: auto;
+	width: 80%;
+}
+
 .button-spacing {
 	margin: 20px;
 }
-.custom-button-formatting {
-	padding-left: 30px !important;
-	padding-right: 30px !important;
-	padding-top: 15px !important;
-	padding-bottom: 15px !important;
-	margin-left: 5px;
-	margin-right: 5px;
+
+@media (min-width: 500px) {
+	.custom-button-formatting {
+		padding-left: 30px !important;
+		padding-right: 30px !important;
+		padding-top: 15px !important;
+		padding-bottom: 15px !important;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
 }
 
 ul {
@@ -58,22 +68,16 @@ ul li.failed {
 
 /* Really useful trick: http://stackoverflow.com/a/20548578/3219667
 Make sure to keep the <!-- ... --> to maintain the grid system
-*/
 .vcenter {
   display: inline-block;
   vertical-align: middle;
   float: none !important;
 }
+*/
 
 // /*-------------------------
 // 	Simple reset
 // --------------------------*/
-
-
-// *{
-// 	margin:0;
-// 	padding:0;
-// }
 
 
 // /*-------------------------

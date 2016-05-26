@@ -18,7 +18,7 @@ module.exports = function(app){
 	// Register and configure the handlebars templating engine
 	app.engine('html', handlebars({
 		defaultLayout: 'main',
-		extname: ".html",
+		extname: '.html',
 		layoutsDir: __dirname + '/views/layouts'
 	}));
 

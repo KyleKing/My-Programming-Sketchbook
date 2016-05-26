@@ -1,7 +1,7 @@
 <div class="row">
-	<div class="col-md-6 live-image vcenter">
+	<div class="col-md-6 col-sm-12 live-image vcenter">
 		{{#if photo.found}}
-		<img class="center-block img-rounded" src="photos/{{photo.name}}" width="530" height="420" alt="Device Picture" />
+		<img class="img-rounded" src="photos/{{photo.name}}" width="530" height="420" alt="Device Picture" />
 		<h5 class="title text-center">Captured image of {{photo.title}}</h5>
 
 		{{else}}
@@ -9,12 +9,13 @@
 
 		{{/if}}
 	</div><!--
---><div class="col-md-6 live-step vcenter">
+--><div class="col-md-6 col-sm-12 live-step vcenter">
 		{{#if standings}}
 			<h4 class="text-center">Live Status of Device Operation</h4>
 			<!-- Create some useful buttons! -->
 			<div class="text-center button-spacing">
 				<button type="button" class="btn custom-button-formatting btn-success">Start</button>
+				<button type="button" class="btn custom-button-formatting btn-info">Capture New Image</button>
 				<button type="button" class="btn custom-button-formatting btn-danger">Stop</button>
 			</div>
 			<ul>
@@ -29,3 +30,5 @@
 		{{/if}}
 	</div>
 </div>
+<!-- In Main.html -->
+<!-- <script src="{{BROWSER_REFRESH_URL}}"></script> -->

@@ -54,78 +54,57 @@ function splitBy(tab_title, splitter, expectedLength) {
 	// }
 }
 
-function parse_SC(title) {
-	var song, artist
-	// metadata = splitBy(title, /( by | - )/g, 2);
-	metadata = splitBy(title, / by /g, 2);
-	if (metadata.artist) {
-		song = metadata.song;
-		artist = metadata.artist;
-	} else {
-		// If sound cloud, flip artist/song:
-		metadata = splitBy(title, / - /g, 2);
-		song = metadata.artist;
-		artist = metadata.song;
-	}
-	// Check if an ad is playing
-	if (isSoundcloudAD(song, artist)) {
-		return {
-			song: song,
-			artist: 'mute'
-		}
-	} else {
-		return metadata
-	}
-}
-
-function parse_Spot(title) {
-	metadata = splitBy(title, / - /g, 3);
-	// Check if an ad is playing
-	// FIXME: check for ad?
-	if (  false  ) {
-		return {
-			song: song,
-			artist: 'mute'
-		}
-	} else {
-		return metadata
-	}
-}
-
-function set_priority(input, url_match, callback) {
-	var idxs = [];
-	input.tab_URLs.forEach(function(str, i){
-		if(str.match( url_match )) {
-			idxs.push(i);
-		}
-	});
-	// console.log(idxs)
-	// console.log('First index is ', idxs[0])
-	// console.log('Last index is ', idxs[idxs.length-1])
-	if(idxs.length === 0) {
-		return false
-	} else {
-		return callback( input.tab_titles[idxs[0]] )
-	}
-}
-
 function parseData(input) {
+  // loop through each unit of the array
 
-	// Soundcloud is the top priotity:
-	var metadata = set_priority(input, /soundcloud.com/i, parse_SC);
-	if(doesExist(metadata.song)) { return metadata }
+  for (var i = 0; i < input.tab_titles.length; i++) {
+		var metadata = "";
+		var title = input.tab_titles[i];
+		var URL = input.tab_URLs[i];
 
-	// Then Spotify and all else
-	var metadata = set_priority(input, /play.spotify.com/i, parse_Spot);
-	if(doesExist(metadata.song)) { return metadata }
+		// Determine music source and return info
+		if (URL.match(/soundcloud.com/)) {
+			// Account for '-' or 'by' naming conventions:
+			var song, artist
+			// metadata = splitBy(title, /( by | - )/g, 2);
+			metadata = splitBy(title, / by /g, 2);
+			if (metadata.artist) {
+				song = metadata.song;
+				artist = metadata.artist;
+			} else {
+				// If sound cloud, flip artist/song:
+				metadata = splitBy(title, / - /g, 2);
+				song = metadata.artist;
+				artist = metadata.song;
+			}
+			// Check if an ad is playing
+			if (isSoundcloudAD(song, artist)) {
+				return {
+					song: song,
+					artist: 'mute'
+				}
+			} else {
+				return metadata
+			}
 
-	// Won't work with Pandora, but could try Amazon/Google Music?
+		} else if (URL.match(/play.spotify.com/)) {
+			metadata = splitBy(title, / - /, 3);
+			// FIXME: need a way to return only when prioritized
+
+		} else if (URL.match(/pandora.com/)) {
+			// // Doesn't work right now, try the desktop player instead
+			// metadata = splitBy(title, / - /, 10);
+		} else {
+			// console.log('not known music website');
+		}
+	}
 
 	return {
 		song: 'not known music website',
 		artist: 'not known music website'
 	}
 }
+
 
 // Working with UNIX to allow killing script
 process.on('SIGINT', function () {

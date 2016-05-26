@@ -111,7 +111,7 @@ Provides 8 different types of autocompletion:
 - Markdown Light - nice dark/light color schemes and syntax highlighting
 - Git​Gutter - see git status
 - **Print to HTML** - Shift + alt + P -> opens up file with syntax highlighting and line numbers in browser
-- All Autocomplete - extends Sublime autocomplete to all files in folders
+- All Autocomplete - extends Sublime autocomplete to all files in folders (removed)
 
 ### Possibly in use/maybe not:
 

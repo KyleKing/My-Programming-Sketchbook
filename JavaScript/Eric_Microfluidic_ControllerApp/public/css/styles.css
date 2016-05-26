@@ -1,0 +1,355 @@
+/**
+ * Custom Styles
+ */
+
+header {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.button-spacing {
+	margin: 20px;
+}
+.custom-button-formatting {
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+	padding-top: 15px !important;
+	padding-bottom: 15px !important;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+ul {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+ul li {
+	border-radius:3px;
+	color: white;
+	list-style:none;
+	margin-bottom: 15px;
+	padding: 10px;
+	position:relative;
+}
+
+/* Status Colors */
+ul li.queue {
+	background-color: #848484;
+}
+ul li.in-progress {
+	background-color: #5bc0de;
+}
+ul li.finished {
+	background-color: #5cb85c;
+}
+ul li.failed {
+	background-color: #d9534f;
+}
+
+.live-image {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.live-step {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+/* Really useful trick: http://stackoverflow.com/a/20548578/3219667
+Make sure to keep the <!-- ... --> to maintain the grid system
+*/
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none !important;
+}
+
+// /*-------------------------
+// 	Simple reset
+// --------------------------*/
+
+
+// *{
+// 	margin:0;
+// 	padding:0;
+// }
+
+
+// /*-------------------------
+// 	General Styles
+// --------------------------*/
+
+
+// body{
+// 	font:15px/1.3 'Open Sans', Arial, Helvetica, sans-serif;
+// 	padding-bottom: 100px;
+// }
+
+// a, a:visited {
+// 	outline:none;
+// 	color:#389dc1;
+// }
+
+// a:hover{
+// 	text-decoration:none;
+// }
+
+// section, footer, header, aside{
+// 	display: block;
+// }
+
+
+// /*-------------------------
+// 	Header & Titles
+// --------------------------*/
+
+
+// header{
+// 	padding:20px;
+// 	text-align: center;
+// }
+
+// header h1{
+// 	padding-top:50px;
+// 	font-size:52px;
+// 	line-height:80px;
+// 	color:#45bad3;
+// }
+
+// header h1 span.green{
+// 	color:#61a64f;
+// }
+
+// header h1 span.red{
+// 	color:#eb263a;
+// }
+
+// header h2{
+// 	font-size:16px;
+// 	color:#819fa8;
+// }
+
+// h3{
+// 	padding-top: 80px;
+// 	text-align: center;
+// }
+
+// h1,h2,h3{
+// 	font-weight:300;
+// }
+
+
+// /*-------------------------
+// 	The Tabs
+// --------------------------*/
+
+
+// nav{
+// 	display:block;
+// 	margin-top:20px;
+// 	text-align:center;
+// }
+
+// nav a{
+// 	display:inline-block;
+// 	border-radius:3px;
+// 	padding: 5px 15px;
+// 	color:#e1ba4c !important;
+// 	font-weight:bold;
+// 	text-decoration:none !important;
+// 	text-transform: uppercase;
+// }
+
+// nav a.active{
+// 	background-color:#f2f2f2;
+// 	cursor:default !important;
+// }
+
+
+// /*-------------------------
+// 	Photo and Buttons
+// --------------------------*/
+
+
+// body > img{
+// 	display:block;
+// 	margin:60px auto;
+// 	border-radius: 3px;
+// }
+
+// .button-holder{
+// 	margin:0 auto;
+// 	text-align:center;
+// }
+
+// .button-holder form{
+// 	display:inline-block;
+// }
+
+// .button-holder form input{
+// 	cursor:pointer;
+// 	border:0;
+// 	padding: 16px 20px 16px 60px;
+// 	color:#fff;
+// 	font:inherit;
+// 	border-radius:3px;
+// 	margin:0 5px;
+// 	font-size:24px;
+// 	outline:none;
+// }
+
+// .button-holder form input:active{
+// 	position:relative;
+// 	bottom:-1px;
+// }
+
+// .button-holder form input:hover{
+// 	opacity:0.9;
+// }
+
+
+// /* The Cute! button */
+
+// .button-holder form:first-child input{
+// 	background: url('../img/sprite.svg') #aadb9c 17px -86px no-repeat;
+// }
+
+// /* The Not Cute! button */
+
+// .button-holder form:last-child input{
+// 	background: url('../img/sprite.svg') #f3818d 17px 18px no-repeat;
+// }
+
+
+
+/*-------------------------
+	Standings List
+--------------------------*/
+
+
+// ul{
+// 	width: 210px;
+// 	margin:60px auto;
+// 	counter-reset:ranks;
+// }
+
+// ul li:before{
+// 	counter-increment: ranks;
+// 	content: counter(ranks);
+// 	position: absolute;
+// 	top: 64px;
+// 	left: -100px;
+// 	font-size: 28px;
+// 	font-weight: bold;
+// 	color: #aaa;
+// 	text-align: right;
+// 	width: 40px;
+// }
+
+// ul li img{
+// 	max-width:168px;
+// 	border-radius:3px;
+// }
+
+// ul li p{
+// 	position: absolute;
+// 	left: 240px;
+// 	top: 40px;
+// 	background: url('../img/sprite.svg') no-repeat;
+// 	line-height: 40px;
+// 	font-weight: bold;
+// 	font-size: 24px;
+// 	padding-left: 57px;
+// }
+
+// ul li p.up{
+// 	color:#90d184;
+// 	background-position: 17px -300px;
+// }
+
+// ul li p.down{
+// 	color:#e67a85;
+// 	top:82px;
+// 	background-position: 17px -192px;
+// }
+
+
+// /*----------------------------
+// 	The Demo Footer
+// -----------------------------*/
+
+
+// footer{
+
+// 	width: 770px;
+// 	font: normal 16px Arial, Helvetica, sans-serif;
+// 	padding: 15px 35px;
+// 	position: fixed;
+// 	bottom: 0;
+// 	left: 50%;
+// 	margin-left: -420px;
+
+// 	background-color:#1f1f1f;
+
+// 	background-image:-webkit-linear-gradient(top, #1f1f1f, #101010);
+// 	background-image:-moz-linear-gradient(top, #1f1f1f, #101010);
+// 	background-image:linear-gradient(top, #1f1f1f, #101010);
+
+// 	border-radius:2px 2px 0 0;
+
+// 	box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
+// 	z-index:1;
+// }
+
+// footer a.tz{
+// 	font-weight:normal;
+// 	font-size:16px !important;
+// 	text-decoration:none !important;
+// 	display:block;
+// 	margin-right: 300px;
+// 	text-overflow:ellipsis;
+// 	white-space: nowrap;
+// 	color:#bfbfbf !important;
+// 	z-index:1;
+// }
+
+// footer a.tz:before{
+// 	content: '';
+// 	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 -53px;
+// 	width: 138px;
+// 	height: 20px;
+// 	display: inline-block;
+// 	position: relative;
+// 	bottom: -3px;
+// }
+
+// footer .close{
+// 	position: absolute;
+// 	cursor: pointer;
+// 	width: 8px;
+// 	height: 8px;
+// 	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+// 	top:10px;
+// 	right:10px;
+// 	z-index: 3;
+// }
+
+// footer #tzine-actions{
+// 	position: absolute;
+// 	top: 8px;
+// 	width: 500px;
+// 	right: 50%;
+// 	margin-right: -650px;
+// 	text-align: right;
+// 	z-index: 2;
+// }
+
+// footer #tzine-actions iframe{
+// 	display: inline-block;
+// 	height: 21px;
+// 	width: 95px;
+// 	position: relative;
+// 	float: left;
+// 	margin-top: 11px;
+// }

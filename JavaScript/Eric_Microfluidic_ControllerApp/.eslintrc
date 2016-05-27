@@ -10,6 +10,6 @@
     "shared-node-browser": true
   },
   "rules": {
-    "semi": 2
+    "keyword-spacing": [2, {"before": true, "after": true}]
   }
 }

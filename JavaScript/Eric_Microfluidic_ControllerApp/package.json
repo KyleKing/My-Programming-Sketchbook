@@ -20,9 +20,6 @@
   },
   "devDependencies": {
     "eslint": "^2.10.2",
-    "eslint-config-node-style-guide": "^3.0.0",
-    "eslint-rules-nodejs": "^1.0.0",
-    "install": "^0.8.1",
-    "npm": "^3.9.2"
+    "eslint-config-node-style-guide": "^3.0.0"
   }
 }

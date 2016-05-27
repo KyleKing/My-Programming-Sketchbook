@@ -106,7 +106,7 @@ Provides 8 different types of autocompletion:
 - SublimeCodeIntel - learn snippets
 - SublimeLinter - for everything
 - Stino - Arduino Like IDE
-- Alignment - Shift + Command + A to auto-align (?)
+- Alignment - (CMD | Shift-added to avoid overlap with sublime linter) + CTRL + A to auto-align
 - Themr
 - Markdown Light - nice dark/light color schemes and syntax highlighting
 - Git​Gutter - see git status

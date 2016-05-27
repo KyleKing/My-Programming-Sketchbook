@@ -1,9 +1,9 @@
 // Require the nedb module
 var Datastore = require('nedb');
-var fs = require('fs');
+var fs        = require('fs');
 
 // Initialize two nedb databases. Notice the autoload parameter.
-var photos = new Datastore({filename: __dirname + '/data/photos', autoload: true});
+var photos = new Datastore({filename: __dirname + '/../data/photos', autoload: true});
 
 // Create a "unique" index for the photo name and user ip
 photos.ensureIndex({fieldName: 'name', unique: true});
@@ -17,10 +17,10 @@ photos.ensureIndex({fieldName: 'name', unique: true});
 // // and you will still have only one record per image:
 
 // Make sure all photos are present:
-var photosOnDisk = fs.readdirSync(__dirname + '/public/photos');
+var photosOnDisk = fs.readdirSync(__dirname + '/../public/photos');
 
 // Capture Manual Preferences into Visual UI:
-var pref = require('./preferences.json');
+var pref = require('../preferences.json');
 pref.steps.forEach(function(step, index){
 	var stepIdx = index+1;
 	var photoName = stepIdx + '.jpg';

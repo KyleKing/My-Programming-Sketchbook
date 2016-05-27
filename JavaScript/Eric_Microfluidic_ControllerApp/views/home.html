@@ -2,7 +2,7 @@
 	<div class="col-md-6 col-sm-12 live-image vcenter">
 		{{#if photo.found}}
 		<img class="img-rounded" src="photos/{{photo.name}}" width="530" height="420" alt="Device Picture" />
-		<h5 class="title text-center">Captured image of {{photo.title}}</h5>
+		<h6 class="title text-center">Captured image of {{photo.title}}</h6>
 
 		{{else}}
 		<button type="button" class="btn btn-info">Capture a new image now</button>
@@ -11,7 +11,7 @@
 	</div><!--
 --><div class="col-md-6 col-sm-12 live-step vcenter">
 		{{#if standings}}
-			<h4 class="text-center">Live Status of Device Operation</h4>
+			<h5 class="text-center">Live Status of Device Operation</h5>
 			<!-- Create some useful buttons! -->
 			<div class="text-center button-spacing">
 				<button type="button" class="btn custom-button-formatting btn-success">Start</button>

@@ -9,9 +9,13 @@ var app     = express();
 app.configure(function() {
   app.set('port', 8080);
   app.use(express.logger('dev'));
+	app.use(app.router);
 });
 require('./modules/config')(app);
 require('./modules/routes')(app);
+
+// Communicate with the python script:
+require('./modules/python-controller')(app);
 
 // // Non-reloading version:
 // app.listen(app.get('port'));

@@ -1,7 +1,0 @@
-{"name":"2.jpg","found":true,"title":"Step 2: Wash Sample","status":"finished","statusMessage":" (Successfully Completed)","index":2,"_id":"9fblCz2TElXOzr09"}
-{"name":"3.jpg","found":true,"title":"Step 3: Load Gold Nanoparticles","status":"finished","statusMessage":" (Successfully Completed)","index":3,"_id":"IPmTgYqcdYcg504Z"}
-{"name":"6.jpg","found":false,"title":"Step 6: Computational Image Analysis","status":"finished","statusMessage":" (Successfully Completed)","index":6,"_id":"PorXWpDsRBJltWYj"}
-{"name":"1.jpg","found":true,"title":"Step 1: Load Sample","status":"finished","statusMessage":" (Successfully Completed)","index":1,"_id":"mC5tOtSuCCSoN4Ts"}
-{"name":"5.jpg","found":false,"title":"Step 5: Load Index Matching Fluid","status":"finished","statusMessage":" (Successfully Completed)","index":5,"_id":"njrkJKo9ZonoFhUH"}
-{"name":"4.jpg","found":true,"title":"Step 4: Load Silver Enhancement Fluid","status":"finished","statusMessage":" (Successfully Completed)","index":4,"_id":"w4XN8hELX87twwKR"}
-{"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}

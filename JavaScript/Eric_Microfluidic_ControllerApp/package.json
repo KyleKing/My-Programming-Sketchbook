@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Express app for Eric, to be run on a Raspberry Pi ",
   "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/eslint/bin/eslint.js . --ext .js,.es6"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KyleKing/My-Programming-Sketchbook.git"

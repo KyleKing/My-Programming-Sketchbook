@@ -49,6 +49,7 @@ conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
+-- conditionalopen("AnyBar") -- launch from Hammerspoon
 -- conditionalopen("CheatSheet")
 -- conditionalopen("Focus")
 -- conditionalopen("BetterTouchTool")

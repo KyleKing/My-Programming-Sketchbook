@@ -1,27 +1,16 @@
 /**
- * This is the main file of the application. Run it with the
- * `node index.js` command from your terminal
- *
- * Remember to run `npm install` in the project folder, so
- * all the required libraries are downloaded and installed.
+ * See install.sh before running this app
+ * Run with: `browser-refresh`
  */
 
-// Create a new express.js web app:
 var express = require('express');
 var app     = express();
 
-// var publicDir = path.join(__dirname, 'public');
 app.configure(function() {
   app.set('port', 8080);
   app.use(express.logger('dev'));
 });
-
-// Configure express with the settings found in
-// our config.js file
 require('./modules/config')(app);
-
-// Add the routes that the app will react to,
-// as defined in our routes.js file
 require('./modules/routes')(app);
 
 // // Non-reloading version:

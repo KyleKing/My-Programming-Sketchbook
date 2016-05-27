@@ -7,3 +7,8 @@ __Subprocess__ - Testing starting and stopping subprocesses in Javascript
 *Hackerrank* - random snippets of code challenges that could be useful elsewhere
 
 *Github-CheckRepoForUpdate* - Example using the GIthub API and later used for the N1-Unsubscribe plugin
+
+
+## Random Notes:
+
+Short Circuit Constructors: `var data = data || {};` or `var data = data ? data : {};`

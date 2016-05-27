@@ -15,7 +15,7 @@ var pref         = require('../preferences.json');
 pref.steps.forEach(function(step, index){
 	var stepIdx = index+1, photoName = stepIdx + '.jpg';
 	var found = photosOnDisk.indexOf(photoName) !== -1 ? true : false;
-	var status = pref.statuses[0], statusMes = pref.statuses[0];
+	var status = pref.statuses[0], statusMes = pref.statusMessages[0];
 	// Insert the curated options
 	photos.insert({
 		name: photoName,

@@ -9,13 +9,11 @@
 	],
 	"statuses": [
 		"finished",
-		"finished",
 		"in-progress",
 		"queue",
 		"failed"
 	],
 	"statusMessages": [
-		" (Successfully Completed)",
 		" (Successfully Completed)",
 		" (In Progress)",
 		"",

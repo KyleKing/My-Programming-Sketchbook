@@ -22,7 +22,7 @@ The project has still progressed and the frame is starting to come together:
 3. Run Install.sh to install Node.js and FBI (Frame Buffer Image Viewer)
 
 	For example:
-	
+
 	```bash
 	chmod +rwx ./Install.sh;
 	bash Install.sh;
@@ -30,7 +30,7 @@ The project has still progressed and the frame is starting to come together:
 4. You should now be up to date, so time to setup Balloon.io and upload a few test images.
 5. Back on the Raspberry Pi, you'll need one final installation, which can be accomplished by running ```npm install``` inside of the copied directory. This will install all of the NPM packages listed in the package.json file
 6. Configure Dropbox access token and Secret.json:
-	
+
 	```js
 	Follow Dropbox authentication process:
 	// Step 1:
@@ -107,7 +107,6 @@ To make additional edits, this shorthand command will be useful:
 ```bash
 sudo nano /etc/init.d/PhotoFrameStart
 ```
-
 
 ## Acknowledgements
 

@@ -75,15 +75,16 @@ function updatePhotos(stepNumber, n, pref) {
   }
 };
 
+
 if (Meteor.isServer) {
   Meteor.startup(function () {
     Meteor.call('reset');
   });
 }
 
-
 Meteor.methods({
   'reset': function() {
+    // Refresh database
     if (PHOTOS.find().count() > 0) {
       PHOTOS.remove({});
     }

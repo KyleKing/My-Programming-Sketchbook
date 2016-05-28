@@ -14,14 +14,15 @@
 			<h5 class="text-center">Live Status of Device Operation</h5>
 			<!-- Create some useful buttons! -->
 			<div class="text-center button-spacing">
-				<button type="button" class="btn custom-button-formatting btn-success">Start</button>
+				<button type="button" class="btn custom-button-formatting btn-success" id="start">Start</button>
 				<button type="button" class="btn custom-button-formatting btn-info">Capture New Image</button>
 				<button type="button" class="btn custom-button-formatting btn-danger">Stop</button>
 			</div>
 			<ul>
 
 				{{#each standings}}
-				<li class="{{this.status}}">
+				<!-- <li id="{{this.index}}"> -->
+				<li class="{{this.status}}" id="{{this.index}}">
 					<span class="title">{{this.title}}{{this.statusMessage}}</span>
 				</li>
 

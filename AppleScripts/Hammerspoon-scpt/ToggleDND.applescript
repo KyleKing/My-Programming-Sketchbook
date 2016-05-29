@@ -6,11 +6,16 @@ on run {arg}
 		do shell script "defaults -currentHost write ~/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate -date " & theDate
 		do shell script "killall NotificationCenter"
 	else
-		-- Turn Do Not Disturb Off
-		do shell script "defaults -currentHost write ~/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean false"
-		try
-			do shell script "defaults -currentHost delete ~/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate"
-		end try
-		do shell script "killall NotificationCenter"
+	-- TOGGLE Do Not Disturb Off
+	-- NEEDS keyboard shortcut: http://apple.stackexchange.com/a/145491
+	ignoring application responses
+		tell application "System Events" to keystroke "D" using {command down, shift down, option down, control down}
+	end ignoring
+	-- 	-- Turn Do Not Disturb Off
+	-- 	do shell script "defaults -currentHost write ~/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean false"
+	-- 	try
+	-- 		do shell script "defaults -currentHost delete ~/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate"
+	-- 	end try
+	-- 	do shell script "killall NotificationCenter"
 	end if
 end run

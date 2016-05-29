@@ -1,0 +1,29 @@
+{
+  "name": "eric_socketio",
+  "version": "0.0.1",
+  "description": "My first Socket.io app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleKing/My-Programming-Sketchbook.git"
+  },
+  "author": "Kyle King",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KyleKing/My-Programming-Sketchbook/issues"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "eyespect": "^0.1.10",
+    "interface-addresses": "0.0.5",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-node-style-guide": "^3.0.0"
+  },
+  "homepage": "https://github.com/KyleKing/My-Programming-Sketchbook#readme"
+}

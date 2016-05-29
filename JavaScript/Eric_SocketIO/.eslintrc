@@ -1,0 +1,15 @@
+{
+  "extends": "node-style-guide",
+  "parserOptions": {
+      "ecmaVersion": 5,
+      "sourceType": "script"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "shared-node-browser": true
+  },
+  "rules": {
+    "keyword-spacing": [2, {"before": true, "after": true}]
+  }
+}

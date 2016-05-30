@@ -1,7 +1,11 @@
-{"name":"3.jpg","found":true,"title":"Step 3: Load Gold Nanoparticles","status":"queue","statusMessage":"","index":3,"_id":"QSpncEX8gvLqNJeg"}
-{"name":"2.jpg","found":true,"title":"Step 2: Wash Sample","status":"queue","statusMessage":"","index":2,"_id":"gjGbEk2FH9AmlFpN"}
-{"name":"6.jpg","found":false,"title":"Step 6: Computational Image Analysis","status":"queue","statusMessage":"","index":6,"_id":"hLPzsE8Rt9HBcHwR"}
-{"name":"4.jpg","found":true,"title":"Step 4: Load Silver Enhancement Fluid","status":"queue","statusMessage":"","index":4,"_id":"lQw5t5L4uYlH9T3g"}
-{"name":"1.jpg","found":false,"title":"Step 1: Load Sample","status":"queue","statusMessage":"","index":1,"_id":"nFeHiCXnZpFexqsF"}
-{"name":"5.jpg","found":true,"title":"Step 5: Load Index Matching Fluid","status":"queue","statusMessage":"","index":5,"_id":"pL8QvrFrHPwrK0RE"}
+{"name":"5.jpg","title":"Step 7: 6","status":"queue","index":7,"_id":"7LrGccniSLJZtWZi"}
+{"name":"0.jpg","title":"Step 2: 1","status":"queue","index":2,"_id":"A21XlDnEDYTxePzj"}
+{"name":"9.jpg","title":"Step 10: 9","status":"queue","index":10,"_id":"CmZS00c1QKhFvkMZ"}
+{"name":"111.jpg","title":"Step 3: 2","status":"queue","index":3,"_id":"S0S80lxgacbYMhYb"}
+{"name":"8.jpg","title":"Step 9: 8","status":"queue","index":9,"_id":"VOFDnIcVXuDG8yVf"}
+{"name":"4.jpg","title":"Step 6: 5","status":"queue","index":6,"_id":"YPXxlA45U2gBqjLd"}
+{"name":".DS_Store","title":"Step 1: 0","status":"queue","index":1,"_id":"bmavhPDhtF53Oka9"}
+{"name":"3.jpg","title":"Step 5: 4","status":"queue","index":5,"_id":"cV6auIPvc0N79PMY"}
+{"name":"2.jpg","title":"Step 4: 3","status":"queue","index":4,"_id":"s5DKWzjIvhMxHU4w"}
+{"name":"7.jpg","title":"Step 8: 7","status":"queue","index":8,"_id":"ymJuxnMY985Aup6x"}
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}

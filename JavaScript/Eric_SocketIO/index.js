@@ -22,17 +22,17 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 var db = require(__dirname + '/data.js');
-var photos = db.photos;
-photos.find({}, function(err, allPhotos) {
+var steps = db.steps;
+steps.find({}, function(err, allSteps) {
   // Sort by index (chronological)
-  allPhotos.sort(function(a, b) {
+  allSteps.sort(function(a, b) {
    return a.index - b.index;
   });
-  // console.log(allPhotos);
+  // console.log(allSteps);
   app.get('/', function (req, res) {
     res.render('home', {
-      photo: allPhotos[2],
-      stepList: allPhotos,
+      photo: allSteps[2],
+      stepList: allSteps,
       BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
     });
   });

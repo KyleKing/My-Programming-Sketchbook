@@ -8,7 +8,6 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var exphbs  = require('express-handlebars');
-var fs = require('fs-extra');
 
 /**
  * Configure App
@@ -29,24 +28,13 @@ photos.find({}, function(err, allPhotos) {
   allPhotos.sort(function(a, b) {
    return a.index - b.index;
   });
-  // Store the photos data in a local JSON file to be read by the
-  // HandleBars Template to allow server-side rendering
-  fs.writeJson('./data-sync.json', allPhotos, function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
   // console.log(allPhotos);
-});
-
-var dataSync = require('./data-sync.json');
-
-// var hbs = require(__dirname + '/helpers.js')(exphbs);
-app.get('/', function (req, res) {
-  res.render('home', {
-    photo: dataSync[2],
-    stepList: dataSync,
-    BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
+  app.get('/', function (req, res) {
+    res.render('home', {
+      photo: allPhotos[2],
+      stepList: allPhotos,
+      BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
+    });
   });
 });
 

@@ -4,10 +4,10 @@
 
 /** Meteor Instance */
 var exec = require('child_process').exec;
-var meateorChild = exec('bash bootMeteor.sh');
+var meoteorChild = exec('bash bootMeteor.sh');
 
 /** Register cleanup event on node app SIGINT */
-var bootMeteor = meateorChild.pid;
+var bootMeteor = meoteorChild.pid;
 var kill = require('tree-kill');
 
 // Original Code: http://stackoverflow.com/a/14032965
@@ -63,7 +63,7 @@ var ddpclient = new DDPClient({
 
 // Child process of Meteor App
 // http://krasimirtsonev.com/blog/article/Nodejs-managing-child-processes-starting-stopping-exec-spawn
-meateorChild.stdout.on('data', function(data) {
+meoteorChild.stdout.on('data', function(data) {
   console.log('stdout: ' + data.trim());
   var error = false;
   if (data.match('App running at: http://localhost:3000/')) {
@@ -76,10 +76,10 @@ meateorChild.stdout.on('data', function(data) {
     console.log(data);
   }
 });
-meateorChild.stderr.on('data', function(data) {
+meoteorChild.stderr.on('data', function(data) {
   console.log('stdout: ' + data.trim());
 });
-meateorChild.on('close', function(code) {
+meoteorChild.on('close', function(code) {
   console.log('closing code: ' + code);
 });
 

@@ -10,10 +10,17 @@
       <button type="button" class="btn custom-button-formatting btn-danger stop" id="stop-btn">Stop</button>
     </div>
 
-    <!-- Calls `bar` helper, defined at instance-level. -->
-    <p>{{bar}}</p>
-
     <ul>
+      {{#each stepList}}
+        <li class="{{this.status}}" id="Step{{this.index}}">
+          <span class="title">{{this.title}}</span>
+          {{!-- <span class="title">{{this.title}}{{this.statusMessage}}</span> --}}
+        </li>
+      {{/each}}
+    </ul>
+
+
+    {{!-- <ul>
       <li class="queue" id="Step1">
         <span class="title">Step 1: Load Sample</span>
       </li>
@@ -32,15 +39,23 @@
       <li class="queue" id="Step6">
         <span class="title">Step 6: Computational Image Analysis</span>
       </li>
-    </ul>
+    </ul> --}}
   </div>
 
   <div class="col-md-6 col-sm-12 live-image vcenter">
-    <div class="row">
-      <img class="img-rounded" src="photos/1.jpg" width="530" height="420" alt="Device Picture" id="device-img">
-    </div>
     <div class="row text-center button-spacing">
       <button type="button" class="btn custom-button-formatting btn-info capture" id="capture-btn">Capture New Image</button>
     </div>
+    {{#if photo.found}}
+      <div class="row">
+        <img class="img-rounded" src="photos/{{photo.name}}" width="530" height="420" alt="Device Picture" id="device-img">
+        <p class="title text-center">Captured image of {{photo.title}}</p>
+      </div>
+    {{else}}
+      <div class="row">
+        <img class="img-rounded" src="photos/0.jpg" width="530" height="420" alt="Device Picture" id="device-img">
+        <p class="title text-center">No Image Found</p>
+      </div>
+    {{/if}}
   </div>
 </div>

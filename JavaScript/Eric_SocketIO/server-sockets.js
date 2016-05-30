@@ -25,16 +25,12 @@ module.exports = function(io) {
     /**
      * Respond to Button Events
      */
-
-    /** respond to button presses on client */
     socket.on('start', function() {
       io.emit('step', [1], [pref.statuses[0]]);
       require(__dirname + '/server-python-controller.js').start(io, socket);
-      // console.log('start!');
     });
     socket.on('stop', function() {
       io.emit('step', range(1,6), [pref.statuses[2]]);
-      // console.log('stop!');
     });
     socket.on('capture', function() {
       require(__dirname + '/server-python-controller.js').capture(io, socket);

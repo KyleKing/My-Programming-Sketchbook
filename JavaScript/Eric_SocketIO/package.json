@@ -1,6 +1,6 @@
 {
   "name": "eric_socketio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "My first Socket.io app",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
     "interface-addresses": "0.0.5",
     "jquery": "^2.2.4",
     "python-shell": "^0.4.0",

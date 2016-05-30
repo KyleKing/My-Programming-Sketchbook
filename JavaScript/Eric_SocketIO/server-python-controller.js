@@ -71,7 +71,7 @@ module.exports = {
     var pref = require(__dirname + '/preferences.json');
     // Update UI since the process has started:
     incrementStep(io, 1, 1, pref);
-    runPythonScript('device_peration.py', {}, startCallback, io, socket);
+    runPythonScript('device_operation.py', {}, startCallback, io, socket);
   },
   capture: function (io, socket) {
     // TODO db and filenames to send as args

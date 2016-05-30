@@ -7,21 +7,22 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var exphbs  = require('express-handlebars');
 
 /** Configure single route */
 app.set('port', 8080);
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
 app.use(express.static(__dirname + '/public'));
 // console.log(process.env.NODE_ENV); // development || production
 
+/** Render Handlebars Templates */
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+app.get('/', function (req, res) {
+    res.render('home');
+});
 
 /** The exciting parts - listen to and respond to user events */
 require(__dirname + '/server-sockets.js')(io);
-
-// /** Control a python script */
-// require(__dirname + '/server-python-controller.js')(io);
 
 /**
  * Get Network Address and create listener

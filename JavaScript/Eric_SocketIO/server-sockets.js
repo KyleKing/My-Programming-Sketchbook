@@ -38,7 +38,6 @@ module.exports = function(io) {
     });
     socket.on('capture', function() {
       require(__dirname + '/server-python-controller.js').capture(io, socket);
-      console.log('capture!');
     });
   });
 };

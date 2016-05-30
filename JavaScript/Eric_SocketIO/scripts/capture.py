@@ -1,25 +1,33 @@
 # -*- coding: utf-8 -*-
-import time
+from time import sleep
 import sys
 import os
-from os import listdir
-from os.path import isfile, join
+# from os import listdir
+# from os.path import isfile, join
 
-# TAKE PHOTO...sort of
-time.sleep(1)
+# Accept STDIN
+for line in sys.argv[1:]:
+    # print(line)
 
-# http://stackoverflow.com/a/3207973
-# Get dir down to /scripts/
-# print os.path.dirname(os.path.abspath(__file__))
-mypath = os.getcwd() + '/public/photos/'
-onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-# print onlyfiles[2]
+    # TAKE PHOTO...sort of
+    sleep(1)
 
-counter = 1
-publicPath = str(counter) + onlyfiles[2]
+    # http://stackoverflow.com/a/3207973
+    # # Get dir path down to /scripts/
+    # print os.path.dirname(os.path.abspath(__file__))
+    # # But only need CWD on Node.js app:
+    mypath = os.getcwd() + '/public/photos/'
 
-os.rename(mypath + '/' + onlyfiles[2], mypath + '/' + publicPath)
-print(publicPath)
+    # # Get all filenames in directory:
+    # onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    # print onlyfiles[2]
 
-# Force buffer to close and send all data to Node application
-sys.stdout.flush()
+    # Create unqiue and incremented filename
+    counter = 1
+    publicPath = line + str(counter) + '.jpg'
+
+    os.rename(mypath + '/' + line + '.jpg', mypath + '/' + publicPath)
+    print(publicPath)
+
+    # Force buffer to close and send all data to Node application
+    sys.stdout.flush()

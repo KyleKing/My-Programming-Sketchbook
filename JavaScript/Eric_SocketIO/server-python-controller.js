@@ -24,7 +24,7 @@ module.exports = {
      */
 
     // // sends a message to the Python script via stdin
-    // process.env.pyshell.send('hello');
+    // pyshell.send(msg);
 
     // Keep up to date with progress of Python script
     pyshell.on('message', function (message) {
@@ -52,14 +52,17 @@ module.exports = {
     });
   },
   capture: function (io, socket) {
-    var PythonShell = require('python-shell');
-    var pyshell = new PythonShell('./scripts/capture.py');
+// TODO db and filenames to send as args
     var pref = require(__dirname + '/preferences.json');
-
 
     /**
      * Start Python Script and respond to stdout
      */
+
+    var PythonShell = require('python-shell');
+    var pyshell = new PythonShell('./scripts/capture.py', {
+        args: ['1']
+      });
 
     // Keep up to date with progress of Python script
     pyshell.on('message', function (message) {

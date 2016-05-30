@@ -1,35 +1,3 @@
-// // Load all images from photos folder to match with known list of steps:
-// var Datastore = require('nedb');
-// var fs        = require('fs');
-
-// var photos = new Datastore({
-//  filename: __dirname + '/../data/photos',
-//  autoload: true
-// });
-
-// // Configure the database on filenames and existence of image
-// photos.ensureIndex({fieldName: 'name', unique: true});
-// var photosOnDisk = fs.readdirSync(__dirname + '/../public/photos');
-
-// pref.steps.forEach(function(step, index){
-//  var stepIdx = index+1, photoName = stepIdx + '.jpg';
-//  var found = photosOnDisk.indexOf(photoName) !== -1 ? true : false;
-//  var status = pref.statuses[2], statusMes = pref.statusMessages[2];
-//  // Insert the curated options
-//  photos.insert({
-//    name: photoName,
-//    found: found,
-//    title: 'Step '+stepIdx+': '+step,
-//    status: status,
-//    statusMessage: statusMes,
-//    index: stepIdx
-//  });
-// });
-
-// module.exports = {
-//  photos: photos
-// };
-
 var pref = require(__dirname + '/preferences.json');
 
 /**
@@ -54,17 +22,23 @@ module.exports = function(io) {
     // console.log('a user connected');
     io.emit('BROWSER_REFRESH_URL', process.env.BROWSER_REFRESH_URL);
 
+    /**
+     * Respond to Button Events
+     */
+
     /** respond to button presses on client */
     socket.on('start', function() {
       io.emit('step', [1], [pref.statuses[0]]);
       require(__dirname + '/server-python-controller.js').start(io, socket);
-      console.log('start!');
+      // console.log('start!');
     });
     socket.on('stop', function() {
-      // if (process.env.pyshell) {}
-      require(__dirname + '/server-python-controller.js').stop(io);
       io.emit('step', range(1,6), [pref.statuses[2]]);
-      console.log('stop!');
+      // console.log('stop!');
+    });
+    socket.on('capture', function() {
+      require(__dirname + '/server-python-controller.js').capture(io, socket);
+      console.log('capture!');
     });
   });
 };

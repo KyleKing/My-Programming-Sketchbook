@@ -12,12 +12,16 @@ socket.on('BROWSER_REFRESH_URL', function(BROWSER_REFRESH_URL){
  * Emit events:
  */
 $( '#start-btn' ).click(function() {
-  console.log('Button pressed - Start');
+  // console.log('Button pressed - Start');
   socket.emit('start');
 });
 $( '#stop-btn' ).click(function() {
-  console.log('Button pressed - Stop');
+  // console.log('Button pressed - Stop');
   socket.emit('stop');
+});
+$( '#capture-btn' ).click(function() {
+  console.log('Button pressed - capture');
+  socket.emit('capture');
 });
 
 /**
@@ -25,6 +29,9 @@ $( '#stop-btn' ).click(function() {
  * @param  {[numbers]} num
  * @param  {String}    newStatus
  */
+socket.on('new-photo', function(newPath){
+  $('#device-img').attr('src', '/photos/' + newPath);
+});
 socket.on('step', function(num, newStatus) {
   num.forEach(function(element, index, array) {
     // console.log('a[' + index + '] = ' + element + ' - with ' + newStatus);

@@ -1,0 +1,4 @@
+node_modules/
+/public/photos/
+data/
+.DS_Store

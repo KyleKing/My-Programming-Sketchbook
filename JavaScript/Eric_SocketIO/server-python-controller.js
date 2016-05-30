@@ -9,19 +9,19 @@ module.exports = {
     var PythonShell = require('python-shell');
     var pyshell = new PythonShell('./scripts/tests.py');
     var pref = require(__dirname + '/preferences.json');
-    // Alert user that process is started:
+
+    // Update UI since the process has started:
     incrementStep(io, 1, 1, pref);
 
-    /** FIXME: NOT WORKING, python script carries on happily */
+    // Respond to SIGINT response from UI
     socket.on('stop', function() {
-      console.log('stopping in python script!');
-      pyshell.end(function (err) {
-        if (err) {
-          throw err;
-        }
-        console.log('finished PYTHON SCRIPT BRUTLEY');
-      });
+      console.log('finished PYTHON SCRIPT BRUTLEY');
+      pyshell.childProcess.kill();
     });
+
+    /**
+     * Start Python Script and respond to stdout
+     */
 
     // // sends a message to the Python script via stdin
     // process.env.pyshell.send('hello');
@@ -47,11 +47,35 @@ module.exports = {
       }
       console.log('Finished Python Script');
     });
+    pyshell.on('error', function (err) {
+      throw err;
+    });
   },
+  capture: function (io, socket) {
+    var PythonShell = require('python-shell');
+    var pyshell = new PythonShell('./scripts/capture.py');
+    var pref = require(__dirname + '/preferences.json');
 
-  stop: function(io) {
-    console.log('NOT WORKING');
-    // end the input stream and allow the process to exit
 
+    /**
+     * Start Python Script and respond to stdout
+     */
+
+    // Keep up to date with progress of Python script
+    pyshell.on('message', function (message) {
+      console.log(message);
+      io.emit('new-photo', message);
+    });
+
+    // Throw alert on close of python script
+    pyshell.on('close', function (err) {
+      if (err) {
+        throw err;
+      }
+      console.log('Finished Python Script');
+    });
+    pyshell.on('error', function (err) {
+      throw err;
+    });
   }
 };

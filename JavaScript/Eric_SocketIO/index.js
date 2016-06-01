@@ -31,7 +31,7 @@ steps.find({}, function(err, allSteps) {
   // console.log(allSteps);
   app.get('/', function (req, res) {
     res.render('home', {
-      photo: allSteps[2],
+      photo: allSteps[1],
       stepList: allSteps,
       BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
     });
@@ -57,6 +57,8 @@ http.listen(app.get('port'), function() {
     nIP = addresses.en0;
   } else if (addresses.en1) {
     nIP = addresses.en1;
+  } else if (addresses.wlan0) {
+    nIP = addresses.wlan0;
   } else if (addresses.eth0) {
     nIP = addresses.eth0;
   } else {

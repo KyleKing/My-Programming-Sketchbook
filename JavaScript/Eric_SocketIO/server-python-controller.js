@@ -76,7 +76,21 @@ module.exports = {
   capture: function (io, socket) {
     // TODO db and filenames to send as args
     // var pref = require(__dirname + '/preferences.json');
-    var pyArgs = {args: ['11.jpg', '111.jpg']};
-    runPythonScript('capture.py', pyArgs, captureCallback, io, socket);
+    var db = require(__dirname + '/data.js');
+    // Find all documents in the collection
+    db.photos.find({}, function (err, docs) {
+      console.log('docs.length: ' + docs.length);
+      var RandDoc = docs[Math.floor(Math.random()*docs.length)];
+      console.log(RandDoc);
+      var newName = Math.floor((Math.random() * 1000000) + 1) + '111.jpg';
+      var pyArgs = {args: [RandDoc.name, newName]};
+      console.log('RandDoc.name: ' + RandDoc.name);
+      runPythonScript('capture.py', pyArgs, captureCallback, io, socket);
+      db.photos.update({_id: RandDoc._id}, {
+        $set: {name: newName}
+      }, {multi: true}, function (err, numReplaced) {
+        console.log('numReplaced: ' + numReplaced);
+      });
+    });
   }
 };

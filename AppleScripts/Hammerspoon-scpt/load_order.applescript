@@ -33,6 +33,7 @@ conditionalclose("KeepingYouAwake")
 conditionalclose("Vivaldi")
 conditionalclose("Boom")
 conditionalclose("Acrosync")
+conditionalclose("CheatSheet")
 -- conditionalclose("Day One Classic")
 -- if you are not sure about the exact name, start "Activity Monitor" (e.g. search it with Spotlight)
 -- and look up the "Process Name" (first column) in the list of running processes

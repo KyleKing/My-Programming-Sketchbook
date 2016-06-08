@@ -1,5 +1,10 @@
 # Raspberry Pi Notes
 
+TODO: LOTS!
+
+` appended export PATH=$PATH:$HOME/meteor/ to .bashrc and now meteor can be called from anywhere `
+
+
 <!-- TODO Check for errors -->
 <!-- TODO Clean up bad links -->
 <!-- TODO Clean up whole document in general -->

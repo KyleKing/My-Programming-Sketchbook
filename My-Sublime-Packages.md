@@ -1,27 +1,29 @@
 # Sublime Tips:
 
 ## TO ADD
-sublime-enhanced and AutocompletionFuzzy (https://github.com/shagabutdinov/sublime-enhanced)
+
+- sublime-enhanced and AutocompletionFuzzy (https://github.com/shagabutdinov/sublime-enhanced)
+- Code completion: [Code Complice](https://github.com/spectacles/CodeComplice) (improved fork of SublimeCodeIntel) or [tern](https://github.com/ternjs/tern_for_sublime) (**not installed**)
 
 ## Best Themes:
 > Edit with Themr Package
 
-Spacegray (below) - classic, with minimized tabs (or .light)
-Centurion - galea + green folders, small tabs
-Numix - minimal linting, big orange tabs
-Orchis Dark - use with solarized, sweet purple tabs
-itg.flat.dark/light - big tabs and lots of flat color
-predawn - istracting sidebar, bug tabs, use with soda - monokai
+- Spacegray (below) - classic, with minimized tabs (or .light)
+- Centurion - galea + green folders, small tabs
+- Numix - minimal linting, big orange tabs
+- Orchis Dark - use with solarized, sweet purple tabs
+- itg.flat.dark/light - big tabs and lots of flat color
+- predawn - distracting sidebar, bug tabs, use with soda - monokai
 
 ## Best Schemes:
 > Edit with Schemr Package
 
-3024_Day
-Afterglow
-Galea
-Bittersweet
-Iceberg
-and see favorites
+- 3024_Day
+- Afterglow
+- Galea
+- Bittersweet
+- Iceberg
+- and see favorites
 
 ## Sublime Packages:
 
@@ -39,19 +41,25 @@ Key bindings
 - Ctrl+Comma, Equals  Evaluate cells
 
 ### [JsFormat](https://sublime.wbond.net/packages/JsFormat)
+
 For quickly formating JSON
 
 ### [SublimeLiner-Annotations](https://packagecontrol.io/packages/SublimeLinter-annotations)
+
 This linter plugin for SublimeLinter highlights annotations in comments such as FIXME, NOTE, TODO, @todo, XXX, and README.
 
 ### SublimeLinter-jsdebugmarkers
+
 Highlights console.log/error/warn in code
 
 ### Other Sublime Linter
+
 stylint, sass, puglint, mlint, mdl, lua, json, jslint, jscs, eslint, coffeelint, annotations
 
 ### [Terminal](https://packagecontrol.io/packages/Terminal)
+
 Open current working directory in a new iTerm window. Overwrote shortcut keys as:
+
 ```json
 [
     { "keys": ["super+shift+alt+o"], "command": "open_terminal" },
@@ -59,8 +67,23 @@ Open current working directory in a new iTerm window. Overwrote shortcut keys as
 ]
 ```
 
+### [Markdown Extended](https://packagecontrol.io/packages/Markdown%20Extended)
+
+Set up syntax specific highlighting for markdown, however **deleted** because turned all functional code blocks to be black...?
+
+```json
+{
+    "extensions":
+    [
+        "md"
+    ],
+    "color_scheme": "Packages/Monokai Extended/Monokai Extended Light.tmTheme",
+}
+```
+
 ### [DocBlockr](https://packagecontrol.io/packages/DocBlockr)
-simplifies added block comments (start a comment before a function, etc.)
+
+Simplifies adding block comments (start a comment before a function, etc.)
 
 - Pressing enter or tab after /** (or ###* for Coffee-Script) yields a new line and closes the comment.
 - However, if the line directly afterwards contains a function definition, then its name and parameters are parsed and some documentation is automatically added. Press Tab to move forward through the fields, press Shift+Tab to move back through the fields.
@@ -68,7 +91,9 @@ simplifies added block comments (start a comment before a function, etc.)
 - If you write a double-slash comment and then press Ctrl+Enter, DocBlockr will 'decorate' that line for you.
 
 ### [Theme of Choice: Material Theme](https://github.com/equinusocio/material-theme)
+
 And the AppBar extension for a hug green tab bar (Material Theme AppBar)
+
 ```json
 {
     "color_scheme": "Packages/User/SublimeLinter/Material-Theme-OceanicNext (SL).tmTheme",
@@ -77,22 +102,8 @@ And the AppBar extension for a hug green tab bar (Material Theme AppBar)
 ```
 Note: Make sure there isn't a second JSON property for theme or this theme will be overwritten
 
-### AutocompletionFuzzy (Part of bigger package - see above)
-Provides 8 different types of autocompletion:
-
-1. Complete word - basic completion; completes word that occurenced in text and opened files.
-1. Complete word (fuzzy) - like “complete word” but uses fuzzy match over words.
-1. Complete subword - completes snake_case and CamelCase words parts.
-1. Complete long word - complete long words: class names with namespaces (Class::Name), method calls (object.method), filenames (file/name.py), urls (http://…).
-1. Complete long word (fuzzy) - line “complete long word” but uses fuzzy match over words.
-1. Complete nesting - completes over and into brackets: can complete full method call (method(arg1, arg2)), method arguments (arg1, arg2), array ([value1, value2]) and everything that has brackets over it or after it.
-1. Complete nesting (fuzzy) - like “complete nesting” but uses fuzzy match.
-1. Complete line - competes whole line.
-1. However it maps only 6 types of autocompletion. Not fuzzy completions aren't mapped to keyboard shortcuts by default. See “installation” section if you would like map non-fuzzy completion behavior.
-1. All lists are build in order of first occurence of word. That makes autocomplete very predictable and easy to use.
-1. Words completion works over all files opened. Nesting completion works only in current file (because of performance issues)
-
 ### Others
+- Mac​Down App Menu - MacDown is great and this makes it easier than ever to use it
 - Better Coffeescript
 - Color Highlighter
 - Color Sublime
@@ -114,6 +125,22 @@ Provides 8 different types of autocompletion:
 - All Autocomplete - extends Sublime autocomplete to all files in folders (removed)
 
 ### Possibly in use/maybe not:
+
+### (?) AutocompletionFuzzy (Part of bigger package - see above)
+
+Provides 8 different types of autocompletion:
+
+1. Complete word - basic completion; completes word that occurenced in text and opened files.
+1. Complete word (fuzzy) - like “complete word” but uses fuzzy match over words.
+1. Complete subword - completes snake_case and CamelCase words parts.
+1. Complete long word - complete long words: class names with namespaces (Class::Name), method calls (object.method), filenames (file/name.py), urls (http://…).
+1. Complete long word (fuzzy) - line “complete long word” but uses fuzzy match over words.
+1. Complete nesting - completes over and into brackets: can complete full method call (method(arg1, arg2)), method arguments (arg1, arg2), array ([value1, value2]) and everything that has brackets over it or after it.
+1. Complete nesting (fuzzy) - like “complete nesting” but uses fuzzy match.
+1. Complete line - competes whole line.
+1. However it maps only 6 types of autocompletion. Not fuzzy completions aren't mapped to keyboard shortcuts by default. See “installation” section if you would like map non-fuzzy completion behavior.
+1. All lists are build in order of first occurence of word. That makes autocomplete very predictable and easy to use.
+1. Words completion works over all files opened. Nesting completion works only in current file (because of performance issues)
 
 #### (?) Dash Doc
 You can look up the word under the cursor or selected text in Dash using ctrl+h
@@ -143,6 +170,21 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
 - [Git package](https://github.com/kemayo/sublime-text-git/wiki) is useful for command-line git, but I only use UI
 - SCSS expander tells you what the hierarchy of a SCSS element is
 
+
+### TernJS
+
+alt+.
+Jump to the definition of the thing that the cursor is pointing at. If there is no known code location, but it has a documentation URL associated with, this will open the documentation in your browser instead.
+
+alt+,
+Jump back to where you were when executing the previous alt+. command.
+
+alt+space
+When on a variable, select all references to that variable in the current file.
+
+alt+o
+Show quick documentation for the thing that the cursor is pointing at. Documentation includes the type, a description (if available), and documentation url (if available).
+
 ## Sublime Notes
 - Useful to set .m files as MATLAB: http://stackoverflow.com/a/8014142/3219667
 - Show Console: ctrl + ` (not the ')
@@ -156,6 +198,7 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
 	Per project basis: https://css-tricks.com/exclude-compiled-css-from-sublime-text-2-projects/
 
 ## Config File:
+
 ```json
 {
     "added_words":
@@ -169,8 +212,16 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
         "Bitzer",
         "Hammerspoon",
         "unsubscribe",
+        "unsubscribed",
         "unsubscription",
-        "unsubscriptions"
+        "unsubscriptions",
+        "unsubscribing",
+        "N1",
+        "n1",
+        "Nylas",
+        "plugin",
+        "plugins",
+        "app"
     ],
     "binary_file_patterns":
     [
@@ -200,16 +251,17 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
         ".meteor/local",
         "node_modules"
     ],
-    "font_face": "Hack",
+    "font_face": "Operator Mono Medium",
     "font_options":
     [
         "subpixel_antialias"
     ],
-    "font_size": 12,
+    "font_size": 15,
     "highlight_line": true,
     "highlight_modified_tabs": true,
     "ignored_packages":
     [
+        "Markdown",
         "Vintage"
     ],
     "ignored_words":
@@ -222,12 +274,13 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
     ],
     "line_padding_bottom": 1,
     "line_padding_top": 1,
+    "material_theme_accent_cyan": true,
+    "material_theme_appbar_lime": true,
     "material_theme_contrast_mode": true,
     "preview_on_click": true,
     "rulers":
     [
-        80,
-        120
+        100
     ],
     "scroll_past_end": true,
     "shift_tab_unindent": true,
@@ -240,5 +293,4 @@ Link: http://sweetme.at/2014/04/07/glue-a-terminal-for-sublime-text/
     "trim_trailing_white_space_on_save": true,
     "word_wrap": true
 }
-
 ```

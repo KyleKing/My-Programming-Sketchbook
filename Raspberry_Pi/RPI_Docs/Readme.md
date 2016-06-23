@@ -42,6 +42,33 @@ You are viewing the main guide, but there is additional guides for [Meteor](Mete
 
 <!-- /MarkdownTOC -->
 
+
+<!-- TODO: Add inputrc: -->
+
+"\eOA": history-search-backward
+"\e[A": history-search-backward
+"\eOB": history-search-forward
+"\e[B": history-search-forward
+"\eOC": forward-char
+"\e[C": forward-char
+"\eOD": backward-char
+"\e[D": backward-char
+
+<!-- TODO: and history to .bash_profile: -->
+
+# ------- Start Customized Profile -------
+
+# Don't put duplicate lines in the history
+# https://www.eriwen.com/bash/effective-shorthand/
+export HISTCONTROL=ignoredups
+
+# ------- End Customized Profile -------
+
+
+<!-- End TODO -->
+
+
+
 ## About
 
 I always forget time saving steps while working on a Raspberry Pi. These notes started as a rough outline on a shared Google Drive document for my lab, but they were rarely used. I still found them useful, so I moved them to Github which made working with code far easier.

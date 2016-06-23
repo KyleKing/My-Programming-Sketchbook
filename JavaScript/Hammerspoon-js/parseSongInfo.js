@@ -28,7 +28,8 @@ function doesExist(str) {
 }
 
 function isSoundcloudAD(song, artist) {
-	if ( doesExist(artist) && artist.match(/SCOPS/) ) {
+	if ( doesExist(artist) && (artist.match(/SCOPS/) ||
+		artist.match(/Free Listening/))) {
 		return true
 	} else {
 		return false

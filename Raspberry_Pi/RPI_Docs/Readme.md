@@ -1,121 +1,176 @@
-# Raspberry Pi Notes
+# My Raspberry Pi Documentation
 
-TODO: LOTS!
+You are viewing the main guide, but there is additional guides for [Meteor](Meteor.md), [test1](test1.md), and [test2](test2.md)
 
-` appended export PATH=$PATH:$HOME/meteor/ to .bashrc and now meteor can be called from anywhere `
+<!-- MarkdownTOC depth="6" autolink="true" bracket="round" -->
 
+- [About](#about)
+- [Starting from Scratch](#starting-from-scratch)
+        - [Download `Raspbian-Jessie`](#download-raspbian-jessie)
+        - [Format a fresh microSD Card](#format-a-fresh-microsd-card)
+        - [Prep your microSD Card](#prep-your-microsd-card)
+- [Booting a Fresh Installation](#booting-a-fresh-installation)
+        - [Easiest Setup](#easiest-setup)
+        - [*\(Alternatively\) Headless Connection*](#alternatively-headless-connection)
+                - [Troubleshooting SSH](#troubleshooting-ssh)
+        - [Configure the Raspberry Pi](#configure-the-raspberry-pi)
+- [Backup an Entire SD Card](#backup-an-entire-sd-card)
+- [Other Useful Tools](#other-useful-tools)
+        - [SSH file transfer/syncing \(Rsync\)](#ssh-file-transfersyncing-rsync)
+        - [Accessing the Raspberry Pi GUI](#accessing-the-raspberry-pi-gui)
+- [Misc. Notes](#misc-notes)
+        - [How to Update](#how-to-update)
+- [Working in JavaScript](#working-in-javascript)
+        - [Node Installation](#node-installation)
+        - [Meteor Installation](#meteor-installation)
+                - [How to run Meteor](#how-to-run-meteor)
+        - [PID Controllers](#pid-controllers)
+        - [LocalTunnel \(not installed/tested\)](#localtunnel-not-installedtested)
+- [Peripheral Installation](#peripheral-installation)
+                - [RealTek Wireless USB Dongle Installation](#realtek-wireless-usb-dongle-installation)
+                - [USB Webcam](#usb-webcam)
+        - [The Pi Module](#the-pi-module)
+        - [Thermocouple Sensor \(MAX31855\)](#thermocouple-sensor-max31855)
+- [An Arduino](#an-arduino)
+- [Electronics / Real World Notes](#electronics--real-world-notes)
+        - [MOSFETS](#mosfets)
+        - [Analog to Digital Converter](#analog-to-digital-converter)
+        - [Raspberry Pi Pinout](#raspberry-pi-pinout)
+        - [Connecting an LED](#connecting-an-led)
+- [General Troubleshooting](#general-troubleshooting)
+        - [HDMI Not Displaying](#hdmi-not-displaying)
 
-<!-- TODO Check for errors -->
-<!-- TODO Clean up bad links -->
-<!-- TODO Clean up whole document in general -->
+<!-- /MarkdownTOC -->
 
-*About*
+## About
 
-All of this content was in a Google Document on Google Drive, but it was difficult to navigate and the code examples were difficult to read. This version is meant to be easier to access and read. Please submit a PR or open an issue if you have any suggestions or comments.
+I always forget time saving steps while working on a Raspberry Pi. These notes started as a rough outline on a shared Google Drive document for my lab, but they were rarely used. I still found them useful, so I moved them to Github which made working with code far easier.
 
-## Setting up or Backing up
+## Starting from Scratch
 
-#### Write to a new SD card
+First, I will walk you through how to make a clean installation of Jessie on an 8gb SD card or larger.
 
-You must have a .img file. To start fresh, download an image file from the [official raspberry pi site](https://www.raspberrypi.org/downloads/) and follow their guide. Get the microSD disk number and unmount the specified disk (in this case, /dev/disk2)
+### Download `Raspbian-Jessie`
 
-```bash
-diskutil list
-diskutil unmountDisk /dev/disk2
+Download the [latest distribution hosted by the Raspberry Pi foundation](https://www.raspberrypi.org/downloads/raspbian/). The `.img` file is about 1.5 gb, so it will take some time to download.
+
+### Format a fresh microSD Card
+
+Using a microSD adapter, erase the microSD card to the `MS-DOS (FAT)` format. On a Mac this can be done through the Disk Utility application.
+
+### Prep your microSD Card
+
+To make the SD card bootable by the Raspberry Pi, you will need to open Terminal on Linux/Mac or gnome-terminal for PC (I think?). For the most part you can copy and paste these commands, but make sure to read them first.
+
+1. Get the microSD disk number and unmount the specified disk (in this case, /dev/disk2)
+
+    ```sh
+    diskutil list | grep 0: # then match up the disk name and disk ID
+    diskutil unmountDisk /dev/disk2
+    ```
+
+2. See the notes prepended by `#`. Make sure to update the file name and disk ID appropriately. To check the current status, while writing to the SD card press <kbd>Ctrl</kbd>+<kbd>T</kbd> (on Mac).
+
+    ```sh
+    # Navigate to your downloads folder
+    cd ~/Downloads
+    # Unzip the newly downloaded file
+    unzip 2016-05-27-raspbian-jessie.zip
+    # Write the unzipped file to your card
+    sudo dd bs=1m if=2016-05-27-raspbian-jessie.img of=/dev/rdisk2
+    ```
+
+3. For additional assistance, see the [Raspberry Pi official guide](http://raspberrypi.stackexchange.com/a/313)
+
+4. After a short wait, the SD card will be ready to go. Plug the microSD card into the Raspberry Pi and connect the USB Devices/HDMI/Ethernet cord with the micro USB power supply last. You should the green light blink to confirm the SD card is booting. The green light will stop when completed booting.
+
+## Booting a Fresh Installation
+
+### Easiest Setup
+
+Grab an HDMI display (or HDMI adapter and display), mouse, and keyboard and connect them to the Raspberry Pi. When powered on you can interact with the Pi as if a full size computer.
+
+### *(Alternatively) Headless Connection*
+
+* Connect to a wifi network that allows internet sharing
+* Open System Preferences -> Network and make sure there is a profile for an Ethernet connection and a Wifi profile
+* The wifi connection should be first and Ethernet second (you can change this by clicking on the cog wheel (bottom of window) > set service order)
+* Navigate to the sharing profile and turn on Wifi > Ethernet internet sharing
+* Connect the Raspberry Pi, then power it on
+* Find the IP address and SSH into the pi (see instructions below)
+
+You will need nmap, which can be [downloaded here](https://nmap.org/download.html#macosx). Look for the `Latest release installer: nmap-7.12.dmg` link (alternatively, you can install nmap with Homebrew `brew install nmap`).
+
+Using nmap, find the raspberry pi's IP address ([Source](http://raspberrypi.stackexchange.com/questions/13936/find-raspberry-pi-address-on-local-network/13937#13937)):
+
+```sh
+nmap -p 22 --open -sV 192.168.2.*
+# Alternatively:
+sudo nmap -sP 192.168.2.* | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'
+
+# If using a Wifi adapter, there is a slight variation:
+sudo nmap -sP 192.168.1.* | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'
 ```
 
-Then run dd, but enter the path to the image file you want to install. To check the current status, press <kbd>Ctrl</kbd>+<kbd>T</kbd>
+Now connect to the Raspberry Pi. The initial password is `raspberry`, while the user is pi.
 
+```sh
+# Use the address returned by the previous command
+ssh pi@192.168.2.8
 ```
-sudo dd bs=1m if=2016-01-12_Backup.img of=/dev/rdisk2
+
+#### Troubleshooting SSH
+
+If having trouble with “man in the middle” warnings, regenerate the SSH key:
+
+```sh
+ssh-keygen -R # "<enter hostname>”
+# For example:
+ssh-keygen -R 192.168.2.9
 ```
 
-When ready, plug the microSD card into the Raspberry Pi and connect the USB Devices/HDMI/Ethernet cord with the micro USB power supply last. If the raspberry pi turns on and off, try removing as many USB devices as possible, switching the power supply, or using an external USB hub.
+### Configure the Raspberry Pi
 
-[The original guide](http://raspberrypi.stackexchange.com/a/313)
+The initial password is `raspberry`. Once logged in you will need to run:
 
-### Backup progress from one SD card to another
+```sh
+sudo raspi-config
+```
 
-Shutdown the raspberry pi and wait a few moments to be safe, then pull out the SD card and plug into computer. You will use the dd command line tool to convert a given disk (disk2) into a .img file. To reach a more sane file size, use gzip or on a Mac, right click on the file and choose the “compress” menu option.
+Click through the menu options using your arrow keys. You will want to make sure to:
 
-#### Backup a microSD card
+* Expand the file system
+* Change password
+* Set locale (Internationalisation Options -> Change Locale ->  en_GB.UTF-8 -> then set again as default)
+* and any other options you see fit
+* Reboot, especially if you changed the filesystem
 
-First get the disk number and navigate to the directory you want to backup .img file
+## Backup an Entire SD Card
+
+You will use the dd command line tool to convert a given disk (disk2) into a `.img` file. To reach a more sane file size, use gzip or on a Mac, right click on the file and choose the “compress” menu option.
+
+First get the disk number and go to your Desktop or Downloads directory:
 
 ```bash
 diskutil list
 cd ~/Downloads
 ```
 
-Then run dd, but change the filename to one that makes sense:
+Then use dd, but change the filename to one that makes sense:
 
 ```
-sudo dd if=/dev/rdisk2 of=2016-01-12_Backup.img bs=1m
+sudo dd if=/dev/rdisk2 of=2016-06-23_Backup.img bs=1m
 ```
 
 If you need to delete a .img file, use ```rm``` from the command line, otherwise the file system doesn't properly account for the removal of the large file if done through the GUI.
 
-## Set Up Headless Connection
+## Other Useful Tools
 
-There are several ways to connect to a raspberry pi. I prefer to use an Ethernet cord and boot the raspberry pi headless, but it is just as easy to use a keyboard and display to boot the raspberry pi.
-
-For an Ethernet based approach on a Mac:
-
-* Connect to a wifi network that allows internet sharing (most WPA2 and in my case, UMD (not UMD-Secure))
-* Go into network settings, make sure there is a profile for an Ethernet connection and a wifi profile
-* The wifi connection should be first and Ethernet second (you can change this by clicking on the cog wheel (bottom of window) > set service order)
-* Navigate to the sharing profile and turn on wifi > Ethernet internet sharing
-* Connect the raspberry pi, then power it on
-* Find the IP address and SSH into the pi
-
-You will need nmap, which is best installed through Homebrew on a Mac [ To install Homebrew, visit their [official documentation](http://brew.sh/) ]. There are similar alternatives for PC's.
-
-```bash
-brew install nmap
-```
-
-Find the raspberry pi's IP address ([Source](http://raspberrypi.stackexchange.com/questions/13936/find-raspberry-pi-address-on-local-network/13937#13937)):
-
-```bash
-nmap -p 22 --open -sV 192.168.2.* # search for pi
-# Alternatively:
-sudo nmap -sP 192.168.2.0/24 | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'
-
-# For wifi
-sudo nmap -sP 192.168.1.0/24
-# If not properly sharing internet, search for IP address listed for ethernet port (~169.254.129.1)
-```
-
-Connect via SSH by typing this command into terminal. The initial password is raspberry, while the user is pi.
-
-```bash
-ssh pi@192.168.2.8 # or whichever IP address nmap returns
-```
-
-Configure the raspberry pi using the graphical interface. You will want to make sure to:
-
-* Expand the file system
-* Change password
-* Set locale
-* and any other options you see fit.
-
-```bash
-sudo raspi-config
-```
-
-##### Troubleshooting SSH
-
-If having trouble with “man in the middle” warnings, try:
-
-```bash
-ssh-keygen -R # "<enter hostname>”
-# For example:
-ssh-keygen -R 192.168.2.9 # re-generates RSS key for given hostname
-```
-
-##### SSH file transfer/syncing (Rsync)
+### SSH file transfer/syncing (Rsync)
 
 [Full Guide](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
+
+<!-- TODO:
 The full guide is great. You can easily edit files in sublime on your personal computer while remotely connected to the raspberry pi. I have two notes that may prove useful. First the difference between ~/dir1 vs ~/dir1/ matters. Second, this is the code I ran:
 
 ```bash
@@ -142,13 +197,13 @@ sudo wget -O /usr/local/bin/rsub https://raw.github.com/aurora/rmate/master/rmat
 sudo chmod +x /usr/local/bin/rsub
 ```
 
-Prefer to use Sublime text to remotely edit the files? Try out one of these guides [plugin method](http://www.knight-of-pi.org/using-a-host-computer-for-coding-on-the-raspberry-pi/) or the [terminal approach](http://www.knight-of-pi.org/scp-copy-linux-raspberry/)
+Prefer to use Sublime text to remotely edit the files? Try out one of these guides [plugin method](http://www.knight-of-pi.org/using-a-host-computer-for-coding-on-the-raspberry-pi/) or the [terminal approach](http://www.knight-of-pi.org/scp-copy-linux-raspberry/) -->
 
 ### Accessing the Raspberry Pi GUI
 
 *VNC Server (Headless GUI) [Source](http://thejackalofjavascript.com/getting-started-raspberry-pi-node-js/)*
 
-You will be prompted to create an 8 character password. Once set, in Safari (doesn't seem to work in chrome, at least for Mac's) go to vnc://192.168.2.8:5901 and enter the password you just set.
+You will be prompted to create an 8 character password. Once set, in Safari (Chrome doesn't appear to work) go to `vnc://192.168.2.8:5901` (or whichever IP address matches your Pi) and enter the password you set
 
 ```bash
 sudo apt-get install tightvncserver
@@ -157,6 +212,18 @@ vncserver :5901
 
 vncserver -kill :5901 # When done
 ```
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Misc. Notes
 
@@ -223,7 +290,8 @@ Basically, plug it in and boot the raspberry pi. There shouldn't be any necessar
 [Make Tech Easier](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/) or an [alternative guide](http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/).
 
 #### USB Webcam
->Works! but can't share over wifi :(
+
+Works! but can't share over wifi :(
 
 ```bash
 fswebcam -r 1280x720 --no-banner image3.jpg
@@ -240,14 +308,15 @@ https://www.google.com/search?q=raspberry%20pi%20webcam%20node%20usb#q=raspberry
 Following this guide: http://www.eevblog.com/2015/05/19/how-to-live-stream-a-usb-webcam-on-a-raspberry-pi-2/
 sudo apt-get update
 sudo apt-get install libav-tools
-# sudo apt-get install libav-tools
 
 *Didn’t work… Avconv isn’t accessible*
+
 Consider:
 http://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live
 http://pimylifeup.com/raspberry-pi-webcam-server/
 
 *Future for Webcam: FFMPEG*
+
 Node: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg (Old guide referenced by this post)
 http://sirlagz.net/2013/01/07/how-to-stream-a-webcam-from-the-raspberry-pi-part-3/
 https://www.raspberrypi.org/forums/viewtopic.php?f=27&t=14020

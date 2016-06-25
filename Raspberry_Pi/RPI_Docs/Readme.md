@@ -1,6 +1,6 @@
 # My Raspberry Pi Documentation
 
-You are viewing the main guide, but there is additional guides for [Meteor](Meteor.md), [test1](test1.md), and [test2](test2.md)
+You are viewing the main guide, but there is additional guides for [JavaScript (Meteor/Node)](JavaScript.md), [Peripherals (Cameras, etc.) and Wifi](PeripheralsAndWifi.md), and [Electronics](Electronics.md)
 
 <!-- MarkdownTOC depth="6" autolink="true" bracket="round" -->
 
@@ -16,36 +16,17 @@ You are viewing the main guide, but there is additional guides for [Meteor](Mete
         - [Accessing the Raspberry Pi GUI](#accessing-the-raspberry-pi-gui)
         - [Headless File Transfer \(rsync\)](#headless-file-transfer-rsync)
 - [Configure the Raspberry Pi](#configure-the-raspberry-pi)
-- [Backup an Entire SD Card](#backup-an-entire-sd-card)
-- [Keeping the Pi Running Smoothly](#keeping-the-pi-running-smoothly)
-- [Alerting on the End of Long Commands](#alerting-on-the-end-of-long-commands)
-- [TODO](#todo)
-- [Misc. Notes](#misc-notes)
-- [Working in JavaScript](#working-in-javascript)
-    - [Node Installation](#node-installation)
-    - [Meteor Installation](#meteor-installation)
-        - [How to run Meteor](#how-to-run-meteor)
-    - [PID Controllers](#pid-controllers)
-    - [LocalTunnel \(not installed/tested\)](#localtunnel-not-installedtested)
-- [Peripheral Installation](#peripheral-installation)
-        - [RealTek Wireless USB Dongle Installation](#realtek-wireless-usb-dongle-installation)
-        - [USB Webcam](#usb-webcam)
-    - [The Pi Module](#the-pi-module)
-    - [Thermocouple Sensor \(MAX31855\)](#thermocouple-sensor-max31855)
-- [An Arduino](#an-arduino)
-- [Electronics / Real World Notes](#electronics--real-world-notes)
-    - [MOSFETS](#mosfets)
-    - [Analog to Digital Converter](#analog-to-digital-converter)
-    - [Raspberry Pi Pinout](#raspberry-pi-pinout)
-    - [Connecting an LED](#connecting-an-led)
-- [General Troubleshooting](#general-troubleshooting)
-    - [HDMI Not Displaying](#hdmi-not-displaying)
+- [Other Useful Tools and Raspberry Pi Notes](#other-useful-tools-and-raspberry-pi-notes)
+    - [Backup an Entire SD Card](#backup-an-entire-sd-card)
+    - [Keeping the Pi Running Smoothly](#keeping-the-pi-running-smoothly)
+    - [Alerting on the End of Long Commands](#alerting-on-the-end-of-long-commands)
+    - [Mastering Bash History](#mastering-bash-history)
 
 <!-- /MarkdownTOC -->
 
 ## About
 
-I always forget time saving steps while working on a Raspberry Pi. These notes started as a rough outline on a shared Google Drive document for my lab, but they were rarely used. I still found them useful, so I moved them to Github which made working with code far easier.
+I always reference some version of this guide while working on the Raspberry Pi, so I figured I would clean it up and make it accessible to everyone.
 
 ## Starting from Scratch
 
@@ -65,14 +46,14 @@ To make the SD card bootable by the Raspberry Pi, you will need to open Terminal
 
 1. Get the microSD disk number and unmount the specified disk (in this case, /dev/disk2)
 
-    ```sh
+    ```bash
     diskutil list | grep 0: # then match up the disk name and disk ID
     diskutil unmountDisk /dev/disk2
     ```
 
 2. See the notes prepended by `#`. Make sure to update the file name and disk ID appropriately. To check the current status, while writing to the SD card press <kbd>Ctrl</kbd>+<kbd>T</kbd> (on Mac).
 
-    ```sh
+    ```bash
     # Navigate to your downloads folder
     cd ~/Downloads
     # Unzip the newly downloaded file
@@ -102,7 +83,7 @@ You will need nmap, which can be [downloaded here](https://nmap.org/download.htm
 
 Using nmap, find the raspberry pi's IP address ([Source](http://raspberrypi.stackexchange.com/questions/13936/find-raspberry-pi-address-on-local-network/13937#13937)):
 
-```sh
+```bash
 nmap -p 22 --open -sV 192.168.2.*
 # Alternatively:
 sudo nmap -sP 192.168.2.* | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'
@@ -113,7 +94,7 @@ sudo nmap -sP 192.168.1.* | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'
 
 Now connect to the Raspberry Pi. The initial password is `raspberry`, while the user is pi.
 
-```sh
+```bash
 # Use the address returned by the previous command
 ssh pi@192.168.2.8
 ```
@@ -126,7 +107,7 @@ These brief notes will help you master working with a headless connection.
 
 If having trouble with “man in the middle” warnings, regenerate the SSH key:
 
-```sh
+```bash
 ssh-keygen -R # "<enter hostname>”
 # For example:
 ssh-keygen -R 192.168.2.9
@@ -150,7 +131,7 @@ vncserver -kill :5901 # When done
 
 Rsync is a realy great tool. Lets say you have:
 
-```shell
+```bash
 # on your computer:
 dir1/
 |__file1.txt
@@ -185,7 +166,7 @@ If you would like to read more about rsync, read the full [Digital Ocean guide](
 
 The initial password is `raspberry`. Once logged in you will need to run:
 
-```sh
+```bash
 sudo raspi-config
 ```
 
@@ -197,7 +178,9 @@ Click through the menu options using your arrow keys. You will want to make sure
 * and any other options you see fit
 * Reboot, especially if you changed the filesystem
 
-## Backup an Entire SD Card
+## Other Useful Tools and Raspberry Pi Notes
+
+### Backup an Entire SD Card
 
 You will use the dd command line tool to convert a given disk (disk2) into a `.img` file. To reach a more sane file size, use gzip or on a Mac, right click on the file and choose the “compress” menu option.
 
@@ -210,17 +193,17 @@ cd ~/Downloads
 
 Then use dd, but change the filename to one that makes sense:
 
-```
+```bash
 sudo dd if=/dev/rdisk2 of=2016-06-23_Backup.img bs=1m
 ```
 
 If you need to delete a .img file, use ```rm``` from the command line, otherwise the file system doesn't properly account for the removal of the large file if done through the GUI.
 
-## Keeping the Pi Running Smoothly
+### Keeping the Pi Running Smoothly
 
 You will want to keep the Raspberry Pi up to date. I made a short script that makes this easy. First it checks to make sure that you are using root permission and then does its thing.
 
-```
+```bash
 # RPI Update Script
 # Written By Kyle King
 
@@ -243,15 +226,15 @@ apt-get autoremove && apt-get autoclean
 
 The entire file is included in `update.sh`, which I like to store in my `~/bin/` as an executable file. See below for more info on making a file executable and how to add notifications on long script completions.
 
-## Alerting on the End of Long Commands
+### Alerting on the End of Long Commands
 
-I found a [great guide]](http://www.pratermade.com/2014/08/use-pushbullet-to-send-notifications-from-your-pi-to-your-phone/) that walks through how to use Pushbullet for bash notifications. I summarized and added my own tweaks below:
+This [great guide](http://www.pratermade.com/2014/08/use-pushbullet-to-send-notifications-from-your-pi-to-your-phone/) walks through how to use Pushbullet for bash notifications. I summarized and added my own tweaks below:
 
 1. Make a [Pushbullet](https://www.pushbullet.com/) account and install the app wherever you want to get notifications
 2. In Pushbullet, go to `Settings`, `Account`, and then click `Create Access Token`.
 3. Create a file: `pushbullet` somewhere on your computer (for now):
 
-    ```
+    ```bash
     #!/bin/bash
 
     API="<Your Access Token Goes Here>"
@@ -270,7 +253,7 @@ I found a [great guide]](http://www.pratermade.com/2014/08/use-pushbullet-to-sen
 4. Test the script, try `bash pushbullet 'IT WORKS!'`
 5. If successful, make the script executable from any directory under your user account:
 
-    ```shell
+    ```bash
     cp pushbullet ~/bin/pushbullet
     chmod +x ~/bin/pushbullet # or chmod 755 ~/bin/pushbullet
     # now you can call: pushbullet "message text"
@@ -278,17 +261,28 @@ I found a [great guide]](http://www.pratermade.com/2014/08/use-pushbullet-to-sen
 
 6. **Making a quick reference snippet**. I use the snippet, `; p ` to generate something like: `; pushbullet "Long Script Finished 11:19 AM"`, so I can write: `sleep 2; pushbullet "Long Script Finished 11:20 AM"`. In [Dash](https://kapeli.com/dash), this snippet looks like: `; pushbullet "Long Script Finished @time"` and could easily be added to any snippet manager you use.
 
+### Mastering Bash History
 
+Cherry picked advice from [this guide](https://www.eriwen.com/bash/effective-shorthand/).
 
+1. Edit your .bash_profile or .bashrc by running:
 
+    ```bash
+    echo '
+    # Modified profile to ignore duplicate history entries on $(date)
+    export HISTCONTROL=ignoredups
+    " >> ~/.bashrc'
+    ```
 
+2. Create an `inputrc` file, which allows you to auto-complete from history on an arrow key press and a any typed characters:
 
+    ```bash
+    cd ~
+    touch inputrc
 
-
-
-## TODO
-
-1. Add inputrc file:
+    # Then copy and past the below text into the nano editor
+    nano inputrc
+    ```
 
     ```bash
     "\eOA": history-search-backward
@@ -300,267 +294,3 @@ I found a [great guide]](http://www.pratermade.com/2014/08/use-pushbullet-to-sen
     "\eOD": backward-char
     "\e[D": backward-char
     ```
-
-2. Add history settings to .bash_profile:
-
-    ```
-    # ------- Start Customized Profile -------
-
-    # Don't put duplicate lines in the history
-    # https://www.eriwen.com/bash/effective-shorthand/
-    export HISTCONTROL=ignoredups
-
-    # ------- End Customized Profile -------
-    ```
-
-
-
-
-
-
-
-
-
-
-
-## Misc. Notes
-
-
-
-Run these often (Note: the -y option is an automatic yes to prompts)
-
-```bash
-sudo apt-get update; sudo apt-get upgrade -y;
-```
-
-## Working in JavaScript
-
-### Node Installation
-
-If you've installed Meteor, then you have Node. If not, follow [this guide for a quick 5 minute install](https://github.com/hendrikmaus/node-pi#install-nodejs).
-
-To start playing around with Node right away, try [this fun, on/off demo](https://github.com/fivdi/onoff) and the [associated guide from Adafruit](https://learn.adafruit.com/node-embedded-development?view=all).
-
-![GIF](https://learn.adafruit.com/system/assets/assets/000/021/906/original/raspberry_pi_demo.gif?1448314329)
-
-### Meteor Installation
-
-To see all of my notes, navigate to [the Meteor-only guide](http://kyleking.github.io/RPI_Docs/meteor.html)
-
-If you just want to see the code, try this Bash Script, which is best downloaded from [Github](https://raw.githubusercontent.com/KyleKing/MML_WIP/master/Build_Scripts/make.sh). The script includes my abbreviated notes and is meant for the Jessie distribution.
-
-#### How to run Meteor
-
-This is of course if your ```.meteor``` directory is in the ```GPIO-test``` folder
-
-```bash
-cd GPIO-test
-meteor update
-sudo meteor # otherwise there are 99 problems
-```
-
-### PID Controllers
-
-Liquid PID
-https://www.npmjs.com/package/liquid-pid
-
-Arduino Ported library
-https://github.com/wilberforce/pid-controller
-
-Alternate
-https://www.npmjs.com/package/node-pid-controller
-
-### LocalTunnel (not installed/tested)
-
-*simple sharing of a localhost port*
-
-```bash
-sudo npm install -g localtunnel
-top # useful to see current use of system
-sudo reboot
-```
-
-## Peripheral Installation
-
-#### RealTek Wireless USB Dongle Installation
-
-Basically, plug it in and boot the raspberry pi. There shouldn't be any necessary drivers. To connect to a network, either use the UI (easiest) or the command line, both of which are explained in [this Adafruit guide](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup?view=all).Alternatively, these two guides are equally useful:
-[Make Tech Easier](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/) or an [alternative guide](http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/).
-
-#### USB Webcam
-
-Works! but can't share over wifi :(
-
-```bash
-fswebcam -r 1280x720 --no-banner image3.jpg
-fswebcam  --no-banner image.jpg
-(/dev/video0)
-```
-
-Misc. Links:
-http://pimylifeup.com/raspberry-pi-webcam-server/
-http://thejackalofjavascript.com/rpi-live-streaming/
-https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&es_th=1&ie=UTF-8#q=control+%27usb+webcam%27+from+node+server+raspberry+pi
-https://www.google.com/search?q=raspberry%20pi%20webcam%20node%20usb#q=raspberry+pi+webcam+node+npm
-
-Following this guide: http://www.eevblog.com/2015/05/19/how-to-live-stream-a-usb-webcam-on-a-raspberry-pi-2/
-sudo apt-get update
-sudo apt-get install libav-tools
-
-*Didn’t work… Avconv isn’t accessible*
-
-Consider:
-http://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live
-http://pimylifeup.com/raspberry-pi-webcam-server/
-
-*Future for Webcam: FFMPEG*
-
-Node: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg (Old guide referenced by this post)
-http://sirlagz.net/2013/01/07/how-to-stream-a-webcam-from-the-raspberry-pi-part-3/
-https://www.raspberrypi.org/forums/viewtopic.php?f=27&t=14020
-
-### The Pi Module
-
-[Great Guide](https://github.com/raspberrypilearning/guides/blob/master/camera/README.md)
-
-### Thermocouple Sensor (MAX31855)
-
-- [Arduino Guide for MAX31855](https://learn.adafruit.com/thermocouple?view=all)
-- [~Tessel~](https://github.com/tessel/thermocouple-max31855)
-- [*Pi NPM Package*](https://www.npmjs.com/package/max31855pi)
-- [Python Guide](https://learn.adafruit.com/max31855-thermocouple-python-library?view=all)
-
-Attempted Python version to confirm that the hardware works:
-
-```bash
-sudo apt-get update
-sudo apt-get install build-essential python-dev python-pip python-smbus git
-```
-
-## An Arduino
-
-*I guess this counts as a peripheral?*
-
-How to Connect an Arduino over Serial
-Source -> possible to symlink if trouble identifying multiple devices
-http://arduino.stackexchange.com/questions/3680/in-linux-how-to-identify-multiple-arduinos-connected-over-usb
-
-The connected arduino should follow this pattern: /dev/ttyACM0 or /dev/ttyACM1 etc.
-Search by running $ ls /dev/ttyACM*
-Also useful: “Get to know your RPI”
-http://raspberry-pi-guide.readthedocs.org/en/latest/system.html
-
-<!-- TODO Add Node/Meteor Guide and Sample Code-->
-
-
-## Electronics / Real World Notes
-
-### MOSFETS
-[A brief overview of theory](http://blog.oscarliang.net/how-to-use-mosfet-beginner-tutorial/) and a [basic guide with in process images](http://aruljohn.com/blog/raspberrypi-christmas-lights-rgb-led/). Note: it may be useful to use a diode on the drain pin of the MOSFET to protect your circuit, however most common diodes only accept up to 1A.
-
-![Example Circuit Diagram](http://aruljohn.com/blog/pix/ChristmasRGBLEDLights_aruljohn.png)
-
-### Analog to Digital Converter
-
-The [Adafruit Guide](https://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi?view=all) and my variation of the example code:
-
-```python
-#!/usr/bin/env python
-
-# Written by Limor "Ladyada" Fried for Adafruit Industries, (c) 2015
-# This code is released into the public domain
-
-import time
-import os
-import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BCM)
-DEBUG = 1
-
-# read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
-def readadc(adcnum, clockpin, mosipin, misopin, cspin):
-        if ((adcnum > 7) or (adcnum < 0)):
-                return -1
-        GPIO.output(cspin, True)
-
-        GPIO.output(clockpin, False)  # start clock low
-        GPIO.output(cspin, False)     # bring CS low
-
-        commandout = adcnum
-        commandout |= 0x18  # start bit + single-ended bit
-        commandout <<= 3    # we only need to send 5 bits here
-        for i in range(5):
-                if (commandout & 0x80):
-                        GPIO.output(mosipin, True)
-                else:
-                        GPIO.output(mosipin, False)
-                commandout <<= 1
-                GPIO.output(clockpin, True)
-                GPIO.output(clockpin, False)
-
-        adcout = 0
-        # read in one empty bit, one null bit and 10 ADC bits
-        for i in range(12):
-                GPIO.output(clockpin, True)
-                GPIO.output(clockpin, False)
-                adcout <<= 1
-                if (GPIO.input(misopin)):
-                        adcout |= 0x1
-
-        GPIO.output(cspin, True)
-
-        adcout >>= 1       # first bit is 'null' so drop it
-        return adcout
-
-# change these as desired - they're the pins connected from the
-# SPI port on the ADC to the Cobbler
-SPICLK = 18
-SPIMISO = 23
-SPIMOSI = 24
-SPICS = 25
-
-# set up the SPI interface pins
-GPIO.setup(SPIMOSI, GPIO.OUT)
-GPIO.setup(SPIMISO, GPIO.IN)
-GPIO.setup(SPICLK, GPIO.OUT)
-GPIO.setup(SPICS, GPIO.OUT)
-
-while True:
-        # read the analog pin
-        CH0 = readadc(0, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        CH1 = readadc(1, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        CH2 = readadc(2, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        CH3 = readadc(3, SPICLK, SPIMOSI, SPIMISO, SPICS)
-
-        print '{0},{1},{2},{3}'.format(CH0, CH1, CH2, CH3)
-        if DEBUG:
-                print ">> CH0:", CH0
-                print "   CH1:", CH1
-                print "   CH2:", CH2
-                print "   CH3:", CH3
-```
-
-### Raspberry Pi Pinout
-
-[Printable version](https://github.com/splitbrain/rpibplusleaf)
-
-### Connecting an LED
-
-Long pin === positive (+) (Somehow I always forget this, so this is part of any guide I make)
-Connect the long (+ cathode) leg to source and the short leg (- anode) into ground
-[Suggested resistor is ~1kΩ](http://www.ladyada.net/learn/arduino/lesson3.html)
-_Ideally keep the current under 15mA_
-
-## General Troubleshooting
-
-### HDMI Not Displaying
-You can change the configuration, [but first](http://blog.mivia.dk/solved-hdmi-working-raspberry-pi/)
-
-- [ ] Remove all USB peripherals (keyboard, mouse, especially wifi, etc)
-- [ ] Check HMI adapter with laptop to confirm function
-- [ ] Shutoff raspberry pi and plug in only micro-usb power and HDMI
-	- [ ] Confirm raspberry pi is on by connecting via ethernet/headless]
-- [ ] If still no progress, try a different power supply (5V - 2A is recommended [iPhone USB charger adapter, laptop (note: can only supply ~900mA), etc.])
-- [ ] Then try a different monitor
-- [ ] If this still doesn’t work, try a fresh SD card
-- [ ] If still no luck, play around with the configuration file following [this guide](http://blog.mivia.dk/solved-hdmi-working-raspberry-pi/)

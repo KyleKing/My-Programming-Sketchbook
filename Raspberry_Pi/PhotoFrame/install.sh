@@ -2,13 +2,12 @@
 # Written By Kyle King
 
 tput setaf 6; echo "
-Meteor Installation Script for RPI
+PhotoFrame Installation Script for RPI
 Only works for Jessie Distribution of Raspbian
 "
 if [[ $EUID -ne 0 ]]; then
 	tput setaf 3; echo "This script needs to be run as root:
-	su
-	bash install.sh
+	sudo bash install.sh
 	"
 	exit 1
 fi

@@ -7,8 +7,7 @@ Only works for Jessie Distribution of Raspbian
 "
 if [[ $EUID -ne 0 ]]; then
 	tput setaf 3; echo "This script needs to be run as root:
-	su
-	bash install-meteor.sh
+	sudo bash install-meteor.sh
 	"
 	exit 1
 fi

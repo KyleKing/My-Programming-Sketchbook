@@ -6,68 +6,42 @@ You are viewing the main guide, but there is additional guides for [Meteor](Mete
 
 - [About](#about)
 - [Starting from Scratch](#starting-from-scratch)
-        - [Download `Raspbian-Jessie`](#download-raspbian-jessie)
-        - [Format a fresh microSD Card](#format-a-fresh-microsd-card)
-        - [Prep your microSD Card](#prep-your-microsd-card)
-- [Booting a Fresh Installation](#booting-a-fresh-installation)
-        - [Easiest Setup](#easiest-setup)
-        - [*\(Alternatively\) Headless Connection*](#alternatively-headless-connection)
-                - [Troubleshooting SSH](#troubleshooting-ssh)
-        - [Configure the Raspberry Pi](#configure-the-raspberry-pi)
-- [Backup an Entire SD Card](#backup-an-entire-sd-card)
-- [Other Useful Tools](#other-useful-tools)
-        - [SSH file transfer/syncing \(Rsync\)](#ssh-file-transfersyncing-rsync)
+    - [Download `Raspbian-Jessie`](#download-raspbian-jessie)
+    - [Format a fresh microSD Card](#format-a-fresh-microsd-card)
+    - [Prep your microSD Card](#prep-your-microsd-card)
+- [Booting a Fresh Installation - Easiest Setup](#booting-a-fresh-installation---easiest-setup)
+- [Booting a Fresh Installation - \(Alternative\) Headless Connection](#booting-a-fresh-installation---alternative-headless-connection)
+    - [Tools for Working With a Headless Connection](#tools-for-working-with-a-headless-connection)
+        - [Troubleshooting SSH](#troubleshooting-ssh)
         - [Accessing the Raspberry Pi GUI](#accessing-the-raspberry-pi-gui)
+        - [Headless File Transfer \(rsync\)](#headless-file-transfer-rsync)
+- [Configure the Raspberry Pi](#configure-the-raspberry-pi)
+- [Backup an Entire SD Card](#backup-an-entire-sd-card)
+- [Keeping the Pi Running Smoothly](#keeping-the-pi-running-smoothly)
+- [Alerting on the End of Long Commands](#alerting-on-the-end-of-long-commands)
+- [TODO](#todo)
 - [Misc. Notes](#misc-notes)
-        - [How to Update](#how-to-update)
 - [Working in JavaScript](#working-in-javascript)
-        - [Node Installation](#node-installation)
-        - [Meteor Installation](#meteor-installation)
-                - [How to run Meteor](#how-to-run-meteor)
-        - [PID Controllers](#pid-controllers)
-        - [LocalTunnel \(not installed/tested\)](#localtunnel-not-installedtested)
+    - [Node Installation](#node-installation)
+    - [Meteor Installation](#meteor-installation)
+        - [How to run Meteor](#how-to-run-meteor)
+    - [PID Controllers](#pid-controllers)
+    - [LocalTunnel \(not installed/tested\)](#localtunnel-not-installedtested)
 - [Peripheral Installation](#peripheral-installation)
-                - [RealTek Wireless USB Dongle Installation](#realtek-wireless-usb-dongle-installation)
-                - [USB Webcam](#usb-webcam)
-        - [The Pi Module](#the-pi-module)
-        - [Thermocouple Sensor \(MAX31855\)](#thermocouple-sensor-max31855)
+        - [RealTek Wireless USB Dongle Installation](#realtek-wireless-usb-dongle-installation)
+        - [USB Webcam](#usb-webcam)
+    - [The Pi Module](#the-pi-module)
+    - [Thermocouple Sensor \(MAX31855\)](#thermocouple-sensor-max31855)
 - [An Arduino](#an-arduino)
 - [Electronics / Real World Notes](#electronics--real-world-notes)
-        - [MOSFETS](#mosfets)
-        - [Analog to Digital Converter](#analog-to-digital-converter)
-        - [Raspberry Pi Pinout](#raspberry-pi-pinout)
-        - [Connecting an LED](#connecting-an-led)
+    - [MOSFETS](#mosfets)
+    - [Analog to Digital Converter](#analog-to-digital-converter)
+    - [Raspberry Pi Pinout](#raspberry-pi-pinout)
+    - [Connecting an LED](#connecting-an-led)
 - [General Troubleshooting](#general-troubleshooting)
-        - [HDMI Not Displaying](#hdmi-not-displaying)
+    - [HDMI Not Displaying](#hdmi-not-displaying)
 
 <!-- /MarkdownTOC -->
-
-
-<!-- TODO: Add inputrc: -->
-
-"\eOA": history-search-backward
-"\e[A": history-search-backward
-"\eOB": history-search-forward
-"\e[B": history-search-forward
-"\eOC": forward-char
-"\e[C": forward-char
-"\eOD": backward-char
-"\e[D": backward-char
-
-<!-- TODO: and history to .bash_profile: -->
-
-# ------- Start Customized Profile -------
-
-# Don't put duplicate lines in the history
-# https://www.eriwen.com/bash/effective-shorthand/
-export HISTCONTROL=ignoredups
-
-# ------- End Customized Profile -------
-
-
-<!-- End TODO -->
-
-
 
 ## About
 
@@ -111,13 +85,11 @@ To make the SD card bootable by the Raspberry Pi, you will need to open Terminal
 
 4. After a short wait, the SD card will be ready to go. Plug the microSD card into the Raspberry Pi and connect the USB Devices/HDMI/Ethernet cord with the micro USB power supply last. You should the green light blink to confirm the SD card is booting. The green light will stop when completed booting.
 
-## Booting a Fresh Installation
-
-### Easiest Setup
+## Booting a Fresh Installation - Easiest Setup
 
 Grab an HDMI display (or HDMI adapter and display), mouse, and keyboard and connect them to the Raspberry Pi. When powered on you can interact with the Pi as if a full size computer.
 
-### *(Alternatively) Headless Connection*
+## Booting a Fresh Installation - (Alternative) Headless Connection
 
 * Connect to a wifi network that allows internet sharing
 * Open System Preferences -> Network and make sure there is a profile for an Ethernet connection and a Wifi profile
@@ -146,6 +118,10 @@ Now connect to the Raspberry Pi. The initial password is `raspberry`, while the 
 ssh pi@192.168.2.8
 ```
 
+### Tools for Working With a Headless Connection
+
+These brief notes will help you master working with a headless connection.
+
 #### Troubleshooting SSH
 
 If having trouble with “man in the middle” warnings, regenerate the SSH key:
@@ -156,7 +132,56 @@ ssh-keygen -R # "<enter hostname>”
 ssh-keygen -R 192.168.2.9
 ```
 
-### Configure the Raspberry Pi
+#### Accessing the Raspberry Pi GUI
+
+*VNC Server (Headless GUI) [Source](http://thejackalofjavascript.com/getting-started-raspberry-pi-node-js/)*
+
+You will be prompted to create an 8 character password. Once set, in Safari (Chrome doesn't appear to work) go to `vnc://192.168.2.8:5901` as if a regular URL (or whichever IP address matches your Pi) and enter the password you set in the popup.
+
+```bash
+sudo apt-get install tightvncserver
+tightvncserver
+vncserver :5901
+
+vncserver -kill :5901 # When done
+```
+
+#### Headless File Transfer (rsync)
+
+Rsync is a realy great tool. Lets say you have:
+
+```shell
+# on your computer:
+dir1/
+|__file1.txt
+|__file2.txt
+|__subdir
+    |__file3.txt
+
+# on the pi:
+dir2/
+|__file4.txt
+
+# to sync, run this from your computer
+rsync -a dir1 pi@192.168.2.8:dir2/
+
+# Then on the pi:
+dir2/
+|__file4.txt
+|__dir1/
+    |__file1.txt
+    |__file2.txt
+    |__subdir
+        |__file3.txt
+```
+
+That's it. Just use `rsync -a ./dirName pi@192.168.2.7:~`. **There is one important note**. If you use `dir/` then you will only transfer the subdirectories and folders. I prefer to use `dir`, which keeps the parent directory.
+
+Additionally, you may want to ignore folders or files: `rsync -a --exclude=ignoredDir/ ./dirName pi@192.168.2.7:~`. Or delete old files: `rsync -a --delete ./dirName pi@192.168.2.7:~`, but be careful and test this with: `rsync -a --delete --dry-run ./dirName pi@192.168.2.7:~`. I most often use the options: `rsync -azP ./dirName pi@192.168.2.7:~`, which shows a progress bar and allows a stopped process to continue.
+
+If you would like to read more about rsync, read the full [Digital Ocean guide](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps). If you would like to edit specific files and don't need to sync an entire directory, there are several options using SCP for Sublime Text among other editors.
+
+## Configure the Raspberry Pi
 
 The initial password is `raspberry`. Once logged in you will need to run:
 
@@ -191,56 +216,102 @@ sudo dd if=/dev/rdisk2 of=2016-06-23_Backup.img bs=1m
 
 If you need to delete a .img file, use ```rm``` from the command line, otherwise the file system doesn't properly account for the removal of the large file if done through the GUI.
 
-## Other Useful Tools
+## Keeping the Pi Running Smoothly
 
-### SSH file transfer/syncing (Rsync)
+You will want to keep the Raspberry Pi up to date. I made a short script that makes this easy. First it checks to make sure that you are using root permission and then does its thing.
 
-[Full Guide](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
+```
+# RPI Update Script
+# Written By Kyle King
 
-<!-- TODO:
-The full guide is great. You can easily edit files in sublime on your personal computer while remotely connected to the raspberry pi. I have two notes that may prove useful. First the difference between ~/dir1 vs ~/dir1/ matters. Second, this is the code I ran:
+if [[ $EUID -ne 0 ]]; then
+    tput setaf 3; echo "This script needs to be run as root:
+    sudo bash update.sh
+    "
+    exit 1
+fi
 
-```bash
-rsync -a /Path/To/<MyFolderName> pi@192.168.2.7:/home/pi
+# Begin by updating the RPI
+tput setaf 6; echo "
+Searching for out of date packages, installing updates, and cleaning up afterward"
+tput setaf 7; echo ""
+apt-get update
+apt-get upgrade -y # automatic yes to prompts
+apt-get dist-upgrade -y
+apt-get autoremove && apt-get autoclean
 ```
 
-This was the most crucial step and not on the guide:
+The entire file is included in `update.sh`, which I like to store in my `~/bin/` as an executable file. See below for more info on making a file executable and how to add notifications on long script completions.
 
-```bash
-ssh -R 52698:localhost:52698 pi@192.168.1.128
-```
+## Alerting on the End of Long Commands
 
-Install subl command line tool:
+I found a [great guide]](http://www.pratermade.com/2014/08/use-pushbullet-to-send-notifications-from-your-pi-to-your-phone/) that walks through how to use Pushbullet for bash notifications. I summarized and added my own tweaks below:
 
-```bash
-cd /usr/local/bin
-#if using Sublime Text 3:
-ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" subl
-#if using Sublime Text 2:
-ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" subl
-#Install rmate on raspberry pi :
-sudo wget -O /usr/local/bin/rsub https://raw.github.com/aurora/rmate/master/rmate
-# Make executable:
-sudo chmod +x /usr/local/bin/rsub
-```
+1. Make a [Pushbullet](https://www.pushbullet.com/) account and install the app wherever you want to get notifications
+2. In Pushbullet, go to `Settings`, `Account`, and then click `Create Access Token`.
+3. Create a file: `pushbullet` somewhere on your computer (for now):
 
-Prefer to use Sublime text to remotely edit the files? Try out one of these guides [plugin method](http://www.knight-of-pi.org/using-a-host-computer-for-coding-on-the-raspberry-pi/) or the [terminal approach](http://www.knight-of-pi.org/scp-copy-linux-raspberry/) -->
+    ```
+    #!/bin/bash
 
-### Accessing the Raspberry Pi GUI
+    API="<Your Access Token Goes Here>"
+    BODY="<Your Raspberry Pi Alert Phrase Here>"
+    MSG="$1"
 
-*VNC Server (Headless GUI) [Source](http://thejackalofjavascript.com/getting-started-raspberry-pi-node-js/)*
+    # Output text as grey
+    tput setaf 8; curl -u $API: https://api.pushbullet.com/v2/pushes -d type=note -d title="$MSG" -d body="$BODY"
 
-You will be prompted to create an 8 character password. Once set, in Safari (Chrome doesn't appear to work) go to `vnc://192.168.2.8:5901` (or whichever IP address matches your Pi) and enter the password you set
+    # Add some spacing and return to white terminal color
+    tput setaf 7; echo '
 
-```bash
-sudo apt-get install tightvncserver
-tightvncserver
-vncserver :5901
+    '
+    ```
 
-vncserver -kill :5901 # When done
-```
+4. Test the script, try `bash pushbullet 'IT WORKS!'`
+5. If successful, make the script executable from any directory under your user account:
+
+    ```shell
+    cp pushbullet ~/bin/pushbullet
+    chmod +x ~/bin/pushbullet # or chmod 755 ~/bin/pushbullet
+    # now you can call: pushbullet "message text"
+    ```
+
+6. **Making a quick reference snippet**. I use the snippet, `; p ` to generate something like: `; pushbullet "Long Script Finished 11:19 AM"`, so I can write: `sleep 2; pushbullet "Long Script Finished 11:20 AM"`. In [Dash](https://kapeli.com/dash), this snippet looks like: `; pushbullet "Long Script Finished @time"` and could easily be added to any snippet manager you use.
 
 
+
+
+
+
+
+
+
+## TODO
+
+1. Add inputrc file:
+
+    ```bash
+    "\eOA": history-search-backward
+    "\e[A": history-search-backward
+    "\eOB": history-search-forward
+    "\e[B": history-search-forward
+    "\eOC": forward-char
+    "\e[C": forward-char
+    "\eOD": backward-char
+    "\e[D": backward-char
+    ```
+
+2. Add history settings to .bash_profile:
+
+    ```
+    # ------- Start Customized Profile -------
+
+    # Don't put duplicate lines in the history
+    # https://www.eriwen.com/bash/effective-shorthand/
+    export HISTCONTROL=ignoredups
+
+    # ------- End Customized Profile -------
+    ```
 
 
 
@@ -254,7 +325,7 @@ vncserver -kill :5901 # When done
 
 ## Misc. Notes
 
-### How to Update
+
 
 Run these often (Note: the -y option is an automatic yes to prompts)
 
@@ -477,7 +548,7 @@ while True:
 
 Long pin === positive (+) (Somehow I always forget this, so this is part of any guide I make)
 Connect the long (+ cathode) leg to source and the short leg (- anode) into ground
-[Suggested resistor is ~1kΩ](http://www.ladyada.net/learn/arduino/lesson3.html)
+[Suggested resistor is ~1kΩ](http://www.ladyada.net/learn/arduino/lesson3.html)
 _Ideally keep the current under 15mA_
 
 ## General Troubleshooting

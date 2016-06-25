@@ -3,8 +3,7 @@
 
 if [[ $EUID -ne 0 ]]; then
 	tput setaf 3; echo "This script needs to be run as root:
-	su
-	bash update.sh
+	sudo bash update.sh
 	"
 	exit 1
 fi

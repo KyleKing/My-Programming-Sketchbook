@@ -13,12 +13,10 @@
 
 ## Printable Raspberry Pi Pinout
 
-[Printable version](https://github.com/splitbrain/rpibplusleaf)
-
 <p align="center">
-  <img width="450" height=auto src="https://www.splitbrain.org/_media/blog/2015-03/gpio.jpg?w=200&tok=ee4ac3">
+  <img width="200" height=auto src="https://www.splitbrain.org/_media/blog/2015-03/gpio.jpg?w=200&tok=ee4ac3">
 </p>
-<p align="center">The pin diagram in use</p>
+<p align="center">The pin diagram in use, [click here to download the printable version](https://github.com/splitbrain/rpibplusleaf)</p>
 
 ## Connecting an LED
 

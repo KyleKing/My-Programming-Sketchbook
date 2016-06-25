@@ -2,14 +2,14 @@
 
 <!-- MarkdownTOC depth="6" autolink="true" bracket="round" -->
 
-- [FIXME - Wifi](#fixme---wifi)
+- [TODO - Wifi](#todo---wifi)
 - [Pi Camera](#pi-camera)
 - [USB Webcam](#usb-webcam)
-- [FIXME An Arduino](#fixme-an-arduino)
+- [TODO An Arduino](#todo-an-arduino)
 
 <!-- /MarkdownTOC -->
 
-## FIXME - Wifi
+## TODO - Wifi
 
 Using the [Realtek Wireless dongle]()
 
@@ -36,7 +36,7 @@ These "how to stream a webcam" guides might be useful:
 - [http://sirlagz.net/2013/01/07/how-to-stream-a-webcam-from-the-raspberry-pi-part-3/](http://sirlagz.net/2013/01/07/how-to-stream-a-webcam-from-the-raspberry-pi-part-3/)
 - [https://www.raspberrypi.org/forums/viewtopic.php?f=27&t=14020](https://www.raspberrypi.org/forums/viewtopic.php?f=27&t=14020)
 
-## FIXME An Arduino
+## TODO An Arduino
 
 *I guess this counts as a peripheral?*
 

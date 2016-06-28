@@ -1,4 +1,3 @@
-
 # Raspberry Pi Photo Frame Project
 
 ## What is it?
@@ -13,7 +12,7 @@ The images are pulled from a special Dropbox folder that can be updated by [anyo
 The project has still progressed and the frame is starting to come together:
 
 ![PhotoFrame back](README/back_view.jpg)
-![PhotoFrame front](README/fron_view.jpg)
+![PhotoFrame front](README/front_view.jpg)
 
 ## How to install
 

@@ -23,11 +23,13 @@ const photoframe = require('./photoframe.es6');
 // month          0-12 (or names, see below)
 // day of week    0-7
 
+const dbCloudDir = 'Apps/Balloon.io/aloo';
+
 const CronJob = require('cron').CronJob;
 const Fetch = new CronJob('00 05 * * * *',
   () => {
     cronDebug('Fetching Photos');
-    photoframe.fetchDropboxPhotos();
+    photoframe.downloadPhotos(dbCloudDir);
   },
   () => {
     console.log(info('Finished Fetch Task'));

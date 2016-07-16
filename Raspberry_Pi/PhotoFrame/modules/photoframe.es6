@@ -30,6 +30,11 @@ module.exports = {
    * Configure setup and scoped variables
    */
   downloadPhotos(dbCloudDir) {
+
+    // client.mv("foo", "bar", function(status, reply){
+    //   console.log(reply)
+    // })
+
     photoDebug('Starting downloadPhotos()');
     const client = app.client(secret.accesstoken);
     const options = { root: 'dropbox' };

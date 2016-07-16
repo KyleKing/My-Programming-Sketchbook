@@ -4,7 +4,7 @@
 // by Kyle King
 
 /**
- * User variables
+ * User variables - also set in modules/crontasks.es6
  */
 const dbCloudDir = 'Apps/Balloon.io/aloo';
 

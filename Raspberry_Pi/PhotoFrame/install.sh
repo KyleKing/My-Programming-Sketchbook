@@ -12,6 +12,17 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
+curDir=$(pwd)
+
+tput setaf 7; echo 'Configure Bash settings by running both of these commands:
+
+mv inputrc $HOME/inputrc
+
+echo "# Modified profile to ignore duplicate history entries on $(date)
+export HISTCONTROL=ignoredups
+" >> ~/.bashrc'
+
+
 # Begin by updating RPI
 tput setaf 6; echo "
 Searching for out of date packages, installing updates, and cleaning up afterward"
@@ -21,56 +32,68 @@ apt-get upgrade -y # automatic yes to prompts
 apt-get dist-upgrade -y
 apt-get autoremove && apt-get autoclean
 
+# Get system info, then install Node:
 # Increment this to get a newer/older version:
 nodeInstallV=v6.0.0
+armVersion=$(cat /proc/cpuinfo | egrep -o "\(v[0-9]{2}\)" | egrep -o "v[0-9]{2}")
+# testArmVersion=$(echo "processor v71 (v61)" | egrep -o "\(v[0-9]{2}\)" | egrep -o "v[0-9]{2}")
+# echo $testArmVersion
+armV=arm$armVersion
 tput setaf 6; echo "
-Installing Node $nodeInstallV:"
-tput setaf 7; echo ""
-wget https://nodejs.org/dist/v6.0.0/node-$nodeInstallV-linux-armv7l.tar.gz
-tar -xvf node-$nodeInstallV-linux-armv7l.tar.gz
-cd node-$nodeInstallV-linux-armv7l
+Installing Node $nodeInstallV for processor $armV"
 
-# Now the component for the PhotoFrame
-tput setaf 6; echo "
-Installing framebuffer imageviewer (fbi)"
-tput setaf 7; echo ""
-apt-get install fbi -y
+tput setaf 7; cd $HOME
+wget https://nodejs.org/dist/$nodeInstallV/node-$nodeInstallV-linux-$armV.tar.gz
+tar -xf node-$nodeInstallV-linux-$armV.tar.gz
+cd node-$nodeInstallV-linux-$armV
+sudo cp -R * /usr/local/
+echo "Done installing Node and NPM, now checking installation:
+When running 'which node', you should see: $(which node)
+When running 'which npm', you should see: $(which npm)
+Installed $(node -v) and $(npm -v)"
+cd $curDir
 
-tput setaf 6; echo '
-# Test fbi
-chmod +rwx ./slideshow.sh
-bash ./slideshow.sh
-# or:
-fbi -a -noverbose -t 4 /home/pi/Raspberry\ Pi/Aloo/imgs/*.png
-'
+# # Now the component for the PhotoFrame
+# tput setaf 6; echo "
+# Installing framebuffer imageviewer (fbi)"
+# tput setaf 7; echo ""
+# apt-get install fbi -y
 
-tput setaf 3; echo '
-# To stop screen blanking:
+# tput setaf 6; echo '
+# # Test fbi
+# chmod +rwx ./slideshow.sh
+# bash ./slideshow.sh
+# # or:
+# fbi -a -noverbose -t 4 /home/pi/Raspberry\ Pi/Aloo/imgs/*.png
+# '
 
-# Edit:
-sudo nano /etc/kbd/config
-# Change:
-BLANK_TIME=0
-POWERDOWN_TIME=0
+# tput setaf 3; echo '
+# # To stop screen blanking:
 
-# Edit:
-sudo nano /etc/xdg/lxsession/LXDE/autostart
-# Add:
-@xset s noblank
-@xset s off
-@xset -dpms
+# # Edit:
+# sudo nano /etc/kbd/config
+# # Change:
+# BLANK_TIME=0
+# POWERDOWN_TIME=0
 
-# Edit:
-sudo nano /etc/lightdm/lightdm.conf # [based on additional step in this guide](https://www.bitpi.co/2015/02/14/prevent-raspberry-pi-from-sleeping/)
+# # Edit:
+# sudo nano /etc/xdg/lxsession/LXDE/autostart
+# # Add:
+# @xset s noblank
+# @xset s off
+# @xset -dpms
 
-# Add:
-xserver-command=X -s 0 -dpms # (below particular header)
-# Other options:
-Discussion on xscreensaver and others
-https://www.raspberrypi.org/forums/viewtopic.php?t=24047&p=247319
+# # Edit:
+# sudo nano /etc/lightdm/lightdm.conf # [based on additional step in this guide](https://www.bitpi.co/2015/02/14/prevent-raspberry-pi-from-sleeping/)
 
-# Other:
-# PQIV or FEH
-https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=17033&start=25
-http://raspberrypi.stackexchange.com/questions/1391/can-anyone-recommend-a-simple-image-viewer
-'
+# # Add:
+# xserver-command=X -s 0 -dpms # (below particular header)
+# # Other options:
+# Discussion on xscreensaver and others
+# https://www.raspberrypi.org/forums/viewtopic.php?t=24047&p=247319
+
+# # Other:
+# # PQIV or FEH
+# https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=17033&start=25
+# http://raspberrypi.stackexchange.com/questions/1391/can-anyone-recommend-a-simple-image-viewer
+# '

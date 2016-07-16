@@ -12,10 +12,11 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
  * General Configuration
  */
 require('babel-register');
+const fs = require('fs-extra');
 
 const program = require('commander');
 program
-  .version('1.0.0')
+  .version(fs.readJsonSync('package.json'))
   .option('-d, --debug', 'run in debug mode (verbose)')
   .option('-l, --local', 'when not a Raspberry Pi, run in \'local\' mode')
   .parse(process.argv);

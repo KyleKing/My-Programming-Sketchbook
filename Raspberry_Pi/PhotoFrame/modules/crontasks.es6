@@ -16,14 +16,13 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
 // month          0-12 (or names, see below)
 // day of week    0-7
 
-const Fetch = new CronJob('00 05 * * * *',
-  () => {
-    cronDebug('Fetching Photos');
-    photoframe.downloadPhotos(dbCloudDir);
-  },
-  () => {
-    console.log(info('Finished Fetch Task'));
-  }, false);
+const Fetch = new CronJob('00 05 * * * *', () => {
+  cronDebug('Fetching Photos');
+  photoframe.downloadPhotos(dbCloudDir);
+},
+() => {
+  console.log(info('Finished Fetch Task'));
+}, false);
 
 // Refresh image every 1/4 minute
 const SlideShow = new CronJob('05,15,25,35,45,55 * * * * *', () => {

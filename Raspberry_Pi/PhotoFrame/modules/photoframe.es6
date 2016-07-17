@@ -67,28 +67,34 @@ module.exports = {
   deleteExcessFiles() {
     photoDebug('Starting deleteExcessFiles()');
     glob('images/*.*', (err, existingImgs) => {
-      if (err) console.error(error(err));
-      const desiredImgs = fs.readJsonSync('images.json');
-      photoDebug('List of desired images:');
-      photoDebug(desiredImgs);
-      if ((existingImgs.length - desiredImgs.length) === 0)
-        photoDebug('All images accounted for');
-      else
-        for (let i = 0; i < existingImgs.length; i++) {
-          const localImg = existingImgs[i];
-          if (desiredImgs.indexOf(localImg) === -1) {
-            console.log(warn(`Deleting: ${localImg}`));
-            fs.unlink(localImg);
-          }
-        }
+      this.deleteFiles(err, existingImgs);
     });
+    // glob('raw/*.*', (err, existingImgs) => {
+    //   this.deleteFiles(err, existingImgs);
+    // });
+  },
+  deleteFiles(err, existingImgs) {
+    if (err) console.error(error(err));
+    const desiredImgs = fs.readJsonSync('images.json');
+    photoDebug('List of desired images:');
+    photoDebug(desiredImgs);
+    if ((existingImgs.length - desiredImgs.length) === 0)
+      photoDebug('All images accounted for');
+    else
+      for (let i = 0; i < existingImgs.length; i++) {
+        const localImg = existingImgs[i];
+        if (desiredImgs.indexOf(localImg) === -1) {
+          console.log(warn(`Deleting: ${localImg}`));
+          fs.unlink(localImg);
+        }
+      }
   },
 
   /**
    * Create slideshow by scheduling images for FBI
    */
   runFBI() {
-    if (!process.env.LOCAL) {
+    if (process.env.LOCAL === 'false') {
       fbiDebug('Starting runFBI()');
       const newImagePath = this.newImage();
 

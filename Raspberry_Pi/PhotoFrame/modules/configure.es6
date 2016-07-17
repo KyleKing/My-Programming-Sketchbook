@@ -16,6 +16,10 @@ const crontasks = require('./crontasks.es6');
 
 const secret = fs.readJsonSync('secret.json');
 
+// require gulp plugins
+const gulp = require('gulp');
+const imageresize = require('gulp-image-resize');
+
 module.exports = {
 
   /**
@@ -26,6 +30,10 @@ module.exports = {
     util.checkFS('images/', () => {
       configDebug('Making dir images/');
       fs.mkdirSync('images');
+    });
+    util.checkFS('raw/', () => {
+      configDebug('Making dir raw/');
+      fs.mkdirSync('raw');
     });
     // Need to make a synchronous check for images.json
     _.each(['history.json', 'images.json'], (file) => {
@@ -76,7 +84,7 @@ once approved, rerun this app with: ${cmd}`;
           this.getTokens();
         else {
           configDebug('Secret file configured, moving on!');
-          this.checkFileNames();
+          this.fixDBoxFilenames();
         }
     });
   },
@@ -125,7 +133,7 @@ once approved, rerun this app with: ${cmd}`;
   /**
    * Make sure that no illegal characters are within the filenames
    */
-  checkFileNames() {
+  fixDBoxFilenames() {
     const app = dbox.app({
       app_key: secret.app_key,
       app_secret: secret.app_secret,
@@ -155,16 +163,45 @@ once approved, rerun this app with: ${cmd}`;
           });
         } else
           this.workaround++;
+        if (this.workaround === this.contentslength)
+          this.finished();
       }
     });
+  },
+
+  /**
+   * Make sure images are the correct resolution for the screen
+   */
+  imageDownSize(imgPath, imgDest, cb) {
+    // build the resize object
+    const resizeSettings = {
+      width: 800,
+      height: 400,
+      crop: false,
+      upscale: false,
+    };
+
+    configDebug('Running imageDownSize');
+    configDebug(resizeSettings);
+
+    // grab all images and resize
+    gulp.src(imgPath).pipe(imageresize(resizeSettings))
+    // output each image to the dest path
+    .pipe(gulp.dest(imgDest));
+
+    // Move onto next step:
+    configDebug('Finished imageDownSize');
+    if (cb) cb();
   },
 
   /**
    * Once Dropbox API configured, start the app!
    */
   finished() {
-    photoframe.init(this.dbCloudDir);
-    if (!process.env.LOCAL)
-      crontasks.start();
+    this.imageDownSize('images/*', 'images/', () => {
+      photoframe.init(this.dbCloudDir);
+      if (process.env.LOCAL === 'false')
+        crontasks.start();
+    });
   },
 };

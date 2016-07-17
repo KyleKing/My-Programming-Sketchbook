@@ -1,5 +1,5 @@
 /* initialize debugger */
-import { error, warn, info, ignore, init } from './debugger.es6';
+import { error, warn, ignore, init } from './debugger.es6';
 const fbiDebug = init('fbi');
 const photoDebug = init('photoframe');
 
@@ -14,8 +14,6 @@ const app = dbox.app({
 const glob = require('glob');
 const exec = require('child_process').exec;
 
-// const crontasks = require('./crontasks.es6');
-
 module.exports = {
 
   /**
@@ -23,14 +21,12 @@ module.exports = {
    */
   init(dbCloudDir) {
     this.downloadPhotos(dbCloudDir);
-    // crontasks.start();
   },
 
   /**
    * Configure setup and scoped variables
    */
   downloadPhotos(dbCloudDir) {
-
     // client.mv("foo", "bar", function(status, reply){
     //   console.log(reply)
     // })
@@ -49,7 +45,7 @@ module.exports = {
         // Check if image is stored locally and download those not found
         fs.access(localpath, fs.R_OK | fs.W_OK, (notFound) => {
           if (notFound)
-            client.get(filepath, options, (stat, reply, metadata) => {
+            client.get(filepath, options, (stat, reply) => {
               // const localpath = `images/${path.basename(metadata.path)}`;
               const wstream = fs.createWriteStream(localpath);
               wstream.write(reply);
@@ -61,7 +57,6 @@ module.exports = {
       }
       // Once the list of images is updated, start the next steps
       fs.writeJSONSync('images.json', desiredImgs);
-      // this.runFBI();
       this.deleteExcessFiles();
     });
   },
@@ -93,19 +88,22 @@ module.exports = {
    * Create slideshow by scheduling images for FBI
    */
   runFBI() {
-    fbiDebug('Starting runFBI()');
-    const newImagePath = this.newImage();
+    if (!process.env.LOCAL) {
+      fbiDebug('Starting runFBI()');
+      const newImagePath = this.newImage();
 
-    // The -T option makes sure the command is run on the pi and not on my
-    // device when connected over SSH
-    const completepath = `"/home/pi/PhotoFrame/${newImagePath}"`;
-    const command = `sudo fbi -a -noverbose -T 10 ${completepath}`;
-    const child = exec(command, (err, stdout, stderr) => {
-      if (err) fbiDebug(error(err));
-      fbiDebug(`Switching image displayed: ${command}`);
-      if (stdout) fbiDebug(warn(`stdout: ${stdout}`));
-      if (stderr) fbiDebug(error(`stderr: ${stderr}`));
-    });
+      // The -T option makes sure the command is run on the pi and not on my
+      // device when connected over SSH
+      const completepath = `"/home/pi/PhotoFrame/${newImagePath}"`;
+      const command = `sudo fbi -a -noverbose -T 10 ${completepath}`;
+      exec(command, (err, stdout, stderr) => {
+        if (err) fbiDebug(error(err));
+        fbiDebug(`Switching image displayed: ${command}`);
+        if (stdout) fbiDebug(warn(`stdout: ${stdout}`));
+        if (stderr) fbiDebug(error(`stderr: ${stderr}`));
+      });
+    } else
+      console.log('No FBI was run');
   },
 
   /* Randomly selects a random index of a given array */

@@ -1,20 +1,13 @@
 /* initialize debugger */
-import { error, warn, info, ignore, init } from './debugger.es6';
+import { error, warn, info, init } from './debugger.es6';
 const cronDebug = init('cron');
-
-const exec = require('child_process').exec;
-
 const photoframe = require('./photoframe.es6');
 
-/**
- * Schedule update tasks to update locally stored images
- */
+const CronJob = require('cron').CronJob;
+const exec = require('child_process').exec;
 
-/*
- * Runs every weekday (Monday through Friday)
- * at 11:30:00 AM. It does not run on Saturday
- * or Sunday.
- */
+const dbCloudDir = 'Apps/Balloon.io/aloo';
+
 // Quick CRON guide
 // second         0-59
 // minute         0-59
@@ -23,9 +16,6 @@ const photoframe = require('./photoframe.es6');
 // month          0-12 (or names, see below)
 // day of week    0-7
 
-const dbCloudDir = 'Apps/Balloon.io/aloo';
-
-const CronJob = require('cron').CronJob;
 const Fetch = new CronJob('00 05 * * * *',
   () => {
     cronDebug('Fetching Photos');
@@ -39,7 +29,7 @@ const Fetch = new CronJob('00 05 * * * *',
 const SlideShow = new CronJob('05,15,25,35,45,55 * * * * *', () => {
   cronDebug('Starting slideShow CronJob');
   photoframe.runFBI();
-}, () => {}, true);
+}, () => {}, false);
 
 // Should remove all instances of FBI, but always reports: 'command failed'?
 // When actually seems to work?
@@ -57,18 +47,18 @@ const KillOldFBI = new CronJob('10 * * * * *', () => {
   // kill previous processes to avoid sudden crashing:
   const clearCMD = 'sudo kill $(ps aux | grep \'[f]bi\'' +
     ' | awk \'{print $2}\');';
-  const childClear = exec(clearCMD, (childerr, stdout, stderr) => {
+  // const childClear = exec(clearCMD, (childerr, stdout, stderr) => {
+  exec(clearCMD, (childerr, stdout, stderr) => {
     cronDebug(warn(`Attempting to Clear List of PID: ${clearCMD}`));
     if (childerr) cronDebug(warn(childerr));
     if (stdout) cronDebug(warn(`stdout: ${stdout}`));
     if (stderr) cronDebug(error(`stderr: ${stderr}`));
   });
-}, () => {}, true);
+}, () => {}, false);
 
 module.exports = {
-
   /**
-   * Configure setup and scoped variables
+   * Schedule update tasks to update locally stored images
    */
   start() {
     cronDebug('Starting crontask.start()');

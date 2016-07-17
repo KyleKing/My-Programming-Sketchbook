@@ -14,6 +14,8 @@ const cmd = '\'node init\'';
 const photoframe = require('./photoframe.es6');
 const crontasks = require('./crontasks.es6');
 
+const secret = fs.readJsonSync('secret.json');
+
 module.exports = {
 
   /**
@@ -67,17 +69,15 @@ once approved, rerun this app with: ${cmd}`;
           app_secret: tempStr,
         });
         console.error(warn(this.step1));
-      } else {
-        const secret = fs.readJsonSync('secret.json');
+      } else
         if (secret.appKey === tempStr)
           console.error(warn(this.step1_err));
         else if (!secret.accesstoken)
           this.getTokens();
         else {
           configDebug('Secret file configured, moving on!');
-          this.finished();
+          this.checkFileNames();
         }
-      }
     });
   },
 
@@ -86,7 +86,6 @@ once approved, rerun this app with: ${cmd}`;
    */
   getTokens() {
     configDebug('Checking tokens');
-    const secret = fs.readJsonSync('secret.json');
     const app = dbox.app({
       app_key: secret.app_key,
       app_secret: secret.app_secret,
@@ -124,10 +123,48 @@ once approved, rerun this app with: ${cmd}`;
   },
 
   /**
+   * Make sure that no illegal characters are within the filenames
+   */
+  checkFileNames() {
+    const app = dbox.app({
+      app_key: secret.app_key,
+      app_secret: secret.app_secret,
+    });
+    const client = app.client(secret.accesstoken);
+    const options = {
+      list: true,
+      root: 'dropbox',
+    };
+    client.metadata(this.dbCloudDir, options, (status, reply) => {
+      this.contentslength = reply.contents.length;
+      this.workaround = 0;
+      for (let i = 0; i < this.contentslength; i++) {
+        const path = reply.contents[i].path;
+        if (/[*\s-]/.test(path)) {
+          const newPath = path.replace(/[*\s-]/g, 'G');
+          client.mv(path, newPath, { root: 'dropbox' }, (stat, rep) => {
+            if (stat !== 200) {
+              configDebug(`\n${path}\n${newPath}`);
+              configDebug(stat);
+              configDebug(rep);
+            }
+            this.workaround++;
+            configDebug(`Completed step ${this.workaround} of ${this.contentslength}`);
+            if (this.workaround === this.contentslength)
+              this.finished();
+          });
+        } else
+          this.workaround++;
+      }
+    });
+  },
+
+  /**
    * Once Dropbox API configured, start the app!
    */
   finished() {
     photoframe.init(this.dbCloudDir);
-    crontasks.start();
+    if (!process.env.LOCAL)
+      crontasks.start();
   },
 };

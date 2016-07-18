@@ -15,18 +15,10 @@ const glob = require('glob');
 const exec = require('child_process').exec;
 
 module.exports = {
-
   /**
    * Configure setup and scoped variables
    */
-  init(dbCloudDir) {
-    this.downloadPhotos(dbCloudDir);
-  },
-
-  /**
-   * Configure setup and scoped variables
-   */
-  downloadPhotos(dbCloudDir) {
+  downloadPhotos(dbCloudDir, cb) {
     // client.mv("foo", "bar", function(status, reply){
     //   console.log(reply)
     // })
@@ -38,7 +30,9 @@ module.exports = {
     client.metadata(dbCloudDir, options, (status, imgList) => {
       photoDebug(`Dropbox metadata status = ${status}`);
       const desiredImgs = [];
-      for (let i = 0; i < imgList.contents.length; i++) {
+      this.syncCount = imgList.contents.length;
+      this.syncCounter = 0;
+      for (let i = 0; i < this.syncCount; i++) {
         const filepath = imgList.contents[i].path;
         const localpath = `images/${path.basename(filepath)}`;
         desiredImgs.push(localpath);
@@ -50,15 +44,26 @@ module.exports = {
               const wstream = fs.createWriteStream(localpath);
               wstream.write(reply);
               console.log(warn(`>> Downloaded: ${localpath}`));
+              this.syncCounter++;
+              this.syncWorkaround(desiredImgs, cb);
             });
-          else
+          else {
             console.log(ignore(`** ${localpath} exists`));
+            this.syncCounter++;
+            this.syncWorkaround(desiredImgs, cb);
+          }
         });
       }
-      // Once the list of images is updated, start the next steps
+    });
+  },
+  syncWorkaround(desiredImgs, cb) {
+    // Once the list of images is updated, start the next steps
+    // photoDebug(`Completed step ${this.syncCounter} of ${this.syncCount}`);
+    if (this.syncCounter === this.syncCount) {
       fs.writeJSONSync('images.json', desiredImgs);
       this.deleteExcessFiles();
-    });
+      cb();
+    }
   },
 
   /**

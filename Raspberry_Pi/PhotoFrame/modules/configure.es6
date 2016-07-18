@@ -3,7 +3,7 @@ import { warn, init } from './debugger.es6';
 const configDebug = init('config');
 
 const fs = require('fs-extra');
-const util = require('./utilities.es6');
+// const util = require('./utilities.es6');
 const dbox = require('dbox');
 const _ = require('underscore');
 
@@ -12,9 +12,9 @@ const tempStr = `<copy_from ${link}>`;
 const cmd = '\'node init\'';
 
 const photoframe = require('./photoframe.es6');
-const crontasks = require('./crontasks.es6');
-
 const secret = fs.readJsonSync('secret.json');
+
+const crontasks = require('./crontasks.es6');
 
 // require gulp plugins
 const gulp = require('gulp');
@@ -27,21 +27,27 @@ module.exports = {
    */
   init(dbCloudDir) {
     this.dbCloudDir = dbCloudDir;
-    util.checkFS('images/', () => {
-      configDebug('Making dir images/');
-      fs.mkdirSync('images');
-    });
-    util.checkFS('raw/', () => {
-      configDebug('Making dir raw/');
-      fs.mkdirSync('raw');
-    });
+
+    // Clear the entire directory and then make an empty one:
+    configDebug('Deleted then re-created "images/"');
+    fs.removeSync('images');
+    fs.mkdirSync('images');
+
     // Need to make a synchronous check for images.json
     _.each(['history.json', 'images.json'], (file) => {
+      configDebug(`Deleting then re-writing "${file}"`);
       try {
+        // If exists, delete:
         fs.accessSync(file, fs.F_OK);
+        fs.unlink(file);
       } catch (e) {
-        configDebug(`Writing file: ${file}`);
+        configDebug(`Creating "${file}" for first time`);
+      }
+
+      try {
         fs.writeFileSync(file, '[]');
+      } catch (e) {
+        configDebug(`Can't create "${file}"`);
       }
     });
     this.checkSecret();
@@ -134,6 +140,7 @@ once approved, rerun this app with: ${cmd}`;
    * Make sure that no illegal characters are within the filenames
    */
   fixDBoxFilenames() {
+    // Init
     const app = dbox.app({
       app_key: secret.app_key,
       app_secret: secret.app_secret,
@@ -143,21 +150,23 @@ once approved, rerun this app with: ${cmd}`;
       list: true,
       root: 'dropbox',
     };
+
     client.metadata(this.dbCloudDir, options, (status, reply) => {
       this.contentslength = reply.contents.length;
       this.workaround = 0;
       for (let i = 0; i < this.contentslength; i++) {
         const path = reply.contents[i].path;
+        // Only make a regexp replace call when necessary:
         if (/[*\s-]/.test(path)) {
           const newPath = path.replace(/[*\s-]/g, 'G');
           client.mv(path, newPath, { root: 'dropbox' }, (stat, rep) => {
-            if (stat !== 200) {
-              configDebug(`\n${path}\n${newPath}`);
-              configDebug(stat);
-              configDebug(rep);
-            }
             this.workaround++;
             configDebug(`Completed step ${this.workaround} of ${this.contentslength}`);
+            if (stat !== 200) {
+              configDebug(`\nReply Code: ${rep}\n${path}\n${newPath}`);
+              configDebug(stat);
+            }
+            // Turn an async function into a synchronous callback:
             if (this.workaround === this.contentslength)
               this.finished();
           });
@@ -199,9 +208,12 @@ once approved, rerun this app with: ${cmd}`;
    */
   finished() {
     this.imageDownSize('images/*', 'images/', () => {
-      photoframe.init(this.dbCloudDir);
-      if (process.env.LOCAL === 'false')
-        crontasks.start();
+      photoframe.downloadPhotos(this.dbCloudDir, this.cronCallback);
     });
+  },
+
+  cronCallback() {
+    if (process.env.LOCAL === 'false')
+      crontasks.start();
   },
 };

@@ -9,6 +9,11 @@ module.exports = {
 
   /**
    * Shortcut to check if file/dir exists
+   * Example:
+      util.checkFS('images/', () => {
+        configDebug('Making dir images/');
+        fs.mkdirSync('images');
+      });
    */
   checkFS(file, callback) {
     fs.access(file, fs.R_OK | fs.W_OK, (err) => {

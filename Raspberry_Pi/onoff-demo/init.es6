@@ -54,12 +54,14 @@ button.watch((err, value) => {
 
   // Kill Looping Script:
   shell.exec(`ps aux | grep "[${myProcess[0]}]${myProcess.substr(1)}"`);
-  for (let i = 1; i >= 0; i--) {
-    console.log(`killling ${child.pid + i}`);
-    shell.exec(`kill ${child.pid + i}`);
-  }
+  // for (let i = 1; i >= 0; i--) {
+  //   console.log(`killling ${child.pid + i}`);
+  //   shell.exec(`kill ${child.pid + i}`);
+  // }
+  // More aggressive method:
+  shell.exec('sudo kill $(ps aux | grep [s]hairport | awk \'{print $2}\')');
 
-  // setTimeout(shell.exec('sudo shutdown -h now'), 3000);
+  setTimeout(shell.exec('sudo shutdown -h now'), 3000);
   button.unexport(); // Prevent re-trigger
 });
 

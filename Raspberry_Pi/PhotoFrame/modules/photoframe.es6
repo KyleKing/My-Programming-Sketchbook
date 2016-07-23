@@ -62,7 +62,7 @@ module.exports = {
     if (this.syncCounter === this.syncCount) {
       fs.writeJSONSync('images.json', desiredImgs);
       this.deleteExcessFiles();
-      cb();
+      if (cb) cb();
     }
   },
 

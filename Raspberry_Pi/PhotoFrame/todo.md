@@ -1,6 +1,9 @@
 # Current
 
-- Add shutoff button that triggers JS function
+- Add shutoff button that triggers JS function (ON/OFF)
+    + Cron.stop()?
+- Add timestamps to console
+- Boot on startup
 
 # On Deck
 

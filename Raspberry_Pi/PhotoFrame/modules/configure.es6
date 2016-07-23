@@ -5,7 +5,7 @@ const configDebug = init('config');
 const fs = require('fs-extra');
 // const util = require('./utilities.es6');
 const dbox = require('dbox');
-const _ = require('underscore');
+// const _ = require('underscore');
 
 const link = 'https://www.dropbox.com/developers/apps';
 const tempStr = `<copy_from ${link}>`;
@@ -33,23 +33,27 @@ module.exports = {
     fs.removeSync('images');
     fs.mkdirSync('images');
 
-    // Need to make a synchronous check for images.json
-    _.each(['history.json', 'images.json'], (file) => {
-      configDebug(`Deleting then re-writing "${file}"`);
-      try {
-        // If exists, delete:
-        fs.accessSync(file, fs.F_OK);
-        fs.unlink(file);
-      } catch (e) {
-        configDebug(`Creating "${file}" for first time`);
-      }
+    // Weird error that recurs only on Raspberry Pi
+    fs.writeFileSync('history.json', '[]');
+    fs.writeFileSync('images.json', '[]');
 
-      try {
-        fs.writeFileSync(file, '[]');
-      } catch (e) {
-        configDebug(`Can't create "${file}"`);
-      }
-    });
+    // // Need to make a synchronous check for images.json
+    // _.each(['history.json', 'images.json'], (file) => {
+    //   configDebug(`Deleting then re-writing "${file}"`);
+    //   try {
+    //     // If exists, delete:
+    //     fs.accessSync(file, fs.F_OK);
+    //     fs.unlink(file);
+    //   } catch (e) {
+    //     configDebug(`Creating "${file}" for first time`);
+    //   }
+
+    //   try {
+    //     fs.writeFileSync(file, '[]');
+    //   } catch (e) {
+    //     configDebug(`Can't create "${file}"`);
+    //   }
+    // });
     this.checkSecret();
   },
 

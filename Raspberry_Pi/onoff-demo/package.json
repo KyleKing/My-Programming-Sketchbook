@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^0.30.0",
+    "moment": "^2.14.1",
     "onoff": "^1.1.1",
     "shelljs": "^0.7.1"
   },

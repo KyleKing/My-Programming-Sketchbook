@@ -43,17 +43,10 @@ module.exports = {
     //   try {
     //     // If exists, delete:
     //     fs.accessSync(file, fs.F_OK);
-    //     fs.unlink(file);
     //   } catch (e) {
     //     configDebug(`Creating "${file}" for first time`);
     //   }
-
-    //   try {
-    //     fs.writeFileSync(file, '[]');
-    //   } catch (e) {
-    //     configDebug(`Can't create "${file}"`);
-    //   }
-    // });
+    //   fs.writeFileSync(file, '[]');
     this.checkSecret();
   },
 

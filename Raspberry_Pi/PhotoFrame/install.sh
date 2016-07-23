@@ -23,21 +23,20 @@ export HISTCONTROL=ignoredups
 " >> ~/.bashrc'
 
 
-# Begin by updating RPI
-tput setaf 6; echo "
-Searching for out of date packages, installing updates, and cleaning up afterward"
-tput setaf 7; echo ""
-apt-get update
-apt-get upgrade -y # automatic yes to prompts
-apt-get dist-upgrade -y
-apt-get autoremove && apt-get autoclean
+# # Begin by updating RPI
+# tput setaf 6; echo "
+# Searching for out of date packages, installing updates, and cleaning up afterward"
+# tput setaf 7; echo ""
+# apt-get update
+# apt-get upgrade -y # automatic yes to prompts
+# apt-get dist-upgrade -y
+# apt-get autoremove && apt-get autoclean
 
 # Get system info, then install Node:
 # Increment this to get a newer/older version:
 nodeInstallV=v6.0.0
-armVersion=$(cat /proc/cpuinfo | egrep -o "\(v[0-9]{2}\)" | egrep -o "v[0-9]{2}")
-# testArmVersion=$(echo "processor v71 (v61)" | egrep -o "\(v[0-9]{2}\)" | egrep -o "v[0-9]{2}")
-# echo $testArmVersion
+armVersion=$(cat /proc/cpuinfo | egrep -o -m 1 "\(v[0-9]l\)" | egrep -o "v[0-9]l")
+echo "Found armVersion = $armVersion"
 armV=arm$armVersion
 tput setaf 6; echo "
 Installing Node $nodeInstallV for processor $armV"

@@ -23,14 +23,14 @@ export HISTCONTROL=ignoredups
 " >> ~/.bashrc'
 
 
-# # Begin by updating RPI
-# tput setaf 6; echo "
-# Searching for out of date packages, installing updates, and cleaning up afterward"
-# tput setaf 7; echo ""
-# apt-get update
-# apt-get upgrade -y # automatic yes to prompts
-# apt-get dist-upgrade -y
-# apt-get autoremove && apt-get autoclean
+# Begin by updating RPI
+tput setaf 6; echo "
+Searching for out of date packages, installing updates, and cleaning up afterward"
+tput setaf 7; echo ""
+apt-get update
+apt-get upgrade -y # automatic yes to prompts
+apt-get dist-upgrade -y
+apt-get autoremove && apt-get autoclean
 
 # Get system info, then install Node:
 # Increment this to get a newer/older version:

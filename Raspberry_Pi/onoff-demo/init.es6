@@ -12,13 +12,13 @@ const moment = require('moment');
 // // const myProcess = 'python aloop.py';
 // const myProcess = 'python loop.py';
 
-// PhotoFrame Version:
-const fullPath = '/home/pi/PhotoFrame/';
-const myProcess = 'node init.es6 -d';
+// // PhotoFrame Version:
+// const fullPath = '/home/pi/PhotoFrame/';
+// const myProcess = 'node init.es6 -d';
 
-// // Airplay Speaker Version:
-// const fullPath = '/home/pi/shairport-sync';
-// const myProcess = 'sudo shairport-sync --statistics';
+// Airplay Speaker Version:
+const fullPath = '/home/pi/shairport-sync';
+const myProcess = 'sudo shairport-sync --statistics';
 
 // -------- Don't worry about anything below this line --------
 

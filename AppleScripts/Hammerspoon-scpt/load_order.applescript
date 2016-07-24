@@ -50,10 +50,10 @@ conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
+conditionalopen("BetterTouchTool")
 -- conditionalopen("AnyBar") -- launch from Hammerspoon
 -- conditionalopen("CheatSheet")
 -- conditionalopen("Focus")
--- conditionalopen("BetterTouchTool")
 
 -- -- Make sure Hammerspoon is open too!
 -- conditionalopen("Hammerspoon")

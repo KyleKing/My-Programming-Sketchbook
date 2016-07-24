@@ -5,44 +5,59 @@ const shell = require('shelljs');
 const fs = require('fs-extra');
 const moment = require('moment');
 
-// // Make sure to set this! With a proper path too:
+// -------- Don't worry about anything Above this line -------- //
+
+// Make sure to set this! With a proper path too:
+
 // // Get full path with "echo $PWD"
-// // const fullPath = '/home/pi/';
-// // // Copy `cp loop.py ~/aloop.py`:
-// // const myProcess = 'python aloop.py';
-// const myProcess = 'python loop.py';
+// const fullPath = '/home/pi/';
+// // Copy `cp loop.py ~/aloop.py`:
+// const myProcess = 'python aloop.py';
+// const logFile = '_pyloop_log';
 
 // // PhotoFrame Version:
 // const fullPath = '/home/pi/PhotoFrame/';
 // const myProcess = 'node init.es6 -d';
+// const logFile = '_PhotoFrame_log';
+
+// // Airplay Speaker Version:
+// const fullPath = '/home/pi/shairport-sync';
+// const myProcess = 'sudo shairport-sync --statistics';
+// const logFile = '_AirPlay_log';
 
 // Airplay Speaker Version:
-const fullPath = '/home/pi/shairport-sync';
-const myProcess = 'sudo shairport-sync --statistics';
+const fullPath = '/home/pi/Another_Alarm_Clock';
+const myProcess = 'node init.es6';
+const logFile = '_AlarmClock_log';
 
-// -------- Don't worry about anything below this line --------
+
+// -------- Don't worry about anything below this line -------- //
 
 // Go to proper path for looping process (SET ABOVE)
 if (fullPath) shell.cd(fullPath);
 // console.log(shell.ls());
 
 // Configure debugging directory
-const dir = `${fullPath}logs/`;
+const dir = `${fullPath}/logs/`;
 fs.ensureDirSync(dir);
-const filetype = '_PhotoFrame_log.txt';
 
 // Start your looping process:
 const child = shell.exec(myProcess, { async: true });
+
+// Log stdout to a file logging system (logs/YYYY_MM_DD_(your filename).txt)
 child.stdout.on('data', (data) => {
+  // COnfid file and dir
   const date = new Date();
-  const file = `${dir}${moment(date).format('YYYY_MM_DD')}${filetype}`;
-  // If doesn't exist, create a new file
+  const file = `${dir}${moment(date).format('YYYY_MM_DD')}${logFile}.txt`;
+  const tsData = `${moment(date).format('HH:mm:ss')}& ${data}`;
+  // console.log(`-> Writing to ${file} with ${tsData}`);
   try {
     fs.accessSync(file, fs.F_OK);
   } catch (e) {
     fs.writeFileSync(file);
   }
-  fs.appendFile(file, data, (err) => {
+  // Write to file:
+  fs.appendFile(file, tsData, (err) => {
     if (err) throw err;
   });
 });
@@ -52,14 +67,10 @@ button.watch((err, value) => {
   console.log('Button pressed!, Shutting down now');
   led.writeSync(value); // visual cue
 
-  // Kill Looping Script:
+  // For development, check for process, then kill looping process:
   shell.exec(`ps aux | grep "[${myProcess[0]}]${myProcess.substr(1)}"`);
-  // for (let i = 1; i >= 0; i--) {
-  //   console.log(`killling ${child.pid + i}`);
-  //   shell.exec(`kill ${child.pid + i}`);
-  // }
-  // More aggressive method:
-  shell.exec('sudo kill $(ps aux | grep [s]hairport | awk \'{print $2}\')');
+  shell.exec('sudo kill $(ps aux | grep ' +
+    `"[${myProcess[0]}]${myProcess.substr(1)} | awk '{print $2}')`);
 
   setTimeout(shell.exec('sudo shutdown -h now'), 3000);
   button.unexport(); // Prevent re-trigger

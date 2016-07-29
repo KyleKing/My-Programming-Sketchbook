@@ -1,0 +1,60 @@
+{
+	"PID": {
+		"Cold": {
+			"target": 5,
+			"kp": -1.5,
+			"ki": 0,
+			"kd": 0,
+			"dt": 1.004
+		},
+		"Hot": {
+			"target": 55,
+			"kp": 0.25,
+			"ki": 0,
+			"kd": 0,
+			"dt": 1.004
+		},
+		"Melter": {
+			"target": 80,
+			"kp": 0.35,
+			"ki": 0,
+			"kd": 0,
+			"dt": 1.004
+		}
+	},
+	"wiring": {
+		"Hot": "Right",
+		"Optional": "Middle",
+		"Cold": "Left",
+
+		"LeftFET": 21,
+		"MiddleFET": 27,
+		"RightFET": 23,
+
+		"Left": {
+			"DO": 25,
+			"CS": 20,
+			"CLK": 19
+		},
+		"Middle": {
+			"DO": 24,
+			"CS": 16,
+			"CLK": 22
+		},
+		"Right": {
+			"DO": 18,
+			"CS": 17,
+			"CLK": 4
+		}
+	},
+	"scripts": {
+		"read_thermocouple": "Scripts_Python/read_Thermocouples.py",
+		"single_thermocouple": "Scripts_Python/single_Thermocouples.py",
+		"fake_thermocouple": "Scripts_Python/fake_Thermocouples.py",
+
+		"test_ADC": "Scripts_Python/test_ADC.py",
+
+		"start_Pi_Blaster": "Scripts_Shell/start_Pi-Blaster.sh",
+		"updateRPI": "Scripts_Shell/update.sh"
+	}
+}

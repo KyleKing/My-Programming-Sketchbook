@@ -73,22 +73,22 @@ while True:
     # Force buffer to close and send all data to Node application
     sys.stdout.flush()
 
-# # Manual Tests
-# full_message('Very long Message to Test Maximum String Allowed')
-# time.sleep(3.0)
-# full_message('Really Long Scroll Message')
-# time.sleep(3.0)
-# full_message('Short Message')
+# # # Manual Tests
+# # full_message('Very long Message to Test Maximum String Allowed')
+# # time.sleep(3.0)
+# # full_message('Really Long Scroll Message')
+# # time.sleep(3.0)
+# # full_message('Short Message')
 
-# Demo turning backlight off and on.
-lcd.clear()
-lcd.message('Flash backlight\nin 5 seconds...')
-time.sleep(5.0)
-# Turn backlight off.
-lcd.set_backlight(0)
-time.sleep(2.0)
-# Change message.
-lcd.clear()
-lcd.message('Goodbye!')
-# Turn backlight on.
-lcd.set_backlight(1)
+# # Demo turning backlight off and on.
+# lcd.clear()
+# lcd.message('Flash backlight\nin 5 seconds...')
+# time.sleep(5.0)
+# # Turn backlight off.
+# lcd.set_backlight(0)
+# time.sleep(2.0)
+# # Change message.
+# lcd.clear()
+# lcd.message('Goodbye!')
+# # Turn backlight on.
+# lcd.set_backlight(1)

@@ -1,0 +1,86 @@
+
+header {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/**
+ * Control Panel Buttons (Right Panel)
+ */
+
+.right-title {
+	margin: 20px;
+}
+
+/* @media (min-width: 500px) { */
+.custom-button-formatting {
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+	padding-top: 15px !important;
+	padding-bottom: 15px !important;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+/*}*/
+
+/**
+ * Control Panel Step List (Right Panel)
+ */
+
+ul {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+ul li {
+	border-radius:3px;
+	color: white;
+	list-style:none;
+	margin-bottom: 15px;
+	padding: 10px;
+	position:relative;
+}
+
+/* Status Colors */
+ul li {
+	background-color: #95A5A6;
+}
+ul li.finished {
+	background-color: #2ECC71;
+}
+ul li.in-progress {
+	background-color: #3498DB;
+}
+ul li.queue {
+	background-color: #95A5A6;
+}
+ul li.failed {
+	background-color: #E74C3C;
+}
+
+.alarm-buttons {
+	text-align: right;
+}
+
+span {
+	margin-left: 20px;
+}
+
+/**
+ * Both Panels to Align Vertically
+ */
+
+.live-image {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+@media (min-width: 992px) {
+	.live-image {
+		padding-top: 60px;
+	}
+}
+
+.live-step {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}

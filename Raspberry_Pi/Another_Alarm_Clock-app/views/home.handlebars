@@ -1,0 +1,32 @@
+<div class="row">
+  <h3 class="text-center">Control Panel</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 live-step vcenter">
+    <h5 class="text-center right-title">Live Status of Device Operation</h5>
+    <ul>
+      {{#each alarmList}}
+        <li class="{{this.status}}" id="{{this.uniq}}">
+          {{#if this.started}}
+            <button type="button" class="btn custom-button-formatting btn-danger stop" id="{{this.uniq}}">Stop</button>
+          {{else}}
+            <button type="button" class="btn custom-button-formatting btn-success start" id="{{this.uniq}}">Start</button>
+            <button type="button" class="btn custom-button-formatting btn-danger delete" id="{{this.uniq}}">DELETE</button>
+          {{/if}}
+          {{#if this.saved}}
+            <button type="button" class="btn custom-button-formatting btn-warning edit" id="{{this.uniq}}">Edit</button>
+            <span class="title">{{this.title}}</span>
+            <span class="time"> Cron: {{this.schedule}}</span>
+            <span class="uniq"> Uniq: {{this.uniq}}</span>
+          {{else}}
+            <button type="button" class="btn custom-button-formatting btn-warning save" id="{{this.uniq}}">Save</button>
+            <input type="text box" placeholder="{{this.title}}" />
+            <input type="text box" placeholder="{{this.schedule}}" />
+            <span class="uniq"> Uniq: {{this.uniq}}</span>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

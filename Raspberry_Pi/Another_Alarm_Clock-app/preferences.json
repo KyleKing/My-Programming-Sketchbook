@@ -1,0 +1,22 @@
+{
+	"steps": [
+		"Load Sample",
+		"Wash Sample",
+		"Load Gold Nanoparticles",
+		"Load Silver Enhancement Fluid",
+		"Load Index Matching Fluid",
+		"Computational Image Analysis"
+	],
+	"statuses": [
+		"finished",
+		"in-progress",
+		"queue",
+		"failed"
+	],
+	"statusMessages": [
+		" (Successfully Completed)",
+		" (In Progress)",
+		"",
+		" (Error)"
+	]
+}

@@ -4,8 +4,10 @@
 // by Kyle King
 
 /**
- * User variables - also set in modules/crontasks.es6
+ * User variables
  */
+
+// None right now
 
 /**
  * General Configuration
@@ -21,4 +23,5 @@ program
 process.env.DEBUG = program.debug || false;
 process.env.LOCAL = program.local || false;
 
-require('./modules/alarms.es6').start();
+// Get the party started:
+require('./modules/clock.es6').start();

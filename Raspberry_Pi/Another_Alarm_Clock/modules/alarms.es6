@@ -4,12 +4,12 @@ const configDebug = init('config');
 configDebug('Debugger initialized!');
 
 const moment = require('moment');
-const PythonShell = require('python-shell');
-const pyshell = new PythonShell('lcd.py');
+// const PythonShell = require('python-shell');
+// const pyshell = new PythonShell('lcd.py');
 
 function updateClockDisplay(format) {
   const displayText = moment().format(format);
-  pyshell.send(displayText);
+  // pyshell.send(displayText);
 }
 
 // Quick CRON guide

@@ -1,72 +1,29 @@
-/**
- * Socket.io Chat demo: http://socket.io/get-started/chat/
- * Start by calling `browser-refresh` or `node index.js`
- */
+#!/usr/bin/env node
 
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var exphbs  = require('express-handlebars');
+// Another Node.js Alarm Clock
+// by Kyle King
 
 /**
- * Configure App
+ * User variables
  */
 
-app.set('port', 8080);
-app.use(express.static(__dirname + '/public'));
-// console.log(process.env.NODE_ENV); // development || production
-
-// Configure Templates and Routes
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
-var db = require(__dirname + '/data.js');
-var alarms = db.alarms;
-alarms.find({}, function(err, allAlarms) {
-  // // Sort by index (chronological)
-  // allSteps.sort(function(a, b) {
-  //  return a.index - b.index;
-  // });
-  // console.log(allSteps);
-  app.get('/', function (req, res) {
-    res.render('home', {
-      alarmList: allAlarms,
-      BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
-    });
-  });
-});
+// None right now
 
 /**
- * The exciting parts - listen to and respond to user events
+ * General Configuration
  */
-require(__dirname + '/server-sockets.js')(io);
+require('babel-register');
+const fs = require('fs-extra');
+const program = require('commander');
+program
+  .version(fs.readJsonSync('package.json'))
+  .option('-d, --debug', 'run in debug mode (verbose)')
+  .option('-l, --local', 'when not a Raspberry Pi, run in \'local\' mode')
+  .parse(process.argv);
+process.env.DEBUG = program.debug || false;
+// process.env.LOCAL = program.local || false;
+process.env.LOCAL = true;
 
-/**
- * Get Network Address and create listener
- * From: https://github.com/nisaacson/interface-addresses
- */
-var interfaceAddresses = require('interface-addresses');
-var addresses = interfaceAddresses();
-var inspect = require('eyespect').inspector();
-http.listen(app.get('port'), function() {
-  // Filter through possible IP addresses
-  var nIP = '';
-  if (addresses.en0) {
-    nIP = addresses.en0;
-  } else if (addresses.en1) {
-    nIP = addresses.en1;
-  } else if (addresses.wlan0) {
-    nIP = addresses.wlan0;
-  } else if (addresses.eth0) {
-    nIP = addresses.eth0;
-  } else {
-    nip = 'check address manually';
-    inspect(addresses, 'network interface IPv4 addresses (non-internal)');
-  }
-  console.log('listening on ' + nIP + ':' + app.get('port'));
-  // Necessary for browser-refresh
-  if (process.send) {
-    process.send('online');
-  }
-});
+// Get the party started:
+require('./modules/clock.es6').start();
+require('./modules/webapp.es6').start(__dirname);

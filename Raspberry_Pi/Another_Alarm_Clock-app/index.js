@@ -21,8 +21,7 @@ program
   .option('-l, --local', 'when not a Raspberry Pi, run in \'local\' mode')
   .parse(process.argv);
 process.env.DEBUG = program.debug || false;
-// process.env.LOCAL = program.local || false;
-process.env.LOCAL = true;
+process.env.LOCAL = program.local || false;
 
 // Get the party started:
 require('./modules/clock.es6').start();

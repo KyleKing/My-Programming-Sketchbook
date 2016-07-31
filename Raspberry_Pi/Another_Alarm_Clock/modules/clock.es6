@@ -43,26 +43,21 @@ module.exports = {
     clockDebug(`New Clock Text: \n ${displayText}`);
   },
 
+  // Handle a breakdown in the app:
   displayAppQuit() {
-    // Handle a breakdown in the app:
     // http://stackoverflow.com/a/14032965
     // So the program will not close instantly
     process.stdin.resume();
-    function exitHandler(options, updateClockDisplay, err) {
-      updateClockDisplay('[APP FAILED! NO CLOCK!] \n h:mm:ss a');
-      if (err) console.log(err.stack);
-      if (options.exit)
-        setTimeout(500, process.exit());
-    }
-
-    process.on('exit', exitHandler.bind(null, { exit: true },
-      this.updateClockDisplay
-    ));
-    process.on('SIGINT', exitHandler.bind(null, { exit: true },
-      this.updateClockDisplay
-    ));
-    process.on('uncaughtException', exitHandler.bind(null, { exit: true },
-      this.updateClockDisplay
-    ));
+    process.on('exit', this.exitHandler.bind(null, { exit: true }));
+    process.on('SIGINT', this.exitHandler.bind(null, { exit: true }));
+    process.on('uncaughtException', this.exitHandler.bind(null, { exit: true }));
+  },
+  exitHandler(options, err) {
+    // Doesn't recognize this...
+    // this.updateClockDisplay('[APP FAILED! NO CLOCK!] \n h:mm:ss a');
+    console.warn('APP Exiting!');
+    if (err) console.log(err.stack);
+    if (options.exit)
+      setTimeout(500, process.exit());
   },
 };

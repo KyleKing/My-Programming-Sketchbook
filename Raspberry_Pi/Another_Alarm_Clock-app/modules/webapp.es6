@@ -8,7 +8,7 @@ const app = express();
 const http = require('http').Server(app); // eslint-disable-line
 const io = require('socket.io')(http);
 const exphbs = require('express-handlebars');
-const fs = require('fs-extra');
+// const fs = require('fs-extra');
 
 const interfaceAddresses = require('interface-addresses');
 const addresses = interfaceAddresses();

@@ -20,8 +20,11 @@ program
   .option('-d, --debug', 'run in debug mode (verbose)')
   .option('-l, --local', 'when not a Raspberry Pi, run in \'local\' mode')
   .parse(process.argv);
-process.env.DEBUG = program.debug || false;
-process.env.LOCAL = program.local || false;
+
+// process.env.DEBUG = program.debug || false;
+process.env.DEBUG = true;
+// process.env.LOCAL = program.local || false;
+process.env.LOCAL = true;
 
 // Get the party started:
 require('./modules/clock.es6').start();

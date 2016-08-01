@@ -9,10 +9,12 @@
       {{#each alarmList}}
         <li class="{{this.status}}" id="{{this.uniq}}">
           {{#if this.started}}
-            <button type="button" class="btn custom-button-formatting btn-danger stop" id="{{this.uniq}}">Stop</button>
+            <input checked class="data-toggle" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" id="{{this.uniq}}">
+            {{!-- <button type="button" class="btn custom-button-formatting btn-danger stop" id="{{this.uniq}}">Stop</button> --}}
           {{else}}
-            <button type="button" class="btn custom-button-formatting btn-success start" id="{{this.uniq}}">Start</button>
-            <button type="button" class="btn custom-button-formatting btn-danger delete" id="{{this.uniq}}">DELETE</button>
+            <input class="data-toggle" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" id="{{this.uniq}}">
+            {{!-- <button type="button" class="btn custom-button-formatting btn-success start" id="{{this.uniq}}">Start</button> --}}
+            <button type="button" class="btn custom-button-formatting btn-danger remove" id="{{this.uniq}}">REMOVE</button>
           {{/if}}
           {{#if this.saved}}
             <button type="button" class="btn custom-button-formatting btn-warning edit" id="{{this.uniq}}">Edit</button>

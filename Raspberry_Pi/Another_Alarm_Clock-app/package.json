@@ -45,7 +45,9 @@
   "eslintConfig": {
     "extends": "airbnb",
     "env": {
-      "node": true
+      "node": true,
+      "jquery": true,
+      "browser": true
     },
     "parserOptions": {
       "ecmaVersion": 6

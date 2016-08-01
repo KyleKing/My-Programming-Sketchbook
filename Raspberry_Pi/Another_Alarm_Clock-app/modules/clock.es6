@@ -26,9 +26,10 @@ module.exports = {
 
   initClock() {
     // Start Clock Display
-    const updateClock = new CronJob('* * * * * *', () => {
+    const updateClock = new CronJob('0 * * * * *', () => {
       clockDebug('Updating Clock Display');
-      this.updateClockDisplay('ddd - MMM Do \n h:mm:ss a');
+      this.updateClockDisplay('ddd - MMM Do   h:mm a');
+      // this.updateClockDisplay('ddd - MMM Do   h:mm:ss a');
     }, () => {
       clockDebug('Stopped updating Clock Display');
     }, true);
@@ -40,7 +41,7 @@ module.exports = {
     const displayText = moment().format(format);
     if (process.env.LOCAL === 'false')
       pyshell.send(displayText);
-    clockDebug(`New Clock Text: \n ${displayText}`);
+    clockDebug(`New Clock Text: ${displayText}`);
   },
 
   // Handle a breakdown in the app:

@@ -11,6 +11,38 @@ $('.data-toggle').change(function() {
   // socket.emit('toggle', $(this).id, $(this).prop('checked'));
 });
 
+$('form').submit(function() {
+    // get all the inputs into an array.
+    var $inputs = $('#myForm :input');
+    console.log($inputs);
+
+    // not sure if you wanted this, but I thought I'd add it.
+    // get an associative array of just the values.
+    var values = {};
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+    console.log(values);
+    return false;
+
+});
+
+// // Adapted from http://stackoverflow.com/a/1443005/3219667
+// $('form').submit(function() {
+//   // Get all the forms elements and their values in one step
+//   console.log($(this))
+//   var values = $(this).serialize();
+//   console.log(values);
+//   return false;
+//   // e.preventDefault();
+// });
+
+// $( "form" ).submit(function( event ) {
+//   console.log($( "input:first" ).val());
+//   $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+//   event.preventDefault();
+// });
+
 /** Configure development environment: */
 socket.on('BROWSER_REFRESH_URL', function(BROWSER_REFRESH_URL) {
   // console.log('connected: ' + BROWSER_REFRESH_URL);

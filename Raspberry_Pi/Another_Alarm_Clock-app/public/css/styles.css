@@ -14,12 +14,11 @@ header {
 
 /* @media (min-width: 500px) { */
 .custom-button-formatting {
-	padding-left: 30px !important;
-	padding-right: 30px !important;
-	padding-top: 15px !important;
-	padding-bottom: 15px !important;
-	margin-left: 5px;
-	margin-right: 5px;
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	margin: 10px;
 }
 /*}*/
 
@@ -43,19 +42,7 @@ ul li {
 
 /* Status Colors */
 ul li {
-	background-color: #95A5A6;
-}
-ul li.finished {
-	background-color: #2ECC71;
-}
-ul li.in-progress {
-	background-color: #3498DB;
-}
-ul li.queue {
-	background-color: #95A5A6;
-}
-ul li.failed {
-	background-color: #E74C3C;
+	background-color: RGB(52, 73, 94);
 }
 
 .alarm-buttons {
@@ -80,7 +67,7 @@ span {
 	}
 }
 
-.live-step {
-	padding-bottom: 10px;
-	padding-top: 10px;
+
+input {
+	color: RGB(52, 73, 94);
 }

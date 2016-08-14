@@ -26,7 +26,7 @@ console.log(`is Macbook: ${!existSync('/home/pi/')}`);
 console.log(`is Macbook: ${existSync('/Users/kyleking/Developer/')}`);
 if (!existSync('/home/pi/')) {
   fullPath = '/Users/kyleking/Developer/My-Programming-Sketchbook/' +
-    'Raspberry_Pi/onoff-demo';
+    'Raspberry_Pi/onoff-shutdown';
   myProcess = 'node loop.js';
   logFile = '_pyloop_log';
 }

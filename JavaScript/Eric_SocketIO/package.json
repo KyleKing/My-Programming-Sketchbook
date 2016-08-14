@@ -4,6 +4,7 @@
   "description": "My first Socket.io app",
   "main": "index.js",
   "scripts": {
+    "start": "node init.es6",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

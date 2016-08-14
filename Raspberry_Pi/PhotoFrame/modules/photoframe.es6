@@ -1,11 +1,11 @@
 /* initialize debugger */
-import { error, warn, ignore, init } from './debugger.es6';
+import { error, warn, ignore, init } from './debugger.es6'; // eslint-disable-line
 const fbiDebug = init('fbi');
 const photoDebug = init('photoframe');
 
 const fs = require('fs-extra');
 const path = require('path');
-const dbox = require('dbox');
+const dbox = require('dbox'); // eslint-disable-line
 const secret = fs.readJsonSync('./secret.json');
 const app = dbox.app({
   app_key: secret.app_key,
@@ -60,6 +60,7 @@ module.exports = {
     // Once the list of images is updated, start the next steps
     // photoDebug(`Completed step ${this.syncCounter} of ${this.syncCount}`);
     if (this.syncCounter === this.syncCount) {
+      photoDebug('Writing image.json with syncWorkaround');
       fs.writeJSONSync('images.json', desiredImgs);
       this.deleteExcessFiles();
       if (cb) cb();

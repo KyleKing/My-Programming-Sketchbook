@@ -1,5 +1,5 @@
 /* initialize debugger */
-import { warn, init } from './debugger.es6'; // eslint-disable-line
+import { warn, init } from './debugger.es6';
 const configDebug = init('config');
 
 // const util = require('./utilities.es6');
@@ -28,10 +28,10 @@ module.exports = {
     this.dbCloudDir = dbCloudDir;
 
     // Clear the entire directory and then make an empty one:
-    configDebug('Deleted then re-created "images/"');
-    // fs.removeSync('images');
-    // fs.mkdirSync('images');
-    fs.ensureDirSync('images');
+    configDebug('(Used to) Deleted then re-created "images/"');
+    fs.removeSync('images');
+    fs.mkdirSync('images');
+    // fs.ensureDirSync('images');
 
     // Weird error that recurs only on Raspberry Pi?
     fs.writeFileSync('history.json', '[]');

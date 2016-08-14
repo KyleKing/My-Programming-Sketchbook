@@ -1,66 +1,121 @@
-const Gpio = require('onoff').Gpio;  // Constructor function for Gpio objects.
-const button = new Gpio(4, 'in', 'both'); // Export GPIO #4 as an interrupt
-const led = new Gpio(14, 'out');         // Export GPIO #14 as an output.
-const shell = require('shelljs');
 const fs = require('fs-extra');
-const moment = require('moment');
 
-// -------- Don't worry about anything Above this line -------- //
+// Synchronous version of fs.access with a silent error (for if loops!):
+function existSync(filename) {
+  let status = true;
+  try {
+    fs.accessSync(filename, fs.F_OK);
+  } catch (e) {
+    status = false;
+  }
+  return status;
+}
 
-// Make sure to set this! With a proper path too:
+//
+// Make sure to set these values inside of the if-loops below!!
+// Get full path with "echo $PWD"
+//
 
-// // Get full path with "echo $PWD"
-// const fullPath = '/home/pi/';
-// // Copy `cp loop.py ~/aloop.py`:
-// const myProcess = 'python aloop.py';
-// const logFile = '_pyloop_log';
+let fullPath = '';
+let myProcess = '';
+let logFile = '';
 
-// // PhotoFrame Version:
-// const fullPath = '/home/pi/PhotoFrame/';
-// const myProcess = 'node init.es6 -d';
-// const logFile = '_PhotoFrame_log';
+//
+// My Local Laptop Testing (Will need to `npm remove onoff`):
+console.log(`is Macbook: ${!existSync('/home/pi/')}`);
+console.log(`is Macbook: ${existSync('/Users/kyleking/Developer/')}`);
+if (!existSync('/home/pi/')) {
+  fullPath = '/Users/kyleking/Developer/My-Programming-Sketchbook/' +
+    'Raspberry_Pi/onoff-demo';
+  myProcess = 'node loop.js';
+  logFile = '_pyloop_log';
+}
 
-// // Airplay Speaker Version:
-// const fullPath = '/home/pi/shairport-sync';
-// const myProcess = 'sudo shairport-sync --statistics';
-// const logFile = '_AirPlay_log';
+//
+// PhotoFrame Version:
+console.log(`is PhotoFrame: ${existSync('/home/pi/_D4_SD.ini')}`);
+if (existSync('/home/pi/_D4_SD.ini')) {
+  fullPath = '/home/pi/PhotoFrame/';
+  myProcess = 'node init.es6 -d';
+  logFile = '_PhotoFrame_log';
+}
 
+//
 // Airplay Speaker Version:
-const fullPath = '/home/pi/Another_Alarm_Clock';
-const myProcess = 'node init.es6';
-const logFile = '_AlarmClock_log';
+console.log(`is Airplay: ${existSync('/home/pi/_B2_SD.ini')}`);
+if (existSync('/home/pi/_B2_SD.ini')) {
+  fullPath = '/home/pi/shairport-sync';
+  myProcess = 'sudo shairport-sync --statistics';
+  logFile = '_AirPlay_log';
+}
 
+//
+// Alarm Clock Version:
+console.log(`is Alarm Clock: ${existSync('/home/pi/fakeFILE.ini')}`);
+if (existSync('/home/pi/fakeFILE.ini')) {
+  fullPath = '/home/pi/Another_Alarm_Clock';
+  myProcess = 'node init.es6';
+  logFile = '_AlarmClock_log';
+}
 
 // -------- Don't worry about anything below this line -------- //
 
-// Go to proper path for looping process (SET ABOVE)
-if (fullPath) shell.cd(fullPath);
+// -------- General Configuration -------- //
+const Gpio = require('onoff').Gpio;  // Constructor function for Gpio objects.
+
+const button = new Gpio(4, 'in', 'both'); // Export GPIO #4 as an interrupt
+const led = new Gpio(14, 'out');         // Export GPIO #14 as an output.
+
+const shell = require('shelljs');
+const moment = require('moment');
+
+// -------- Use the user-set variables -------- //
+
+// Go to process directory (SET ABOVE)
+shell.cd(fullPath);
 // console.log(shell.ls());
 
-// Configure debugging directory
+// Configure debugging directory (SET ABOVE)
 const dir = `${fullPath}/logs/`;
 fs.ensureDirSync(dir);
 
-// Start your looping process:
+// Start your looping process (SET ABOVE):
 const child = shell.exec(myProcess, { async: true });
 
-// Log stdout to a file logging system (logs/YYYY_MM_DD_(your filename).txt)
-child.stdout.on('data', (data) => {
-  // COnfid file and dir
+//
+// Create a robust logging method:
+function logData(buf) {
+  const data = buf.trim();
+  // Config file and directory:
   const date = new Date();
   const file = `${dir}${moment(date).format('YYYY_MM_DD')}${logFile}.txt`;
-  const tsData = `${moment(date).format('HH:mm:ss')}& ${data}`;
-  // console.log(`-> Writing to ${file} with ${tsData}`);
-  try {
-    fs.accessSync(file, fs.F_OK);
-  } catch (e) {
+  const tsData = `${moment(date).format('HH:mm:ss')}: ${data}\n`;
+  // console.log(`-> Writing to "${file}" with: ${tsData}`);
+  if (!existSync(file))
     fs.writeFileSync(file);
-  }
   // Write to file:
   fs.appendFile(file, tsData, (err) => {
     if (err) throw err;
   });
+}
+
+// -------- Respond to child -------- //
+
+// Log stdout to a file logging system (logs/YYYY_MM_DD_(your filename).txt)
+child.stdout.on('data', (data) => {
+  // console.log('[stdout]: "%s"', String(data).trim());
+  logData(data);
 });
+child.stderr.on('data', (data) => {
+  // console.log('[stderr]: "%s"', String(data).trim());
+  logData(data);
+});
+child.on('close', () => {
+  // console.log('[CLOSED]');
+  logData('.\n\n[CLOSED]\n\n.');
+});
+
+// -------- Watch for a real world button press event -------- //
 
 button.watch((err, value) => {
   if (err) throw err;

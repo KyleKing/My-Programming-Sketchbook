@@ -14,3 +14,4 @@ node_modules
 *.mov
 *.mp4
 JavaScript/Eric_Microfluidic_ControllerApp/data/photos
+logs

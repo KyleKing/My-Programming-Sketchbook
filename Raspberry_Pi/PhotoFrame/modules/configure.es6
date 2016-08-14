@@ -1,17 +1,16 @@
 /* initialize debugger */
-import { warn, init } from './debugger.es6';
+import { warn, init } from './debugger.es6'; // eslint-disable-line
 const configDebug = init('config');
 
-const fs = require('fs-extra');
 // const util = require('./utilities.es6');
+const fs = require('fs-extra');
 const dbox = require('dbox');
-// const _ = require('underscore');
+const photoframe = require('./photoframe.es6');
 
 const link = 'https://www.dropbox.com/developers/apps';
 const tempStr = `<copy_from ${link}>`;
 const cmd = '\'node init\'';
 
-const photoframe = require('./photoframe.es6');
 const secret = fs.readJsonSync('secret.json');
 
 const crontasks = require('./crontasks.es6');
@@ -30,10 +29,11 @@ module.exports = {
 
     // Clear the entire directory and then make an empty one:
     configDebug('Deleted then re-created "images/"');
-    fs.removeSync('images');
-    fs.mkdirSync('images');
+    // fs.removeSync('images');
+    // fs.mkdirSync('images');
+    fs.ensureDirSync('images');
 
-    // Weird error that recurs only on Raspberry Pi
+    // Weird error that recurs only on Raspberry Pi?
     fs.writeFileSync('history.json', '[]');
     fs.writeFileSync('images.json', '[]');
 

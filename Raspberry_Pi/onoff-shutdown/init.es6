@@ -1,3 +1,6 @@
+console.log('If module compile error (etc.), just run `npm rebuild` or delete ' +
+  'the node_modules folder and reinstall with `npm install`');
+
 const fs = require('fs-extra');
 
 // Synchronous version of fs.access with a silent error (for if loops!):
@@ -99,7 +102,22 @@ function logData(buf) {
   });
 }
 
+//
+// A little utility function:
+function testWifiSpeed() {
+  shell.exec('speedtest-cli', (code, stdout, stderr) => {
+    logData('Running speedtest-cli');
+    logData(stdout);
+    if (stderr)
+      logData(stderr);
+    logData('Finished speedtest-cli');
+  });
+}
+
 // -------- Respond to child -------- //
+
+// Test WIFI Speed as control:
+testWifiSpeed();
 
 // Log stdout to a file logging system (logs/YYYY_MM_DD_(your filename).txt)
 child.stdout.on('data', (data) => {
@@ -111,6 +129,8 @@ child.stderr.on('data', (data) => {
   logData(data);
 });
 child.on('close', () => {
+  testWifiSpeed();
+
   // console.log('[CLOSED]');
   logData('.\n\n[CLOSED]\n\n.');
 });

@@ -25,8 +25,9 @@ let logFile = '';
 
 //
 // My Local Laptop Testing (Will need to `npm remove onoff`):
+const testPathLocal = '/Users/kyleking/Developer/';
 console.log(`is Macbook: ${!existSync('/home/pi/')}`);
-console.log(`is Macbook: ${existSync('/Users/kyleking/Developer/')}`);
+console.log(`is Macbook: ${existSync(testPathLocal)}`);
 if (!existSync('/home/pi/')) {
   fullPath = '/Users/kyleking/Developer/My-Programming-Sketchbook/' +
     'Raspberry_Pi/onoff-shutdown';
@@ -35,18 +36,20 @@ if (!existSync('/home/pi/')) {
 }
 
 //
-// PhotoFrame Version:
-console.log(`is PhotoFrame: ${existSync('/home/pi/_D4_SD.ini')}`);
-if (existSync('/home/pi/_D4_SD.ini')) {
-  fullPath = '/home/pi/PhotoFrame/';
+// PiSlideShow Version:
+const testPathPiSlideShow = '/home/pi/_D4_SD.ini';
+console.log(`is PiSlideShow: ${existSync(testPathPiSlideShow)}`);
+if (existSync(testPathPiSlideShow)) {
+  fullPath = '/home/pi/PiSlideShow/';
   myProcess = 'node init.es6 -d';
-  logFile = '_PhotoFrame_log';
+  logFile = '_PiSlideShow_log';
 }
 
 //
 // Airplay Speaker Version:
-console.log(`is Airplay: ${existSync('/home/pi/_B2_SD.ini')}`);
-if (existSync('/home/pi/_B2_SD.ini')) {
+const testPathAirplay = '/home/pi/_B2_SD.ini';
+console.log(`is Airplay: ${existSync(testPathAirplay)}`);
+if (existSync(testPathAirplay)) {
   fullPath = '/home/pi/shairport-sync';
   myProcess = 'sudo shairport-sync --statistics';
   logFile = '_AirPlay_log';
@@ -54,10 +57,11 @@ if (existSync('/home/pi/_B2_SD.ini')) {
 
 //
 // Alarm Clock Version:
-console.log(`is Alarm Clock: ${existSync('/home/pi/fakeFILE.ini')}`);
-if (existSync('/home/pi/fakeFILE.ini')) {
-  fullPath = '/home/pi/Another_Alarm_Clock';
-  myProcess = 'node init.es6';
+const testPathAlarmClock = '/home/pi/_A0_SD.ini';
+console.log(`is Alarm Clock: ${existSync(testPathAlarmClock)}`);
+if (existSync(testPathAlarmClock)) {
+  fullPath = '/home/pi/CallStatusDashboard';
+  myProcess = 'npm start';
   logFile = '_AlarmClock_log';
 }
 
@@ -93,6 +97,7 @@ function logData(buf) {
   const date = new Date();
   const file = `${dir}${moment(date).format('YYYY_MM_DD')}${logFile}.txt`;
   const tsData = `${moment(date).format('HH:mm:ss')}: ${data}\n`;
+  console.log(`> ${tsData}`);
   // console.log(`-> Writing to "${file}" with: ${tsData}`);
   if (!existSync(file))
     fs.writeFileSync(file);
@@ -125,13 +130,10 @@ child.stdout.on('data', (data) => {
   logData(data);
 });
 child.stderr.on('data', (data) => {
-  // console.log('[stderr]: "%s"', String(data).trim());
-  logData(data);
+  logData(`[stderr]: ${String(data).trim()}`);
 });
 child.on('close', () => {
   testWifiSpeed();
-
-  // console.log('[CLOSED]');
   logData('.\n\n[CLOSED]\n\n.');
 });
 

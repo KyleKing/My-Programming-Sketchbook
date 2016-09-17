@@ -10,9 +10,10 @@
   "author": "Kyle King",
   "license": "MIT",
   "dependencies": {
+    "cron": "^1.1.0",
     "fs-extra": "^0.30.0",
-    "onoff": "^1.1.1",
     "moment": "^2.14.1",
+    "onoff": "^1.1.1",
     "shelljs": "^0.7.1"
   },
   "devDependencies": {
@@ -45,8 +46,12 @@
       "no-console": [
         "off"
       ],
-      "react/require-extension": [ 0 ],
-      "import/extensions": [ 1 ]
+      "react/require-extension": [
+        0
+      ],
+      "import/extensions": [
+        1
+      ]
     },
     "parser": "babel-eslint"
   }

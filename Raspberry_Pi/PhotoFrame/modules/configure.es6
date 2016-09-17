@@ -137,6 +137,8 @@ once approved, rerun this app with: ${cmd}`;
    * Make sure that no illegal characters are within the filenames
    */
   fixDBoxFilenames() {
+    configDebug('Starting fixDBoxFilenames (Make sure dbox is linked and ' +
+      ' not the version from npm)');
     // Init
     const app = dbox.app({
       app_key: secret.app_key,
@@ -154,8 +156,9 @@ once approved, rerun this app with: ${cmd}`;
       for (let i = 0; i < this.contentslength; i++) {
         const path = reply.contents[i].path;
         // Only make a regexp replace call when necessary:
-        if (/[*\s-]/.test(path)) {
-          const newPath = path.replace(/[*\s-]/g, 'G');
+        // Remove all whitespace:
+        if (/[*_\s-]/.test(path)) {
+          const newPath = path.replace(/[*\s-]/g, 'rep');
           client.mv(path, newPath, { root: 'dropbox' }, (stat, rep) => {
             this.workaround++;
             configDebug(`Completed step ${this.workaround} of ${this.contentslength}`);

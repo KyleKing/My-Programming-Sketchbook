@@ -1,0 +1,8 @@
+"\eOA": history-search-backward
+"\e[A": history-search-backward
+"\eOB": history-search-forward
+"\e[B": history-search-forward
+"\eOC": forward-char
+"\e[C": forward-char
+"\eOD": backward-char
+"\e[D": backward-char

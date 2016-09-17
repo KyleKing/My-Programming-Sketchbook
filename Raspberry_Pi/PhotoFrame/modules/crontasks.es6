@@ -16,7 +16,7 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
 // month          0-12 (or names, see below)
 // day of week    0-7
 
-const Fetch = new CronJob('00 01 * * * *', () => {
+const Fetch = new CronJob('00 05 * * * *', () => {
   cronDebug('Fetching Photos');
   photoframe.downloadPhotos(dbCloudDir);
 }, () => {
@@ -27,14 +27,26 @@ const Fetch = new CronJob('00 01 * * * *', () => {
 const SlideShow = new CronJob('05,15,25,35,45,55 * * * * *', () => {
   cronDebug('Starting slideShow CronJob');
   photoframe.runFBI();
-}, () => {}, false);
+}, () => {
+  // kill previous processes to avoid sudden crashing:
+  const clearCMD = 'sudo kill $(ps aux | grep \'[f]bi\'' +
+    ' | awk \'{print $2}\');';
+  exec(clearCMD, (childerr, stdout, stderr) => {
+    cronDebug(warn(`Attempting to Clear List of PID: ${clearCMD}`));
+    if (childerr) cronDebug(warn(childerr));
+    if (stdout) cronDebug(warn(`stdout: ${stdout}`));
+    if (stderr) cronDebug(error(`stderr: ${stderr}`));
+  });
+}, false);
 
 // Should remove all instances of FBI, but always reports: 'command failed'?
 // When actually seems to work?
 const KillOldFBI = new CronJob('10 * * * * *', () => {
   // kill previous processes to avoid sudden crashing:
-  const clearCMD = 'sudo kill $(ps aux | grep \'[f]bi\'' +
-    ' | awk \'{print $2}\');';
+  // const clearCMD = 'sudo kill $(ps aux | grep \'[f]bi\'' +
+    // ' | awk \'{print $2}\');';
+  // Just see what is going on:
+  const clearCMD = 'ps aux | grep [f]bi | awk \'{print $2}\'';
   exec(clearCMD, (childerr, stdout, stderr) => {
     cronDebug(warn(`Attempting to Clear List of PID: ${clearCMD}`));
     if (childerr) cronDebug(warn(childerr));
@@ -49,8 +61,8 @@ module.exports = {
    */
   start() {
     cronDebug('Starting crontask.start()');
-    Fetch.start();
-    SlideShow.start();
-    KillOldFBI.start();
+    // Fetch.start();
+    // SlideShow.start();
+    // KillOldFBI.start();
   },
 };

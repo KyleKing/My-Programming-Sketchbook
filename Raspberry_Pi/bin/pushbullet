@@ -1,0 +1,11 @@
+#!/bin/bash
+# Source: http://www.pratermade.com/2014/08/use-pushbullet-to-send-notifications-from-your-pi-to-your-phone/
+
+API="o.jRY4LtVXen1wF3NFaImHMqvQhXWFGOjD"
+MSG="$1"
+
+curl -u $API: https://api.pushbullet.com/v2/pushes -d type=note -d title="$MSG" -d body="RPI BASH ALERT"
+
+# new line helps clean up console
+echo '
+'

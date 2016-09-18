@@ -14,9 +14,9 @@ const app = dbox.app({
 const glob = require('glob');
 const exec = require('child_process').exec;
 
-// require gulp plugins
-const gulp = require('gulp');
-const imageresize = require('gulp-image-resize');
+// // require gulp plugins
+// const gulp = require('gulp');
+// const imageresize = require('gulp-image-resize');
 
 module.exports = {
   downloadPhotos(dbCloudDir, cb) {
@@ -78,7 +78,8 @@ module.exports = {
     };
     photoDebug('Running imageDownSize');
     photoDebug(resizeSet);
-    gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
+    photoDebug('FIXME: POSSIBLY CAUSING CRASH - deactivated for now');
+    // gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
     photoDebug('Finished imageDownSize');
     if (cb) cb();
   },

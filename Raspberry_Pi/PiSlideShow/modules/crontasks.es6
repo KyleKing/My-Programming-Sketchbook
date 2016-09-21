@@ -15,29 +15,28 @@ function killOldFBI() {
   const listProcesses = "ps aux | grep [f]bi | awk '{print $2}'";
   exec(listProcesses, (childerr, stdout, stderr) => {
     cronDebug(warn(`Getting PID list: ${listProcesses}`));
-    if (stdout) {
-      // console.log(warn(stdout));
-      let PIDs = stdout.trim().split(/\W+/);
-      PIDs = PIDs.sort((a, b) => a - b);
-      const popped = PIDs.pop();
-      cronDebug(`Not Killing: ${popped}, but killing:`);
-      cronDebug(PIDs);
-      const PIDsLen = PIDs.length;
-      if (popped && PIDsLen > 1)
-        _.each(PIDs, (PID) => {
-          exec(`sudo kill ${PID}`, (PIDChildErr, PIDout, PIDerror) => {
-            cronDebug(warn(`Executed: sudo kill ${PID}`));
-            if (PIDout) cronDebug(PIDout);
-            if (PIDChildErr) cronDebug(warn(PIDChildErr));
-            if (PIDerror) cronDebug(error(`PIDerror: ${PIDerror}`));
-          });
-        });
-    } else {
+    console.log(warn(stdout));
+    if (childerr) cronDebug(warn(childerr));
+    if (stderr) cronDebug(error(`stderr: ${stderr}`));
+    let PIDs = stdout.trim().split(/\W+/);
+    PIDs = PIDs.sort((a, b) => a - b);
+    if (PIDs.length === 0) {
       cronDebug('Starting new FBI process since none are running');
       photoframe.runFBI();
     }
-    if (childerr) cronDebug(warn(childerr));
-    if (stderr) cronDebug(error(`stderr: ${stderr}`));
+    const popped = PIDs.pop();
+    cronDebug(`Not Killing: ${popped}, but killing:`);
+    cronDebug(PIDs);
+    const PIDsLen = PIDs.length;
+    if (popped && PIDsLen > 1)
+      _.each(PIDs, (PID) => {
+        exec(`sudo kill ${PID}`, (PIDChildErr, PIDout, PIDerror) => {
+          cronDebug(warn(`Executed: sudo kill ${PID}`));
+          if (PIDout) cronDebug(PIDout);
+          if (PIDChildErr) cronDebug(warn(PIDChildErr));
+          if (PIDerror) cronDebug(error(`PIDerror: ${PIDerror}`));
+        });
+      });
   });
 }
 
@@ -77,7 +76,7 @@ const Fetch = new CronJob('0 0,20,40 * * * *', () => {
 // ##########################################################
 
 const SlideShow = new CronJob('0 10,30,50 * * * *', () => {
-  cronDebug('Running new FBI Instance');
+  cronDebug('Running SlideShow to create new FBI instance');
   photoframe.runFBI();
 }, () => {
   console.log(warn('!! Completed SlideShow Cron Task !!'));
@@ -93,7 +92,7 @@ const SlideShow = new CronJob('0 10,30,50 * * * *', () => {
 // }, false);
 
 const CheckOnFBI = new CronJob('0 14,34,54 * * * *', () => {
-  cronDebug('Starting CheckOnFBI/Kill Old FBI after timeout');
+  cronDebug('Starting CheckOnFBI/Kill Old FBI');
   killOldFBI();
 }, () => {
   console.log(warn('!! Completed CheckOnFBI Cron Task !!'));
@@ -119,7 +118,9 @@ function toggleDisplay(state) {
 }
 
 // Create the typical callbacks:
-pyshell.on('message', (message) => { cronDebug(message); });
+pyshell.on('message', (message) => {
+  cronDebug(`Received ${message} from toggle_LCD.py`);
+});
 pyshell.on('close', (err) => {
   if (err)
     throw err;
@@ -129,7 +130,7 @@ pyshell.on('error', (err) => { throw err; });
 
 // Turn the display on when people should be around
 // const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
-const ActivateDisplay = new CronJob('0 18 7,14 * * *', () => {
+const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
   cronDebug('Starting ActivateDisplay');
   toggleDisplay('True');  // i.e. on
 }, () => {
@@ -159,7 +160,7 @@ module.exports = {
   start() {
     cronDebug('Starting cron tasks!');
 
-    cronDebug('Starting slide show and powering up display');
+    // cronDebug('Starting slide show and powering up display');
     // photoframe.runFBI();
     // toggleDisplay('True');  // i.e. on
     // ^ Should already be on whenever pi turns on (smart HDMI)

@@ -121,20 +121,9 @@ module.exports = {
           fbiDebug(warn('stdout:'));
           fbiDebug(stdout);
         }
-        if (stderr) fbiDebug(error(`stderr: ${stderr}`));
-        if (err) fbiDebug(error(err));
+        if (stderr) fbiDebug(`FBI stderr: ${stderr}`);
+        if (err) fbiDebug(`FBI err: ${err}`);
       });
-
-      // fbiDebug('Starting runFBI()');
-      // const newImagePath = this.newImage();
-      // const completepath = `"/home/pi/PhotoFrame/${newImagePath}"`;
-      // const command = `sudo fbi -a -noverbose -T 10 ${completepath}`;
-      // exec(command, (err, stdout, stderr) => {
-      //   if (err) fbiDebug(error(err));
-      //   fbiDebug(`Switching image displayed: ${command}`);
-      //   if (stdout) fbiDebug(warn(`stdout: ${stdout}`));
-      //   if (stderr) fbiDebug(error(`stderr: ${stderr}`));
-      // });
     } else
       console.log('Not on Raspberry Pi - not running FBI Task');
   },

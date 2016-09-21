@@ -137,10 +137,9 @@ once approved, rerun this app with: ${cmd}`;
       this.workaround = 0;
       for (let i = 0; i < this.contentslength; i++) {
         const path = reply.contents[i].path;
-        // Only make a regexp replace call when necessary:
-        // Remove all whitespace:
-        if (/[*_\s-]/.test(path)) {
-          const newPath = path.replace(/[*_\s-]/g, 'Y');
+        // Replace any bad characters in filenames:
+        if (/[*_\s\-,]/.test(path)) {
+          const newPath = path.replace(/[*_\s\-,]/g, 'Y');
           client.mv(path, newPath, { root: 'dropbox' }, (stat, rep) => {
             this.workaround++;
             configDebug(`Completed step ${this.workaround} of ${this.contentslength}`);

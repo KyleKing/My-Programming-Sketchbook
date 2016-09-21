@@ -10,6 +10,8 @@ const exec = require('child_process').exec;
 
 // Kill all but the last running FBI process:
 function killOldFBI() {
+  // FIXME: parse full ps aux, look at both timestamp and number, then kill
+  // the appropriate number because processes do not always increase in value
   const listProcesses = "ps aux | grep [f]bi | awk '{print $2}'";
   exec(listProcesses, (childerr, stdout, stderr) => {
     cronDebug(warn(`Getting PID list: ${listProcesses}`));
@@ -42,14 +44,15 @@ function killOldFBI() {
 function refreshDisplay() {
   // Start the slideshow, then kill any conflicting instances of FBI:
   cronDebug('Fired refreshDisplay function');
-  setTimeout(() => {
-    cronDebug('Running new FBI Instance');
-    photoframe.runFBI();
-  }, 5000);
-  setTimeout(() => {
-    cronDebug('Starting Kill Old FBI after timeout');
-    killOldFBI();
-  }, 10000);
+  // setTimeout(() => {
+  //   cronDebug('Running new FBI Instance');
+  //   photoframe.runFBI();
+  // }, 5000);
+  // setTimeout(() => {
+  //   cronDebug('Starting Kill Old FBI after timeout');
+  //   killOldFBI();
+  // }, 10000);
+  cronDebug('But commented out to figure out enomen issue');
 }
 
 
@@ -59,7 +62,7 @@ function refreshDisplay() {
 
 // Check for new photos as often as possible:
 const dbCloudDir = 'Apps/Balloon.io/aloo';
-const Fetch = new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
+const Fetch = new CronJob('0 0,20,40 * * * *', () => {
   cronDebug('Fetching Photos');
   photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
 }, () => {
@@ -73,6 +76,13 @@ const Fetch = new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
 // TODO: Actually wrapped up into the fetch task ^
 // ##########################################################
 
+const SlideShow = new CronJob('0 10,30,50 * * * *', () => {
+  cronDebug('Running new FBI Instance');
+  photoframe.runFBI();
+}, () => {
+  console.log(warn('!! Completed SlideShow Cron Task !!'));
+}, false);
+
 // // Start a fresh slide show 3 times/hour to add new images
 // // const SlideShow = new CronJob('0 5,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
 // const SlideShow = new CronJob('0 0 * * * *', () => {
@@ -81,6 +91,13 @@ const Fetch = new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
 // }, () => {
 //   console.log(warn('!! Completed SlideShow Cron Task !!'));
 // }, false);
+
+const CheckOnFBI = new CronJob('0 14,34,54 * * * *', () => {
+  cronDebug('Starting CheckOnFBI/Kill Old FBI after timeout');
+  killOldFBI();
+}, () => {
+  console.log(warn('!! Completed CheckOnFBI Cron Task !!'));
+}, false);
 
 // // // Check to see that only one FBI process is running at regular intervals
 // // // const CheckOnFBI = new CronJob('10 0,10,20,30,40,50 * * * *', () => {
@@ -143,12 +160,13 @@ module.exports = {
     cronDebug('Starting cron tasks!');
 
     cronDebug('Starting slide show and powering up display');
-    photoframe.runFBI();
-    toggleDisplay('True');  // i.e. on
+    // photoframe.runFBI();
+    // toggleDisplay('True');  // i.e. on
+    // ^ Should already be on whenever pi turns on (smart HDMI)
 
     Fetch.start();
-    // SlideShow.start();
-    // CheckOnFBI.start();
+    SlideShow.start();
+    CheckOnFBI.start();
     ActivateDisplay.start();
     SleepDisplay.start();
   },

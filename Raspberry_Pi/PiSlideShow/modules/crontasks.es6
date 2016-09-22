@@ -165,6 +165,9 @@ module.exports = {
     // toggleDisplay('True');  // i.e. on
     // ^ Should already be on whenever pi turns on (smart HDMI)
 
+    // FIXME: create custom cron cycles based on when the app starts
+    // (i.e. start slideshow, check on FBI, fetch in that order with
+    //    set time in between tasks [I think first thing is download])
     Fetch.start();
     SlideShow.start();
     CheckOnFBI.start();

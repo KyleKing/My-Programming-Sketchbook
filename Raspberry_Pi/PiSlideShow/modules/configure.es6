@@ -139,7 +139,7 @@ once approved, rerun this app with: ${cmd}`;
         const path = reply.contents[i].path;
         // Replace any bad characters in filenames:
         if (/[*_\s\-,]/.test(path)) {
-          const newPath = path.replace(/[*_\s\-,]/g, 'Y');
+          const newPath = path.replace(/[*_\s\-,]/g, '');
           client.mv(path, newPath, { root: 'dropbox' }, (stat, rep) => {
             this.workaround++;
             configDebug(`Completed step ${this.workaround} of ${this.contentslength}`);

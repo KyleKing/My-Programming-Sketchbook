@@ -114,7 +114,7 @@ module.exports = {
     if (process.env.LOCAL === 'false') {
       const imgPath = '/home/pi/PiSlideShow/images/*';
       const opt = '--blend 2 -noverbose --random --noonce';
-      const command = `sudo fbi -T 1 -a -u -t 2 ${opt} ${imgPath}`;
+      const command = `sudo fbi -T 1 -a -u -t 1 ${opt} ${imgPath}`;
       exec(command, (err, stdout, stderr) => {
         fbiDebug(`Running FBI Task: ${command}`);
         if (stdout) {

@@ -1,0 +1,1 @@
+Add temporary place for all fritzing diagrams!

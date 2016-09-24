@@ -89,16 +89,31 @@ fs.ensureDirSync(dir);
 // Start your looping process (SET ABOVE):
 const child = shell.exec(myProcess, { async: true });
 
+function cleanUp(raw) {
+  let data = str(raw).trim();
+  console.log(`>> d: ${data}`);
+  // Get rid of UNIX console colors
+  data = data.replace(/\^\[\[33m>>\s/, '(yellow) ');
+  data = data.replace(/\^\[\[38\;5\;8m\*\* /, '(grey) ');
+  data = data.replace(/\^\[\[\d+m$/, '');
+  data = data.replace(/\^\[\[[^\s]+\s/, '');
+  // Get rid of debugger text:
+  data = data.replace(/\w+,\s\d+\s\w+\s\d+\s\d+:\d+:\d+\s\w+\sapp:/, '$$%$')
+  console.log(`>> c: ${data}`);
+  // data = data.replace(/\$\$%\$/, '$$%$')
+  return data
+}
+
 //
 // Create a robust logging method:
 function logData(buf) {
   const data = buf.trim();
   // Config file and directory:
-  const date = new Date();
-  const file = `${dir}${moment(date).format('YYYY_MM_DD')}${logFile}.txt`;
-  const tsData = `${moment(date).format('HH:mm:ss')}: ${data}\n`;
-  console.log(`> ${tsData}`);
-  // console.log(`-> Writing to "${file}" with: ${tsData}`);
+  const file = `${dir}${new moment().format('YYMMDD')}${logFile}.txt`;
+  const cleanData = cleanUp(data);
+  const tsData = `At ${new moment().format('HH:mm:ss')} log: ${cleanData}\n`;
+  // console.log(`> ${tsData}`);
+  // // console.log(`-> Writing to "${file}" with: ${tsData}`);
   if (!existSync(file))
     fs.writeFileSync(file);
   // Write to file:

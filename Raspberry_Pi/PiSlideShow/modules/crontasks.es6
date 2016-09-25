@@ -5,71 +5,27 @@ const cronDebug = init('cron');
 const photoframe = require('./photoframe.es6');
 const PythonShell = require('python-shell');
 const CronJob = require('cron').CronJob;
-const _ = require('underscore');
-const exec = require('child_process').exec;
-
-
-function killAllFBI() {
-  const listProcesses = "ps aux | grep [f]bi | awk '{print $2}'";
-  exec(listProcesses, (childerr, stdout, stderr) => {
-    cronDebug(warn(`Getting PID list: ${listProcesses}`));
-    console.log(warn(stdout));
-    if (childerr) cronDebug(warn(childerr));
-    if (stderr) cronDebug(error(`stderr: ${stderr}`));
-    const PIDs = stdout.trim().split(/\W+/);
-    cronDebug(PIDs);
-    const PIDsLen = PIDs.length;
-    if (stdout.trim() & PIDsLen > 0)
-      _.each(PIDs, (PID) => {
-        exec(`sudo kill ${PID}`, (PIDChildErr, PIDout, PIDerror) => {
-          cronDebug(warn(`Executed: sudo kill ${PID}`));
-          if (PIDout) cronDebug(PIDout);
-          if (PIDChildErr) cronDebug(warn(PIDChildErr));
-          if (PIDerror) cronDebug(error(`PIDerror: ${PIDerror}`));
-        });
-      });
-  });
-}
-
-
-// ##########################################################
-//    Keep Local Images Directory in Sync
-// ##########################################################
-
-function refreshDisplay() {
-  cronDebug('Completed Fetch task');
-  killAllFBI();
-}
-
-// Check for new photos as often as possible:
-const dbCloudDir = 'Apps/Balloon.io/aloo';
-const Fetch = new CronJob('0 0,10,20,30,40,50 * * * *', () => {
-  cronDebug('Starting fresh FBI task right before fetching!');
-  photoframe.runFBI();
-  cronDebug('Fetching Photos');
-  photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
-}, () => {
-  console.log(warn('!! Completed Fetch Cron Task !!'));
-}, false);
+// const _ = require('underscore');
+// const exec = require('child_process').exec;
 
 
 // ##########################################################
 //    Setup the on/off cycles of the LCD display
 // ##########################################################
 
-const pyshell = new PythonShell('toggle_LCD.py');
-function toggleDisplay(state) {
+const pyshell = new PythonShell('py_scripts/sys_actions.py');
+function send(state) {
   pyshell.send(state);
 }
 
 // Create the typical callbacks:
 pyshell.on('message', (message) => {
-  cronDebug(`(from toggle_LCD.py) Received: ${message}`);
+  cronDebug(`(from sys_actions.py) Received: ${message}`);
 });
 pyshell.on('close', (err) => {
   if (err)
     throw err;
-  console.log('Finished and closed (toggle_LCD.py)');
+  console.log('Finished and closed (sys_actions.py)');
 });
 pyshell.on('error', (err) => { throw err; });
 
@@ -78,7 +34,7 @@ pyshell.on('error', (err) => { throw err; });
 // const ActivateDisplay = new CronJob('0 8,18,28,38,48,58 * * * *', () => {
 const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
   cronDebug('Starting ActivateDisplay');
-  toggleDisplay('True');  // i.e. on
+  send('LCD TRUE');  // i.e. on
 }, () => {
   console.log(warn('!! Completed ActivateDisplay Cron Task !!'));
 }, false);
@@ -88,9 +44,55 @@ const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
 // const SleepDisplay = new CronJob('30 6,16,26,36,46,56 * * * *', () => {
 const SleepDisplay = new CronJob('0 45 8,21 1-5 * *', () => {
   cronDebug('Starting SleepDisplay');
-  toggleDisplay('False');  // i.e. off
+  send('lCd fAlSe');  // i.e. off
 }, () => {
   console.log(warn('!! Completed SleepDisplay Cron Task !!'));
+}, false);
+
+
+// ##########################################################
+//    Keep Local Images Directory in Sync
+// ##########################################################
+
+
+// function killAllFBI() {
+//   console.log('Not killAllFBI');
+//   // const listProcesses = "ps aux | grep [f]bi | awk '{print $2}'";
+//   // exec(listProcesses, (childerr, stdout, stderr) => {
+//   //   cronDebug(warn(`Getting PID list: ${listProcesses}`));
+//   //   console.log(warn(stdout));
+//   //   if (childerr) cronDebug(warn(childerr));
+//   //   if (stderr) cronDebug(error(`stderr: ${stderr}`));
+//   //   const PIDs = stdout.trim().split(/\W+/);
+//   //   cronDebug(PIDs);
+//   //   const PIDsLen = PIDs.length;
+//   //   if (stdout.trim() & PIDsLen > 0)
+//   //     _.each(PIDs, (PID) => {
+//   //       exec(`sudo kill ${PID}`, (PIDChildErr, PIDout, PIDerror) => {
+//   //         cronDebug(warn(`Executed: sudo kill ${PID}`));
+//   //         if (PIDout) cronDebug(PIDout);
+//   //         if (PIDChildErr) cronDebug(warn(PIDChildErr));
+//   //         if (PIDerror) cronDebug(error(`PIDerror: ${PIDerror}`));
+//   //       });
+//   //     });
+//   // });
+// }
+
+function refreshDisplay() {
+  cronDebug('Completed Fetch task and running refreshDisplay');
+  send('FbI');
+  // killAllFBI();
+}
+
+// Check for new photos as often as possible:
+const dbCloudDir = 'Apps/Balloon.io/aloo';
+const Fetch = new CronJob('0 0,10,20,30,40,50 * * * *', () => {
+  // cronDebug('Starting fresh FBI task right before fetching!');
+  // photoframe.runFBI();
+  cronDebug('Fetching Photos');
+  photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
+}, () => {
+  console.log(warn('!! Completed Fetch Cron Task !!'));
 }, false);
 
 

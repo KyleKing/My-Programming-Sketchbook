@@ -12,13 +12,16 @@ const app = dbox.app({
   app_secret: secret.app_secret,
 });
 const glob = require('glob');
-const exec = require('child_process').exec;
+// const exec = require('child_process').exec;
 
 // // require gulp plugins
 // const gulp = require('gulp');
 // const imageresize = require('gulp-image-resize');
 
 module.exports = {
+  /**
+   * Get a new set of photos
+   */
   downloadPhotos(dbCloudDir, cb) {
     photoDebug('Starting downloadPhotos()');
     const client = app.client(secret.accesstoken);
@@ -27,30 +30,35 @@ module.exports = {
     // Get list of available images
     client.metadata(dbCloudDir, options, (status, imgList) => {
       photoDebug(`Dropbox metadata status = ${status}`);
-      const desiredImgs = [];
-      this.syncCount = imgList.contents.length;
-      this.syncCounter = 0;
-      for (let i = 0; i < this.syncCount; i++) {
-        const filepath = imgList.contents[i].path;
-        const localpath = `images/${path.basename(filepath)}`;
-        desiredImgs.push(localpath);
-        // Check if image is stored locally and download those not found
-        fs.access(localpath, fs.R_OK | fs.W_OK, (notFound) => {
-          if (notFound)
-            client.get(filepath, options, (stat, reply) => {
-              // const localpath = `images/${path.basename(metadata.path)}`;
-              const wstream = fs.createWriteStream(localpath);
-              wstream.write(reply);
-              console.log(warn(`>> Downloaded: ${localpath}`));
+      if (status === 200) {
+        const desiredImgs = [];
+        this.syncCount = imgList.contents.length;
+        this.syncCounter = 0;
+        for (let i = 0; i < this.syncCount; i++) {
+          const filepath = imgList.contents[i].path;
+          const localpath = `images/${path.basename(filepath)}`;
+          desiredImgs.push(localpath);
+          // Check if image is stored locally and download those not found
+          fs.access(localpath, fs.R_OK | fs.W_OK, (notFound) => {
+            if (notFound)
+              client.get(filepath, options, (stat, reply) => {
+                // const localpath = `images/${path.basename(metadata.path)}`;
+                const wstream = fs.createWriteStream(localpath);
+                wstream.write(reply);
+                console.log(warn(`>> Downloaded: ${localpath}`));
+                this.syncCounter++;
+                this.syncWorkaround(desiredImgs, cb);
+              });
+            else {
+              console.log(ignore(`** ${localpath} exists`));
               this.syncCounter++;
               this.syncWorkaround(desiredImgs, cb);
-            });
-          else {
-            console.log(ignore(`** ${localpath} exists`));
-            this.syncCounter++;
-            this.syncWorkaround(desiredImgs, cb);
-          }
-        });
+            }
+          });
+        }
+      } else {
+        console.error('DROPBOX CONNECTION FAILED');
+        this.syncWorkaround([''], cb);
       }
     });
   },
@@ -67,23 +75,8 @@ module.exports = {
   },
 
   /**
-   * Make sure images are the correct resolution for the screen
+   * Do some housekeeping
    */
-  imageDownSize(imgPath, imgDest, cb) {
-    const resizeSet = {
-      width: 800,
-      height: 400,
-      crop: false,
-      upscale: false,
-    };
-    photoDebug('Running imageDownSize');
-    photoDebug(resizeSet);
-    photoDebug('FIXME: POSSIBLY CAUSING CRASH - deactivated for now');
-    // gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
-    photoDebug('Finished imageDownSize');
-    if (cb) cb();
-  },
-
   deleteExcessFiles() {
     photoDebug('Starting deleteExcessFiles()');
     glob('images/*.*', (err, existingImgs) => {
@@ -106,50 +99,64 @@ module.exports = {
         }
       }
   },
-
-  /**
-   * Create Slide Show by scheduling images for FBI
-   */
-  runFBI() {
-    if (process.env.LOCAL === 'false') {
-      const imgPath = '/home/pi/PiSlideShow/images/*';
-      const opt = '--blend 2 -noverbose --random --noonce';
-      const command = `sudo fbi -T 1 -a -u -t 1 ${opt} ${imgPath}`;
-      // fbiDebug(`NOT RUNNING FBI Task: ${command}`);
-      exec(command, (err, stdout, stderr) => {
-        fbiDebug(`Running FBI Task: ${command}`);
-        if (stdout) {
-          fbiDebug(warn('stdout:'));
-          fbiDebug(stdout);
-        }
-        if (stderr) fbiDebug(`FBI stderr: ${stderr}`);
-        if (err) fbiDebug(`FBI err: ${err}`);
-      });
-    } else
-      console.log('Not on Raspberry Pi - not running FBI Task');
+  imageDownSize(imgPath, imgDest, cb) {
+    const resizeSet = {
+      width: 800,
+      height: 400,
+      crop: false,
+      upscale: false,
+    };
+    photoDebug('Running imageDownSize');
+    photoDebug(resizeSet);
+    photoDebug('FIXME: POSSIBLY CAUSING CRASH - deactivated for now');
+    // gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
+    photoDebug('Finished imageDownSize');
+    if (cb) cb();
   },
 
-  /* Randomly selects a random index of a given array */
-  ranIndex: (files) => Math.round((files.length - 1) * Math.random()),
+  // /**
+  //  * Create Slide Show by scheduling images for FBI
+  //  */
+  // runFBI() {
+  //   if (process.env.LOCAL === 'false') {
+  //     const imgPath = '/home/pi/PiSlideShow/images/*';
+  //     const opt = '--blend 2 -noverbose --random --noonce';
+  //     const command = `sudo fbi -T 1 -a -u -t 1 ${opt} ${imgPath}`;
+  //     // fbiDebug(`NOT RUNNING FBI Task: ${command}`);
+  //     exec(command, (err, stdout, stderr) => {
+  //       fbiDebug(`Running FBI Task: ${command}`);
+  //       if (stdout) {
+  //         fbiDebug(warn('stdout:'));
+  //         fbiDebug(stdout);
+  //       }
+  //       if (stderr) fbiDebug(`FBI stderr: ${stderr}`);
+  //       if (err) fbiDebug(`FBI err: ${err}`);
+  //     });
+  //   } else
+  //     console.log('Not on Raspberry Pi - not running FBI Task');
+  // },
 
-  /**
-   * Remove redundancy in slide show and select a new image
-   */
-  newImage() {
-    const files = fs.readJsonSync('images.json');
-    const prevImages = fs.readJsonSync('history.json');
-    if (prevImages.length >= 20 || prevImages.length + 5 === files.length)
-      // Remove first entry (i.e. oldest image already shown)
-      prevImages.shift();
-    // Keep selecting a random file to find a new file
-    let newImagePath = files[this.ranIndex(files)];
-    fbiDebug(ignore(`Lengths { prevImages: ${prevImages.length} & files: ${files.length} }
-              indexOf: ${prevImages.indexOf(newImagePath)}`));
-    while (prevImages.indexOf(newImagePath) !== -1)
-      newImagePath = files[this.ranIndex(files)];
-    fbiDebug(ignore(`newImagePath: ${newImagePath}`));
-    prevImages.push(newImagePath);
-    fs.writeJSONSync('history.json', prevImages);
-    return newImagePath;
-  },
+  // /* Randomly selects a random index of a given array */
+  // ranIndex: (files) => Math.round((files.length - 1) * Math.random()),
+
+  // /**
+  //  * Remove redundancy in slide show and select a new image
+  //  */
+  // newImage() {
+  //   const files = fs.readJsonSync('images.json');
+  //   const prevImages = fs.readJsonSync('history.json');
+  //   if (prevImages.length >= 20 || prevImages.length + 5 === files.length)
+  //     // Remove first entry (i.e. oldest image already shown)
+  //     prevImages.shift();
+  //   // Keep selecting a random file to find a new file
+  //   let newImagePath = files[this.ranIndex(files)];
+  //   fbiDebug(ignore(`Lengths { prevImages: ${prevImages.length} & files: ${files.length} }
+  //             indexOf: ${prevImages.indexOf(newImagePath)}`));
+  //   while (prevImages.indexOf(newImagePath) !== -1)
+  //     newImagePath = files[this.ranIndex(files)];
+  //   fbiDebug(ignore(`newImagePath: ${newImagePath}`));
+  //   prevImages.push(newImagePath);
+  //   fs.writeJSONSync('history.json', prevImages);
+  //   return newImagePath;
+  // },
 };

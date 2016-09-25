@@ -1,4 +1,4 @@
-console.log('If module compile error (etc.), just run `npm rebuild` or delete ' +
+console.log('Note: If module compile error, run `npm rebuild` or delete ' +
   'the node_modules folder and reinstall with `npm install`');
 
 const fs = require('fs-extra');
@@ -26,8 +26,8 @@ let logFile = '';
 //
 // My Local Laptop Testing (Will need to `npm remove onoff`):
 const testPathLocal = '/Users/kyleking/Developer/';
-console.log(`is Macbook: ${!existSync('/home/pi/')}`);
-console.log(`is Macbook: ${existSync(testPathLocal)}`);
+console.log(`  is Macbook: ${!existSync('/home/pi/')}`);
+console.log(`  is Macbook: ${existSync(testPathLocal)}`);
 if (!existSync('/home/pi/')) {
   fullPath = '/Users/kyleking/Developer/My-Programming-Sketchbook/' +
     'Raspberry_Pi/onoff-shutdown';
@@ -38,7 +38,7 @@ if (!existSync('/home/pi/')) {
 //
 // PiSlideShow Version:
 const testPathPiSlideShow = '/home/pi/_D4_SD.ini';
-console.log(`is PiSlideShow: ${existSync(testPathPiSlideShow)}`);
+console.log(`  is PiSlideShow: ${existSync(testPathPiSlideShow)}`);
 if (existSync(testPathPiSlideShow)) {
   fullPath = '/home/pi/PiSlideShow/';
   myProcess = 'node init.es6 -d';
@@ -48,7 +48,7 @@ if (existSync(testPathPiSlideShow)) {
 //
 // Airplay Speaker Version:
 const testPathAirplay = '/home/pi/_B2_SD.ini';
-console.log(`is Airplay: ${existSync(testPathAirplay)}`);
+console.log(`  is Airplay: ${existSync(testPathAirplay)}`);
 if (existSync(testPathAirplay)) {
   fullPath = '/home/pi/shairport-sync';
   myProcess = 'sudo shairport-sync --statistics';
@@ -58,7 +58,7 @@ if (existSync(testPathAirplay)) {
 //
 // Alarm Clock Version:
 const testPathAlarmClock = '/home/pi/_A0_SD.ini';
-console.log(`is Alarm Clock: ${existSync(testPathAlarmClock)}`);
+console.log(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 if (existSync(testPathAlarmClock)) {
   fullPath = '/home/pi/CallStatusDashboard';
   myProcess = 'npm start';
@@ -89,18 +89,16 @@ fs.ensureDirSync(dir);
 // Start your looping process (SET ABOVE):
 const child = shell.exec(myProcess, { async: true });
 
-function cleanUp(raw) {
-  let data = str(raw).trim();
-  console.log(`>> d: ${data}`);
-  // Get rid of UNIX console colors
-  data = data.replace(/\^\[\[33m>>\s/, '(yellow) ');
-  data = data.replace(/\^\[\[38\;5\;8m\*\* /, '(grey) ');
-  data = data.replace(/\^\[\[\d+m$/, '');
-  data = data.replace(/\^\[\[[^\s]+\s/, '');
-  // Get rid of debugger text:
-  data = data.replace(/\w+,\s\d+\s\w+\s\d+\s\d+:\d+:\d+\s\w+\sapp:/, '$$%$')
-  console.log(`>> c: ${data}`);
-  // data = data.replace(/\$\$%\$/, '$$%$')
+function cleanUp(data) {
+  // Clip new lines and add visual indent
+  data = data.replace(/\n/g, '\n\t\t')
+  // Get rid of ansi escape characters:
+  // Source: http://stackoverflow.com/a/29497680/3219667
+  data = data.replace(/[\u001b\u009b][[()#;?]*33m>>\s/, '(yellow) ');
+  data = data.replace(/[\u001b\u009b][[()#;?]*38\;5\;8m\*\* /, '(grey) ');
+  data = data.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+  // Replace debugger text:
+  data = data.replace(/\w+,\s\d+\s\w+\s\d+\s\d+:\d+:\d+\s\w+\s(app:\w+)/g, '{$1}');
   return data
 }
 
@@ -108,15 +106,13 @@ function cleanUp(raw) {
 // Create a robust logging method:
 function logData(buf) {
   const data = buf.trim();
-  // Config file and directory:
-  const file = `${dir}${new moment().format('YYMMDD')}${logFile}.txt`;
   const cleanData = cleanUp(data);
-  const tsData = `At ${new moment().format('HH:mm:ss')} log: ${cleanData}\n`;
-  // console.log(`> ${tsData}`);
-  // // console.log(`-> Writing to "${file}" with: ${tsData}`);
+  const tsData = `[${new moment().format('HH:mm:ss')}] >> ${cleanData}\n`;
+  const file = `${dir}${new moment().format('YYMMDD')}${logFile}.txt`;
+  console.log(`-> ${tsData}`);
+  // console.log(`-> Writing to "${file}" with: ${tsData}`);
   if (!existSync(file))
     fs.writeFileSync(file);
-  // Write to file:
   fs.appendFile(file, tsData, (err) => {
     if (err) throw err;
   });
@@ -125,31 +121,28 @@ function logData(buf) {
 //
 // A little utility function:
 function testWifiSpeed() {
-  logData('\n\nNot running speedtest for now\n\n');
-  // shell.exec('speedtest-cli', (code, stdout, stderr) => {
-  //   logData('Running speedtest-cli');
-  //   logData(stdout);
-  //   if (stderr)
-  //     logData(stderr);
-  //   logData('Finished speedtest-cli');
-  // });
+  shell.exec('speedtest-cli', (code, stdout, stderr) => {
+    logData('Running speedtest-cli');
+    logData(stdout);
+    if (stderr)
+      logData(stderr);
+    logData('Finished speedtest-cli');
+  });
 }
 
 // -------- Respond to child -------- //
 
-// Test WIFI Speed as control:
-testWifiSpeed();
+// // Test WIFI Speed as control:
+// testWifiSpeed();
 
-// Log stdout to a file logging system (logs/YYYY_MM_DD_(your filename).txt)
 child.stdout.on('data', (data) => {
-  // console.log('[stdout]: "%s"', String(data).trim());
   logData(data);
 });
 child.stderr.on('data', (data) => {
-  logData(`[stderr]: ${String(data).trim()}`);
+  logData(`[WARN stderr]: ${String(data).trim()}`);
 });
 child.on('close', () => {
-  testWifiSpeed();
+  // testWifiSpeed();
   logData('.\n\n[CLOSED]\n\n.');
 });
 

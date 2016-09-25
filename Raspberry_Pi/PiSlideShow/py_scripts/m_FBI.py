@@ -13,7 +13,7 @@ def close():
             kill_cmd = 'sudo kill ' + PID
             cg.send(kill_cmd)
             subprocess.call(kill_cmd, shell=True)
-        time.sleep(3)
+        time.sleep(0.5)
     else:
         cg.send('No running FBI processes to kill')
 

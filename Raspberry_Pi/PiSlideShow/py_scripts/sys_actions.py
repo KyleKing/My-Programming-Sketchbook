@@ -12,7 +12,7 @@ line = ' '
 while line:
     # Parse STDIN
     line = sys.stdin.readline().strip().lower()
-    print 'Received: ' + line
+    cg.send('Received: ' + line)
     try:
         task, term = line.split(' ')
     except:
@@ -32,3 +32,4 @@ while line:
         sys.exit()
     else:
         cg.send('Unrecognized command')
+    cg.send('Completed Task Based on last STDIN ("' + line + '")')

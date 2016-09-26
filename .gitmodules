@@ -1,3 +1,6 @@
 [submodule "Raspberry_Pi/Another_Raspberry_Pi_Guide"]
 	path = Raspberry_Pi/Another_Raspberry_Pi_Guide
 	url = https://KyleKing@github.com/KyleKing/Another_Raspberry_Pi_Guide
+[submodule "Raspberry_Pi/bin"]
+	path = Raspberry_Pi/bin
+	url = https://KyleKing@github.com/KyleKing/.dot_files

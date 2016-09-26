@@ -32,7 +32,7 @@ pyshell.on('error', (err) => { throw err; });
 
 // Turn the display on when people should be around
 // const ActivateDisplay = new CronJob('0 8,18,28,38,48,58 * * * *', () => {
-const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
+const ActivateDisplay = new CronJob('0 30 5,17 * * *', () => {
   cronDebug('Starting ActivateDisplay');
   send('LCD TRUE');  // i.e. on
 }, () => {
@@ -42,7 +42,7 @@ const ActivateDisplay = new CronJob('0 30 7,17 * * *', () => {
 
 // Then off when time to sleep:
 // const SleepDisplay = new CronJob('30 6,16,26,36,46,56 * * * *', () => {
-const SleepDisplay = new CronJob('0 45 8,21 1-5 * *', () => {
+const SleepDisplay = new CronJob('0 0 7,21 1-5 * *', () => {
   cronDebug('Starting SleepDisplay');
   send('lCd fAlSe');  // i.e. off
 }, () => {

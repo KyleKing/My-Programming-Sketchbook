@@ -91,7 +91,7 @@ const child = shell.exec(myProcess, { async: true });
 
 function cleanUp(data) {
   // Clip new lines and add visual indent
-  data = data.replace(/\n/g, '\n\t\t')
+  data = data.replace(/\n/g, '\n\t   ')
   // Get rid of ansi escape characters:
   // Source: http://stackoverflow.com/a/29497680/3219667
   data = data.replace(/[\u001b\u009b][[()#;?]*33m>>\s/, '(yellow) ');

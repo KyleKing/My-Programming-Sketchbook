@@ -41,7 +41,7 @@ const testPathPiSlideShow = '/home/pi/_D4_SD.ini';
 console.log(`  is PiSlideShow: ${existSync(testPathPiSlideShow)}`);
 if (existSync(testPathPiSlideShow)) {
   fullPath = '/home/pi/PiSlideShow/';
-  myProcess = 'node init.es6 -d';
+  myProcess = 'npm start';
   logFile = '_PiSlideShow_log';
 }
 
@@ -60,7 +60,7 @@ if (existSync(testPathAirplay)) {
 const testPathAlarmClock = '/home/pi/_A0_SD.ini';
 console.log(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 if (existSync(testPathAlarmClock)) {
-  fullPath = '/home/pi/CallStatusDashboard';
+  fullPath = '/home/pi/PiAlarm';
   myProcess = 'npm start';
   logFile = '_AlarmClock_log';
 }
@@ -68,13 +68,13 @@ if (existSync(testPathAlarmClock)) {
 // -------- Don't worry about anything below this line -------- //
 
 // -------- General Configuration -------- //
-const Gpio = require('onoff').Gpio;  // Constructor function for Gpio objects.
+const Gpio = require('onoff').Gpio;  // eslint-disable-line
 
 const button = new Gpio(4, 'in', 'both'); // Export GPIO #4 as an interrupt
 const led = new Gpio(14, 'out');         // Export GPIO #14 as an output.
 
 const shell = require('shelljs');
-const moment = require('moment');
+const Moment = require('moment');
 
 // -------- Use the user-set variables -------- //
 
@@ -89,33 +89,38 @@ fs.ensureDirSync(dir);
 // Start your looping process (SET ABOVE):
 const child = shell.exec(myProcess, { async: true });
 
-function cleanUp(data) {
-  // Clip new lines and add visual indent
-  data = data.replace(/\n/g, '\n\t   ')
+function cleanUp(raw) {
+  let data = raw.trim();
+  // Clip internal new lines and add visual indent
+  data = data.replace(/\n/g, '\n\t   ');
   // Get rid of ansi escape characters:
   // Source: http://stackoverflow.com/a/29497680/3219667
   data = data.replace(/[\u001b\u009b][[()#;?]*33m>>\s/, '(yellow) ');
-  data = data.replace(/[\u001b\u009b][[()#;?]*38\;5\;8m\*\* /, '(grey) ');
-  data = data.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
-  // Replace debugger text:
+  data = data.replace(/[\u001b\u009b][[()#;?]*38;5;8m\*\* /, '(grey) ');
+  data = data.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''); // eslint-disable-line
+  // Replace node-debugger text:
   data = data.replace(/\w+,\s\d+\s\w+\s\d+\s\d+:\d+:\d+\s\w+\s(app:\w+)/g, '{$1}');
-  return data
+  return data;
 }
 
 //
 // Create a robust logging method:
 function logData(buf) {
   const data = buf.trim();
-  const cleanData = cleanUp(data);
-  const tsData = `[${new moment().format('HH:mm:ss')}] >> ${cleanData}\n`;
-  const file = `${dir}${new moment().format('YYMMDD')}${logFile}.txt`;
-  console.log(`-> ${tsData}`);
-  // console.log(`-> Writing to "${file}" with: ${tsData}`);
-  if (!existSync(file))
-    fs.writeFileSync(file);
-  fs.appendFile(file, tsData, (err) => {
-    if (err) throw err;
-  });
+  // Ignore repetitive text from shairpoint-sync
+  if (!/^Sync error:\d+\./.test(data) && data.length !== 0) {
+    const cleanData = cleanUp(data);
+    const tsData = `[${new Moment().format('HH:mm:ss')}] >> ${cleanData}\n`;
+    const file = `${dir}${new Moment().format('YYMMDD')}${logFile}.txt`;
+    console.log(`-> ${tsData}`);
+    // console.log(`-> Writing to "${file}" with: ${tsData}`);
+    if (!existSync(file))
+      fs.writeFileSync(file);
+    fs.appendFile(file, tsData, (err) => {
+      if (err) throw err;
+    });
+  } else
+    console.log(`IGNORED -> ${data}`);
 }
 
 //
@@ -142,7 +147,7 @@ child.stderr.on('data', (data) => {
   logData(`[WARN stderr]: ${String(data).trim()}`);
 });
 child.on('close', () => {
-  // testWifiSpeed();
+  testWifiSpeed();
   logData('.\n\n[CLOSED]\n\n.');
 });
 

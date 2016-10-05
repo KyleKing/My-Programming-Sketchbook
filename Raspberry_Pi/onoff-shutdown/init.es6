@@ -126,13 +126,14 @@ function logData(buf) {
 //
 // A little utility function:
 function testWifiSpeed() {
-  shell.exec('speedtest-cli', (code, stdout, stderr) => {
-    logData('Running speedtest-cli');
-    logData(stdout);
-    if (stderr)
-      logData(stderr);
-    logData('Finished speedtest-cli');
-  });
+  logData('[TODO]: No longer logging wifi speeds');
+  // shell.exec('speedtest-cli', (code, stdout, stderr) => {
+  //   logData('Running speedtest-cli');
+  //   logData(stdout);
+  //   if (stderr)
+  //     logData(stderr);
+  //   logData('Finished speedtest-cli');
+  // });
 }
 
 // -------- Respond to child -------- //

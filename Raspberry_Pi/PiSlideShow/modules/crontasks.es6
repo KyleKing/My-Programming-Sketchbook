@@ -54,7 +54,7 @@ function refreshDisplay() {
 
 // Check for new photos as often as possible:
 const dbCloudDir = 'Apps/Balloon.io/aloo';
-const Fetch = new CronJob('0 0,10,20,30,40,50 * * * *', () => {
+const Fetch = new CronJob('0 10 9,17,19,21 * * *', () => {
   cronDebug('Fetching Photos');
   photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
 }, () => {

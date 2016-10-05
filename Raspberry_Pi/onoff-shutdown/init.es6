@@ -47,7 +47,7 @@ if (existSync(testPathPiSlideShow)) {
 
 //
 // Airplay Speaker Version:
-const testPathAirplay = '/home/pi/_B2_SD.ini';
+const testPathAirplay = '/home/pi/_K1_SD.ini';
 console.log(`  is Airplay: ${existSync(testPathAirplay)}`);
 if (existSync(testPathAirplay)) {
   fullPath = '/home/pi/shairport-sync';
@@ -115,7 +115,7 @@ function logData(buf) {
     console.log(`-> ${tsData}`);
     // console.log(`-> Writing to "${file}" with: ${tsData}`);
     if (!existSync(file))
-      fs.writeFileSync(file);
+      fs.writeFileSync(file, '');
     fs.appendFile(file, tsData, (err) => {
       if (err) throw err;
     });

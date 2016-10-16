@@ -1,3 +1,4 @@
+import time
 import subprocess
 import config as cg
 
@@ -7,27 +8,29 @@ print 'Starting'
 def listPID(task, split):
     cmd = "ps aux | grep [" + task[0] + "]" + \
         task[1:] + " | awk '{print $2}'"
-    cg.send('Calling: ' + cmd)
+    cg.send('> Calling: ' + cmd)
     output = subprocess.check_output(cmd, shell=True)
+    cg.send('< Received: ' + output.strip())
     values = output.strip().split(split)
-    print values
     return values
 
 
 # Kill unwanted processes:
 listPID('node', '\n')
-
 FBIPIDs = listPID('fbi', '\n')
 for PID in FBIPIDs:
-    cg.send(PID)
-    subprocess.call('sudo kill ' + PID, shell=True)
+    kill_PID = 'sudo kill ' + PID
+    cg.send('> Now calling: ' + kill_PID)
+    subprocess.call(kill_PID, shell=True)
 
-# Start wanted FBI processes:
+time.sleep(30)
+
+# Start fresh FBI processes:
 opt = ' --blend 2 -noverbose --random --noonce '
 imgPath = '/home/pi/PiSlideShow/images/*'
 cmd = 'sudo fbi -T 1 -a -u -t 1' + opt + imgPath
-cg.send('Now calling: ' + cmd)
+cg.send('> Now calling: ' + cmd)
 output = subprocess.check_output(cmd, shell=True)
-cg.send(output)
+cg.send('< Received: ' + output.strip())
 
-print 'Done'
+cg.send('< DONE test.py')

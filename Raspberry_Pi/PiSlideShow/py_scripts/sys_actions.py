@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import sys
 import m_FBI
-import m_LCD
+import m_TFT
 import config as cg
 
-cg.send("Initializing Sys Actions Python Script")
+cg.send("Initializing Sys Actions through Python")
 m_FBI.configure()
-m_LCD.configure()
+m_TFT.configure()
 
 line = ' '
 while line:
@@ -19,17 +19,16 @@ while line:
         task = line
         term = ''
     # Pick sub-module to run based on STDIN:
-    if 'lcd' == task:
-        cg.send('\nRunning m_LCD')
-        m_LCD.toggle(term)
+    if 'tft' == task:
+        cg.send('\nRunning m_TFT')
+        m_TFT.toggle(term)
     elif 'fbi' == task:
         cg.send('\nRunning m_FBI')
         m_FBI.refresh_task()
     elif 'close' == task:
-        cg.send('\nClosing everything down')
+        cg.send('\nClosing everything:')
         m_FBI.close()
-        m_LCD.close()
+        m_TFT.close()
         sys.exit()
     else:
-        cg.send('Unrecognized command')
-    cg.send('Completed Task Based on last STDIN ("' + line + '")')
+        cg.send('Error: unrecognized command: ' + task)

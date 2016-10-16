@@ -54,18 +54,28 @@ function refreshDisplay() {
 
 // Check for new photos as often as possible:
 const dbCloudDir = 'Apps/Balloon.io/aloo';
-const Fetch = new CronJob('0 10 9,17,19,21 * * *', () => {
-  cronDebug('Fetching Photos');
+// // const Fetch = new CronJob('0 0,10,20,30,40,50 * * * *', () => {
+// const Fetch = new CronJob('0 5,35 * * * *', () => {
+//   cronDebug('Fetching Photos');
+//   photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
+// }, () => {
+//   console.log(warn('!! Completed Fetch Cron Task !!'));
+// }, false);
+
+const Gpio = require('onoff').Gpio;  // eslint-disable-line
+const button = new Gpio(4, 'in', 'both');
+
+button.watch((err, value) => {
+  if (err) throw err;
+  cronDebug(`Button pressed with value = ${value}. Fetching Photos!`);
   photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
-}, () => {
-  console.log(warn('!! Completed Fetch Cron Task !!'));
-}, false);
+});
 
 
 module.exports = {
   start() {
     cronDebug('Starting cron tasks!');
-    Fetch.start();
+    // Fetch.start();
     WKNDActivateDisplay.start();
     WKDYActivateDisplay.start();
     SleepDisplay.start();

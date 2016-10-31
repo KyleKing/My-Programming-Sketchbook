@@ -39,18 +39,13 @@ function controlDisplay(schedule, sentText, task) {
 
 // Turn the display on when people should be around
 const WKNDActivateDisplay = controlDisplay('0 30 9 * * 0,6', 'LCD True', 'ActivateDisplay');
-const WKDYActivateDisplay = controlDisplay('0 30 19 * * *', 'LCD True', 'ActivateDisplay');
-const SleepDisplay = controlDisplay('0 30 20 * * *', 'LCD False', 'SleepDisplay');
+const WKDYActivateDisplay = controlDisplay('0 30 15 * * *', 'LCD True', 'ActivateDisplay');
+const SleepDisplay = controlDisplay('0 50 20 * * *', 'LCD False', 'SleepDisplay');
 
 
 // ##########################################################
 //    Keep Local Images Directory in Sync
 // ##########################################################
-
-function refreshDisplay() {
-  cronDebug('Completed Fetch task and running refreshDisplay');
-  pyshell.send('FbI');
-}
 
 // Check for new photos as often as possible:
 const dbCloudDir = 'Apps/Balloon.io/aloo';
@@ -62,22 +57,38 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
 //   console.log(warn('!! Completed Fetch Cron Task !!'));
 // }, false);
 
+// Since FBI task doesn't loop correctly, keep refreshing it:
+const FBI = new CronJob('0 5,15,25,35,45,55 * * * *', () => {
+  cronDebug('Refreshing FBI Task');
+  pyshell.send('fbi na');
+}, () => {
+  console.log(warn('!! Completed Refresh FBI Task !!'));
+}, false);
+
 const Gpio = require('onoff').Gpio;  // eslint-disable-line
 const button = new Gpio(4, 'in', 'both');
 
 button.watch((err, value) => {
   if (err) throw err;
-  cronDebug(`Button pressed with value = ${value}. Fetching Photos!`);
-  photoframe.downloadPhotos(dbCloudDir, refreshDisplay);
+  if (value === 1) {
+    cronDebug(`Button pressed with value = ${value}. Downloading Photos!`);
+    photoframe.downloadPhotos(dbCloudDir, () => {
+      cronDebug('Completed Fetch task and running refreshDisplay');
+      pyshell.send('fbi');
+    });
+  } else
+    cronDebug(`Button pressed with value = ${value}. Not doing a thing!`);
 });
 
 
 module.exports = {
   start() {
-    cronDebug('Starting cron tasks!');
+    cronDebug('Registering cron tasks:');
     // Fetch.start();
+    FBI.start();
     WKNDActivateDisplay.start();
     WKDYActivateDisplay.start();
     SleepDisplay.start();
+    cronDebug('Done registering cron tasks');
   },
 };

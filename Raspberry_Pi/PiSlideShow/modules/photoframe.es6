@@ -14,9 +14,9 @@ const app = dbox.app({
 const glob = require('glob');
 // const exec = require('child_process').exec;
 
-// // require gulp plugins
-// const gulp = require('gulp');
-// const imageresize = require('gulp-image-resize');
+// require gulp plugins
+const gulp = require('gulp');
+const imageresize = require('gulp-image-resize');
 
 module.exports = {
   /**
@@ -68,19 +68,21 @@ module.exports = {
     if (this.syncCounter === this.syncCount) {
       photoDebug('Writing image.json with syncWorkaround');
       fs.writeJSONSync('images.json', desiredImgs);
-      this.deleteExcessFiles();
-      this.imageDownSize('images/*', 'images/');
-      if (cb) cb();
+      this.deleteExcessFiles(cb);
     }
   },
 
   /**
    * Do some housekeeping
    */
-  deleteExcessFiles() {
+  deleteExcessFiles(cb) {
     photoDebug('Starting deleteExcessFiles()');
     glob('images/*.*', (err, existingImgs) => {
       this.deleteFiles(err, existingImgs);
+      // this.imageDownSize('images/*', 'images/', cb());
+      photoDebug('NO LONGER USING Gulp Image DownSize task');
+      photoDebug('Starting callback (FBI start task):');
+      if (cb) cb();
     });
   },
   deleteFiles(err, existingImgs) {
@@ -99,20 +101,20 @@ module.exports = {
         }
       }
   },
-  imageDownSize(imgPath, imgDest, cb) {
-    const resizeSet = {
-      width: 800,
-      height: 400,
-      crop: false,
-      upscale: false,
-    };
-    photoDebug('Running imageDownSize');
-    photoDebug(resizeSet);
-    photoDebug('FIXME: POSSIBLY CAUSING CRASH - deactivated for now');
-    // gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
-    photoDebug('Finished imageDownSize');
-    if (cb) cb();
-  },
+  // imageDownSize(imgPath, imgDest, cb) {
+  //   const resizeSet = {
+  //     width: 800,
+  //     height: 400,
+  //     crop: false,
+  //     upscale: false,
+  //   };
+  //   photoDebug('Running imageDownSize');
+  //   photoDebug(resizeSet);
+  //   photoDebug('FIXME: POSSIBLY CAUSING CRASH - (RE)-activated for now');
+  //   gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
+  //   photoDebug('Finished imageDownSize');
+  //   if (cb) cb();
+  // },
 
   // /**
   //  * Create Slide Show by scheduling images for FBI

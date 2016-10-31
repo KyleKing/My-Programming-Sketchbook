@@ -24,7 +24,7 @@ while line:
         m_TFT.toggle(term)
     elif 'fbi' == task:
         cg.send('\nRunning m_FBI')
-        m_FBI.refresh_task()
+        m_FBI.refresh_task(term)
     elif 'close' == task:
         cg.send('\nClosing everything:')
         m_FBI.close()

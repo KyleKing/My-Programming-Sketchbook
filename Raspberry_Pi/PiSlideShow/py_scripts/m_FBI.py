@@ -16,18 +16,21 @@ def listPID(task, split):
 
 def kill_old_FBI():
     """Kill all old FBI processes"""
-    cg.send('\nKilling all old FBI processes (m_FBI)')
+    cg.send('** Killing all old FBI processes (m_FBI)')
     FBIPIDs = listPID('fbi', '\n')
     for PID in FBIPIDs:
-        kill_PID = 'sudo kill ' + PID
-        cg.send('> Now calling: ' + kill_PID)
-        subprocess.call(kill_PID, shell=True)
-        time.sleep(0.5)
+        if len(PID.strip()) > 0:
+            kill_PID = 'sudo kill ' + PID
+            cg.send('> Now calling: ' + kill_PID)
+            subprocess.call(kill_PID, shell=True)
+            time.sleep(0.5)
+        else:
+            cg.send('No FBI processes to kill')
 
 
 def new_FBI():
     """Start fresh FBI processes:"""
-    cg.send('\nStart fresh FBI processes (m_FBI)')
+    cg.send('** Start fresh FBI processes (m_FBI)')
     opt = ' --blend 2 -noverbose --random --noonce '
     imgPath = '/home/pi/PiSlideShow/images/*'
     cmd = 'sudo fbi -T 1 -a -u -t 1' + opt + imgPath
@@ -41,9 +44,10 @@ def configure():
     cg.send('< DONE configuring m_FBI')
 
 
-def refresh_task():
-    kill_old_FBI()
-    time.sleep(30)
+def refresh_task(term):
+    if term is not 'na':
+        kill_old_FBI()
+        time.sleep(10)
     new_FBI()
     cg.send('< DONE refreshing m_FBI')
 

@@ -31,7 +31,9 @@ end conditionalopen
 conditionalclose("PopClip") -- toggle off/on
 conditionalclose("KeepingYouAwake")
 conditionalclose("Vivaldi")
-conditionalclose("Boom")
+-- Interferes with any connected Airplay Speakers
+-- So removed for now:
+-- conditionalclose("Boom")
 conditionalclose("Acrosync")
 conditionalclose("CheatSheet")
 -- conditionalclose("Day One Classic")
@@ -44,7 +46,8 @@ conditionalopen("Bartender 2")
 conditionalopen("Sip")
 conditionalopen("Dash")
 conditionalopen("Dropbox")
-conditionalopen("EvernoteHelper")
+-- Eh, not on all of my devices:
+-- conditionalopen("EvernoteHelper")
 conditionalopen("RescueTime")
 conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")

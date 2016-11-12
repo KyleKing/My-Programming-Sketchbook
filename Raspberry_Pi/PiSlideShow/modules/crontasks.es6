@@ -15,7 +15,7 @@ const CronJob = require('cron').CronJob;
 // day of week    0-6 (Sun-Sat)
 
 // ##########################################################
-//    Setup the on/off cycles of the LCD display
+//    Setup the on/off cycles of the TFT display
 // ##########################################################
 
 const pyshell = new PythonShell('py_scripts/sys_actions.py');
@@ -38,10 +38,11 @@ function controlDisplay(schedule, sentText, task) {
 }
 
 // Turn the display on when people should be around
-const WKNDActivateDisplay = controlDisplay('0 30 9 * * 0,6', 'LCD True', 'ActivateDisplay');
-const WKDYActivateDisplay = controlDisplay('0 30 15 * * *', 'LCD True', 'ActivateDisplay');
-const SleepDisplay = controlDisplay('0 50 20 * * *', 'LCD False', 'SleepDisplay');
-
+const WeekEndMorningOn = controlDisplay('0 0 8 * * 0,6', 'tft true', 'ActivateDisplay');
+const WeekDayMorningOn = controlDisplay('0 15 5 * * 1-5', 'tft true', 'ActivateDisplay');
+const WeekDayMorningOff = controlDisplay('0 30 6 * * 1-5', 'tft false', 'ActivateDisplay');
+const WeekDayAfternnOn = controlDisplay('0 30 16 * * 1-5', 'tft true', 'ActivateDisplay');
+const SleepDisplay = controlDisplay('0 30 21 * * *', 'tft false', 'SleepDisplay');
 
 // ##########################################################
 //    Keep Local Images Directory in Sync
@@ -58,9 +59,10 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
 // }, false);
 
 // Since FBI task doesn't loop correctly, keep refreshing it:
-const FBI = new CronJob('0 5,15,25,35,45,55 * * * *', () => {
+// const FBI = new CronJob('0 00,05,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
+const FBI = new CronJob('0 0,10,20,30,40,50 8-21 * * *', () => {
   cronDebug('Refreshing FBI Task');
-  pyshell.send('fbi na');
+  pyshell.send('fbi killoldfbi');
 }, () => {
   console.log(warn('!! Completed Refresh FBI Task !!'));
 }, false);
@@ -72,8 +74,11 @@ button.watch((err, value) => {
   if (err) throw err;
   if (value === 1) {
     cronDebug(`Button pressed with value = ${value}. Downloading Photos!`);
+    pyshell.send('tft true');
+    pyshell.send('status false');
     photoframe.downloadPhotos(dbCloudDir, () => {
       cronDebug('Completed Fetch task and running refreshDisplay');
+      pyshell.send('status true');
       pyshell.send('fbi');
     });
   } else
@@ -86,8 +91,10 @@ module.exports = {
     cronDebug('Registering cron tasks:');
     // Fetch.start();
     FBI.start();
-    WKNDActivateDisplay.start();
-    WKDYActivateDisplay.start();
+    WeekEndMorningOn.start();
+    WeekDayMorningOn.start();
+    WeekDayMorningOff.start();
+    WeekDayAfternnOn.start();
     SleepDisplay.start();
     cronDebug('Done registering cron tasks');
   },

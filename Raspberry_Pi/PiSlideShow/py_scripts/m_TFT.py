@@ -4,7 +4,7 @@ import time
 import json
 from pprint import pprint
 import config as cg
-from titlecase import titlecase as titlec
+# from titlecase import titlecase as titlec
 
 pin_TFT = 17
 status_file = 'status.json'
@@ -24,7 +24,7 @@ def configure():
     GPIO.setup(pin_TFT, GPIO.OUT)
     GPIO.output(pin_TFT, GPIO.HIGH)
     with open('status.json', 'w') as target_file:
-        new_status = {'status': True}
+        new_status = {'on': 'true'}
         update_status(new_status, target_file)
     cg.send('< DONE configuring m_TFT')
 
@@ -32,25 +32,24 @@ def configure():
 def toggle(line):
     # Get previous status:
     with open(status_file, 'r') as target_file:
-        new_status = {'status': True}
-        prev_status = json.load(target_file)
-        new_status['status'] = not prev_status['status']
+        p_stat = json.load(target_file)
+        if 'false' in p_stat['on']:
+            new_status = {'on': 'true'}
+        else:
+            new_status = {'on': 'false'}
 
-    if titlec(line) == str(prev_status['status']):
-        # Keep current screen state:
-        # pprint(prev_status)
+    # Keep current screen state:
+    if line.lower() in str(p_stat['on']).lower():
         cg.send('Already in desired state (' + str(line) + ')')
-    elif titlec(line) == str(new_status['status']):
-        # Toggle TFT State:
-        cg.send('Updating to desired state from: ' +
-                str(prev_status['status']))
-        # pprint(prev_status)
+    # Toggle TFT State:
+    elif line.lower() in str(new_status['on']).lower():
+        cg.send('Updating state from: ' + str(p_stat['on']))
         GPIO.output(pin_TFT, GPIO.LOW)
         time.sleep(0.75)
         with open(status_file, 'w') as target_file:
             update_status(new_status, target_file)
+    # Deal with gibberish:
     else:
-        # Deal with gibberish:
         cg.send("Error: unknown state: " + line)
 
     GPIO.output(pin_TFT, GPIO.HIGH)

@@ -4,6 +4,12 @@ import subprocess
 import config as cg
 
 
+def check_status():
+    """Returns True, if FBI is to continue"""
+    stat = cg.get_ini('Status', 'refresh_fbi')
+    return 'true' in stat.lower()
+
+
 def listPID(task, split):
     cmd = "ps aux | grep [" + task[0] + "]" + \
         task[1:] + " | awk '{print $2}'"
@@ -45,11 +51,14 @@ def configure():
 
 
 def refresh_task(term):
-    if term is not 'na':
-        kill_old_FBI()
-        time.sleep(10)
-    new_FBI()
-    cg.send('< DONE refreshing m_FBI')
+    if check_status():
+        if 'kill' in term:
+            kill_old_FBI()
+            time.sleep(10)
+        new_FBI()
+        cg.send('< DONE refreshing m_FBI')
+    else:
+        cg.send('> Not refreshing FBI Tasks since status is False')
 
 
 def check_node():

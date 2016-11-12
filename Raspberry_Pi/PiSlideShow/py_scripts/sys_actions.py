@@ -19,13 +19,19 @@ while line:
         task = line
         term = ''
     # Pick sub-module to run based on STDIN:
-    if 'tft' == task:
+    if 'tft' in task:
         cg.send('\nRunning m_TFT')
         m_TFT.toggle(term)
-    elif 'fbi' == task:
+    elif 'fbi' in task:
         cg.send('\nRunning m_FBI')
         m_FBI.refresh_task(term)
-    elif 'close' == task:
+    elif 'status' in task:
+        if 'true' in term or 'false' in term:
+            cg.send('Setting refresh FBI status to: ' + term)
+            cg.write_ini('Status', 'refresh_fbi', term)
+        else:
+            cg.send('Not a valid term to update status: ' + term)
+    elif 'close' in task:
         cg.send('\nClosing everything:')
         m_FBI.close()
         m_TFT.close()

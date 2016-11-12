@@ -41,21 +41,24 @@ function prettifyLog(raw) {
 }
 
 function logData(buf) {
-  const data = buf.trim();
-  // Ignore repetitive text from shairpoint-sync:
-  if (!/^Sync error:\d+\./.test(data) && data.length !== 0) {
-    const cleanData = prettifyLog(data);
-    const tsData = `[${new Moment().format('HH:mm:ss')}] >> ${cleanData}\n`;
-    const file = `${dir}${new Moment().format('YYMMDD')}${logFile}.txt`;
-    console.log(`-> ${tsData}`);
-    // console.log(`-> Writing to "${file}" with: ${tsData}`);
-    if (!existSync(file))
-      fs.writeFileSync(file, '');
-    fs.appendFile(file, tsData, (err) => {
-      if (err) throw err;
-    });
+  if (buf && buf.length > 0) {
+    const data = buf.trim();
+    // Ignore repetitive text from shairpoint-sync:
+    if (!/^Sync error:\d+\./.test(data) && data.length !== 0) {
+      const cleanData = prettifyLog(data);
+      const tsData = `[${new Moment().format('HH:mm:ss')}] >> ${cleanData}\n`;
+      const file = `${dir}${new Moment().format('YYMMDD')}${logFile}.txt`;
+      console.log(`-> ${tsData}`);
+      // console.log(`-> Writing to "${file}" with: ${tsData}`);
+      if (!existSync(file))
+        fs.writeFileSync(file, '');
+      fs.appendFile(file, tsData, (err) => {
+        if (err) throw err;
+      });
+    } else
+      console.log(`IGNORED -> ${data}`);
   } else
-    console.log(`IGNORED -> ${data}`);
+    console.log('No data to log?');
 }
 
 function logOutput(code, stdout, stderr) {
@@ -121,6 +124,7 @@ if (existSync(testPathAirplay)) {
 const testPathAlarmClock = '/home/pi/_A0_SD.ini';
 logData(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 if (existSync(testPathAlarmClock)) {
+  shutdownDevice = false;
   fullPath = '/home/pi/PiAlarm';
   myProcess = 'npm start';
   logFile = '_AlarmClock_log';
@@ -165,7 +169,8 @@ button.watch((err, value) => {
       `"[${myProcess[0]}]${myProcess.substr(1)} | awk '{print $2}')`,
       (code, stdout, stderr) => { logOutput(code, stdout, stderr); });
 
-    setTimeout(shell.exec('sudo shutdown -h now'), 3000);
+    // setTimeout(shell.exec('sudo shutdown -h now'), 3000);
+    logOutput('NOT SHUTTING DOWN, BUT SHOULD ^');
     button.unexport(); // Prevent re-trigger
   } else {
     logOutput('Shutdown command avoided');
@@ -174,6 +179,7 @@ button.watch((err, value) => {
 });
 
 process.on('SIGINT', () => {
+  logOutput('SIGINT');
   led.unexport();
   button.unexport();
 });

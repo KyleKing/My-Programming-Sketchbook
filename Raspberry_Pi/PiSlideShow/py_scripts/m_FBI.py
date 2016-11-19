@@ -37,8 +37,9 @@ def kill_old_FBI():
 def new_FBI():
     """Start fresh FBI processes:"""
     cg.send('** Start fresh FBI processes (m_FBI)')
-    opt = ' --blend 2 -noverbose --random --noonce '
-    imgPath = '/home/pi/PiSlideShow/images/*'
+    imgPath = ' /home/pi/PiSlideShow/images/*'
+    # opt = ' --blend 2 -noverbose --random --noonce'
+    opt = ' -noverbose --random'
     cmd = 'sudo fbi -T 1 -a -u -t 1' + opt + imgPath
     cg.send('> Now calling: ' + cmd)
     output = subprocess.check_output(cmd, shell=True)

@@ -17,3 +17,11 @@ def get_ini(component, param, file="./py_scripts/settings.ini"):
         return raw_val
     except:
         raise Exception("Failed to load " + file)
+
+
+def write_ini(component, param, value, file="./py_scripts/settings.ini"):
+    settings_config = ConfigParser.RawConfigParser()
+    settings_config.read(file)
+    with open(file, 'w') as cfgfile:
+        settings_config.set(component, param, value)
+        settings_config.write(cfgfile)

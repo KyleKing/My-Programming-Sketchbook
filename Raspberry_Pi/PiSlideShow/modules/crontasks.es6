@@ -14,6 +14,7 @@ const CronJob = require('cron').CronJob;
 // month          0-12
 // day of week    0-6 (Sun-Sat)
 
+
 // ##########################################################
 //    Setup the on/off cycles of the TFT display
 // ##########################################################
@@ -38,11 +39,13 @@ function controlDisplay(schedule, sentText, task) {
 }
 
 // Turn the display on when people should be around
-const WeekEndMorningOn = controlDisplay('0 0 8 * * 0,6', 'tft true', 'ActivateDisplay');
-const WeekDayMorningOn = controlDisplay('0 15 5 * * 1-5', 'tft true', 'ActivateDisplay');
-const WeekDayMorningOff = controlDisplay('0 30 6 * * 1-5', 'tft false', 'ActivateDisplay');
-const WeekDayAfternnOn = controlDisplay('0 30 16 * * 1-5', 'tft true', 'ActivateDisplay');
-const SleepDisplay = controlDisplay('0 30 21 * * *', 'tft false', 'SleepDisplay');
+const weekDayMorningOn = controlDisplay('0 15 5 * * 1-5', 'tft true', 'WeekDayMorningOn');
+const weekDayAfternnOn = controlDisplay('0 30 16 * * 1-5', 'tft true', 'WeekDayAfternnOn');
+const weekEndMorningOn = controlDisplay('0 30 8 * * 0,6', 'tft true', 'WeekEndMorningOn');
+
+const weekDayMorningOff = controlDisplay('0 30 6 * * 1-5', 'tft false', 'WeekDayMorningOff');
+const sleepDisplay = controlDisplay('0 30 21 * * *', 'tft false', 'SleepDisplay');
+
 
 // ##########################################################
 //    Keep Local Images Directory in Sync
@@ -58,15 +61,16 @@ const dbCloudDir = 'Apps/Balloon.io/aloo';
 //   console.log(warn('!! Completed Fetch Cron Task !!'));
 // }, false);
 
-// Since FBI task doesn't loop correctly, keep refreshing it:
-// const FBI = new CronJob('0 00,05,10,15,20,25,30,35,40,45,50,55 * * * *', () => {
-const FBI = new CronJob('0 0,10,20,30,40,50 8-21 * * *', () => {
+// Make sure FBI task is always up to date:
+const FBI = new CronJob('0 0 * 12 * *', () => {
   cronDebug('Refreshing FBI Task');
   pyshell.send('fbi killoldfbi');
 }, () => {
   console.log(warn('!! Completed Refresh FBI Task !!'));
 }, false);
 
+
+// Watch for button-press request to update the display:
 const Gpio = require('onoff').Gpio;  // eslint-disable-line
 const button = new Gpio(4, 'in', 'both');
 
@@ -79,7 +83,8 @@ button.watch((err, value) => {
     photoframe.downloadPhotos(dbCloudDir, () => {
       cronDebug('Completed Fetch task and running refreshDisplay');
       pyshell.send('status true');
-      pyshell.send('fbi');
+      pyshell.send('fbi killoldfbi');
+      cronDebug('Finished fetch task - running refreshDisplay');
     });
   } else
     cronDebug(`Button pressed with value = ${value}. Not doing a thing!`);
@@ -91,11 +96,22 @@ module.exports = {
     cronDebug('Registering cron tasks:');
     // Fetch.start();
     FBI.start();
-    WeekEndMorningOn.start();
-    WeekDayMorningOn.start();
-    WeekDayMorningOff.start();
-    WeekDayAfternnOn.start();
-    SleepDisplay.start();
+    weekEndMorningOn.start();
+    weekDayMorningOn.start();
+    weekDayMorningOff.start();
+    weekDayAfternnOn.start();
+    sleepDisplay.start();
+
+    const keepAwake = new CronJob('0 0,15,30,45 * * * *', () => {
+      console.log('...');
+    }, () => {
+      console.log('Completed keepAwake cron task');
+    }, false);
+    keepAwake.start();
+
+    cronDebug('Initializing the display!');
+    pyshell.send('status true');
+    pyshell.send('fbi killoldfbi');
     cronDebug('Done registering cron tasks');
   },
 };

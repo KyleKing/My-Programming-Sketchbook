@@ -109,6 +109,15 @@ if (existSync(testPathPiSlideShow)) {
   logFile = '_PiSlideShow_log';
 }
 
+const otherTestPathPiSlideShow = '/home/pi/_K2_SD.ini';
+logData(`  is PiSlideShow: ${existSync(otherTestPathPiSlideShow)}`);
+if (existSync(otherTestPathPiSlideShow)) {
+  shutdownDevice = false;
+  fullPath = '/home/pi/PiSlideShow/';
+  myProcess = 'npm start';
+  logFile = '_PiSlideShow_log';
+}
+
 //
 // Airplay Speaker Version:
 const testPathAirplay = '/home/pi/_K1_SD.ini';

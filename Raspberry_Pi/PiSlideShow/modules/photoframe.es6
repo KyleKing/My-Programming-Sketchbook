@@ -1,6 +1,6 @@
 /* initialize debugger */
 import { error, warn, ignore, init } from './debugger.es6';
-const fbiDebug = init('fbi');
+// const fbiDebug = init('fbi');
 const photoDebug = init('photoframe');
 
 const fs = require('fs-extra');
@@ -69,7 +69,8 @@ module.exports = {
       photoDebug('Writing image.json with syncWorkaround');
       fs.writeJSONSync('images.json', desiredImgs);
       this.deleteExcessFiles(cb);
-    }
+    } else
+      photoDebug(`Not done yet > ${this.syncCount} of ${this.syncCounter}`);
   },
 
   /**
@@ -79,10 +80,7 @@ module.exports = {
     photoDebug('Starting deleteExcessFiles()');
     glob('images/*.*', (err, existingImgs) => {
       this.deleteFiles(err, existingImgs);
-      // this.imageDownSize('images/*', 'images/', cb());
-      photoDebug('NO LONGER USING Gulp Image DownSize task');
-      photoDebug('Starting callback (FBI start task):');
-      if (cb) cb();
+      if (cb) this.imageDownSize('images/*', 'images/', cb());
     });
   },
   deleteFiles(err, existingImgs) {
@@ -101,24 +99,23 @@ module.exports = {
         }
       }
   },
-  // imageDownSize(imgPath, imgDest, cb) {
-  //   const resizeSet = {
-  //     width: 800,
-  //     height: 400,
-  //     crop: false,
-  //     upscale: false,
-  //   };
-  //   photoDebug('Running imageDownSize');
-  //   photoDebug(resizeSet);
-  //   photoDebug('FIXME: POSSIBLY CAUSING CRASH - (RE)-activated for now');
-  //   gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
-  //   photoDebug('Finished imageDownSize');
-  //   if (cb) cb();
-  // },
+  imageDownSize(imgPath, imgDest, cb) {
+    const resizeSet = {
+      width: 800,
+      height: 400,
+      crop: false,
+      upscale: false,
+    };
+    photoDebug('Running imageDownSize with:');
+    photoDebug(resizeSet);
+    gulp.src(imgPath).pipe(imageresize(resizeSet)).pipe(gulp.dest(imgDest));
+    photoDebug('Finished imageDownSize');
+    if (cb) cb();
+  },
 
-  // /**
-  //  * Create Slide Show by scheduling images for FBI
-  //  */
+  /**
+   * Create Slide Show by scheduling images for FBI
+   */
   // runFBI() {
   //   if (process.env.LOCAL === 'false') {
   //     const imgPath = '/home/pi/PiSlideShow/images/*';
@@ -138,12 +135,12 @@ module.exports = {
   //     console.log('Not on Raspberry Pi - not running FBI Task');
   // },
 
-  // /* Randomly selects a random index of a given array */
+  /* Randomly selects a random index of a given array */
   // ranIndex: (files) => Math.round((files.length - 1) * Math.random()),
 
-  // /**
-  //  * Remove redundancy in slide show and select a new image
-  //  */
+  /**
+   * Remove redundancy in slide show and select a new image
+   */
   // newImage() {
   //   const files = fs.readJsonSync('images.json');
   //   const prevImages = fs.readJsonSync('history.json');

@@ -4,7 +4,8 @@
   "description": "A RPI smart photoframe that pulls photos from a Dropbox folder",
   "main": "init.es6",
   "scripts": {
-    "start": "node --max-old-space-size=256 init.es6 -d",
+    "start": "node init.es6 -d",
+    "memory": "node --max-old-space-size=256 init.es6 -d",
     "test": "./node_modules/eslint/bin/eslint.js . --ext .js,.jsx,.es6",
     "boot": "npm install --production"
   },

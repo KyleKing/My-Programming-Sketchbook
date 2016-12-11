@@ -7,4 +7,5 @@ This is a simple wrapper that I deploy to all of my running Raspberry Pi's. I ad
 export PATH=/sbin:/usr/sbin:$PATH
 cd /home/pi/onoff-shutdown
 su pi -c 'node init.es6' &
+# Note: 'exit 0' should be the last line of the file
 ```

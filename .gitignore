@@ -15,3 +15,5 @@ node_modules
 *.mp4
 JavaScript/Eric_Microfluidic_ControllerApp/data/photos
 logs
+
+Recipes/imgs/IMG*.jpg

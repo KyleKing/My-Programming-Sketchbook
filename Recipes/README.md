@@ -1,15 +1,14 @@
 # My Go To Recipes
 
-##<!-- # TODO:
-
-- Add photos!
-- Sausage and Mushroom Pasta
-- Peanut Butter Smoothie (spoon of cocoa powder, banana, 2x spoon of peanut butter, yogurt, and milk)
+<!--
+# TODO:
 - Oreo Truffles
-- Cake Pops-->
+- Cake Pops
+-->
 
 <!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
 
+<!--
 ## Shrimp Tacos
 
 ![Shrimp Tacos](imgs/Shrimp Tacos.png)
@@ -19,6 +18,19 @@ TODO
 ## Cashew Chicken
 
 ![Cashew Chicken](imgs/Cashew Chicken.png)
+
+TODO
+
+## Tuna Melts
+
+![Tuna Melts](imgs/Tuna Melts.png)
+
+TODO
+-->
+
+## Black Bean Quesadillas
+
+![black_bean_quesadillas](imgs/black_bean_quesadillas.png)
 
 TODO
 
@@ -34,21 +46,12 @@ TODO
 
 TODO
 
-## Tuna Melts
-
-![Tuna Melts](imgs/Tuna Melts.png)
-
-TODO
-
-## Black Bean Quesadillas
-
-![black_bean_quesadillas](imgs/black_bean_quesadillas.png)
-
-TODO
-
 ## Curried Chickpeas
 
-![curried_chickpeas](imgs/curried_chickpeas.jpg)
+<p align="center">
+  <img width="550" height=auto src="imgs/curried_chickpeas.jpg" alt="curried_chickpeas">
+</p>
+<!-- <p align="center">The prototype alarm</p> -->
 
 - 1 Small Onion
 - 1.5 Tbsp Curry Powder
@@ -69,7 +72,9 @@ TODO
 
 ## Sausage and Mushroom Penne Pasta
 
-![sausage_mushroom_pasta](imgs/mushroom_and_sausage.jpg)
+<p align="center">
+  <img width="550" height=auto src="imgs/mushroom_and_sausage.jpg" alt="mushroom_and_sausage">
+</p>
 
 - 3 Links Italian Sausage
 - 1 Small Onion
@@ -90,9 +95,49 @@ TODO
 
 (Source: http://www.budgetbytes.com/2014/04/one-pot-sausage-mushroom-pasta/)
 
+## Peanut Noodles
+
+<p align="center">
+  <img width="550" height=auto src="imgs/peanut_noodles.jpg" alt="peanut_noodles">
+</p>
+
+- I recommend Egg Noodles, Fettuccine, or Rice
+- Chopped baby carrots
+- Chopped shallots (a.k.a. white base of green onion)
+- *Green pepper (optional)*
+- *Broccoli (optional)*
+- *Snow peas (optional)*
+
+Sauce:
+
+- 5 tbsp PB
+- 1 tbsp hot chili oil
+- 2 tsp sesame oil
+- 6 tbsp soy sauce
+- 2 tsp cider vinegar (or white wine/rice vinegar)
+- 3 tsp cinnamon, nutmeg, or ginger
+
+Garnish Options (I wouldn't recommend all at once):
+
+- **Sesame seeds**
+- **Peanuts**
+- Lime Juice and Zest
+- Cilantro
+- Sriracha
+- Garlic
+- Honey?
+- *Can be served with shrimps marinated in lime, salt, and garlic powder then sautéed
+
+1. Mix the sauce until smooth and prep all the vegetables
+2. Boil the pasta, drain, then immediately toss with the sauce and vegetables. Add the garnish and serve!
+
+(Original Source: My Coworkers Dani and Michael)
+
 ## Fajitas
 
-![fajitas](imgs/fajitas.jpg)
+<p align="center">
+  <img width="550" height=auto src="imgs/fajitas.jpg" alt="fajitas">
+</p>
 
 Main:
 - 3 Peppers
@@ -129,7 +174,9 @@ Toppings:
 
 ## Orzo n' Cheese
 
-![OrzonCheese](imgs/OrzonCheese.png)
+<p align="center">
+  <img width="550" height=auto src="imgs/OrzonCheese.jpg" alt="OrzonCheese">
+</p>
 
 - 16 oz Box of orzo
 - *4 cups of chicken broth (optional)*
@@ -145,42 +192,6 @@ Toppings:
 5) Add the crisped ham and pepper for taste
 
 (Original Source: http://exploitsofamilitarymama.com/2012/08/slutty-orzo/)
-
-## Peanut Noodles
-
-![peanut_noodles](imgs/peanut_noodles.jpg)
-
-- I recommend Egg Noodles, Fettuccine, or Rice
-- Chopped baby carrots
-- Chopped shallots (a.k.a. white base of green onion)
-- *Green pepper (optional)*
-- *Broccoli (optional)*
-- *Snow peas (optional)*
-
-Sauce:
-
-- 5 tbsp PB
-- 1 tbsp hot chili oil
-- 2 tsp sesame oil
-- 6 tbsp soy sauce
-- 2 tsp cider vinegar (or white wine/rice vinegar)
-- 3 tsp cinnamon, nutmeg, or ginger
-
-Garnish Options (I wouldn't recommend all at once):
-
-- **Sesame seeds**
-- **Peanuts**
-- Lime Juice and Zest
-- Cilantro
-- Sriracha
-- Garlic
-- Honey?
-- *Can be served with shrimps marinated in lime, salt, and garlic powder then sautéed
-
-1. Mix the sauce until smooth and prep all the vegetables
-2. Boil the pasta, drain, then immediately toss with the sauce and vegetables. Add the garnish and serve!
-
-(Original Source: My Coworkers Dani and Michael)
 
 ## Easy Chicken Prep
 

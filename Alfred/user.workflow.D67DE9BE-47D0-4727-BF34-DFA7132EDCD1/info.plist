@@ -87,7 +87,7 @@ query="{query}"
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Set by user in init.lua function, AlfredFunctions()</string>
+				<string>Set by user in init.lua function: AlfredFunctions()</string>
 				<key>title</key>
 				<string>Hammerspoon Functions</string>
 				<key>type</key>

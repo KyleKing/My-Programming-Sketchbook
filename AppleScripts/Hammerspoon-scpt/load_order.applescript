@@ -27,55 +27,37 @@ to conditionalopen(application_name)
 	delay 0.2
 end conditionalopen
 
--- Quit any unneccessary apps
-conditionalclose("PopClip") -- toggle off/on
-conditionalclose("KeepingYouAwake")
-conditionalclose("Vivaldi")
--- Interferes with any connected Airplay Speakers
--- So removed for now:
--- conditionalclose("Boom")
-conditionalclose("Acrosync")
-conditionalclose("CheatSheet")
--- conditionalclose("Day One Classic")
 -- if you are not sure about the exact name, start "Activity Monitor" (e.g. search it with Spotlight)
 -- and look up the "Process Name" (first column) in the list of running processes
 
+-- Quit any unneccessary apps
+-- conditionalclose("na")
+
 -- Open apps if not open already:
-conditionalopen("PopClip") -- toggle off/on
-conditionalopen("Bartender 2")
 conditionalopen("Sip")
 conditionalopen("Dash")
 conditionalopen("Dropbox")
--- Eh, not on all of my devices:
--- conditionalopen("EvernoteHelper")
+conditionalopen("PopClip")
+conditionalopen("Dropshelf")
 conditionalopen("RescueTime")
 conditionalopen("Google Drive")
 conditionalopen("SnappyAppHelper")
-conditionalopen("Dropshelf")
-conditionalopen("Flux")
 conditionalopen("BetterTouchTool")
--- conditionalopen("AnyBar") -- launch from Hammerspoon
--- conditionalopen("CheatSheet")
+-- conditionalopen("EvernoteHelper")
 -- conditionalopen("Focus")
+conditionalopen("Flux")
 
--- -- Make sure Hammerspoon is open too!
--- conditionalopen("Hammerspoon")
-
--- -- Turn Bluetooth Off
--- -- Using "blueutil" installed at:
--- set blueutilpath to "/usr/local/bin/blueutil"
--- set sb to last word of (do shell script blueutilpath & " status")
--- if sb is "on" then
--- 	do shell script blueutilpath & " off"
--- end if
+conditionalopen("Bartender 2")
 
 -- Debugging:
+
 -- Use console to log timestamp and info to console upon error
 -- to logit(log_string, log_file)
 -- 	do shell script ¬
 -- 		"echo `date '+%Y-%m-%d %T: '`\"" & log_string & ¬
 -- 		"\" >> $HOME/Library/Logs/" & log_file & ".log"
 -- end logit
+
 -- Other method of printing results
 set dateStamp to date string of (current date)
 set timeStamp to time string of (current date)

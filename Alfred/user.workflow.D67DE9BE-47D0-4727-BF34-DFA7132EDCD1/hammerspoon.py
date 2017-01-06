@@ -4,10 +4,10 @@
 # http://www.deanishe.net/alfred-workflow/tutorial_1.html#creating-a-new-workflow
 
 import sys
-from subprocess import Popen, PIPE
-# from time import sleep
 import json
+# from time import sleep
 from workflow import Workflow
+from subprocess import Popen, PIPE
 
 
 def force_HS_reload():
@@ -104,19 +104,25 @@ def main(wf):
 
     # If script was passed a query, use it to filter posts
     if query:
-        funcs = wf.filter(query, funcs, key=search_key, min_score=20)
+        funcs = wf.filter(query, funcs, key=search_key, min_score=2)
 
     # Loop through the returned funcs and add an item for each to
     # the list of results for Alfred
     for func in funcs:
-        if "arg" not in func:
+        # if 'l ' in func['func_name']:
+        if func['func_name'][0:2] == 'l ':
+            link = func['description'].split(" ")[-1]
+            func_call = "link('" + link + "')"
+            # func_call = "AlertUser('" + link + "')"
+        elif "arg" not in func:
             func_call = func['func_name'] + '()'
         elif argument and func["arg"] == 'string':
             func_call = func['func_name'] + "('" + argument + "')"
         elif argument and func["arg"] == 'number':
             func_call = func['func_name'] + '(' + argument + ')'
         else:
-            func_call = func['func_name'] + '()'
+            # func_call = "AlertUser('" + func['func_name'] + "')"
+            func_call = "AlertUser('Func: " + func['func_name'] + " [failed]')"
         # arg is a special command that will pass on whatever its contents are
         # to the next command
         wf.add_item(title=func['func_name'],

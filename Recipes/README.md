@@ -55,12 +55,12 @@ TODO
 
 - 1 Small Onion
 - 1.5 Tbsp Curry Powder
-- 1 tsp cinnamon, nutmeg, sugar, or 1" fresh ginger
+- 1" fresh ginger or 1 tsp cinnamon, nutmeg, or sugar
 - 1/4 tsp Garlic Powder (or 2 cloves)
 - 8 oz (bag) of spinach
 - 15 oz can tomato sauce
 - 29 oz can of chickpeas/Garbanzo beans
-- + rice / naan / etc.
+- & rice / naan / etc.
 
 1. Start cooking the rice and rinse and drain the chickpeas
 2. In a large skillet on medium heat, sauté  the diced onion for 4 minutes with a small amount of olive oil
@@ -110,12 +110,12 @@ TODO
 
 Sauce:
 
-- 5 tbsp PB
-- 1 tbsp hot chili oil
-- 2 tsp sesame oil
-- 6 tbsp soy sauce
+- 5 Tbsp PB
+- 1 Tbsp hot chili oil
+- 1 Tbsp sesame oil
+- 6 Tbsp soy sauce
 - 2 tsp cider vinegar (or white wine/rice vinegar)
-- 3 tsp cinnamon, nutmeg, or ginger
+- 1" fresh ginger or 1.5 tsp cinnamon, nutmeg, or sugar
 
 Garnish Options (I wouldn't recommend all at once):
 

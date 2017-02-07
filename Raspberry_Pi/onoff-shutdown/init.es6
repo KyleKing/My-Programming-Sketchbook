@@ -4,8 +4,13 @@ console.log('Note: If module compile error, run `npm rebuild` or delete ' +
 const fs = require('fs-extra');
 
 const Gpio = require('onoff').Gpio;  // eslint-disable-line
-const button = new Gpio(4, 'in', 'both');
-const led = new Gpio(14, 'out');
+// const button = new Gpio(4, 'in', 'both');
+// const led = new Gpio(14, 'out');
+
+// FIXME - Only for Pialarm:
+const button = new Gpio(19, 'in', 'both');
+const led = new Gpio(26, 'out');
+
 const shell = require('shelljs');
 const Moment = require('moment');
 
@@ -174,9 +179,11 @@ button.watch((err, value) => {
     (code, stdout, stderr) => { logOutput(code, stdout, stderr); });
 
   if (shutdownDevice) {
-    shell.exec('sudo kill $(ps aux | grep ' +
-      `"[${myProcess[0]}]${myProcess.substr(1)} | awk '{print $2}')`,
-      (code, stdout, stderr) => { logOutput(code, stdout, stderr); });
+    shell.exec(`sudo kill $(ps aux | grep [${myProcess[0]}]` +
+                            `${myProcess.substr(1)} | awk '{print $2}')`,
+    (code, stdout, stderr) => {
+      logOutput(code, stdout, stderr);
+    });
 
     // setTimeout(shell.exec('sudo shutdown -h now'), 3000);
     logOutput('NOT SHUTTING DOWN, BUT SHOULD ^');

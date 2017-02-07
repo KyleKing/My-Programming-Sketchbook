@@ -34,8 +34,9 @@ end conditionalopen
 -- conditionalclose("na")
 
 -- Open apps if not open already:
-conditionalopen("Sip")
+-- conditionalopen("Sip")
 conditionalopen("Dash")
+conditionalopen("Numi")
 conditionalopen("Dropbox")
 conditionalopen("PopClip")
 conditionalopen("Dropshelf")

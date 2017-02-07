@@ -1,57 +1,18 @@
 # My Go To Recipes
 
-<!--
-# TODO:
-- Oreo Truffles
-- Cake Pops
--->
+# Quinoa
 
-<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
+<p align="center">
+  <img width="550" height=auto src="imgs/quinoa.jpg" alt="curried_chickpeas">
+</p>
 
-<!--
-## Shrimp Tacos
-
-![Shrimp Tacos](imgs/Shrimp Tacos.png)
-
-TODO
-
-## Cashew Chicken
-
-![Cashew Chicken](imgs/Cashew Chicken.png)
-
-TODO
-
-## Tuna Melts
-
-![Tuna Melts](imgs/Tuna Melts.png)
-
-TODO
--->
-
-## Black Bean Quesadillas
-
-![black_bean_quesadillas](imgs/black_bean_quesadillas.png)
-
-TODO
-
-## Dragon Noodles
-
-![Dragon Noodles](imgs/Dragon Noodles.png)
-
-TODO
-
-## Cocoa-Peanut Butter Smoothie
-
-![Peanut Butter Smoothie](imgs/Peanut Butter Smoothie.png)
-
-TODO
+Prepare Quinoa and in parallel possibly prepare sautéed peppers and onions. When the quinoa is nearly ready, microwave a can each of black beans, tomatoes, and corn in a large tupper ware. Mix everything together with your choice(s) of red pepper flakes, curry powder, Sriracha, salsa, avocado, lettuce, etc. The quinoa can also be replaced with jasmine or other rice
 
 ## Curried Chickpeas
 
 <p align="center">
   <img width="550" height=auto src="imgs/curried_chickpeas.jpg" alt="curried_chickpeas">
 </p>
-<!-- <p align="center">The prototype alarm</p> -->
 
 - 1 Small Onion
 - 1.5 Tbsp Curry Powder
@@ -63,12 +24,17 @@ TODO
 - & rice / naan / etc.
 
 1. Start cooking the rice and rinse and drain the chickpeas
+
 2. In a large skillet on medium heat, sauté  the diced onion for 4 minutes with a small amount of olive oil
+
 3. Add the garlic powder, curry powder and cook for an additional minute
+
 4. Add 1/4 cup water and all of the spinach
+
 5. Once the spinach has wilted, add the tomato sauce and garbanzo beans. Cook for 5 more minutes
 
 (Source: http://www.budgetbytes.com/2013/12/curried-chickpeas-spinach/)
+
 
 ## Sausage and Mushroom Penne Pasta
 
@@ -140,6 +106,7 @@ Garnish Options (I wouldn't recommend all at once):
 </p>
 
 Main:
+
 - 3 Peppers
 - 3 Tomatoes
 - 1 Lg. Onion
@@ -148,6 +115,7 @@ Main:
 - 1 lb. Chicken (~two breasts)
 
 Seasonings:
+
 - 1 Tbsp chili powder
 - 2 Tbsp vegetable oil
 - ¼ tsp garlic powder
@@ -157,6 +125,7 @@ Seasonings:
 - ½ tsp onion powder*
 
 Toppings:
+
 - 10 6-inch tortillas
 - 1/3 bag of spinach
 - 1/2 jar of Salsa
@@ -165,10 +134,12 @@ Toppings:
 - 1 medium lime
 
 1) Defrost the chicken and preheat the oven to 400 degrees
+
 2) Cut the peppers, onions, tomatoes, and chicken into 1/4" strips and fill a 9 x 13" casserole dish. Add the beans and corn, then cover with the seasonings and olive oil. Mix by hand
-<!-- (FIXME^) -->
-3) Bake for 30 minutes, while baking start the rice, so they finish around the same time
-4) Make sure to crisp the tortillas in a pan so everything can be served hot!
+
+3) Bake for 30 minutes and start the rice
+
+4) Crisp the tortillas in the pan so everything can be served hot!
 
 (Original Source: http://www.budgetbytes.com/2013/02/oven-fajitas/)
 
@@ -186,9 +157,13 @@ Toppings:
 - Bag of frozen broccoli
 
 1) Heat chicken broth and two cups of water to boil with a bit of olive oil
+
 2) Crisp cubed ham in a hot sauce pan
+
 3) Toss the orzo in, then for the last two minutes of cook time, add the broccoli
+
 4) Drain, then add the milk and Parmesan to the drained orzo in the big pot. Sit on low heat until combined
+
 5) Add the crisped ham and pepper for taste
 
 (Original Source: http://exploitsofamilitarymama.com/2012/08/slutty-orzo/)
@@ -205,10 +180,52 @@ Toppings:
 
 Serve on rice, as a sandwich, etc. Leftovers are easy to add to pasta in tomato sauce
 
-## Easy Rice and Vegetables
 
-- Cans each of Corn, Tomatoes, and Black Beans
+<!--
+# TODO:
+- Oreo Truffles
+- Cake Pops
+-->
 
-1. Start cooking rice
-2. Rinse and drain the three cans and in a large tupperware, heat them in a microwave until warm.
-3. Serve everything together with curry powder, red pepper flakes, Sriracha, or other spice
+<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
+
+<!--
+## Shrimp Tacos
+
+![Shrimp Tacos](imgs/Shrimp Tacos.png)
+
+TODO
+
+## Cashew Chicken
+
+![Cashew Chicken](imgs/Cashew Chicken.png)
+
+TODO
+
+## Tuna Melts
+
+![Tuna Melts](imgs/Tuna Melts.png)
+
+TODO
+-->
+
+## Black Bean Quesadillas
+
+![black_bean_quesadillas](imgs/black_bean_quesadillas.png)
+
+TODO
+
+## Dragon Noodles
+
+![Dragon Noodles](imgs/Dragon Noodles.png)
+
+
+Bag of lo mein noodles, 2 tbsp of butter, 2 large eggs, tsp of red pepper flakes, 1.5 tbsp soy sauce, 1.5 tbsp Sriracha, cilantro, sliced green onion (TODO)
+
+(Source: https://www.budgetbytes.com/2012/08/spicy-noodles/)
+
+## Cocoa-Peanut Butter Smoothie
+
+![Peanut Butter Smoothie](imgs/Peanut Butter Smoothie.png)
+
+TODO

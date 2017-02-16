@@ -1,9 +1,24 @@
 # My Go To Recipes
 
-# Quinoa
+<!-- MarkdownTOC -->
+
+- Quinoa
+- Curried Chickpeas
+- Sausage and Mushroom Penne Pasta
+- Peanut Noodles
+- Fajitas
+- Orzo n' Cheese
+- Easy Chicken Prep
+- Dragon Noodles
+- Kraft Mac and Cheese
+- TODO
+
+<!-- /MarkdownTOC -->
+
+## Quinoa
 
 <p align="center">
-  <img width="550" height=auto src="imgs/quinoa.jpg" alt="curried_chickpeas">
+  <img width="550" height=auto src="imgs/quinoa.jpg" alt="Quinoa">
 </p>
 
 Prepare Quinoa and in parallel possibly prepare sautéed peppers and onions. When the quinoa is nearly ready, microwave a can each of black beans, tomatoes, and corn in a large tupper ware. Mix everything together with your choice(s) of red pepper flakes, curry powder, Sriracha, salsa, avocado, lettuce, etc. The quinoa can also be replaced with jasmine or other rice
@@ -14,20 +29,20 @@ Prepare Quinoa and in parallel possibly prepare sautéed peppers and onions. Whe
   <img width="550" height=auto src="imgs/curried_chickpeas.jpg" alt="curried_chickpeas">
 </p>
 
-- 1 Small Onion
+- 1 Small Onion / (or diced peppers - just add 2x garlic powder)
 - 1.5 Tbsp Curry Powder
-- 1" fresh ginger or 1 tsp cinnamon, nutmeg, or sugar
-- 1/4 tsp Garlic Powder (or 2 cloves)
-- 8 oz (bag) of spinach
-- 15 oz can tomato sauce
+- 1" fresh ginger or 1 tsp cinnamon or 1 tsp nutmeg or sugar
+- 1/4 tsp Garlic Powder (or 2 fresh cloves)
+- 8 oz (full bag) of spinach
+- 15 oz jar of tomato sauce
 - 29 oz can of chickpeas/Garbanzo beans
 - & rice / naan / etc.
 
-1. Start cooking the rice and rinse and drain the chickpeas
+1. Start cooking the rice and rinse & drain the chickpeas
 
-2. In a large skillet on medium heat, sauté  the diced onion for 4 minutes with a small amount of olive oil
+2. In a large skillet on medium heat, sauté the diced onion for 4 minutes with a small amount of olive oil
 
-3. Add the garlic powder, curry powder and cook for an additional minute
+3. Add the garlic powder, ginger (cinnamon), and curry powder then cook for an additional minute
 
 4. Add 1/4 cup water and all of the spinach
 
@@ -180,52 +195,48 @@ Toppings:
 
 Serve on rice, as a sandwich, etc. Leftovers are easy to add to pasta in tomato sauce
 
-
-<!--
-# TODO:
-- Oreo Truffles
-- Cake Pops
--->
-
-<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
-
-<!--
-## Shrimp Tacos
-
-![Shrimp Tacos](imgs/Shrimp Tacos.png)
-
-TODO
-
-## Cashew Chicken
-
-![Cashew Chicken](imgs/Cashew Chicken.png)
-
-TODO
-
-## Tuna Melts
-
-![Tuna Melts](imgs/Tuna Melts.png)
-
-TODO
--->
-
-## Black Bean Quesadillas
-
-![black_bean_quesadillas](imgs/black_bean_quesadillas.png)
-
-TODO
-
 ## Dragon Noodles
 
-![Dragon Noodles](imgs/Dragon Noodles.png)
+<p align="center">
+  <img width="550" height=auto src="imgs/Dragon_Noodles.jpg" alt="Dragon Noodles">
+</p>
 
+- 16 oz Bag of Lo Mein Noodles
+- 2 tbsp butter
+- 1 tsp of red pepper flakes
+- 3 eggs
+- Sliced green onions or zucchini (which is better than you might think)
+- 3 tbsp soy sauce
+- 3 tbsp Sriracha
+- + Cilantro, etc.
 
-Bag of lo mein noodles, 2 tbsp of butter, 2 large eggs, tsp of red pepper flakes, 1.5 tbsp soy sauce, 1.5 tbsp Sriracha, cilantro, sliced green onion (TODO)
+1) Start the lo mein noodles in a pot for 5-7 minutes (see instructions) and start melting 2 tbsp of butter in a large skillet
+
+2) When the butter melts, add the red pepper flakes and zucchini or green onion
+
+3) After a few minutes, add the three eggs to the skillet and keep on medium heat until cooked
+
+4) When the lo mein noodles finish, add them to the skillet and add the Sriracha and Soy Sauce on top. Mix everything up and heat for a few additional minutes
 
 (Source: https://www.budgetbytes.com/2012/08/spicy-noodles/)
 
-## Cocoa-Peanut Butter Smoothie
+## Kraft Mac and Cheese
 
-![Peanut Butter Smoothie](imgs/Peanut Butter Smoothie.png)
+<p align="center">
+  <img height="200px" height=auto src="imgs/kraft.jpg" alt="Kraft Mac&Cheese Box Recipe">
+</p>
 
-TODO
+2 tbsp. butter and 1/3 cup milk!
+
+
+<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
+
+## TODO
+
+- Oreo Truffles
+- Cake Pops
+- Shrimp Tacos
+- Cashew Chicken
+- Tuna Melts
+- Black Bean Quesadillas
+- Cocoa-Peanut Butter Smoothie

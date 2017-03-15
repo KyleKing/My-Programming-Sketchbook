@@ -1,17 +1,17 @@
 # My Go To Recipes
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC depth="6" autolink="true" bracket="round" -->
 
-- Quinoa
-- Curried Chickpeas
-- Sausage and Mushroom Penne Pasta
-- Peanut Noodles
-- Fajitas
-- Orzo n' Cheese
-- Easy Chicken Prep
-- Dragon Noodles
-- Kraft Mac and Cheese
-- TODO
+- [Quinoa](#quinoa)
+- [Curried Chickpeas](#curried-chickpeas)
+- [Sausage and Mushroom Penne Pasta](#sausage-and-mushroom-penne-pasta)
+- [Peanut Noodles](#peanut-noodles)
+- [Fajitas](#fajitas)
+- [Orzo n' Cheese](#orzo-n-cheese)
+- [Easy Chicken Prep](#easy-chicken-prep)
+- [Dragon Noodles](#dragon-noodles)
+- [Kraft Mac and Cheese](#kraft-mac-and-cheese)
+- [TODO](#todo)
 
 <!-- /MarkdownTOC -->
 
@@ -82,35 +82,29 @@ Prepare Quinoa and in parallel possibly prepare sautéed peppers and onions. Whe
   <img width="550" height=auto src="imgs/peanut_noodles.jpg" alt="peanut_noodles">
 </p>
 
-- I recommend Egg Noodles, Fettuccine, or Rice
+- Linguine, Egg Noodles, or Rice
 - Chopped baby carrots
 - Chopped shallots (a.k.a. white base of green onion)
-- *Green pepper (optional)*
-- *Broccoli (optional)*
-- *Snow peas (optional)*
+- *Other vegetables: Peppers, Broccoli, Zucchini, Snow Peas*
 
 Sauce:
 
-- 5 Tbsp PB
-- 1 Tbsp hot chili oil
-- 1 Tbsp sesame oil
-- 6 Tbsp soy sauce
+- 6 Tbsp PB
+- 1.5 Tbsp hot chili oil
+- 2 Tbsp sesame oil
+- 7 Tbsp soy sauce
 - 2 tsp cider vinegar (or white wine/rice vinegar)
 - 1" fresh ginger or 1.5 tsp cinnamon, nutmeg, or sugar
 
-Garnish Options (I wouldn't recommend all at once):
+Garnish Options:
 
-- **Sesame seeds**
-- **Peanuts**
-- Lime Juice and Zest
+- **Sesame seeds or Peanuts**
+- Green onions
 - Cilantro
-- Sriracha
-- Garlic
-- Honey?
 - *Can be served with shrimps marinated in lime, salt, and garlic powder then sautéed
 
-1. Mix the sauce until smooth and prep all the vegetables
-2. Boil the pasta, drain, then immediately toss with the sauce and vegetables. Add the garnish and serve!
+1. Mix the sauce until smooth and prep the vegetables separately
+2. Boil the pasta, drain, then immediately toss with vegetables and sauce
 
 (Original Source: My Coworkers Dani and Michael)
 

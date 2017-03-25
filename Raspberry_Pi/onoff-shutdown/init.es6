@@ -57,7 +57,8 @@ if (existSync(testPathPiSlideShow)) {
   logFile = '_PiSlideShow_log';
   buttonPin = 4;
   ledPin = 14;
-  USB_ID = '0bda:8176';
+  // USB_ID = '0bda:8176';  // Large 2.4 ghz USB
+  USB_ID = '148f:5572';  // New 2.4/5 ghz
 }
 
 // Airplay Speaker Version:
@@ -71,7 +72,7 @@ if (existSync(testPathAirplay)) {
   // TODO: No button wired yet
   buttonPin = 4;
   ledPin = 14;
-  USB_ID = '148f:5572';
+  USB_ID = '148f:5572';  // 5ghz white USB
 }
 
 // Alarm Clock Version:
@@ -95,6 +96,10 @@ const Gpio = require('onoff').Gpio;  // eslint-disable-line
 const button = new Gpio(buttonPin, 'in', 'both');
 const led = new Gpio(ledPin, 'out');
 
+// Create log directory:
+shell.cd(fullPath);
+dir = `${fullPath}/logs/`;
+fs.ensureDirSync(dir);
 
 //
 // Init Logging
@@ -132,11 +137,7 @@ logData(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 // Start child process
 //
 
-shell.cd(fullPath);
-dir = `${fullPath}/logs/`;
-fs.ensureDirSync(dir);
 const child = shell.exec(myProcess, { async: true });
-
 child.stdout.on('data', (data) => { logData(data); });
 child.stderr.on('data', (data) => {
   logData(`[WARN stderr]: ${String(data).trim()}`);
@@ -162,10 +163,11 @@ function logSummary(CMD, code, stderr, stdout) {
 class checkPing {
   constructor() {
     this.pingCMD = 'ping -c 5 google.com';
-    this.pingCMD_FAIL = 'ping -c 1 192.1.2.3';  // intentionally failing ping
+    // this.pingCMD_FAIL = 'ping -c 1 192.1.2.3';  // intentionally failing ping
   }
   check() {
     // Point of entry that triggers first ping and possibly reset
+    logData(`Running: "${this.pingCMD}"`);
     this.pingIt(this.pingCMD, this.RESET);
   }
   pingIt(CMD, cb=false) {
@@ -173,9 +175,9 @@ class checkPing {
       logSummary(CMD, code, stderr, stdout);
 
       // More specific implementation with regexp (alt is w/ `code`):
+      let found = false
       if (false) {
         regex = /\s0% packet loss/g;
-        found = false
         matches = '';
         while ((matches = regex.exec(stdout)) !== null) {
             // this is necessary to avoid infinite loops with zero-width matches
@@ -204,6 +206,7 @@ class checkPing {
   }
   RESET() {
     // Force a reset of the USB device, then try a ping
+    // sudo $(lsusb -d 148f:5572 | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }' | xargs -I {} echo "./usbreset {}")
     const sub = `lsusb -d ${USB_ID} | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }'`;
     const resetCMD = `sudo $(${sub} | xargs -I {} echo "./usbreset {}")`;
     logData('Error: Internet Connection Ping Test Failed');
@@ -235,12 +238,16 @@ testWifiSpeed();
 // Regularly ping that the USB adapter is connected to the INTERNET
 const CronJob = require('cron').CronJob;
 const everyFive = '0,5,10,15,20,25,30,35,40,45,50,55'
+// const everyFive = '0,10,20,30,40,50'
 const runPing = new CronJob(`20 ${everyFive} * * * *`, () => {
+  logData(`Starting new checkPing`);
   const cp = new checkPing();
   cp.check();
 }, () => {
-  console.log('Stopped Wifi Monitoring Tasks')
+  logData('Stopped Wifi Monitoring Tasks')
 }, false);
+// It always helps to start it...
+runPing.start();
 
 //
 // Handle Interrupts (*Digital Button)

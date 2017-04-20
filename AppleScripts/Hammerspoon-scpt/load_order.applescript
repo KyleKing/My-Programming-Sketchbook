@@ -31,24 +31,28 @@ end conditionalopen
 -- and look up the "Process Name" (first column) in the list of running processes
 
 -- Quit any unneccessary apps
--- conditionalclose("na")
+-- conditionalclose("N/A")
+conditionalclose("Numi")
+conditionalclose("KeepingYouAwake")
 
 -- Open apps if not open already:
--- conditionalopen("Sip")
+conditionalopen("Sip")
 conditionalopen("Dash")
-conditionalopen("Numi")
 conditionalopen("Dropbox")
 conditionalopen("PopClip")
 conditionalopen("Dropshelf")
 conditionalopen("RescueTime")
 conditionalopen("Google Drive")
-conditionalopen("SnappyAppHelper")
-conditionalopen("BetterTouchTool")
+conditionalopen("Flux")
+conditionalopen("Bartender 2")
+
+-- conditionalopen("BetterTouchTool")
+-- conditionalopen("Numi")
 -- conditionalopen("EvernoteHelper")
 -- conditionalopen("Focus")
-conditionalopen("Flux")
 
-conditionalopen("Bartender 2")
+conditionalclose("Kite")
+conditionalopen("SnappyAppHelper")
 
 -- Debugging:
 

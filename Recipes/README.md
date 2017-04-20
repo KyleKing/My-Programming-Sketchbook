@@ -10,8 +10,7 @@
 - [Orzo n' Cheese](#orzo-n-cheese)
 - [Easy Chicken Prep](#easy-chicken-prep)
 - [Dragon Noodles](#dragon-noodles)
-- [Kraft Mac and Cheese](#kraft-mac-and-cheese)
-- [TODO](#todo)
+- [Sesame Noodles With Wilted Greens](#sesame-noodles-with-wilted-greens)
 
 <!-- /MarkdownTOC -->
 
@@ -57,22 +56,23 @@ Prepare Quinoa and in parallel possibly prepare sautéed peppers and onions. Whe
   <img width="550" height=auto src="imgs/mushroom_and_sausage.jpg" alt="mushroom_and_sausage">
 </p>
 
-- 3 Links Italian Sausage
+- 3-6 Links Italian Sausage
 - 1 Small Onion
 - 8 oz. Container of Button Mushrooms
 - 28 oz. can of crushed tomatoes
-- 1/2 tsp Garlic Powder
+- 3 cloves of garlic (1/2 tsp Garlic Powder)
 - 1 tsp basil
 - 1 tsp oregano
-- 1 lb box of Penne / rigatoni
 - 1/4 cup Parmesan
+- 1 lb box of Penne / Rigatoni
 - Chopped parsley (optional)
 
-1. Dice the onion, wash and slice the mushrooms, and gather the other ingredients.
-2. In a large pot, cook the sausages in a small amount of olive oil on medium heat until brown on the outside and firm (if precooked just skip this step) . Remove with tongs and slice into rounds - return to the pot to brown for a few minutes
-3. Once the sausage rounds are browned, add the canned tomatoes, onion, garlic powder, mushrooms, basil, and oregano - stir!
-4. Add about 3.5 cups of water and the box of pasta. Place a lid on and bring the pot to a rapid boil
-5. As soon as it reaches a full boil, stir, replace the lid, then turn the heat down to low to simmer (~25% - 35%). Stir every five minutes and if at 15 minutes there is too much liquid, take off the lid and let simmer for slightly longer. Once ready, add the Parmesan and top with chopped parsley, if desired.
+1. In a large pot, cook the sausages in a small amount of olive oil on medium heat until brown on the outside and firm {~5 minutes} (if precooked just skip this step)
+2. Dice and prep the garlic, onions, and mushrooms. In parallel turn the heat off on the browning sausage to let cool
+3. Using tongs, remove and slice the sausage into rounds. Toss the rounds back in for 4 minutes or until brown
+4. Add the canned tomatoes, basil, oregano, garlic, onions, and mushrooms, then 3.5 cups of water and the box of pasta
+5. With a lid, bring the pot to a rapid boil. Once boiling, stir, replace the lid, and simmer (~30%)
+6. Stir the pot every five minutes while simmering. After 15 minutes if too much water is left, remove the lid and let simmer for slightly longer
 
 (Source: http://www.budgetbytes.com/2014/04/one-pot-sausage-mushroom-pasta/)
 
@@ -214,18 +214,40 @@ Serve on rice, as a sandwich, etc. Leftovers are easy to add to pasta in tomato 
 
 (Source: https://www.budgetbytes.com/2012/08/spicy-noodles/)
 
-## Kraft Mac and Cheese
+
+<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
+
+## Sesame Noodles With Wilted Greens
+
+- 8oz. spaghetti
+- 8oz. fresh spinach
+- 4 large eggs
+- olive oil
+- 2 minced cloves garlic
+- ¼ cup soy sauce
+- 1 Tbsp toasted sesame oil
+- 2/3 tbsp cider vinegar (or 1 Tbsp rice vinegar)
+- 1 tbsp brown sugar
+- sesame seeds, red pepper flakes, salt, and pepper to taste
+
+1. Combine soy sauce, sesame oil, cider vinegar, brown sugar, sesame seeds, red pepper flakes, and half of the garlic in a small bowl then set aside {start a large pot of water to boil}
+2. In a large skillet over medium heat, sauté the other half of the garlic in olive oil (about 1 min). Then add the spinach and sauté until wilted (the spinach should still be bright green and look slightly plump). Season with salt and pepper and remove from heat.
+3. Once boiling, cook the pasta, drain, then with the heat off, mix the sauce and pasta. Keep the lid on to keep the pot warm
+4. Prepare the eggs however you like (fried sunny side up, over hard, poached, scrambled, or soft boiled), then combine and serve!
+
+(Source: https://www.budgetbytes.com/2016/05/sesame-noodles-wilted-greens/)
+
+
+<!-- ## Kraft Mac and Cheese
 
 <p align="center">
   <img height="200px" height=auto src="imgs/kraft.jpg" alt="Kraft Mac&Cheese Box Recipe">
 </p>
 
-2 tbsp. butter and 1/3 cup milk!
+2 tbsp. butter and 1/3 cup milk! -->
 
 
-<!-- See ideas for [Breakfast](Breakfast.md), [Lunch](Lunch.md), or [Dinner](Dinner.md) -->
-
-## TODO
+<!-- ## TODO
 
 - Oreo Truffles
 - Cake Pops
@@ -233,4 +255,4 @@ Serve on rice, as a sandwich, etc. Leftovers are easy to add to pasta in tomato 
 - Cashew Chicken
 - Tuna Melts
 - Black Bean Quesadillas
-- Cocoa-Peanut Butter Smoothie
+- Cocoa-Peanut Butter Smoothie -->

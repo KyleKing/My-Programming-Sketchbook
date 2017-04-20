@@ -47,7 +47,8 @@ function prettifyLog(raw) {
 // Configure local environment:
 //
 
-// PiSlideShow Version:
+// PiSlideShow:
+//
 const testPathPiSlideShow = '/home/pi/_K2_SD.ini';
 if (existSync(testPathPiSlideShow)) {
   powerBtnConnected = false;
@@ -57,11 +58,11 @@ if (existSync(testPathPiSlideShow)) {
   logFile = '_PiSlideShow_log';
   buttonPin = 4;
   ledPin = 14;
-  // USB_ID = '0bda:8176';  // Large 2.4 ghz USB
-  USB_ID = '148f:5572';  // New 2.4/5 ghz
+  USB_ID = '0bda:8176';  // Mini 2.4ghz
 }
 
-// Airplay Speaker Version:
+// Airplay Speaker:
+//
 const testPathAirplay = '/home/pi/_K1_SD.ini';
 if (existSync(testPathAirplay)) {
   // powerBtnConnected = true;
@@ -72,10 +73,11 @@ if (existSync(testPathAirplay)) {
   // TODO: No button wired yet
   buttonPin = 4;
   ledPin = 14;
-  USB_ID = '148f:5572';  // 5ghz white USB
+  USB_ID = '148f:5572';  // White 5ghz
 }
 
-// Alarm Clock Version:
+// Alarm Clock:
+//
 const testPathAlarmClock = '/home/pi/_A0_SD.ini';
 if (existSync(testPathAlarmClock)) {
   fullPath = '/home/pi/PiAlarm';
@@ -84,7 +86,8 @@ if (existSync(testPathAlarmClock)) {
   // TODO: No button wired yet
   buttonPin = 19;
   ledPin = 26;
-  USB_ID = '0bda:8176';
+  // USB_ID = '0bda:8176';
+  USB_ID = '148f:5572';  // Black 2.4/5ghz
 }
 
 
@@ -154,7 +157,7 @@ child.on('close', () => {
 
 function logSummary(CMD, code, stderr, stdout) {
   // Useful tool for logging output of a executable statement
-  logData(`'${CMD} -> Code ${code}`);
+  logData(`${CMD} -> Code ${code}`);
   logData(`stdout: ${stdout}`);
   if (stderr)
     logData(`stderr: ${stderr}`);
@@ -167,12 +170,12 @@ class checkPing {
   }
   check() {
     // Point of entry that triggers first ping and possibly reset
-    logData(`Running: "${this.pingCMD}"`);
+    // logData(`Running: "${this.pingCMD}"`);
     this.pingIt(this.pingCMD, this.RESET);
   }
   pingIt(CMD, cb=false) {
     shell.exec(CMD, (code, stdout, stderr) => {
-      logSummary(CMD, code, stderr, stdout);
+      // logSummary(CMD, code, stderr, stdout);
 
       // More specific implementation with regexp (alt is w/ `code`):
       let found = false
@@ -195,25 +198,22 @@ class checkPing {
         found = true;
 
       if (!found || code != 0) {
-        logData('ERROR: FAILED with `CODE !=0`');
+        logData(`ERROR: FAILED with "CODE !=0" [${code}]`);
         if (cb)
           cb();
         else
-          logData('No Callback to act on');
-      } else
-        logData('Passed network monitoring check');
+          logData('Error: No Callback to act on');
+      }
     });
   }
   RESET() {
     // Force a reset of the USB device, then try a ping
-    // sudo $(lsusb -d 148f:5572 | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }' | xargs -I {} echo "./usbreset {}")
-    const sub = `lsusb -d ${USB_ID} | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }'`;
-    const resetCMD = `sudo $(${sub} | xargs -I {} echo "./usbreset {}")`;
-    logData('Error: Internet Connection Ping Test Failed');
-    logData('Attempting USB device reset:');
+    logData('Error: Internet Ping Failed - Resetting USB Wifi adapter');
+    const subCMD = `lsusb -d ${USB_ID} | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }'`;
+    const resetCMD = `sudo $(${subCMD} | xargs -I {} echo "/home/pi/onoff-shutdown/usbreset {}")`;
     shell.exec(resetCMD, (_code, _stdout, _stderr) => {
-      const cp = new checkPing();
       logSummary(resetCMD, _code, _stderr, _stdout);
+      const cp = new checkPing();
       cp.pingIt(cp.pingCMD);
     });
   }
@@ -240,7 +240,7 @@ const CronJob = require('cron').CronJob;
 const everyFive = '0,5,10,15,20,25,30,35,40,45,50,55'
 // const everyFive = '0,10,20,30,40,50'
 const runPing = new CronJob(`20 ${everyFive} * * * *`, () => {
-  logData(`Starting new checkPing`);
+  // logData(`Starting new checkPing`);
   const cp = new checkPing();
   cp.check();
 }, () => {

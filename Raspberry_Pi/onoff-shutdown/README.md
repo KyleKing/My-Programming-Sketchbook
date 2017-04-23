@@ -28,7 +28,7 @@ Edit the startup file `sudo nano /etc/rc.local` and append the below snippet; ho
 # Ampersand from: https://www.raspberrypi.org/documentation/linux/usage/rc-lo$
 export PATH=/sbin:/usr/sbin:$PATH
 cd /home/pi/onoff-shutdown
-su pi -c 'node init.es6' &
+su pi -c 'npm start' &
 
 # (optional) Forward port 80 to 3000, so the web server can run with normal permissions
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000

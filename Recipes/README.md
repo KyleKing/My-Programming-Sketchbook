@@ -237,7 +237,7 @@ Optional Seasonings:
 4) When the lo mein noodles finish, add them to the skillet and add the Sriracha and Soy Sauce on top. Mix everything up and heat for a few additional minutes
 
 <p align="left">
-  <img width="550" height=auto src="imgs/dragon_noodles.jpg" alt="Dragon Noodles">
+  <img width="550" height=auto src="imgs/Dragon_Noodles.jpg" alt="Dragon Noodles">
 </p>
 
 (Source: https://www.budgetbytes.com/2012/08/spicy-noodles/)

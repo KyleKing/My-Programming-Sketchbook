@@ -38,6 +38,7 @@
 - [Slow Cooker Chicken Tortilla Soup](#slow-cooker-chicken-tortilla-soup)
 - [Shrimp Tacos](#shrimp-tacos)
 - [Cake Pops](#cake-pops)
+- [Other places to look for recipes](#other-places-to-look-for-recipes)
 
 <!-- /MarkdownTOC -->
 
@@ -410,16 +411,16 @@ Note: if the mozzarella is added to hot pasta it will melt and get stringy, so s
 
 ## Cocoa-Peanut Butter Smoothie
 
-- yogurt
+- Yogurt
 - 1-2 spoons of of pb
-- banana
-- spoon of cocoa powder
-- and some water to thin the mixture
+- Banana
+- Spoon of cocoa powder
+- & some water to thin the mixture
 
 1. Blend
 
 <p align="left">
-  <img width="550" height=auto src="imgs/TODO.jpg" alt="TODO">
+  <img width="550" height=auto src="imgs/PBandCocoa.jpg" alt="Cocoa and Peanut Butter Smoothie">
 </p>
 
 
@@ -612,15 +613,22 @@ Toppings
 
 ## Shrimp Tacos
 
-- asdf
+- 1 lb shrimp
+- 1/4 cup olive oil
+- 3 tbsp. honey
+- 1 lime, juiced
+- 3 cloves garlic
+- 1/2 tsp each of salt and pepper
 
-1. TODO
+1. Whisk together olive oil, honey, lime juice, garlic, salt, and pepper, then pour the marinade over the shrimp and marinate for at least 30 minutes
+2. Skewer and grill for 6-8 minutes or cook in a skillet for ~6 minutes
+3. Place grilled shrimp in tortilla and top with slaw and slices of avocado
 
 <p align="left">
   <img width="550" height=auto src="imgs/TODO.jpg" alt="TODO">
 </p>
 
-(Source: LINK)
+(Source: http://www.yummly.co/recipe/Honey-Lime-Shrimp-Tacos-1576139)
 
 
 ## Cake Pops
@@ -634,3 +642,7 @@ Bake a cake according to the instructions and then once it's completely cooled, 
 <!-- ## Archive:
 - Kraft Mac and Cheese (2 tbsp. butter and 1/3 cup milk!)
 -->
+
+## Other places to look for recipes
+
+- New York Times: https://cooking.nytimes.com/

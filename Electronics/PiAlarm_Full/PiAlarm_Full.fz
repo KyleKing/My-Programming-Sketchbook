@@ -6,7 +6,7 @@
     <views>
         <view name="breadboardView" backgroundColor="#ffffff" gridSize="0.1in" showGrid="1" alignToGrid="1" viewFromBelow="0"/>
         <view name="schematicView" backgroundColor="#ffffff" gridSize="0.1in" showGrid="1" alignToGrid="1" viewFromBelow="0"/>
-        <view name="pcbView" backgroundColor="#333333" gridSize="0.1in" showGrid="1" alignToGrid="1" viewFromBelow="0" GPG_Keepout="" autorouteTraceWidth="24" DRC_Keepout="" autorouteViaHoleSize="" autorouteViaRingThickness=""/>
+        <view name="pcbView" backgroundColor="#333333" gridSize="0.1in" showGrid="1" alignToGrid="1" viewFromBelow="0" autorouteViaHoleSize="" GPG_Keepout="" autorouteViaRingThickness="" DRC_Keepout="" autorouteTraceWidth="24"/>
     </views>
     <instances>
         <instance moduleIdRef="TwoLayerRectanglePCBModuleID" modelIndex="5752" path=":/resources/parts/core/rectangle_pcb_two_layers.fzp">
@@ -16,13 +16,13 @@
             <title>PCB1</title>
             <views>
                 <breadboardView layer="icon">
-                    <geometry z="0.5" x="0" y="0"/>
+                    <geometry z="0.50035" x="0" y="0"/>
                 </breadboardView>
                 <pcbView layer="board">
-                    <geometry z="1.50002" x="50" y="14"/>
+                    <geometry z="1.50016" x="50" y="14"/>
                 </pcbView>
-                <schematicView layer="">
-                    <geometry z="0.50001" x="0" y="0"/>
+                <schematicView layer="icon">
+                    <geometry z="0.50014" x="0" y="0"/>
                 </schematicView>
             </views>
         </instance>
@@ -30,16 +30,16 @@
             <title>Raspberry Pi1</title>
             <views>
                 <breadboardView layer="breadboardbreadboard">
-                    <geometry z="1.50002" x="114.355" y="182.555"/>
+                    <geometry z="1.50007" x="114.355" y="182.555"/>
                 </breadboardView>
                 <pcbView layer="copper0">
-                    <geometry z="5.50001" x="482.769" y="-52.15"/>
+                    <geometry z="5.50014" x="482.769" y="-52.15"/>
                     <titleGeometry visible="true" x="785.041" y="-59.15" z="12.5" xOffset="302.272" yOffset="-7" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                     </titleGeometry>
                 </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="2.50002" x="-0.47625" y="-62.3419"/>
+                    <geometry z="2.50016" x="-0.47625" y="-62.3419"/>
                     <titleGeometry visible="true" x="134.524" y="-69.3419" z="6.5" xOffset="135" yOffset="-7" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                         <displayKey key="part number"/>
@@ -47,36 +47,36 @@
                 </schematicView>
             </views>
         </instance>
-        <instance moduleIdRef="24799b52c847367512fc3c12253d7177" modelIndex="85471711" path="/Users/kyleking/.config/Fritzing/partfactory/b56766f3ee4fdf00b2d0d3dd199d4aff/contrib/24799b52c847367512fc3c12253d7177.fzp">
-            <property name="part number" value="MCP23008"/>
-            <title>IC3</title>
-            <views>
-                <breadboardView layer="breadboard">
-                    <geometry z="2.50011" x="490.5" y="223.65"/>
-                </breadboardView>
-                <schematicView layer="schematic">
-                    <geometry z="2.50008" x="-33.35" y="-137.65">
-                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="234" m32="69.3" m33="1"/>
-                    </geometry>
-                    <titleGeometry visible="true" x="130.37" y="-151" z="7.00021" xOffset="164.7" yOffset="-14" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                        <displayKey key="part number"/>
-                    </titleGeometry>
-                </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="5.50008" x="30.1" y="-27.4"/>
-                    <titleGeometry visible="true" x="68.5" y="-33.8" z="13.0002" xOffset="37.8" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
-            </views>
-        </instance>
         <instance moduleIdRef="Breadboard-RSR03MB102-ModuleID" modelIndex="85471715" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/breadboard2.fzp">
             <title>Breadboard2</title>
             <views>
                 <breadboardView layer="breadboardbreadboard">
-                    <geometry z="1.50004" x="103.335" y="-126"/>
+                    <geometry z="1.50003" x="103.335" y="-126"/>
                     <connectors>
+                        <connector connectorId="pin61A" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85472337" layer="breadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin61E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85472575" layer="breadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin61F" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85472575" layer="breadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin61W" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85472337" layer="breadboard"/>
+                            </connects>
+                        </connector>
                         <connector connectorId="pin20E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
@@ -173,6 +173,12 @@
                                 <connect connectorId="connector1" modelIndex="85471732" layer="breadboardWire"/>
                             </connects>
                         </connector>
+                        <connector connectorId="pin4E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471716" layer="breadboard"/>
+                            </connects>
+                        </connector>
                         <connector connectorId="pin14A" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
@@ -183,12 +189,6 @@
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector2" modelIndex="85471983" layer="breadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin4E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471716" layer="breadboard"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin14E" layer="breadboardbreadboard">
@@ -203,16 +203,16 @@
                                 <connect connectorId="connector1" modelIndex="85471724" layer="breadboardWire"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin15D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471726" layer="breadboardWire"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin5E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector1" modelIndex="85471716" layer="breadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin15D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471726" layer="breadboardWire"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin15E" layer="breadboardbreadboard">
@@ -227,28 +227,28 @@
                                 <connect connectorId="connector1" modelIndex="85471728" layer="breadboardWire"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin16C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471722" layer="breadboardWire"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin6E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector2" modelIndex="85471716" layer="breadboard"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin16E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471719" layer="breadboard"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin6X" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector0" modelIndex="85471728" layer="breadboardWire"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471722" layer="breadboardWire"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471719" layer="breadboard"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin16X" layer="breadboardbreadboard">
@@ -263,17 +263,17 @@
                                 <connect connectorId="connector1" modelIndex="85471731" layer="breadboardWire"/>
                             </connects>
                         </connector>
+                        <connector connectorId="pin9E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471720" layer="breadboard"/>
+                            </connects>
+                        </connector>
                         <connector connectorId="pin19C" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector1" modelIndex="85471717" layer="breadboard"/>
                                 <connect connectorId="connector1" modelIndex="85471723" layer="breadboardWire"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin9E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471720" layer="breadboard"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin19X" layer="breadboardbreadboard">
@@ -282,269 +282,35 @@
                                 <connect connectorId="connector0" modelIndex="85471721" layer="breadboardWire"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin61A" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85472337" layer="breadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin61E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85472575" layer="breadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin61F" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85472575" layer="breadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin61W" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85472337" layer="breadboard"/>
-                            </connects>
-                        </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="breadboardbreadboard">
-                    <geometry z="-0.49999" x="-278.157" y="-133.47"/>
+                <pcbView layer="breadboardbreadboard">
+                    <geometry z="-0.49985" x="-247.822" y="-13.0829"/>
                     <connectors>
-                        <connector connectorId="pin20E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector3" modelIndex="85471717" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin21C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471717" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin21X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471729" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin59B" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85472334" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin59D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85472617" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin59E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector3" modelIndex="85472575" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin10D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471725" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin59F" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85472575" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin10E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471720" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin59X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85472334" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin11C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471733" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin11E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471720" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin11X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471727" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin24J" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471983" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin25J" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471983" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin4A" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471732" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin14A" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471730" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin26J" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471983" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin4E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471716" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin14E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471719" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin5D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471724" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin15D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471726" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin5E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471716" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin15E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471719" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin6C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471728" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin16C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471722" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin6E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471716" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin16E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471719" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin6X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471728" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin16X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471722" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin9A" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471731" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin19C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471717" layer="schematic"/>
-                                <connect connectorId="connector1" modelIndex="85471723" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin9E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471720" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin19X" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471721" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin61A" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector1" modelIndex="85472337" layer="schematic"/>
+                                <connect connectorId="connector1" modelIndex="85472337" layer="copper1"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector1" modelIndex="85472575" layer="schematic"/>
+                                <connect connectorId="connector1" modelIndex="85472575" layer="copper0"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61F" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector0" modelIndex="85472575" layer="schematic"/>
+                                <connect connectorId="connector0" modelIndex="85472575" layer="copper0"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61W" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector0" modelIndex="85472337" layer="schematic"/>
+                                <connect connectorId="connector0" modelIndex="85472337" layer="copper1"/>
                             </connects>
                         </connector>
-                    </connectors>
-                </schematicView>
-                <pcbView layer="breadboardbreadboard">
-                    <geometry z="-0.49999" x="-247.822" y="-13.0829"/>
-                    <connectors>
                         <connector connectorId="pin20E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
@@ -641,6 +407,12 @@
                                 <connect connectorId="connector1" modelIndex="85471732" layer="copper1trace"/>
                             </connects>
                         </connector>
+                        <connector connectorId="pin4E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471716" layer="copper0"/>
+                            </connects>
+                        </connector>
                         <connector connectorId="pin14A" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
@@ -651,12 +423,6 @@
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector2" modelIndex="85471983" layer="copper0"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin4E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471716" layer="copper0"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin14E" layer="breadboardbreadboard">
@@ -671,16 +437,16 @@
                                 <connect connectorId="connector1" modelIndex="85471724" layer="copper1trace"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin15D" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471726" layer="copper1trace"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin5E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector1" modelIndex="85471716" layer="copper0"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin15D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471726" layer="copper1trace"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin15E" layer="breadboardbreadboard">
@@ -695,28 +461,28 @@
                                 <connect connectorId="connector1" modelIndex="85471728" layer="copper1trace"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin16C" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471722" layer="copper1trace"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin6E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector2" modelIndex="85471716" layer="copper0"/>
                             </connects>
                         </connector>
-                        <connector connectorId="pin16E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471719" layer="copper0"/>
-                            </connects>
-                        </connector>
                         <connector connectorId="pin6X" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector0" modelIndex="85471728" layer="copper1trace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471722" layer="copper1trace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471719" layer="copper0"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin16X" layer="breadboardbreadboard">
@@ -731,17 +497,17 @@
                                 <connect connectorId="connector1" modelIndex="85471731" layer="copper1trace"/>
                             </connects>
                         </connector>
+                        <connector connectorId="pin9E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471720" layer="copper0"/>
+                            </connects>
+                        </connector>
                         <connector connectorId="pin19C" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
                                 <connect connectorId="connector1" modelIndex="85471717" layer="copper0"/>
                                 <connect connectorId="connector1" modelIndex="85471723" layer="copper1trace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="pin9E" layer="breadboardbreadboard">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471720" layer="copper0"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin19X" layer="breadboardbreadboard">
@@ -750,39 +516,249 @@
                                 <connect connectorId="connector0" modelIndex="85471721" layer="copper1trace"/>
                             </connects>
                         </connector>
+                    </connectors>
+                </pcbView>
+                <schematicView layer="breadboardbreadboard">
+                    <geometry z="-0.49985" x="-278.157" y="-133.47"/>
+                    <connectors>
                         <connector connectorId="pin61A" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector1" modelIndex="85472337" layer="copper1"/>
+                                <connect connectorId="connector1" modelIndex="85472337" layer="schematic"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61E" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector1" modelIndex="85472575" layer="copper0"/>
+                                <connect connectorId="connector1" modelIndex="85472575" layer="schematic"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61F" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector0" modelIndex="85472575" layer="copper0"/>
+                                <connect connectorId="connector0" modelIndex="85472575" layer="schematic"/>
                             </connects>
                         </connector>
                         <connector connectorId="pin61W" layer="breadboardbreadboard">
                             <geometry x="0" y="0"/>
                             <connects>
-                                <connect connectorId="connector0" modelIndex="85472337" layer="copper1"/>
+                                <connect connectorId="connector0" modelIndex="85472337" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin20E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector3" modelIndex="85471717" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin21C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471717" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin21X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471729" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin59B" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85472334" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin59D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85472617" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin59E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector3" modelIndex="85472575" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin10D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471725" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin59F" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85472575" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin10E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471720" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin59X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85472334" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin11C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471733" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin11E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471720" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin11X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471727" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin24J" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471983" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin25J" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471983" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin4A" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471732" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin4E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471716" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin14A" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471730" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin26J" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471983" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin14E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471719" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin5D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471724" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin5E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471716" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin15D" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471726" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin15E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471719" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin6C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471728" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin6E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471716" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin6X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471728" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471722" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471719" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin16X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471722" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin9A" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471731" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin9E" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471720" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin19C" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471717" layer="schematic"/>
+                                <connect connectorId="connector1" modelIndex="85471723" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="pin19X" layer="breadboardbreadboard">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471721" layer="schematicTrace"/>
                             </connects>
                         </connector>
                     </connectors>
-                </pcbView>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="1001ABDC27" modelIndex="85471716" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/basic_fet_p.fzp">
             <title>Q4</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="2.50003" x="135.885" y="-83.0853"/>
+                    <geometry z="2.50006" x="135.885" y="-83.0853"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="8.1009" y="56.0853"/>
@@ -822,8 +798,34 @@
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50017" x="-195.622" y="4.9171"/>
+                    <titleGeometry visible="true" x="-155.373" y="-2.11" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin4E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin5E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin6E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="2.50004" x="-91.086" y="47.5835">
+                    <geometry z="2.50018" x="-91.086" y="47.5835">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="38.3662" m32="-1.49125" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-51.062" y="41.5345" z="6.5" xOffset="39.8575" yOffset="-7" textColor="#000000" fontSize="5">
@@ -851,39 +853,13 @@
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="5.50002" x="-195.622" y="4.9171"/>
-                    <titleGeometry visible="true" x="-155.373" y="-2.11" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin4E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin5E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin6E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="96dbe71554ce3f1d1ef42d1960e0069c" modelIndex="85471717" path="/Users/kyleking/Documents/Fritzing/parts/contrib/2.1mm_DC_Barrel_Jack__0d81611f192da410c39c2b4301ccb3cb.fzp">
             <title>JACK2</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="2.50007" x="269.984" y="-27">
+                    <geometry z="2.50009" x="269.984" y="-27">
                         <transform m11="-1" m12="0" m13="0" m21="0" m22="-1" m23="0" m31="63" m32="54" m33="1"/>
                     </geometry>
                     <connectors>
@@ -908,8 +884,35 @@
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50022" x="-103.822" y="4.9171"/>
+                    <titleGeometry visible="true" x="-31.1725" y="-2.11" z="12.5001" xOffset="72" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector1" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin19C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin21C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                                <connect connectorId="connector1" modelIndex="85471721" layer="copper1trace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector3" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin20E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="2.50008" x="-34.732" y="172.955"/>
+                    <geometry z="2.50021" x="-34.732" y="172.955"/>
                     <titleGeometry visible="true" x="98.308" y="166.906" z="6.50011" xOffset="132.874" yOffset="-7" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                         <displayKey key="part number"/>
@@ -936,33 +939,6 @@
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="5.50009" x="-103.822" y="4.9171"/>
-                    <titleGeometry visible="true" x="-31.1725" y="-2.11" z="12.5001" xOffset="72" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector1" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin19C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin21C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                                <connect connectorId="connector1" modelIndex="85471721" layer="copper1trace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector3" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin20E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="RGB Strip LED_9262e1cf4d6f2c6fb01177709255c2bc_1" modelIndex="85471718" path="/Users/kyleking/Documents/Fritzing/parts/user/RGB Strip LED_9262e1cf4d6f2c6fb01177709255c2bc_1.fzp" flippedSMD="true">
@@ -970,7 +946,7 @@
             <title>RGB Strip LED3</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="2.50009" x="137.113" y="-238.232">
+                    <geometry z="2.50012" x="137.113" y="-238.232">
                         <transform m11="6.10623e-16" m12="1" m13="0" m21="-1" m22="6.10623e-16" m23="0" m31="91.6295" m32="-55.4425" m33="1"/>
                     </geometry>
                     <connectors>
@@ -1000,41 +976,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematic">
-                    <geometry z="2.50016" x="-27.991" y="-28.5195"/>
-                    <titleGeometry visible="true" x="126.156" y="-34.569" z="6.50022" xOffset="153.982" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                        <displayKey key="part number"/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector12" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471723" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector13" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471726" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector14" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471725" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector15" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471724" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1">
-                    <geometry z="8.50016" x="-23.1105" y="-1.1725">
+                    <geometry z="8.50029" x="-23.1105" y="-1.1725">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="87.2825" m32="-56.9375" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="121.758" y="-8.1996" z="12.5002" xOffset="144.22" yOffset="-7" textColor="#000000" fontSize="5">
@@ -1067,13 +1010,46 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematic">
+                    <geometry z="2.50029" x="-27.991" y="-28.5195"/>
+                    <titleGeometry visible="true" x="126.156" y="-34.569" z="6.50022" xOffset="153.982" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                        <displayKey key="part number"/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector12" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471723" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector13" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471726" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector14" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471725" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector15" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471724" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="1001ABDC27" modelIndex="85471719" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/basic_fet_p.fzp">
             <title>Q5</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="2.50012" x="225.885" y="-83.0853"/>
+                    <geometry z="2.50015" x="225.885" y="-83.0853"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="8.1009" y="56.0853"/>
@@ -1113,8 +1089,36 @@
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50019" x="-145.221" y="1.3171">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="32.4" m32="-7.2" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="-104.973" y="-5.71" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin14E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin15E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin16E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="2.50005" x="-19.086" y="119.584">
+                    <geometry z="2.50019" x="-19.086" y="119.584">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="38.3662" m32="-1.49125" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="20.938" y="113.535" z="6.50002" xOffset="39.8575" yOffset="-7" textColor="#000000" fontSize="5">
@@ -1142,41 +1146,13 @@
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="5.50005" x="-145.221" y="1.3171">
-                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="32.4" m32="-7.2" m33="1"/>
-                    </geometry>
-                    <titleGeometry visible="true" x="-104.973" y="-5.71" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin14E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin15E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin16E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="1001ABDC27" modelIndex="85471720" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/basic_fet_p.fzp">
             <title>Q6</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="2.50014" x="180.885" y="-83.0853"/>
+                    <geometry z="2.50017" x="180.885" y="-83.0853"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="8.1009" y="56.0853"/>
@@ -1216,8 +1192,34 @@
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50018" x="-195.622" y="40.9171"/>
+                    <titleGeometry visible="true" x="-155.373" y="33.89" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin9E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin10E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin11E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="2.50003" x="-64.086" y="74.5835">
+                    <geometry z="2.50017" x="-64.086" y="74.5835">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="38.3662" m32="-1.49125" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-24.062" y="68.5345" z="6.50001" xOffset="39.8575" yOffset="-7" textColor="#000000" fontSize="5">
@@ -1245,39 +1247,13 @@
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="5.50004" x="-195.622" y="40.9171"/>
-                    <titleGeometry visible="true" x="-155.373" y="33.89" z="12.5" xOffset="39.6" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin9E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin10E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin11E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471721" path=":/resources/parts/core/wire.fzp">
             <title>Wire313</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.5" x="279.002" y="45.0031" x1="0" y1="0" x2="17.982" y2="-45.0031" wireFlags="64"/>
+                    <geometry z="3.50002" x="279.002" y="45.0031" x1="0" y1="0" x2="17.982" y2="-45.0031" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1294,26 +1270,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.5" x="-107.598" y="37.9815" x1="0" y1="0" x2="18.7525" y2="-45.5418" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin19X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector2" modelIndex="85471717" layer="schematic"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.5" x="-77.2625" y="158.369" x1="0" y1="0" x2="18.7525" y2="-45.5418" wireFlags="64"/>
+                    <geometry z="9.50013" x="-77.2625" y="158.369" x1="0" y1="0" x2="18.7525" y2="-45.5418" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1330,13 +1288,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50013" x="-107.598" y="37.9815" x1="0" y1="0" x2="18.7525" y2="-45.5418" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin19X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector2" modelIndex="85471717" layer="schematic"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471722" path=":/resources/parts/core/wire.fzp">
             <title>Wire314</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50002" x="252.002" y="45.0031" x1="0" y1="0" x2="-0.0175" y2="-44.9994" wireFlags="64"/>
+                    <geometry z="3.50005" x="252.002" y="45.0031" x1="0" y1="0" x2="-0.0175" y2="-44.9994" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1353,26 +1329,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50006" x="-134.157" y="36.5295" x1="0" y1="0" x2="-2" y2="-44" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin16X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin16C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50006" x="-103.822" y="156.917" x1="0" y1="0" x2="-2" y2="-44" wireFlags="64"/>
+                    <geometry z="9.5002" x="-103.822" y="156.917" x1="0" y1="0" x2="-2" y2="-44" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1389,13 +1347,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.5002" x="-134.157" y="36.5295" x1="0" y1="0" x2="-2" y2="-44" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin16X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin16C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471723" path=":/resources/parts/core/wire.fzp">
             <title>Wire315</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50006" x="220.909" y="-152.999" x1="0" y1="0" x2="58.0755" y2="153.003" wireFlags="64"/>
+                    <geometry z="3.50008" x="220.909" y="-152.999" x1="0" y1="0" x2="58.0755" y2="153.003" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#ffffff" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1412,26 +1388,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50009" x="-112.824" y="-194.804" x1="0" y1="0" x2="23.3333" y2="187.333" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector12" modelIndex="85471718" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin19C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50008" x="-82.4885" y="-74.4162" x1="0" y1="0" x2="23.3333" y2="187.333" wireFlags="64"/>
+                    <geometry z="9.50021" x="-82.4885" y="-74.4162" x1="0" y1="0" x2="23.3333" y2="187.333" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1448,6 +1406,24 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50022" x="-112.824" y="-194.804" x1="0" y1="0" x2="23.3333" y2="187.333" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector12" modelIndex="85471718" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin19C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471724" path=":/resources/parts/core/wire.fzp">
@@ -1471,26 +1447,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.5001" x="-136.157" y="-198.804" x1="0" y1="0" x2="-7.33333" y2="172" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector15" modelIndex="85471718" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin5D" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.5001" x="-105.822" y="-78.4162" x1="0" y1="0" x2="-7.33333" y2="172" wireFlags="64"/>
+                    <geometry z="9.50023" x="-105.822" y="-78.4162" x1="0" y1="0" x2="-7.33333" y2="172" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1507,13 +1465,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50023" x="-136.157" y="-198.804" x1="0" y1="0" x2="-7.33333" y2="172" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector15" modelIndex="85471718" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin5D" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471725" path=":/resources/parts/core/wire.fzp">
             <title>Wire317</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50011" x="206.94" y="-152.999" x1="0" y1="0" x2="-8.95496" y2="143.998" wireFlags="64"/>
+                    <geometry z="3.50013" x="206.94" y="-152.999" x1="0" y1="0" x2="-8.95496" y2="143.998" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#cc1414" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1530,26 +1506,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50011" x="-170.824" y="-204.137" x1="0" y1="0" x2="-18" y2="188.667" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector14" modelIndex="85471718" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin10D" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50011" x="-140.488" y="-83.7496" x1="0" y1="0" x2="-18" y2="188.667" wireFlags="64"/>
+                    <geometry z="9.50024" x="-140.488" y="-83.7496" x1="0" y1="0" x2="-18" y2="188.667" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1566,13 +1524,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50024" x="-170.824" y="-204.137" x1="0" y1="0" x2="-18" y2="188.667" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector14" modelIndex="85471718" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin10D" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471726" path=":/resources/parts/core/wire.fzp">
             <title>Wire318</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50013" x="214.034" y="-152.999" x1="0" y1="0" x2="28.9511" y2="144.002" wireFlags="64"/>
+                    <geometry z="3.50014" x="214.034" y="-152.999" x1="0" y1="0" x2="28.9511" y2="144.002" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#25cc35" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1589,26 +1565,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50012" x="-201.49" y="-210.804" x1="0" y1="0" x2="-33.3333" y2="194" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector13" modelIndex="85471718" layer="schematic"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin15D" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50012" x="-171.155" y="-90.4162" x1="0" y1="0" x2="-33.3333" y2="194" wireFlags="64"/>
+                    <geometry z="9.50025" x="-171.155" y="-90.4162" x1="0" y1="0" x2="-33.3333" y2="194" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1625,13 +1583,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50025" x="-201.49" y="-210.804" x1="0" y1="0" x2="-33.3333" y2="194" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector13" modelIndex="85471718" layer="schematic"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin15D" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471727" path=":/resources/parts/core/wire.fzp">
             <title>Wire319</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50015" x="207.002" y="45" x1="0" y1="0" x2="0.101886" y2="-23.6587" wireFlags="64"/>
+                    <geometry z="3.50016" x="207.002" y="45" x1="0" y1="0" x2="0.101886" y2="-23.6587" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1648,26 +1624,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50013" x="-179.49" y="39.8625" x1="0" y1="0" x2="-0.666667" y2="-48.6667" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin11X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector0" modelIndex="85471733" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50013" x="-149.155" y="160.25" x1="0" y1="0" x2="-0.666667" y2="-48.6667" wireFlags="64"/>
+                    <geometry z="9.50026" x="-149.155" y="160.25" x1="0" y1="0" x2="-0.666667" y2="-48.6667" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1684,13 +1642,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50026" x="-179.49" y="39.8625" x1="0" y1="0" x2="-0.666667" y2="-48.6667" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin11X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector0" modelIndex="85471733" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471728" path=":/resources/parts/core/wire.fzp">
             <title>Wire320</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50016" x="162.002" y="45" x1="0" y1="0" x2="-0.0175" y2="-45" wireFlags="64"/>
+                    <geometry z="3.50019" x="162.002" y="45" x1="0" y1="0" x2="-0.0175" y2="-45" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1707,26 +1683,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50014" x="-224.824" y="37.8625" x1="0" y1="0" x2="0" y2="-44.6667" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin6X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin6C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50014" x="-194.488" y="158.25" x1="0" y1="0" x2="0" y2="-44.6667" wireFlags="64"/>
+                    <geometry z="9.50027" x="-194.488" y="158.25" x1="0" y1="0" x2="0" y2="-44.6667" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1743,13 +1701,31 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50027" x="-224.824" y="37.8625" x1="0" y1="0" x2="0" y2="-44.6667" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin6X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin6C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471729" path=":/resources/parts/core/wire.fzp">
             <title>Wire321</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50017" x="297.002" y="45.0031" x1="0" y1="0" x2="-63.017" y2="71.9955" wireFlags="64"/>
+                    <geometry z="3.50021" x="297.002" y="45.0031" x1="0" y1="0" x2="-63.017" y2="71.9955" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1760,20 +1736,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50015" x="-89.49" y="36.5295" x1="0" y1="0" x2="26" y2="82.6667" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin21X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50015" x="-59.1545" y="156.917" x1="0" y1="0" x2="26" y2="82.6667" wireFlags="64"/>
+                    <geometry z="9.50028" x="-59.1545" y="156.917" x1="0" y1="0" x2="26" y2="82.6667" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1784,13 +1748,25 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50028" x="-89.49" y="36.5295" x1="0" y1="0" x2="26" y2="82.6667" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin21X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471730" path=":/resources/parts/core/wire.fzp">
             <title>Wire322</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50018" x="224.984" y="108" x1="0" y1="0" x2="9.00106" y2="-90" wireFlags="64"/>
+                    <geometry z="3.50023" x="224.984" y="108" x1="0" y1="0" x2="9.00106" y2="-90" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#ab58a2" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="breadboardWire">
@@ -1801,20 +1777,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50017" x="-70.824" y="108.53" x1="0" y1="0" x2="-80.6667" y2="-99.3333" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin14A" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50017" x="-40.4885" y="228.917" x1="0" y1="0" x2="-80.6667" y2="-99.3333" wireFlags="64"/>
+                    <geometry z="9.5003" x="-40.4885" y="228.917" x1="0" y1="0" x2="-80.6667" y2="-99.3333" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="copper1trace">
@@ -1825,13 +1789,25 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.5003" x="-70.824" y="108.53" x1="0" y1="0" x2="-80.6667" y2="-99.3333" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin14A" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471731" path=":/resources/parts/core/wire.fzp">
             <title>Wire323</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50019" x="215.985" y="108" x1="0" y1="0" x2="-27" y2="-90" wireFlags="64"/>
+                    <geometry z="3.50025" x="215.985" y="108" x1="0" y1="0" x2="-27" y2="-90" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#ab58a2" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="breadboardWire">
@@ -1842,20 +1818,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50018" x="-82.157" y="109.863" x1="0" y1="0" x2="-116.667" y2="-98" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin9A" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50018" x="-51.8215" y="230.25" x1="0" y1="0" x2="-116.667" y2="-98" wireFlags="64"/>
+                    <geometry z="9.50031" x="-51.8215" y="230.25" x1="0" y1="0" x2="-116.667" y2="-98" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="copper1trace">
@@ -1866,13 +1830,25 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50031" x="-82.157" y="109.863" x1="0" y1="0" x2="-116.667" y2="-98" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin9A" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471732" path=":/resources/parts/core/wire.fzp">
             <title>Wire324</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.5002" x="215.985" y="116.999" x1="0" y1="0" x2="-71.9994" y2="-98.999" wireFlags="64"/>
+                    <geometry z="3.50027" x="215.985" y="116.999" x1="0" y1="0" x2="-71.9994" y2="-98.999" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#ab58a2" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="breadboardWire">
@@ -1883,20 +1859,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50019" x="-78.157" y="121.197" x1="0" y1="0" x2="-165.333" y2="-110.667" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin4A" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50019" x="-47.8215" y="241.584" x1="0" y1="0" x2="-165.333" y2="-110.667" wireFlags="64"/>
+                    <geometry z="9.50032" x="-47.8215" y="241.584" x1="0" y1="0" x2="-165.333" y2="-110.667" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="copper1trace">
@@ -1907,13 +1871,25 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50032" x="-78.157" y="121.197" x1="0" y1="0" x2="-165.333" y2="-110.667" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin4A" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85471733" path=":/resources/parts/core/wire.fzp">
             <title>Wire325</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="3.50023" x="207.104" y="21.3413" x1="0" y1="0" x2="-0.119386" y2="-21.3413" wireFlags="64"/>
+                    <geometry z="3.50029" x="207.104" y="21.3413" x1="0" y1="0" x2="-0.119386" y2="-21.3413" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboardWire">
@@ -1930,26 +1906,8 @@
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematicTrace">
-                    <geometry z="5.50022" x="-179.036" y="13.8705" x1="0" y1="0" x2="-0.119432" y2="-21.3413" wireFlags="64"/>
-                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="connector1" modelIndex="85471727" layer="schematicTrace"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematicTrace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin11C" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper1trace">
-                    <geometry z="9.50022" x="-148.701" y="134.258" x1="0" y1="0" x2="-0.119432" y2="-21.3413" wireFlags="64"/>
+                    <geometry z="9.50033" x="-148.701" y="134.258" x1="0" y1="0" x2="-0.119432" y2="-21.3413" wireFlags="64"/>
                     <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector0" layer="copper1trace">
@@ -1966,6 +1924,24 @@
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematicTrace">
+                    <geometry z="5.50033" x="-179.036" y="13.8705" x1="0" y1="0" x2="-0.119432" y2="-21.3413" wireFlags="64"/>
+                    <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="connector1" modelIndex="85471727" layer="schematicTrace"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematicTrace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin11C" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="NoteModuleID" modelIndex="85471734" path=":/resources/parts/core/note.fzp">
@@ -1981,20 +1957,20 @@ p, li { white-space: pre-wrap; }
                 </breadboardView>
             </views>
         </instance>
-        <instance moduleIdRef="WireModuleID" modelIndex="85471783" path=":/resources/parts/core/wire.fzp">
-            <views/>
-        </instance>
-        <instance moduleIdRef="WireModuleID" modelIndex="85471786" path=":/resources/parts/core/wire.fzp">
-            <views/>
-        </instance>
         <instance moduleIdRef="LCD-GDM1602K" modelIndex="85471812" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/lcd-GDM1602K.fzp">
             <title>LCD1</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00003" x="479.713" y="526.665"/>
+                    <geometry z="2.50018" x="479.713" y="526.665"/>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50001" x="286.65" y="549"/>
+                    <titleGeometry visible="true" x="570.15" y="542" z="13" xOffset="283.5" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00003" x="-274.5" y="-76.5">
+                    <geometry z="2.50001" x="-274.5" y="-76.5">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="112.5" m32="40.5" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-202.5" y="-83.5" z="7.00003" xOffset="72" yOffset="-7" textColor="#000000" fontSize="5">
@@ -2002,12 +1978,6 @@ p, li { white-space: pre-wrap; }
                         <displayKey key="part number"/>
                     </titleGeometry>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="6.00003" x="286.65" y="549"/>
-                    <titleGeometry visible="true" x="570.15" y="542" z="13" xOffset="283.5" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="adafruit_c7092688f879e81aa715e7a40512a1db_3" modelIndex="85471845" path="/Users/kyleking/Documents/Fritzing/parts/contrib/adafruit_c7092688f879e81aa715e7a40512a1db_3.fzp">
@@ -2015,28 +1985,28 @@ p, li { white-space: pre-wrap; }
             <title>Part1</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00004" x="105.75" y="560.25"/>
+                    <geometry z="2.5002" x="105.75" y="560.25"/>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50002" x="69.75" y="65.25"/>
+                    <titleGeometry visible="true" x="247.05" y="58.25" z="13" xOffset="177.3" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00003" x="108" y="162"/>
+                    <geometry z="2.5" x="108" y="162"/>
                     <titleGeometry visible="true" x="162" y="148" z="7.00004" xOffset="54" yOffset="-14" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                         <displayKey key="part number"/>
                     </titleGeometry>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="6.00004" x="69.75" y="65.25"/>
-                    <titleGeometry visible="true" x="247.05" y="58.25" z="13" xOffset="177.3" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="SparkFun-Electromechanical-RELAY-PTH4" modelIndex="85471983" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/sparkfun-electromechanical-relay-pth4.fzp">
             <title>U2</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00027" x="305.924" y="-184.5"/>
+                    <geometry z="2.50022" x="305.924" y="-184.5"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="0" y="0"/>
@@ -2058,35 +2028,8 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
-                <schematicView layer="schematic">
-                    <geometry z="3.00026" x="-315.627" y="44.5425"/>
-                    <titleGeometry visible="true" x="-251.752" y="37.5425" z="7.00027" xOffset="63.875" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                        <displayKey key="part number"/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin24J" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin25J" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="schematic">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin26J" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </schematicView>
                 <pcbView layer="copper0">
-                    <geometry z="6.00026" x="53.9943" y="169.364">
+                    <geometry z="5.50003" x="53.9943" y="169.364">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="51.2121" m32="15.059" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="90.1474" y="162.364" z="13.0003" xOffset="36.1531" yOffset="-7" textColor="#000000" fontSize="5">
@@ -2113,16 +2056,51 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </pcbView>
+                <schematicView layer="schematic">
+                    <geometry z="2.50003" x="-315.627" y="44.5425"/>
+                    <titleGeometry visible="true" x="-251.752" y="37.5425" z="7.00027" xOffset="63.875" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                        <displayKey key="part number"/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin24J" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin25J" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="schematic">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin26J" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </schematicView>
             </views>
         </instance>
         <instance moduleIdRef="5f931bf73fa1c23675a1f96fda160ee4" modelIndex="85472079" path="/Users/kyleking/Documents/Fritzing/parts/contrib/Vibration_Motor__3f75c41f09d3f86b002b144460c7f162.fzp">
             <title>MOTOR1</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.0003" x="310.5" y="-328.5"/>
+                    <geometry z="2.50024" x="310.5" y="-328.5"/>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50004" x="74.25" y="11.25">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="20.25" m32="-6.75" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="101.25" y="4.25" z="13.0003" xOffset="27" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00029" x="209.126" y="-81.4252">
+                    <geometry z="2.50004" x="209.126" y="-81.4252">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="186.024" m32="-53.1496" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="448.299" y="-88.4252" z="7.0003" xOffset="239.173" yOffset="-7" textColor="#000000" fontSize="5">
@@ -2130,24 +2108,22 @@ p, li { white-space: pre-wrap; }
                         <displayKey key="part number"/>
                     </titleGeometry>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="6.00029" x="74.25" y="11.25">
-                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="20.25" m32="-6.75" m33="1"/>
-                    </geometry>
-                    <titleGeometry visible="true" x="101.25" y="4.25" z="13.0003" xOffset="27" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="SparkFun-Electromechanical-MOTOR-10MM" modelIndex="85472082" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/sparkfun-electromechanical-motor-10mm.fzp">
             <title>U3</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00031" x="368.95" y="-276.91"/>
+                    <geometry z="2.50026" x="368.95" y="-276.91"/>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50005" x="118.247" y="170.008"/>
+                    <titleGeometry visible="true" x="137.693" y="163.008" z="13.0003" xOffset="19.4464" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.0003" x="-241.404" y="107.563">
+                    <geometry z="2.50005" x="-241.404" y="107.563">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="26.0875" m32="10.7875" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-226.104" y="100.563" z="7.00031" xOffset="15.3" yOffset="-7" textColor="#000000" fontSize="5">
@@ -2155,20 +2131,15 @@ p, li { white-space: pre-wrap; }
                         <displayKey key="part number"/>
                     </titleGeometry>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="6.0003" x="118.247" y="170.008"/>
-                    <titleGeometry visible="true" x="137.693" y="163.008" z="13.0003" xOffset="19.4464" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="e92ccfe0-3e83-4646-89d9-916162578685 " modelIndex="85472188" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/SMD_Diode_STK_DO.fzp" flippedSMD="true">
+            <property name="flippedSMD" value="true"/>
             <property name="part number" value="1N5817"/>
             <title>D1</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00032" x="367.691" y="-211.537"/>
+                    <geometry z="2.50028" x="367.691" y="-211.537"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="2.6175" y="4.5375"/>
@@ -2190,8 +2161,16 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper1">
+                    <geometry z="8.5001" x="104.776" y="12.3661">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="17.7165" m32="-6.73228" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="129.224" y="5.36614" z="13.0003" xOffset="24.4488" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00031" x="-316.319" y="-148.574">
+                    <geometry z="2.50006" x="-316.319" y="-148.574">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="18.61" m32="8.38998" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-306.099" y="-162.574" z="7.00032" xOffset="10.22" yOffset="-14" textColor="#000000" fontSize="5">
@@ -2199,24 +2178,17 @@ p, li { white-space: pre-wrap; }
                         <displayKey key="part number"/>
                     </titleGeometry>
                 </schematicView>
-                <pcbView layer="copper1">
-                    <geometry z="9.00037" x="104.776" y="12.3661">
-                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="17.7165" m32="-6.73228" m33="1"/>
-                    </geometry>
-                    <titleGeometry visible="true" x="129.224" y="5.36614" z="13.0003" xOffset="24.4488" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="lijaeag5654yx6narfd346gnn-ResistorModuleID" modelIndex="85472334" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/SMD_resistor_1206.fzp" flippedSMD="true">
+            <property name="flippedSMD" value="true"/>
             <property name="tolerance" value="±5%"/>
             <property name="resistance" value="500"/>
             <property name="pin spacing" value="400 mil"/>
             <title>R1</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00033" x="619.516" y="22.6273">
+                    <geometry z="2.50031" x="619.516" y="22.6273">
                         <transform m11="0" m12="-1" m13="0" m21="1" m22="0" m23="0" m31="14.9432" m32="23.6822" m33="1"/>
                     </geometry>
                     <connectors>
@@ -2246,8 +2218,28 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper1">
+                    <geometry z="8.50012" x="104.457" y="40.9252"/>
+                    <titleGeometry visible="true" x="122.528" y="33.9252" z="13.0003" xOffset="18.0709" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper1">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin59X" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper1">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin59B" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00032" x="-324.438" y="167.13"/>
+                    <geometry z="2.50009" x="-324.438" y="167.13"/>
                     <titleGeometry visible="true" x="-287.563" y="147.13" z="7.00033" xOffset="36.875" yOffset="-20" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                         <displayKey key="part number"/>
@@ -2270,26 +2262,6 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper1">
-                    <geometry z="9.00038" x="104.457" y="40.9252"/>
-                    <titleGeometry visible="true" x="122.528" y="33.9252" z="13.0003" xOffset="18.0709" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper1">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin59X" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper1">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin59B" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="lijaeag5654yx6narfd346gnn-ResistorModuleID" modelIndex="85472337" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/SMD_resistor_1206.fzp" flippedSMD="true">
@@ -2300,7 +2272,7 @@ p, li { white-space: pre-wrap; }
             <title>R2</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00033" x="637.516" y="31.6273">
+                    <geometry z="2.50032" x="637.516" y="31.6273">
                         <transform m11="0" m12="-1" m13="0" m21="1" m22="0" m23="0" m31="14.9432" m32="23.6822" m33="1"/>
                     </geometry>
                     <connectors>
@@ -2330,8 +2302,28 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper1">
+                    <geometry z="8.50011" x="39.9646" y="9.9252"/>
+                    <titleGeometry visible="true" x="58.4926" y="3.85039" z="13.0003" xOffset="18.0709" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper1">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin61W" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper1">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin61A" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00032" x="30.5625" y="10.13"/>
+                    <geometry z="2.50007" x="30.5625" y="10.13"/>
                     <titleGeometry visible="true" x="66.9995" y="-9.74" z="7.00033" xOffset="36.875" yOffset="-20" textColor="#000000" fontSize="5">
                         <displayKey key=""/>
                         <displayKey key="part number"/>
@@ -2354,33 +2346,13 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper1">
-                    <geometry z="9.00038" x="39.9646" y="9.9252"/>
-                    <titleGeometry visible="true" x="58.4926" y="3.85039" z="13.0003" xOffset="18.0709" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper1">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin61W" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper1">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin61A" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
         </instance>
         <instance moduleIdRef="SparkFun-Electromechanical-TAC_SWITCH-KSA_SEALED" modelIndex="85472575" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/sparkfun-electromechanical-tac_switch-ksa_sealed.fzp">
             <title>S3</title>
             <views>
                 <breadboardView layer="breadboard">
-                    <geometry z="3.00037" x="637.105" y="-46.9143"/>
+                    <geometry z="2.50033" x="637.105" y="-46.9143"/>
                     <connectors>
                         <connector connectorId="connector0" layer="breadboard">
                             <geometry x="0" y="0"/>
@@ -2408,8 +2380,40 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50006" x="175.275" y="22.275"/>
+                    <titleGeometry visible="true" x="211.725" y="15.275" z="13.0004" xOffset="36.45" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                    <connectors>
+                        <connector connectorId="connector0" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin61F" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector1" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin61E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector2" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin59F" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                        <connector connectorId="connector3" layer="copper0">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin59E" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematic">
-                    <geometry z="3.00036" x="-276.056" y="-102.819">
+                    <geometry z="2.5001" x="-276.056" y="-102.819">
                         <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="31.2562" m32="-5.61875" m33="1"/>
                     </geometry>
                     <titleGeometry visible="true" x="-239.181" y="-109.819" z="7.00037" xOffset="36.875" yOffset="-7" textColor="#000000" fontSize="5">
@@ -2443,51 +2447,13 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper0">
-                    <geometry z="6.00034" x="175.275" y="22.275"/>
-                    <titleGeometry visible="true" x="211.725" y="15.275" z="13.0004" xOffset="36.45" yOffset="-7" textColor="#000000" fontSize="5">
-                        <displayKey key=""/>
-                    </titleGeometry>
-                    <connectors>
-                        <connector connectorId="connector0" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin61F" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector1" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin61E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector2" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin59F" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                        <connector connectorId="connector3" layer="copper0">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin59E" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
-                </pcbView>
             </views>
-        </instance>
-        <instance moduleIdRef="WireModuleID" modelIndex="85472578" path=":/resources/parts/core/wire.fzp">
-            <views/>
-        </instance>
-        <instance moduleIdRef="WireModuleID" modelIndex="85472617" path=":/resources/parts/core/wire.fzp">
-            <views/>
         </instance>
         <instance moduleIdRef="WireModuleID" modelIndex="85472617" path=":/resources/parts/core/wire.fzp">
             <title>Wire356</title>
             <views>
                 <breadboardView layer="breadboardWire">
-                    <geometry z="4.00006" x="578" y="-156" x1="0" y1="0" x2="60.9838" y2="146.999" wireFlags="64"/>
+                    <geometry z="3.5003" x="578" y="-156" x1="0" y1="0" x2="60.9838" y2="146.999" wireFlags="64"/>
                     <wireExtras mils="22.2222" color="#ffffff" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="breadboardWire">
@@ -2498,8 +2464,20 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </breadboardView>
+                <pcbView layer="copper1trace">
+                    <geometry z="9.5" x="578" y="-156" x1="0" y1="0" x2="60.5" y2="145" wireFlags="64"/>
+                    <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
+                    <connectors>
+                        <connector connectorId="connector1" layer="copper1trace">
+                            <geometry x="0" y="0"/>
+                            <connects>
+                                <connect connectorId="pin59D" modelIndex="85471715" layer="breadboardbreadboard"/>
+                            </connects>
+                        </connector>
+                    </connectors>
+                </pcbView>
                 <schematicView layer="schematicTrace">
-                    <geometry z="6.00005" x="578" y="-156" x1="0" y1="0" x2="60.5" y2="145" wireFlags="64"/>
+                    <geometry z="5.50002" x="578" y="-156" x1="0" y1="0" x2="60.5" y2="145" wireFlags="64"/>
                     <wireExtras mils="9.7222" color="#404040" opacity="1" banded="0"/>
                     <connectors>
                         <connector connectorId="connector1" layer="schematicTrace">
@@ -2510,17 +2488,88 @@ p, li { white-space: pre-wrap; }
                         </connector>
                     </connectors>
                 </schematicView>
-                <pcbView layer="copper1trace">
-                    <geometry z="10" x="578" y="-156" x1="0" y1="0" x2="60.5" y2="145" wireFlags="64"/>
-                    <wireExtras mils="11.1111" color="#f2c600" opacity="1" banded="0"/>
-                    <connectors>
-                        <connector connectorId="connector1" layer="copper1trace">
-                            <geometry x="0" y="0"/>
-                            <connects>
-                                <connect connectorId="pin59D" modelIndex="85471715" layer="breadboardbreadboard"/>
-                            </connects>
-                        </connector>
-                    </connectors>
+            </views>
+        </instance>
+        <instance moduleIdRef="NoteModuleID" modelIndex="85472624" path=":/resources/parts/core/note.fzp">
+            <title>Note2</title>
+            <text>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Droid Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make Part: DROK DC-DC Buck Voltage Converter 4.5-40V 12V to 5V/2A Step-down Volt Transformer Stabilizer Voltage Regulator Module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</text>
+            <views>
+                <breadboardView layer="breadboardNote">
+                    <geometry z="6.50004" x="447" y="-286.5" width="144" height="80"/>
+                </breadboardView>
+            </views>
+        </instance>
+        <instance moduleIdRef="SparkFun-Connectors-USB_MICROB_PLUG--PTH" modelIndex="85472913" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/sparkfun-connectors-usb_microb_plug--pth.fzp">
+            <title>JP1</title>
+            <views>
+                <breadboardView layer="breadboard">
+                    <geometry z="2.5" x="130.5" y="391.5"/>
+                </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50007" x="149.019" y="166.7">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="22.0642" m32="-4.252" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="175.335" y="159.7" z="13.0004" xOffset="26.3162" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
+                <schematicView layer="schematic">
+                    <geometry z="2.50011" x="404.563" y="-144.901"/>
+                    <titleGeometry visible="true" x="450.9" y="-151.901" z="7.00038" xOffset="46.3375" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                        <displayKey key="part number"/>
+                    </titleGeometry>
+                </schematicView>
+            </views>
+        </instance>
+        <instance moduleIdRef="SparkFun-Connectors-USB--SMD-NS" modelIndex="85472916" path="/Applications/Fritzing.app/Contents/MacOS/fritzing-parts/core/sparkfun-connectors-usb--smd-ns.fzp">
+            <title>X1</title>
+            <views>
+                <breadboardView layer="breadboard">
+                    <geometry z="2.50034" x="475.232" y="-373.5"/>
+                </breadboardView>
+                <pcbView layer="copper0">
+                    <geometry z="5.50009" x="181.083" y="169.75">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="33.6614" m32="5.31495" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="209.429" y="162.75" z="13.0004" xOffset="28.3465" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
+                </pcbView>
+                <schematicView layer="schematic">
+                    <geometry z="2.50012" x="206.674" y="-77.1556"/>
+                    <titleGeometry visible="true" x="234.696" y="-84.1556" z="7.00039" xOffset="28.0212" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                        <displayKey key="part number"/>
+                    </titleGeometry>
+                </schematicView>
+            </views>
+        </instance>
+        <instance moduleIdRef="24799b52c847367512fc3c12253d7177" modelIndex="85473143" path="/Users/kyleking/.config/Fritzing/partfactory/3999088a4e73fe06063bbeb5d732ba2a/contrib/24799b52c847367512fc3c12253d7177.fzp">
+            <property name="part number" value="MCP23008"/>
+            <title>IC1</title>
+            <views>
+                <breadboardView layer="breadboard">
+                    <geometry z="3.00036" x="526.5" y="241.65"/>
+                </breadboardView>
+                <schematicView layer="schematic">
+                    <geometry z="3.00034" x="-325.35" y="292.68"/>
+                    <titleGeometry visible="true" x="-160.65" y="278.68" z="7.00034" xOffset="164.7" yOffset="-14" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                        <displayKey key="part number"/>
+                    </titleGeometry>
+                </schematicView>
+                <pcbView layer="copper0">
+                    <geometry z="6.00034" x="224.1" y="17.1">
+                        <transform m11="0" m12="1" m13="0" m21="-1" m22="0" m23="0" m31="60.3" m32="22.5" m33="1"/>
+                    </geometry>
+                    <titleGeometry visible="true" x="261.9" y="10.1" z="13.0003" xOffset="37.8" yOffset="-7" textColor="#000000" fontSize="5">
+                        <displayKey key=""/>
+                    </titleGeometry>
                 </pcbView>
             </views>
         </instance>

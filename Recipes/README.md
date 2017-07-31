@@ -3,6 +3,7 @@
 <!-- MarkdownTOC depth="6" autolink="true" bracket="round" -->
 
 - [Easy Quinoa & Stuff](#easy-quinoa--stuff)
+- [Pesto-Naan-Pizza](#pesto-naan-pizza)
 - [Curried Chickpeas](#curried-chickpeas)
 - [Sausage and Mushroom Penne Pasta](#sausage-and-mushroom-penne-pasta)
 - [Peanut Noodles](#peanut-noodles)
@@ -12,32 +13,34 @@
 - [Dragon Noodles](#dragon-noodles)
 - [Sesame Noodles With Wilted Greens](#sesame-noodles-with-wilted-greens)
 - [Slow Cooker Thai Chicken and Noodles](#slow-cooker-thai-chicken-and-noodles)
-    - [TODO - See link](#todo---see-link)
+  - [TODO - See link](#todo---see-link)
 - [Slow Cooker Chicken and Dumplings](#slow-cooker-chicken-and-dumplings)
-    - [TODO](#todo)
+  - [TODO](#todo)
 - [Pasta + Mozzarella](#pasta--mozzarella)
 - [Oatmeal Balls](#oatmeal-balls)
 - [Cashew Chicken](#cashew-chicken)
-    - [TODO - See link](#todo---see-link-1)
+  - [TODO - See link](#todo---see-link-1)
 - [Oreo Truffles](#oreo-truffles)
 - [Tuna Melts](#tuna-melts)
-    - [TODO](#todo-1)
+  - [TODO](#todo-1)
 - [Black Bean Quesadillas](#black-bean-quesadillas)
-    - [TODO](#todo-2)
+  - [TODO](#todo-2)
 - [Cocoa-Peanut Butter Smoothie](#cocoa-peanut-butter-smoothie)
 - [Molten Chocolate Cake](#molten-chocolate-cake)
-    - [TODO](#todo-3)
+  - [TODO](#todo-3)
 - [General Tso's Chicken](#general-tsos-chicken)
-    - [TODO - See link](#todo---see-link-2)
+  - [TODO - See link](#todo---see-link-2)
 - [Egg Salad Sandwich](#egg-salad-sandwich)
 - [Thai-Spiced Pork and Rice Noodle Stir-Fry](#thai-spiced-pork-and-rice-noodle-stir-fry)
-    - [TODO - See link](#todo---see-link-3)
+  - [TODO - See link](#todo---see-link-3)
 - [Caramel Rice Krispies Bar](#caramel-rice-krispies-bar)
 - [Lemon Poppy Seed Mini Scones](#lemon-poppy-seed-mini-scones)
 - [Hot Fudge Sauce](#hot-fudge-sauce)
 - [Slow Cooker Chicken Tortilla Soup](#slow-cooker-chicken-tortilla-soup)
 - [Shrimp Tacos](#shrimp-tacos)
 - [Cake Pops](#cake-pops)
+- [Pizza](#pizza)
+- [Mini Pizzas](#mini-pizzas)
 - [Other places to look for recipes](#other-places-to-look-for-recipes)
 
 <!-- /MarkdownTOC -->
@@ -51,6 +54,24 @@
 
 <p align="left">
   <img width="550" height=auto src="imgs/quinoa.jpg" alt="Quinoa">
+</p>
+
+
+## Pesto-Naan-Pizza
+
+- Mozzarella pearls
+- Diced Pepper
+- Diced Tomato
+- Spinach
+- Pesto
+- Naan
+
+1. Preheat the oven to 400'
+2. Sauté the diced peppers and tomato
+3. On the Naan, spread the pesto, then top with all of the vegetables and mozzarella. Cook for 6-7 minutes in the oven
+
+<p align="left">
+  <img width="550" height=auto src="imgs/pesto_naan.jpg" alt="pesto_naan">
 </p>
 
 
@@ -642,6 +663,46 @@ Bake a cake according to the instructions and then once it's completely cooled, 
 <!-- ## Archive:
 - Kraft Mac and Cheese (2 tbsp. butter and 1/3 cup milk!)
 -->
+
+## Pizza
+
+- Bag of pre-kneaded dough
+- Olive oil
+- Garlic (Optional)
+- Marinara Sauce
+- Mozzarella Cheese
+- Parmesan Cheese (Optional)
+- Spinach, Peppers, Tomatoes, etc.
+- Chicken, Sausage, Pepperoni, etc.
+- Red pepper flakes
+
+1. Pre heat the oven to 400'F
+2. Prep a pizza stone or baking pan with a layer of tin foil, then grease with olive oil and roll out the pizza dough
+3. (Optional) In a pan, heat olive oil and garlic, then spread onto the pizza dough
+4. Layer on marinara sauce, spinach (optional), the cheese(s), then toppings
+5. Bake for about 22 minutes, then additional time as needed
+
+<p align="left">
+  <img width="350" height=auto src="imgs/pizza.jpg" alt="Big Pizza">
+</p>
+
+## Mini Pizzas
+
+Perfect for pizza leftovers
+
+- English Muffins / Bagels
+- Marinara Sauce
+- Spinach
+- Mozzarella Cheese
+- Red pepper flakes, Pepperoni, etc.
+
+1. Pre heat the oven to 400'F
+2.
+
+<p align="left">
+  <img width="350" height=auto src="imgs/mini_pizza.jpg" alt="Mini Pizza">
+</p>
+
 
 ## Other places to look for recipes
 

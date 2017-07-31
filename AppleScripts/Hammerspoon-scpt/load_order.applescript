@@ -30,30 +30,31 @@ end conditionalopen
 -- if you are not sure about the exact name, start "Activity Monitor" (e.g. search it with Spotlight)
 -- and look up the "Process Name" (first column) in the list of running processes
 
--- Quit any unneccessary apps
--- conditionalclose("N/A")
-conditionalclose("Numi")
-conditionalclose("KeepingYouAwake")
-
 -- Open apps if not open already:
 conditionalopen("Sip")
 conditionalopen("Dash")
-conditionalopen("Dropbox")
 conditionalopen("PopClip")
 conditionalopen("Dropshelf")
 conditionalopen("RescueTime")
-conditionalopen("Google Drive")
 conditionalopen("Flux")
-conditionalopen("Bartender 2")
-
+conditionalopen("Numi")
+-- Background Apps
+conditionalopen("Beautiful Earth")
+-- conditionalopen("Satellite Eyes")
+-- conditionalopen("Kuvva")
+-- Background Apps ^
+conditionalopen("Rocket")
+-- conditionalopen("Micro Snitch")
+-- conditionalopen("Forecast Bar")
 -- conditionalopen("BetterTouchTool")
--- conditionalopen("Numi")
 -- conditionalopen("EvernoteHelper")
+-- conditionalopen("Hocus Focus")
 -- conditionalopen("Focus")
-
-conditionalclose("Kite")
+-- conditionalopen("Boom")
+conditionalopen("Bartender 2")
 conditionalopen("SnappyAppHelper")
-
+conditionalopen("Dropbox")
+conditionalopen("Google Drive")
 -- Debugging:
 
 -- Use console to log timestamp and info to console upon error
@@ -62,6 +63,10 @@ conditionalopen("SnappyAppHelper")
 -- 		"echo `date '+%Y-%m-%d %T: '`\"" & log_string & ¬
 -- 		"\" >> $HOME/Library/Logs/" & log_file & ".log"
 -- end logit
+
+-- Quit any unneccessary apps
+conditionalclose("KeepingYouAwake")
+-- conditionalclose("Kite")
 
 -- Other method of printing results
 set dateStamp to date string of (current date)

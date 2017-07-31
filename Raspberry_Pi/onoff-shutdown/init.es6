@@ -78,7 +78,8 @@ if (existSync(testPathAirplay)) {
 
 // Alarm Clock:
 //
-const testPathAlarmClock = '/home/pi/_A0_SD.ini';
+// const testPathAlarmClock = '/home/pi/_A0_SD.ini';  // RIP - the SSD died
+const testPathAlarmClock = '/home/pi/_B2_SD.ini';
 if (existSync(testPathAlarmClock)) {
   fullPath = '/home/pi/PiAlarm';
   myProcess = 'npm start';
@@ -165,7 +166,7 @@ function logSummary(CMD, code, stderr, stdout) {
 
 class checkPing {
   constructor() {
-    this.pingCMD = 'ping -c 5 google.com';
+    this.pingCMD = 'ping -c 10 google.com';
     // this.pingCMD_FAIL = 'ping -c 1 192.1.2.3';  // intentionally failing ping
   }
   check() {
@@ -179,26 +180,28 @@ class checkPing {
 
       // More specific implementation with regexp (alt is w/ `code`):
       let found = false
-      if (false) {
-        regex = /\s0% packet loss/g;
-        matches = '';
-        while ((matches = regex.exec(stdout)) !== null) {
-            // this is necessary to avoid infinite loops with zero-width matches
-            if (matches.index === regex.lastIndex) {
-                regex.lastIndex++;
-            }
-            // The result can be accessed through the `matches`-variable.
-            matches.forEach((match, groupIndex) => {
-                logData(`Found ${regex}, group ${groupIndex}: ${match}`);
-                found = true;
-            });
-        }
-      } else
-        // Defer to code != 0 and assume a match 'found'
-        found = true;
+      // if (false) {
+      const regex = /\s0% packet loss/g;
+      let matches = '';
+      while ((matches = regex.exec(stdout)) !== null) {
+          // this is necessary to avoid infinite loops with zero-width matches
+          if (matches.index === regex.lastIndex) {
+              regex.lastIndex++;
+          }
+          // The result can be accessed through the `matches`-variable.
+          matches.forEach((match, groupIndex) => {
+              logData(`Found ${regex}, group ${groupIndex}: ${match}`);
+              found = true;
+          });
+      }
+      // } else
+      //   // Defer to code != 0 and assume a match 'found'
+      //   found = true;
 
-      if (!found || code != 0) {
+      logData(`=> Returned Code [${code}]`);
+      if (!found || parseInt(code) != 0) {
         logData(`ERROR: FAILED with "CODE !=0" [${code}]`);
+        logData(stdout);
         if (cb)
           cb();
         else

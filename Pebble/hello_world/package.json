@@ -1,0 +1,30 @@
+{
+    "author": "Kyle",
+    "dependencies": {
+        "ui": "^0.2.4",
+        "vector2": "^0.1.1"
+    },
+    "keywords": [],
+    "name": "hello-world",
+    "pebble": {
+        "displayName": "Hello World",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "rocky",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery"
+        ],
+        "uuid": "2f2c65ad-29ba-49b3-a969-b64f96d9d1c8",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "0.1.0"
+}

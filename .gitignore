@@ -13,6 +13,7 @@ node_modules
 *.scpt
 *.mov
 *.mp4
+*.pyc
 JavaScript/Eric_Microfluidic_ControllerApp/data/photos
 logs
 

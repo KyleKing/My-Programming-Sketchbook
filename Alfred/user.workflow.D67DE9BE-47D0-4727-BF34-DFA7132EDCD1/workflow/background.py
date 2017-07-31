@@ -18,6 +18,7 @@ import sys
 import os
 import subprocess
 import pickle
+import time
 
 from workflow import Workflow
 
@@ -131,7 +132,12 @@ def _background(stdin='/dev/null', stdout='/dev/null',
     try:
         pid = os.fork()
         if pid > 0:
-            sys.exit(0)  # Exit second parent.
+            # Proposed Sierra thread solution:
+            # https://github.com/deanishe/alfred-workflow/issues/111#issuecomment-290927062
+            time.sleep(0.25)
+            os._exit(0)  # Exit second parent.
+            # Previous:
+            # sys.exit(0)  # Exit second parent.
     except OSError as e:
         wf().logger.critical("fork #2 failed: ({0:d}) {1}".format(
                              e.errno, e.strerror))

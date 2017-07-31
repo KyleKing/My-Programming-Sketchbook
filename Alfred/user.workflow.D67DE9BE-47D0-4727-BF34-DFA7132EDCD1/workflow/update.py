@@ -89,7 +89,7 @@ class Version(object):
             # Build info
             idx = suffix.find('+')
             if idx > -1:
-                self.build = suffix[idx+1:]
+                self.build = suffix[idx + 1:]
                 suffix = suffix[:idx]
             if suffix:
                 if not suffix.startswith('-'):
@@ -228,7 +228,7 @@ def get_valid_releases(github_slug):
     releases = []
 
     wf().logger.debug('Retrieving releases list from `{0}` ...'.format(
-                       api_url))
+        api_url))
 
     def retrieve_releases():
         wf().logger.info(
@@ -237,7 +237,7 @@ def get_valid_releases(github_slug):
 
     slug = github_slug.replace('/', '-')
     for release in wf().cached_data('gh-releases-{0}'.format(slug),
-                                     retrieve_releases):
+                                    retrieve_releases):
         version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):
@@ -257,7 +257,8 @@ def get_valid_releases(github_slug):
             continue
         if len(download_urls) > 1:
             wf().logger.warning(
-                'Invalid release {0} : multiple workflow files'.format(version))
+                'Invalid release {0} : multiple workflow files'.format(
+                    version))
             continue
 
         wf().logger.debug('Release `{0}` : {1}'.format(version, url))
@@ -283,7 +284,7 @@ def check_update(github_slug, current_version):
     releases = get_valid_releases(github_slug)
 
     wf().logger.info('{0} releases for {1}'.format(len(releases),
-                                                    github_slug))
+                                                   github_slug))
 
     if not len(releases):
         raise ValueError('No valid releases for {0}'.format(github_slug))

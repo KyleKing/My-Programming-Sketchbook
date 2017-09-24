@@ -15,7 +15,7 @@ pebble package install vector2
 
 ```bash
 # Install on phone: https://developer.pebble.com/guides/tools-and-resources/pebble-tool/
-pebble install --phone 192.168.0.104 --logs
+pebble build; pebble install --phone 192.168.0.104 --logs
 
 # Run emulator each time for Pebble 2
 pebble build; pebble install --emulator diorite --logs
@@ -26,3 +26,5 @@ pebble emu-app-config --emulator diorite
 ## Other
 
 Try the Clay interface for setting configuration settings from my phone: https://developer.pebble.com/guides/user-interfaces/app-configuration/
+
+Demos: https://github.com/pebble-examples

@@ -39,11 +39,14 @@ conditionalopen("RescueTime")
 conditionalopen("Flux")
 conditionalopen("Numi")
 -- Background Apps
-conditionalopen("Beautiful Earth")
+conditionalopen("Snappy")
+-- conditionalopen("Beautiful Earth")
 -- conditionalopen("Satellite Eyes")
 -- conditionalopen("Kuvva")
+conditionalopen("Irvue")
 -- Background Apps ^
 conditionalopen("Rocket")
+conditionalopen("Scroll Reverser")
 -- conditionalopen("Micro Snitch")
 -- conditionalopen("Forecast Bar")
 -- conditionalopen("BetterTouchTool")
@@ -52,9 +55,11 @@ conditionalopen("Rocket")
 -- conditionalopen("Focus")
 -- conditionalopen("Boom")
 conditionalopen("Bartender 2")
-conditionalopen("SnappyAppHelper")
 conditionalopen("Dropbox")
 conditionalopen("Google Drive")
+
+
+
 -- Debugging:
 
 -- Use console to log timestamp and info to console upon error
@@ -66,7 +71,7 @@ conditionalopen("Google Drive")
 
 -- Quit any unneccessary apps
 conditionalclose("KeepingYouAwake")
--- conditionalclose("Kite")
+conditionalclose("Kite")
 
 -- Other method of printing results
 set dateStamp to date string of (current date)

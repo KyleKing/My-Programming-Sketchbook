@@ -6,7 +6,7 @@ const shell = require('shelljs');
 const Moment = require('moment');
 
 // For PiSlideshow
-let buttonPin = 4;
+let buttonPowerPin = 4;
 let ledPin = 14;
 
 let USB_ID = '';
@@ -16,6 +16,9 @@ let logFile = '';
 let dir = '';
 let shutdownDevice = false;
 let powerBtnConnected = false;
+let startOnBoot = false;
+let startOnBtn = false;
+let powerCycleWIFI = false;
 
 // Synchronous version of fs.access with a silent error (for if loops!):
 function existSync(filename) {
@@ -51,13 +54,15 @@ function prettifyLog(raw) {
 //
 const testPathPiSlideShow = '/home/pi/_K2_SD.ini';
 if (existSync(testPathPiSlideShow)) {
-  powerBtnConnected = false;
-  shutdownDevice = false;
+  startOnBoot = true;
   fullPath = '/home/pi/PiSlideShow/';
   myProcess = 'npm start';
   logFile = '_PiSlideShow_log';
-  buttonPin = 4;
+  powerBtnConnected = false;
+  shutdownDevice = false;
+  buttonPowerPin = 4;
   ledPin = 14;
+  powerCycleWIFI = true;
   USB_ID = '0bda:8176';  // Mini 2.4ghz
 }
 
@@ -65,14 +70,16 @@ if (existSync(testPathPiSlideShow)) {
 //
 const testPathAirplay = '/home/pi/_K1_SD.ini';
 if (existSync(testPathAirplay)) {
-  // powerBtnConnected = true;
-  shutdownDevice = true;
+  startOnBoot = true;
   fullPath = '/home/pi/shairport-sync';
   myProcess = 'sudo shairport-sync --statistics';
   logFile = '_AirPlay_log';
   // TODO: No button wired yet
-  buttonPin = 4;
+  // powerBtnConnected = true;
+  // shutdownDevice = true;
+  buttonPowerPin = 4;
   ledPin = 14;
+  powerCycleWIFI = true;
   USB_ID = '148f:5572';  // White 5ghz
 }
 
@@ -81,14 +88,19 @@ if (existSync(testPathAirplay)) {
 // const testPathAlarmClock = '/home/pi/_A0_SD.ini';  // RIP - the SSD died
 const testPathAlarmClock = '/home/pi/_B2_SD.ini';
 if (existSync(testPathAlarmClock)) {
+  startOnBoot = false;
   fullPath = '/home/pi/PiAlarm';
   myProcess = 'npm start';
   logFile = '_AlarmClock_log';
-  // TODO: No button wired yet
-  buttonPin = 19;
-  ledPin = 26;
-  // USB_ID = '0bda:8176';
-  USB_ID = '148f:5572';  // Black 2.4/5ghz
+  startOnBtn = true;
+  buttonStartPin = 12;
+  powerBtnConnected = true;
+  shutdownDevice = true;
+  buttonPowerPin = 13;
+  ledPin = 19;
+  powerCycleWIFI = false;
+  // USB_ID = '148f:5572';  // Black 2.4/5ghz
+  USB_ID = '0bda:8176';  // Mini 2.4ghz
 }
 
 
@@ -97,8 +109,15 @@ if (existSync(testPathAlarmClock)) {
 //
 
 const Gpio = require('onoff').Gpio;  // eslint-disable-line
-const button = new Gpio(buttonPin, 'in', 'both');
 const led = new Gpio(ledPin, 'out');
+let buttonPower = '';
+if (powerBtnConnected) {
+  buttonPower = new Gpio(buttonPowerPin, 'in', 'both');
+}
+let buttonStart = '';
+if (startOnBtn) {
+  buttonStart = new Gpio(buttonStartPin, 'in', 'both');
+}
 
 // Create log directory:
 shell.cd(fullPath);
@@ -141,15 +160,21 @@ logData(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 // Start child process
 //
 
-const child = shell.exec(myProcess, { async: true });
-child.stdout.on('data', (data) => { logData(data); });
-child.stderr.on('data', (data) => {
-  logData(`[WARN stderr]: ${String(data).trim()}`);
-});
-child.on('close', () => {
-  testWifiSpeed();
-  logData('.\n[CHILD PROCESS CLOSED]\n.');
-});
+function startProcess(application) {
+  const child = shell.exec(application, { async: true });
+  child.stdout.on('data', (data) => { logData(data); });
+  child.stderr.on('data', (data) => {
+    logData(`[WARN stderr]: ${String(data).trim()}`);
+  });
+  child.on('close', () => {
+    testWifiSpeed();
+    logData('.\n[CHILD PROCESS CLOSED]\n.');
+  });
+}
+
+if (startOnBoot) {
+  startProcess(myProcess);
+}
 
 
 //
@@ -211,14 +236,18 @@ class checkPing {
   }
   RESET() {
     // Force a reset of the USB device, then try a ping
-    logData('Error: Internet Ping Failed - Resetting USB Wifi adapter');
-    const subCMD = `lsusb -d ${USB_ID} | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }'`;
-    const resetCMD = `sudo $(${subCMD} | xargs -I {} echo "/home/pi/onoff-shutdown/usbreset {}")`;
-    shell.exec(resetCMD, (_code, _stdout, _stderr) => {
-      logSummary(resetCMD, _code, _stderr, _stdout);
-      const cp = new checkPing();
-      cp.pingIt(cp.pingCMD);
-    });
+    if (powerCycleWIFI) {
+      logData('Error: Internet Ping Failed - Resetting USB Wifi adapter');
+      const subCMD = `lsusb -d ${USB_ID} | awk -F '[ :]'  '{ print "/dev/bus/usb/"$2"/"$4 }'`;
+      const resetCMD = `sudo $(${subCMD} | xargs -I {} echo "/home/pi/onoff-shutdown/usbreset {}")`;
+      shell.exec(resetCMD, (_code, _stdout, _stderr) => {
+        logSummary(resetCMD, _code, _stderr, _stdout);
+        const cp = new checkPing();
+        cp.pingIt(cp.pingCMD);
+      });
+    } else {
+      logData('Error: powerCycleWIFI is disabled');
+    }
   }
 }
 
@@ -240,16 +269,16 @@ testWifiSpeed();
 //
 // Regularly ping that the USB adapter is connected to the INTERNET
 const CronJob = require('cron').CronJob;
-const everyFive = '0,5,10,15,20,25,30,35,40,45,50,55'
-// const everyFive = '0,10,20,30,40,50'
-const runPing = new CronJob(`20 ${everyFive} * * * *`, () => {
-  // logData(`Starting new checkPing`);
+// const interval = '0,5,10,15,20,25,30,35,40,45,50,55'
+const interval = '0,10,20,30,40,50'
+const runPing = new CronJob(`20 ${interval} * * * *`, () => {
+  logData(`Starting new checkPing`);
   const cp = new checkPing();
   cp.check();
 }, () => {
   logData('Stopped Wifi Monitoring Tasks')
 }, false);
-// It always helps to start it...
+// Start Run Ping Cron task
 runPing.start();
 
 //
@@ -264,33 +293,55 @@ function logError(code, stdout="n/a", stderr=false) {
 }
 
 if (powerBtnConnected) {
-  button.watch((err, value) => {
+  buttonPower.watch((err, value) => {
     if (err) throw err;
-    logError('Button pressed! Shutting down now');
-    led.writeSync(value); // visual cue
+    logData(`buttonPower pressed! Shutting down now (Val:${value})`);
+    led.writeSync(1); // visual cue
 
-    shell.exec(`ps aux | grep "[${myProcess[0]}]${myProcess.substr(1)}"`,
+    processSearch = `"[${myProcess[0]}]${myProcess.substr(1)}"`
+
+    shell.exec(`ps aux | grep ${processSearch}`,
       (code, stdout, stderr) => { logError(code, stdout, stderr); });
 
     if (shutdownDevice) {
-      shell.exec(`sudo kill $(ps aux | grep [${myProcess[0]}]` +
-                              `${myProcess.substr(1)} | awk '{print $2}')`,
+      shell.exec(`sudo kill $(ps aux | grep ${processSearch} | awk '{print $2}')`,
       (code, stdout, stderr) => {
         logError(code, stdout, stderr);
       });
-
       // setTimeout(shell.exec('sudo shutdown -h now'), 3000);
-      logError('NOT SHUTTING DOWN, BUT SHOULD ^');
-      button.unexport(); // Prevent re-trigger
+      logData('NOT SHUTTING DOWN, BUT SHOULD (??) ^');
+      buttonPower.unexport(); // Prevent re-trigger
     } else {
-      logError('Shutdown command avoided');
+      logData('Shutdown command avoided');
       led.writeSync(0); // visual cue
     }
+  });
+}
+
+if (startOnBtn) {
+  buttonStart.watch((err, value) => {
+    if (err) throw err;
+    logData(`buttonStart pressed! Starting NPM Process (Val:${value}`);
+    led.writeSync(1); // visual cue
+    buttonStart.unexport(); // Free button for NPM to use
+    buttonStart = '';
+
+    // Could be written to support a different start process trigger
+    //  Also should consider edge case where process is already active
+    startProcess(myProcess);
+
+    led.writeSync(0); // visual cue
+    logData('Done attempting to start');
   });
 }
 
 process.on('SIGINT', () => {
   logError('Received SIGINT - releasing buttons/LED');
   led.unexport();
-  button.unexport();
+  if (powerBtnConnected) {
+    buttonPower.unexport();
+  }
+  if (startOnBtn && buttonStart != '') {
+    buttonStart.unexport();
+  }
 });

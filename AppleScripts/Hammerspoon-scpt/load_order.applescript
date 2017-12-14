@@ -44,19 +44,20 @@ conditionalopen("Snappy")
 -- conditionalopen("Satellite Eyes")
 -- conditionalopen("Kuvva")
 conditionalopen("Irvue")
--- Background Apps ^
 conditionalopen("Rocket")
-conditionalopen("Scroll Reverser")
+-- conditionalopen("Scroll Reverser")
 -- conditionalopen("Micro Snitch")
 -- conditionalopen("Forecast Bar")
--- conditionalopen("BetterTouchTool")
--- conditionalopen("EvernoteHelper")
+conditionalopen("BetterTouchTool")
+conditionalopen("EvernoteHelper")
 -- conditionalopen("Hocus Focus")
 -- conditionalopen("Focus")
 -- conditionalopen("Boom")
 conditionalopen("Bartender 2")
 conditionalopen("Dropbox")
-conditionalopen("Google Drive")
+-- conditionalopen("Google Drive")
+conditionalopen("Spotifree")
+-- Background Apps ^
 
 
 

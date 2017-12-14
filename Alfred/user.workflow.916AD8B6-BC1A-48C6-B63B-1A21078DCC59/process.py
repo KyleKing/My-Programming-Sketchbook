@@ -51,15 +51,15 @@ def shift_time(op, value, measure):
     if measure == 'm':
         multiplier = 60
     elif measure == 'h':
-        multiplier = 60*60
+        multiplier = 60 * 60
     elif measure == 'd':
-        multiplier = (60*60)*24
+        multiplier = (60 * 60) * 24
     elif measure == 'w':
-        multiplier = ((60*60)*24)*7
+        multiplier = ((60 * 60) * 24) * 7
     elif measure == 'M':
-        multiplier = ((60*60)*24)*30  # egh.. FIXME
+        multiplier = ((60 * 60) * 24) * 30  # egh.. FIXME
     elif measure == 'y':
-        multiplier = ((60*60)*24)*365
+        multiplier = ((60 * 60) * 24) * 365
 
     # Convert our value measure to seconds
     seconds = multiplier * int(value)

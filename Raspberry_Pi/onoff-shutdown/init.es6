@@ -50,6 +50,24 @@ function prettifyLog(raw) {
 // Configure local environment:
 //
 
+// PiPrinter:
+//
+const testPathPiPrinter = '/home/pi/_D4_SD.ini';
+if (existSync(testPathPiPrinter)) {
+  startOnBoot = false;
+  fullPath = '/home/pi/';
+  myProcess = '/home/pi/OctoPrint/venv/bin/octoprint serve';
+  logFile = '_PiPrinter_log';
+  startOnBtn = true;
+  buttonStartPin = 23;
+  powerBtnConnected = true;
+  shutdownDevice = true;
+  buttonPowerPin = 24;
+  ledPin = 18;
+  powerCycleWIFI = false;
+  USB_ID = '148f:5572';  // Black 2.4/5ghz
+}
+
 // PiSlideShow:
 //
 const testPathPiSlideShow = '/home/pi/_K2_SD.ini';
@@ -85,7 +103,7 @@ if (existSync(testPathAirplay)) {
 
 // Alarm Clock:
 //
-// const testPathAlarmClock = '/home/pi/_A0_SD.ini';  // RIP - the SSD died
+// const testPathAlarmClock = '/home/pi/_A0_SD.ini';  // RIP - the SD died
 const testPathAlarmClock = '/home/pi/_B2_SD.ini';
 if (existSync(testPathAlarmClock)) {
   startOnBoot = false;
@@ -263,23 +281,23 @@ function testWifiSpeed(cb=false) {
   // });
 }
 
-// Test WIFI Speed as control
-testWifiSpeed();
+// // Test WIFI Speed as control
+// testWifiSpeed();
 
-//
-// Regularly ping that the USB adapter is connected to the INTERNET
-const CronJob = require('cron').CronJob;
-// const interval = '0,5,10,15,20,25,30,35,40,45,50,55'
-const interval = '0,10,20,30,40,50'
-const runPing = new CronJob(`20 ${interval} * * * *`, () => {
-  logData(`Starting new checkPing`);
-  const cp = new checkPing();
-  cp.check();
-}, () => {
-  logData('Stopped Wifi Monitoring Tasks')
-}, false);
-// Start Run Ping Cron task
-runPing.start();
+// //
+// // Regularly ping that the USB adapter is connected to the INTERNET
+// const CronJob = require('cron').CronJob;
+// // const interval = '0,5,10,15,20,25,30,35,40,45,50,55'
+// const interval = '0,10,20,30,40,50'
+// const runPing = new CronJob(`20 ${interval} * * * *`, () => {
+//   logData(`Starting new checkPing`);
+//   const cp = new checkPing();
+//   cp.check();
+// }, () => {
+//   logData('Stopped Wifi Monitoring Tasks')
+// }, false);
+// // Start Run Ping Cron task
+// runPing.start();
 
 //
 // Handle Interrupts (*Digital Button)
@@ -296,7 +314,7 @@ if (powerBtnConnected) {
   buttonPower.watch((err, value) => {
     if (err) throw err;
     logData(`buttonPower pressed! Shutting down now (Val:${value})`);
-    led.writeSync(1); // visual cue
+    // led.writeSync(1); // visual cue
 
     processSearch = `"[${myProcess[0]}]${myProcess.substr(1)}"`
 
@@ -308,8 +326,8 @@ if (powerBtnConnected) {
       (code, stdout, stderr) => {
         logError(code, stdout, stderr);
       });
-      // setTimeout(shell.exec('sudo shutdown -h now'), 3000);
-      logData('NOT SHUTTING DOWN, BUT SHOULD (??) ^');
+      setTimeout(shell.exec('sudo shutdown -h now'), 3000);
+      // logData('NOT SHUTTING DOWN, BUT SHOULD (??) ^');
       buttonPower.unexport(); // Prevent re-trigger
     } else {
       logData('Shutdown command avoided');

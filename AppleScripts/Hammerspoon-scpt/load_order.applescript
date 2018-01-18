@@ -55,7 +55,7 @@ conditionalopen("EvernoteHelper")
 -- conditionalopen("Boom")
 conditionalopen("Bartender 2")
 conditionalopen("Dropbox")
--- conditionalopen("Google Drive")
+conditionalopen("Google Drive")
 conditionalopen("Spotifree")
 -- Background Apps ^
 
@@ -73,6 +73,9 @@ conditionalopen("Spotifree")
 -- Quit any unneccessary apps
 conditionalclose("KeepingYouAwake")
 conditionalclose("Kite")
+
+-- TODO!
+-- tell application "Finder" to sleep
 
 -- Other method of printing results
 set dateStamp to date string of (current date)

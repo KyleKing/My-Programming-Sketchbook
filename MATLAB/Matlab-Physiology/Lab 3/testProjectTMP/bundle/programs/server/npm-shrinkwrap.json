@@ -8,9 +8,9 @@
       "resolved": "https://registry.npmjs.org/fibers/-/fibers-1.0.1.tgz"
     },
     "semver": {
-      "version": "2.2.1",
-      "from": "semver@2.2.1",
-      "resolved": "https://registry.npmjs.org/semver/-/semver-2.2.1.tgz"
+      "version": "4.3.2",
+      "from": "semver@4.3.2",
+      "resolved": "https://registry.npmjs.org/semver/-/semver-4.3.2.tgz"
     },
     "source-map-support": {
       "version": "0.2.5",

@@ -55,7 +55,6 @@ conditionalopen("EvernoteHelper")
 -- conditionalopen("Boom")
 conditionalopen("Bartender 2")
 conditionalopen("Dropbox")
-conditionalopen("Google Drive")
 conditionalopen("Spotifree")
 -- Background Apps ^
 

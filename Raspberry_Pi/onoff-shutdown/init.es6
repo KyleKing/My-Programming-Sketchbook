@@ -70,17 +70,17 @@ if (existSync(testPathPiPrinter)) {
 
 // PiSlideShow:
 //
-const testPathPiSlideShow = '/home/pi/_K2_SD.ini';
+const testPathPiSlideShow = '/home/pi/_Z1_SD.ini';
 if (existSync(testPathPiSlideShow)) {
   startOnBoot = true;
   fullPath = '/home/pi/PiSlideShow/';
-  myProcess = 'npm start';
+  myProcess = 'python main.py';
   logFile = '_PiSlideShow_log';
-  powerBtnConnected = false;
-  shutdownDevice = false;
+  powerBtnConnected = true;
+  shutdownDevice = true;
   buttonPowerPin = 4;
   ledPin = 14;
-  powerCycleWIFI = true;
+  powerCycleWIFI = false;
   USB_ID = '0bda:8176';  // Mini 2.4ghz
 }
 
@@ -103,7 +103,6 @@ if (existSync(testPathAirplay)) {
 
 // Alarm Clock:
 //
-// const testPathAlarmClock = '/home/pi/_A0_SD.ini';  // RIP - the SD died
 const testPathAlarmClock = '/home/pi/_B2_SD.ini';
 if (existSync(testPathAlarmClock)) {
   startOnBoot = false;

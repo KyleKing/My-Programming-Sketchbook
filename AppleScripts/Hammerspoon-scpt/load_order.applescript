@@ -43,7 +43,6 @@ conditionalopen("Snappy")
 -- conditionalopen("Beautiful Earth")
 -- conditionalopen("Satellite Eyes")
 -- conditionalopen("Kuvva")
-conditionalopen("Irvue")
 conditionalopen("Rocket")
 -- conditionalopen("Scroll Reverser")
 -- conditionalopen("Micro Snitch")
@@ -56,6 +55,7 @@ conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
 conditionalopen("Dropbox")
 conditionalopen("Spotifree")
+-- conditionalopen("Irvue")
 -- Background Apps ^
 
 

@@ -177,8 +177,9 @@ logData(`  is Alarm Clock: ${existSync(testPathAlarmClock)}`);
 // Start child process
 //
 
-function startProcess(application) {
-  const child = shell.exec(application, { async: true });
+function startProcess(cmd) {
+  logData(`Executing: ${cmd}`);
+  const child = shell.exec(cmd, { async: true });
   child.stdout.on('data', (data) => { logData(data); });
   child.stderr.on('data', (data) => {
     logData(`[WARN stderr]: ${String(data).trim()}`);
@@ -189,6 +190,7 @@ function startProcess(application) {
   });
 }
 
+logData(`startOnBoot: ${startOnBoot}`);
 if (startOnBoot) {
   startProcess(myProcess);
 }

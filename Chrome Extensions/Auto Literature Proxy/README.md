@@ -1,8 +1,10 @@
+# Archived
+
+I might want to reference a simple extension like this, but I graduated and no longer have access to the library.
+
 Auto Literature Proxy
 ===================
 > Redirect to the UMD proxy for free journal access.
-
-# Still in development
 
 <!-- # Available for free on the [chrome appstore](link) -->
 
@@ -23,8 +25,6 @@ Take advantage of the wealth of publications that UMD purchases for us. When off
 - [Or a good example to get started](https://developer.chrome.com/extensions/samples#search:webrequest) [scroll to CatBlock] and the [more general guide](https://developer.chrome.com/extensions/webRequest#event-onBeforeRequest)
 - And if I ever use Regexp, I [will start here](http://regexr.com/) and use [match.index](http://stackoverflow.com/questions/2295657/return-positions-of-a-regex-match-in-javascript) and possibly this [example code](https://github.com/blunderboy/requestly/blob/master/src/background/background.js#L148) or this [answer](http://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url)
 - Built in [Atom.io](https://atom.io/) with quick [reloads](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid) and [lots of color choices](http://coolors.co/app/)
-
-
 
 Notes
 ```json

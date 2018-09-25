@@ -41,5 +41,9 @@ def add_event_detect(pin, type, callback, bouncetime=100):
     func:{}""".format(pin, type, callback, bouncetime))
 
 
+def remove_event_detect(pin):
+    logger.debug('Removing event detection for Pin:{}'.format(pin))
+
+
 def cleanup():
     pass

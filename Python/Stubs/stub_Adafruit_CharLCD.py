@@ -13,7 +13,7 @@ class Adafruit_CharLCD(object):
         pass
 
     def message(self, msg):
-        logger.info('New Message:`{}`'.format(msg))
+        logger.debug('New Message:`{}`'.format(msg))
 
     def clear(self):
         logger.debug('Cleared LCD')

@@ -12,7 +12,7 @@ HIGH = 'HIGH'
 LOW = 'LOW'
 IN = 'IN'
 OUT = 'OUT'
-RISING= 'RISING'
+RISING = 'RISING'
 
 
 def setwarnings(state):
@@ -38,7 +38,7 @@ def input(pin):
 
 def add_event_detect(pin, type, callback, bouncetime=100):
     logger.debug("""Adding event detection for: Pin:{} Type:{} bounce:{}
-    func:{}""".format(pin, type, callback, bouncetime))
+func:{}""".format(pin, type, callback, bouncetime))
 
 
 def remove_event_detect(pin):

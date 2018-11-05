@@ -61,7 +61,9 @@ var contactItems = contacts
   .map( ( contact ) => cE( ContactItem, contact ) )
 
 // Render Basic Contact List
-var rootElem = cE( 'div', {},
+// WARN: use `cE(Fragment, {}` to encapsulate elements rather than excess div (`import React, {Fragment} from 'react'`)
+// FYI: read more about Fragments here: https://reactjs.org/docs/fragments.html (use `<> ... </>` in JSX)
+var rootElem = cE( React.Fragment, {},
   cE( 'h1', {}, 'Contact List' ),
   cE( 'ul', {}, contactItems )
 )

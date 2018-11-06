@@ -1,0 +1,50 @@
+:root {
+    --accent: #63B0CD;
+    --color-1: #D8DDEF;
+    --color-2: #A0A4B8;
+    --color-3: #282C34;
+}
+
+.password-group {
+  margin: 0 5px;
+  position: relative;
+  width: 350px;
+}
+input.password {
+  background-color: var(--color-1);
+  border: var(--color-2);
+  border-radius: 4px;
+  color: var(--color-3);
+  font-size: 15px;
+  height: 35px;
+  padding: 5px 10px;
+  position: relative;
+  width: 335px;
+}
+input.password:active {
+  background-color: var(--accent);
+  border: var(--accent);
+  outline: 0;
+}
+button.password-toggle {
+  background: var(--color-2);
+  border-radius: 4px;
+  bottom: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  height: 35px;
+  padding: 7px;
+  position: absolute;
+  right: 5px;
+}
+
+button.sign-in {
+  background-color: var(--accent);
+  border: none;
+  font-size: 15px;
+  height: 45px;
+  margin: 0 5px;
+  padding: 5px 15px;
+  position: relative;
+}

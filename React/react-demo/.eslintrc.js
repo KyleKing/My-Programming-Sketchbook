@@ -38,6 +38,8 @@ module.exports = {
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "ignoreUrls": true,
+        "comments": 65
     }
 };

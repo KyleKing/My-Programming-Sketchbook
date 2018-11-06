@@ -1,0 +1,84 @@
+/*
+ Alarm Container Styles
+ */
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.flex-item {
+  flex-grow: 1;
+}
+
+/* Status Colors */
+.alarm {
+  background-color: RGB(52, 73, 94);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.alarm-buttons {
+  text-align: right;
+}
+
+/* CSS Workaround of immutable React this.state() */
+.removed {
+  display: none !important;
+}
+
+/*
+ Buttons
+ */
+
+.custom-button-formatting {
+  margin: 10px;
+  max-width: 100px;
+  padding-bottom: 10px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-top: 10px !important;
+}
+
+.button-oversized {
+  display: block;
+  margin: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 500px !important;
+  padding: 20px;
+}
+
+/* Save Button: */
+.changed {
+  background-color: #48C9B0;
+  border-color: #48C9B0;
+  color: #FFFFFF;
+}
+.unchanged {
+  background-color: #BDC3C7;
+  border-color: #BDC3C7;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: not-allowed;
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+}
+
+/*
+ Form Styles (Text boxes, etc)
+ */
+
+.alarm input {
+  color: RGB(52, 73, 94);
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.input-error {
+  background-color: RGB(238, 123, 123);
+  border-color: #EC7063;
+  border-width: 4px;
+}

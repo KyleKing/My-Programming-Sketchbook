@@ -1,14 +1,9 @@
-:root {
-    --accent: #63B0CD;
-    --color-1: #D8DDEF;
-    --color-2: #A0A4B8;
-    --color-3: #282C34;
-}
-
 .password-group {
   margin: 0 5px;
+  max-width: 400px;
+  min-width: 250px;
   position: relative;
-  width: 350px;
+  width: 80vw;
 }
 input.password {
   background-color: var(--color-1);
@@ -17,9 +12,11 @@ input.password {
   color: var(--color-3);
   font-size: 15px;
   height: 35px;
+  max-width: 385px;
+  min-width: 235px;
   padding: 5px 10px;
   position: relative;
-  width: 335px;
+  width: 98%;
 }
 input.password:active {
   background-color: var(--accent);

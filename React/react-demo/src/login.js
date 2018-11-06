@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './Login.css'
 
 class Login extends Component {
@@ -33,7 +33,7 @@ class Login extends Component {
 		// <Link to="/">Home</Link>
 		const toggle_label = this.state.hidePassword ? 'Hide' : 'Show'
 		return (
-			<Fragment>
+			<div className="center-up">
 				<h1>PiAlarm</h1>
 				<form onSubmit={this.handleSubmit}>
 					<div className="password-group">
@@ -50,7 +50,7 @@ class Login extends Component {
 						>{toggle_label}</button>
 					</div>
 				</form>
-			</Fragment>
+			</div>
 		)
 	}
 }

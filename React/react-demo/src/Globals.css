@@ -1,0 +1,12 @@
+:root {
+    --accent: #63B0CD;
+    --color-1: #D8DDEF;
+    --color-2: #A0A4B8;
+    --color-3: #282C34;
+}
+
+/* Shift div vertically */
+.center-up {
+  position: relative;
+  top: -15vh;
+}

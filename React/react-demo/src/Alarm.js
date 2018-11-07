@@ -6,9 +6,9 @@
 // month          0-12
 // day of week    0-6 (Sun-Sat)
 
-import React from 'react'
-import PropTypes from 'prop-types'
 import './Alarm.css'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class Alarm extends React.Component {
 	static propTypes = {

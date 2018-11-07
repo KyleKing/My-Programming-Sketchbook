@@ -17,18 +17,18 @@
     "url": "https://github.com/KyleKing/My-Programming-Sketchbook/issues"
   },
   "dependencies": {
-    "express": "^4.13.4",
+    "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "eyespect": "^0.1.10",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^7.0.0",
     "interface-addresses": "0.0.5",
-    "jquery": "^3.0.0",
+    "jquery": "^3.3.1",
     "nedb": "^1.8.0",
-    "python-shell": "^0.4.0",
-    "socket.io": "^1.4.6"
+    "python-shell": "^1.0.6",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
-    "eslint": "^2.10.2",
+    "eslint": "^5.8.0",
     "eslint-config-node-style-guide": "^3.0.0"
   },
   "homepage": "https://github.com/KyleKing/My-Programming-Sketchbook#readme"

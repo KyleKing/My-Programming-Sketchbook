@@ -1,3 +1,5 @@
+> FYI: These packages aren't actively developed, so please update to the latest dependencies if you use these in production
+
 # Node and JS Apps
 
 __Node-Bulk File RegExp__ - The most useful application, a reusable bulk modifier to apply a set of regexp rules. Currently modified to turn a COMSOL file into a CSV file and accounts for the indeterminate number of spaces between values

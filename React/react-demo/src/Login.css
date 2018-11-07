@@ -1,47 +1,64 @@
-.password-group {
-  margin: 0 5px;
-  max-width: 400px;
-  min-width: 250px;
-  position: relative;
-  width: 80vw;
+.pass-container {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 10px;
+  width: 100%;
 }
-input.password {
-  background-color: var(--color-1);
-  border: var(--color-2);
-  border-radius: 4px;
-  color: var(--color-3);
-  font-size: 15px;
-  height: 35px;
-  max-width: 385px;
-  min-width: 235px;
-  padding: 5px 10px;
-  position: relative;
-  width: 98%;
-}
-input.password:active {
-  background-color: var(--accent);
-  border: var(--accent);
-  outline: 0;
-}
-button.password-toggle {
-  background: var(--color-2);
-  border-radius: 4px;
-  bottom: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 15px;
-  height: 35px;
-  padding: 7px;
-  position: absolute;
-  right: 5px;
+.pass-container-buttons {
+  display: flex;
 }
 
-button.sign-in {
-  background-color: var(--accent);
-  border: none;
+.pass-container button,
+.pass-container input {
+  border-radius: 4px;
   font-size: 15px;
-  height: 45px;
-  margin: 0 5px;
+  margin: 5px;
+}
+
+input.password {
+  background-color: var(--color-2);
+  border: var(--color-3);
+  color: var(--color-4);
+  display: flex;
+  height: 35px;
+  max-width: 400px;
+  min-width: 250px;
   padding: 5px 15px;
   position: relative;
+}
+input.password:active,
+input.password:focus {
+  outline: 1;
+  outline-color: var(--accent-2);
+}
+input.password:disabled,
+input.password[disabled] {
+  background-color: var(--color-3);
+}
+
+button.password-toggle {
+  background-color: var(--color-3);
+  border: none;
+  color: var(--color-1);
+  height: 40px;
+  padding: 7px 20px;
+}
+
+button.login {
+  background-color: var(--accent-2);
+  border: none;
+  color: var(--color-1);
+  height: 40px;
+  padding: 7px 20px;
+}
+button.login:disabled,
+button.login[disabled] {
+  background-color: var(--color-3);
+}
+
+button.login:hover ,
+button.password-toggle:hover {
+  filter: brightness(75%) contrast(200%);
 }

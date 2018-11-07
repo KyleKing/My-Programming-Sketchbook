@@ -1,8 +1,10 @@
 :root {
-    --accent: #63B0CD;
-    --color-1: #D8DDEF;
-    --color-2: #A0A4B8;
-    --color-3: #282C34;
+    --accent-1: #6FC6E6;
+    --accent-2: #63B0CD;
+    --color-1: #E7ECFF;
+    --color-2: #D8DDEF;
+    --color-3: #A0A4B8;
+    --color-4: #282C34;
 }
 
 /* Shift div vertically */

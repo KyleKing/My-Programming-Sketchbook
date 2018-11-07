@@ -20,6 +20,5 @@ logs
 Recipes/imgs/IMG*.jpg
 Recipes/alt.md
 /Alfred/user.workflow.D67DE9BE-47D0-4727-BF34-DFA7132EDCD1/imgs/favicons
-package-lock.json
 *.svg
 *.ico

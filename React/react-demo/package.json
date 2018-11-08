@@ -17,7 +17,9 @@
     "build": "react-scripts build",
     "serve": "./node_modules/serve/bin/serve.js -s build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,6 +31,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@storybook/addon-actions": "^4.0.4",
+    "@storybook/addon-links": "^4.0.4",
+    "@storybook/addons": "^4.0.4",
+    "@storybook/react": "^4.0.4",
     "ajv": "^6.5.5",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
@@ -42,6 +49,8 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-relay": "0.0.28",
-    "eslint-plugin-security": "^1.4.0"
+    "eslint-plugin-security": "^1.4.0",
+    "minimist": "^1.2.0",
+    "storybook": "^1.0.0"
   }
 }

@@ -18,5 +18,8 @@
 .env.test.local
 .env.production.local
 
+*.db
+*.secret.*
 *-debug.log*
 *-error.log*
+.cache

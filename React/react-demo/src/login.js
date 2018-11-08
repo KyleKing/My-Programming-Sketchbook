@@ -1,18 +1,16 @@
 import './Login.css'
 import React, { Component } from 'react'
+import { nedb as Datastore } from 'nedb'
 import bcrypt from 'bcryptjs'
 
-// TODO: Move to nedDB (Store `hash` in your DB)
-var basicPass = 'hello_world'  // FIXME: Store password only as hash
-var hash = bcrypt.hashSync( basicPass, bcrypt.genSaltSync( 12 ) )
-
+const users = new Datastore( { autoload: true, filename: 'data/users.db' } )
 
 class Login extends Component {
 	// Login input text
 
 	constructor( props ) {
 		super( props )
-		this.state = { hidePass: false, loadState: false, password: basicPass }
+		this.state = { hidePass: false, loadState: false, password: '' }
 		// Bind handlers
 		this.showHide = this.showHide.bind( this )
 		this.handleChange = this.handleChange.bind( this )
@@ -35,18 +33,22 @@ class Login extends Component {
 		e.preventDefault()
 		// Hide password and disable form input while loading
 		this.setState( { hidePass: true, loadState: true } )
-		const self = this
-		bcrypt.compare( this.state.password, hash ).then( ( res ) => {
-			if ( res ) {
-				self.props.approveAuth( res )
-				this.props.history.push( '/Alarms' )
-			} else
-				console.warn( `Password Denied: ${this.state.password}` )
-		} ).catch( ( err ) => {
-			alert( err )
-		} ).finally( () => {
-			this.setState( { loadState: false } )
+		users.find( {}, ( err, docs ) => {
+			// Test against first password hash found in database
+			bcrypt.compare( this.state.password, docs[0].hash ).then( ( res ) => {
+				if ( res ) {
+					this.props.approveAuth( res )
+					this.props.history.push( '/Alarms' )
+				} else
+					console.warn( `Password Denied: ${this.state.password}` )
+			} ).catch( ( err ) => {
+				alert( err )
+			} ).finally( () => {
+				this.setState( { loadState: false } )
+			} )
+
 		} )
+
 	}
 
 	render() {

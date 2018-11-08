@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "moment": "^2.22.2",
     "nedb": "^1.8.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -29,9 +30,10 @@
   ],
   "devDependencies": {
     "ajv": "^6.5.5",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.4",
     "csscomb": "^4.2.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.6.0",
     "eslint-config-fbjs": "^2.1.0",
     "eslint-plugin-array-func": "^3.0.0",
     "eslint-plugin-babel": "^5.2.1",

@@ -1,6 +1,7 @@
 # Raspberry Pi Projects
 
-These are in-progress or otherwise small projects. The notable projects that were moved out of this folder are:
+Included are WIP or generally small projects. The major projects have separate repositories:
 
-- [PiSlideshow](https://github.com/KyleKing/PiSlideshow) - A Raspberry Pi powered smart photo frame / slide show. Anyone can upload photos using Balloon.io, which are added to the display and cycled using FBI
-- [PiAlarm](https://github.com/KyleKing/PiAlarm) - Raspberry Pi-powered smart alarm clock. A RGB Light Strip, loud buzzer, bed shaker, web app, geo-location knowledge, and Character LCD display
+- [Another Raspberry Pi Guide](https://github.com/KyleKing/Another_Raspberry_Pi_Guide) - installing NVM, Pi-Blaster, configuring Wi-Fi, etc. Also includes the mini-projects `on-off shutdown` and `speedtest-wrapper`
+- [PiAlarm](https://github.com/KyleKing/PiAlarm) - Raspberry Pi alarm clock
+- [PiSlideshow](https://github.com/KyleKing/PiSlideshow) - Photo Frame w/ Dropbox

@@ -2,12 +2,12 @@
 
 -- Using "blueutil" installed at:
 set blueutilpath to "/usr/local/bin/blueutil"
--- Toggle Bluetooth off
-set sb to last word of (do shell script blueutilpath & " status")
-if sb is "on" then
-	do shell script blueutilpath & " off"
+-- Might work? The blueutil API changed in version 2
+set sb to (do shell script blueutilpath)
+if "Power: 1" in sb then
+	do shell script blueutilpath & " -p off"
 	return "Bluetooth is now off"
 else
-	do shell script blueutilpath & " on"
+	do shell script blueutilpath & " -p on"
 	return "Bluetooth is now on"
 end if

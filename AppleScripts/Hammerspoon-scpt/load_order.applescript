@@ -38,14 +38,15 @@ conditionalopen("Dropshelf")
 conditionalopen("Flux")
 conditionalopen("Numi")
 -- Background Apps
-conditionalopen("Snappy")
+-- conditionalopen("Snappy")
 -- conditionalopen("Rocket")
 conditionalopen("BetterTouchTool")
 conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
 conditionalopen("Irvue")
 -- conditionalopen("Übersicht")
-conditionalopen("Micro Snitch")
+-- conditionalopen("Micro Snitch")  # Use OverSight instead
+-- conditionalopen("OverSight")  # Loads with a pop-up, so let it launch on its own
 conditionalopen("Dropbox")
 -- conditionalopen("Beautiful Earth")
 -- conditionalopen("Satellite Eyes")

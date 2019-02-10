@@ -1,7 +1,9 @@
 import './Login.css'
 import React, { Component } from 'react'
-import { nedb as Datastore } from 'nedb'
 import bcrypt from 'bcryptjs'
+// import { nedb as Datastore } from 'nedb'
+
+const Datastore = require( 'nedb' )
 
 const users = new Datastore( { autoload: true, filename: 'data/users.db' } )
 

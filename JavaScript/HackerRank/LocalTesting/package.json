@@ -9,7 +9,7 @@
   "dependencies": {
     "bignumber": "1.1.0",
     "jquery": "^3.0.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "underscore": "1.8.3"
   },
   "license": "MIT"

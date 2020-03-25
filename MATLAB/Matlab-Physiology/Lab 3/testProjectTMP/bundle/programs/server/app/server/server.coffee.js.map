@@ -1,1 +1,0 @@
-{"version":3,"file":"/server/server.coffee.js","sources":["server.coffee"],"names":[],"mappings":";AAAA,MAAM,CAAC,OAAP,CAAe,WAAf,EAA4B;SAC1B,KAAK,CAAC,IAAN,GAD0B;CAA5B;A","sourcesContent":["Meteor.publish \"bikesData\", ->\n  Bikes.find()"]}

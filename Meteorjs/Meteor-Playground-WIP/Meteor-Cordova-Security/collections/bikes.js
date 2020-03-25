@@ -1,1 +1,0 @@
-// Bikes = new Mongo.Collection('pics'); // Create new pics collection for images

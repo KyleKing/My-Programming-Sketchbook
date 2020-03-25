@@ -1,3 +1,0 @@
-# view AndroidManifest.xml #generated:6
--keep class com.idqajqfe1j86yhtsq5a4i.testProject { <init>(...); }
-

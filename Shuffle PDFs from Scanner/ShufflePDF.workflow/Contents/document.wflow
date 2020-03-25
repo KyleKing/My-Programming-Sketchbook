@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>428</string>
+	<string>444.42</string>
 	<key>AMApplicationVersion</key>
-	<string>2.7</string>
+	<string>2.9</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -167,7 +167,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>229.250000:158.000000</string>
+				<string>436.750000:209.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Ask for Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -189,7 +189,7 @@
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>570.3</string>
+				<string>589.12</string>
 				<key>AMApplication</key>
 				<array>
 					<string>PDF</string>
@@ -220,7 +220,7 @@
 				<key>BundleIdentifier</key>
 				<string>com.apple.action.joinpdf</string>
 				<key>CFBundleVersion</key>
-				<string>570.3</string>
+				<string>589.12</string>
 				<key>CanShowSelectedItemsWhenRun</key>
 				<false/>
 				<key>CanShowWhenRun</key>
@@ -265,7 +265,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>229.250000:281.000000</string>
+				<string>436.750000:383.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -739,7 +739,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>229.250000:441.000000</string>
+				<string>436.750000:594.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Rename Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -859,7 +859,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>229.250000:544.000000</string>
+				<string>436.750000:748.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Move Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -869,26 +869,26 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>67F2FE5E-A639-40B2-9609-1B02C91AECDC</key>
-		<dict>
-			<key>from</key>
-			<string>57278D8B-2F8A-4623-AACD-89853F1E9D98 - 57278D8B-2F8A-4623-AACD-89853F1E9D98</string>
-			<key>to</key>
-			<string>C1B51760-D482-4C03-84D9-58842CA77B99 - C1B51760-D482-4C03-84D9-58842CA77B99</string>
-		</dict>
-		<key>9781E221-E653-46DA-8E08-6D78D9C2DF43</key>
+		<key>76EEFA47-9611-4B56-833E-9FB76283B01B</key>
 		<dict>
 			<key>from</key>
 			<string>13ECC9F6-E773-4541-AE20-A8AE8845717E - 13ECC9F6-E773-4541-AE20-A8AE8845717E</string>
 			<key>to</key>
 			<string>29E4624F-83C2-449A-BC64-ACF5DF825C89 - 29E4624F-83C2-449A-BC64-ACF5DF825C89</string>
 		</dict>
-		<key>CD15C52B-187F-4127-8648-3614145154ED</key>
+		<key>C0AAE6C7-714F-4D96-8712-8ADFF68378E2</key>
 		<dict>
 			<key>from</key>
 			<string>C1B51760-D482-4C03-84D9-58842CA77B99 - C1B51760-D482-4C03-84D9-58842CA77B99</string>
 			<key>to</key>
 			<string>13ECC9F6-E773-4541-AE20-A8AE8845717E - 13ECC9F6-E773-4541-AE20-A8AE8845717E</string>
+		</dict>
+		<key>E6B4DA7E-FB2D-499B-8BEC-ACE0552895A8</key>
+		<dict>
+			<key>from</key>
+			<string>57278D8B-2F8A-4623-AACD-89853F1E9D98 - 57278D8B-2F8A-4623-AACD-89853F1E9D98</string>
+			<key>to</key>
+			<string>C1B51760-D482-4C03-84D9-58842CA77B99 - C1B51760-D482-4C03-84D9-58842CA77B99</string>
 		</dict>
 	</dict>
 	<key>workflowMetaData</key>

@@ -3,8 +3,9 @@
 -- Using "blueutil" installed at:
 set blueutilpath to "/usr/local/bin/blueutil"
 -- Might work? The blueutil API changed in version 2
-set sb to (do shell script blueutilpath)
-if "Power: 1" in sb then
+set sb to (do shell script blueutilpath & " -p")
+set ison to sb equal "1"
+if ison
 	do shell script blueutilpath & " -p off"
 	return "Bluetooth is now off"
 else

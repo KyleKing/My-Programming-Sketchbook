@@ -37,17 +37,19 @@ conditionalopen("PopClip")
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
 conditionalopen("Numi")
+
 -- Background Apps
 -- conditionalopen("Snappy")
 -- conditionalopen("Rocket")
-conditionalopen("BetterTouchTool")
-conditionalopen("EvernoteHelper")
+-- conditionalopen("BetterTouchTool")
+-- conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
-conditionalopen("Irvue")
+-- conditionalopen("Irvue")
 -- conditionalopen("Übersicht")
 -- conditionalopen("Micro Snitch")  # Use OverSight instead
 -- conditionalopen("OverSight")  # Loads with a pop-up, so let it launch on its own
-conditionalopen("Dropbox")
+-- conditionalopen("Dropbox")  # The Dropbox file helper is likely stealing the cursor focus (had to due with limited permissions. Gave full disk access to fix...)
+conditionalopen("Backup and Sync")  -- Google Drive Sync
 -- conditionalopen("Beautiful Earth")
 -- conditionalopen("Satellite Eyes")
 -- conditionalopen("Scroll Reverser")
@@ -71,8 +73,7 @@ conditionalopen("Dropbox")
 -- end logit
 
 -- Quit any unneccessary apps
-conditionalclose("KeepingYouAwake")
-conditionalclose("Kite")
+-- conditionalclose("KeepingYouAwake")
 
 -- TODO!
 -- tell application "Finder" to sleep

@@ -3,12 +3,9 @@
 Useful Python snippets
 
 - [Python Snippets](#python-snippets)
+  - [Archive](#archive)
   - [Plain Python](#plain-python)
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
-    - [logging (docs)](#logging-docs)
-      - [logging.basicConfig (docs)](#loggingbasicconfig-docs)
-      - [Rotating File Handler (Docs)](#rotating-file-handler-docs)
-      - [Timed Rotating File Handler (Docs)](#timed-rotating-file-handler-docs)
   - [Dataset](#dataset)
   - [funcy](#funcy)
   - [Pandas](#pandas)
@@ -26,6 +23,10 @@ Useful Python snippets
   - [Data Version Control (DVC) (Docs)](#data-version-control-dvc-docs)
   - [Pandera: Pandas Schemas (WIP)](#pandera-pandas-schemas-wip)
 
+## Archive
+
+See [./python-archive.md](./python-archive.md)
+
 ## Plain Python
 
 [Main Documentation](https://docs.python.org/3.9/)
@@ -39,75 +40,6 @@ from tempfile import TemporaryDirectory
 with TemporaryDirectory() as td:
     tmp_dir = Path(td)
 ```
-
-### logging ([docs](https://docs.python.org/3.8/library/logging.html))
-
-Snippets demonstrating use of the Python logging module
-
-#### logging.basicConfig ([docs](https://docs.python.org/3.8/library/logging.html#logging.basicConfig))
-
-```py
-import logging
-from pathlib import Path
-
-LOGGER = logging.getLogger(__name__)
-logging.basicConfig(
-    format='%(asctime)s %(filename)s:%(lineno)d    %(message)s',
-    level=logging.INFO, filename='demo_of_basicConfig.log', filemode='w',
-)
-LOGGER.debug('>Debug<')
-LOGGER.info('>Info<')
-LOGGER.warning('>Warning<')
-```
-
-#### Rotating File Handler ([Docs](https://docs.python.org/3/library/logging.handlers.html#rotatingfilehandler))
-
-```py
-import logging
-from logging import handlers
-from pathlib import Path
-
-LOGGER = logging.getLogger(__name__)
-logging.basicConfig(format='%(message)s', level=logging.INFO
-
-
-def add_file_handler(lgr, log_path, level=logging.DEBUG, fh_kwargs=None):
-    """Create a file handler for logging output with generous formatting.
-
-    Args:
-        lgr: logger instance
-        log_path: Path to the log file
-        level: logging level, defaults to DEBUG
-        fh_kwargs: optional dictionary with keyword arguments for `logging.handlers.RotatingFileHandler()`.
-            If not specified, these keys/values wil be added: `(maxBytes=250000, backupCount=5)`
-
-    """
-    # Format the keyword arguments
-    if fh_kwargs is None:
-        fh_kwargs = {}
-    for key, default in [('maxBytes', 250000), ('backupCount', 5)]:
-        fh_kwargs[key] = fh_kwargs.get(key, 250000)
-    # Create the filehandler
-    fh = handlers.RotatingFileHandler(log_path, **fh_kwargs)
-    fh.setLevel(level)
-    fh.setFormatter(logging.Formatter('%(asctime)s %(filename)s:%(lineno)d\t%(message)s'))
-    lgr.addHandler(fh)
-
-
-if __name__ == '__main__':
-    cur_file = Path(__file__).resolve()
-    log_path = cur_file.parent / f'{cur_file.stem}.log'
-    add_file_handler(LOGGER, log_path)
-    LOGGER.debug('>>Debug<<')
-    LOGGER.info('>>Info<<')
-    LOGGER.warning('>>Warning<<')
-    print(f'>> See verbose DEBUG logging in: "{log_path}"')  # noqa: T001
-```
-
-
-#### Timed Rotating File Handler ([Docs](https://docs.python.org/3/library/logging.handlers.html#timedrotatingfilehandler))
-
-Example once per minute: `handlers.TimedRotatingFileHandler(log_path, when='M', interval=1)`
 
 ## Dataset
 

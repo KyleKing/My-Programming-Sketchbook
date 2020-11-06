@@ -8,7 +8,9 @@ Archived, but still useful Python snippets
     - [Rotating File Handler (Docs)](#rotating-file-handler-docs)
     - [Timed Rotating File Handler (Docs)](#timed-rotating-file-handler-docs)
   - [Snoop Logging Module](#snoop-logging-module)
-  - [tkinter](#tkinter)
+  - [GUI](#gui)
+    - [pySimpleGUI (docs)](#pysimplegui-docs)
+    - [tkinter](#tkinter)
 
 ## logging ([docs](https://docs.python.org/3.8/library/logging.html))
 
@@ -123,7 +125,31 @@ class Snooper:
             log_path.unlink()
 ```
 
-## tkinter
+## GUI
+
+### pySimpleGUI ([docs](https://pysimplegui.readthedocs.io/en/latest/))
+
+Same implementation of a username/password prompt, but in much less code
+
+```py
+import PySimpleGUI as sg
+
+sg.theme('LightGrey1')
+layout = [[sg.Text('Username:', size=(10, 1)),
+           sg.InputText(default_text='@site.com', key='-USERNAME-', focus=True)],
+          [sg.Text('Password:', size=(10, 1)),
+           sg.InputText(default_text='', key='-PASSWORD-', password_char='*', enable_events=True)],
+          [sg.Button('Login', bind_return_key=True), sg.Cancel()]]
+window = sg.Window('Login Prompt', layout)
+
+event, values = window.read()
+if event == 'Login':
+    print(f"Logged in with: {values['-USERNAME-']} / {values['-PASSWORD-']}")
+else:
+    print(f'User canceled (event={event})')
+```
+
+### tkinter
 
 ```py
 """Tkinter login screen. Ported from GT Client."""

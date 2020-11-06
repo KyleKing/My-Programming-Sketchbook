@@ -6,6 +6,7 @@ Useful Python snippets
   - [Archive](#archive)
   - [Cheat Sheets](#cheat-sheets)
   - [Plain Python](#plain-python)
+  - [Warnings](#warnings)
   - [Python Getter/Setter](#python-gettersetter)
     - [Pathlib (docs)](#pathlib-docs)
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
@@ -39,6 +40,15 @@ See [./python-archive.md](./python-archive.md)
 ## Plain Python
 
 [Main Documentation](https://docs.python.org/3.9/)
+
+## Warnings
+
+```py
+import warnings
+
+warnings.warn('This decorator will be deprecated. Use `with_argparser(parser, with_unknown_args=True)`.',
+                PendingDeprecationWarning, stacklevel=2)
+```
 
 ## Python Getter/Setter
 

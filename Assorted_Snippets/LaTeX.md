@@ -1,10 +1,11 @@
-# Java Snippets
+# LaTeX Snippets
 
-Useful Java snippets
+Useful LaTeX snippets
 
-- [Java Snippets](#java-snippets)
+- [LaTeX Snippets](#latex-snippets)
   - [Learning Resources](#learning-resources)
 
 ## Learning Resources
 
-- [LearnXInY](https://learnxinyminutes.com/docs/java/)
+- [LearnXInY](https://learnxinyminutes.com/docs/latex/)
+

@@ -33,35 +33,22 @@ end conditionalopen
 -- Open apps if not open already:
 conditionalopen("Sip")
 conditionalopen("Dash")
-conditionalopen("PopClip")
+-- conditionalopen("PopClip") -- causes CMD C to fail on first try?
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
-conditionalopen("Numi")
+conditionalopen("Downlink")
+
+-- conditionalopen("Numi")
 
 -- Background Apps
--- conditionalopen("Snappy")
 -- conditionalopen("Rocket")
 -- conditionalopen("BetterTouchTool")
 -- conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
--- conditionalopen("Irvue")
--- conditionalopen("Übersicht")
--- conditionalopen("Micro Snitch")  # Use OverSight instead
--- conditionalopen("OverSight")  # Loads with a pop-up, so let it launch on its own
--- conditionalopen("Dropbox")  # The Dropbox file helper is likely stealing the cursor focus (had to due with limited permissions. Gave full disk access to fix...)
+-- conditionalopen("OverSight")  -- Loads with a pop-up, so let it launch on its own
+conditionalopen("Dropbox") -- The Dropbox file helper is likely stealing the cursor focus (had to due with limited permissions. Gave full disk access to fix...)
 conditionalopen("Backup and Sync")  -- Google Drive Sync
--- conditionalopen("Beautiful Earth")
--- conditionalopen("Satellite Eyes")
--- conditionalopen("Scroll Reverser")
--- conditionalopen("Forecast Bar")
--- conditionalopen("Hocus Focus")
--- conditionalopen("Focus")
--- conditionalopen("Boom")
--- conditionalopen("Spotifree")
--- conditionalopen("Kuvva")
 -- Background Apps ^
-
-
 
 -- Debugging:
 

@@ -4,8 +4,12 @@ Useful Python snippets
 
 - [Python Snippets](#python-snippets)
   - [Archive](#archive)
+  - [Cheat Sheets](#cheat-sheets)
   - [Plain Python](#plain-python)
+  - [Python Getter/Setter](#python-gettersetter)
+    - [Pathlib (docs)](#pathlib-docs)
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
+    - [Merging Dictionaries](#merging-dictionaries)
   - [Dataset](#dataset)
   - [funcy](#funcy)
   - [Pandas](#pandas)
@@ -22,14 +26,76 @@ Useful Python snippets
     - [parametrize (docs)](#parametrize-docs)
   - [Data Version Control (DVC) (Docs)](#data-version-control-dvc-docs)
   - [Pandera: Pandas Schemas (WIP)](#pandera-pandas-schemas-wip)
+  - [isort](#isort)
 
 ## Archive
 
 See [./python-archive.md](./python-archive.md)
 
+## Cheat Sheets
+
+- [gto76/python-cheatsheet](https://github.com/gto76/python-cheatsheet)
+
 ## Plain Python
 
 [Main Documentation](https://docs.python.org/3.9/)
+
+## Python Getter/Setter
+
+```py
+class MyClass:
+    _a = None
+
+    @property
+    def a(self):
+        return self._a
+
+    @a.setter
+    def a(self, value):
+        self._a = value
+```
+
+More complex example from dash_dev
+
+```py
+class Chart:
+    """Example class with setter method."""
+
+    _axis_range: dict = {}
+
+    # Full property (getter) definition
+    # @property
+    # def axis_range(self): dict:
+    #     """Specify x/y axis range or leave as empty dictionary for auto-range.
+    #
+    #     Returns:
+    #         dict: dictionary potentially with keys `(x, y)`
+    #
+    #     """
+    #     return self._axis_range
+
+    # Short hand property assignment
+    axis_range: dict = property(lambda self: self._axis_range)
+    """Specify x/y axis range or leave as empty dictionary for auto-range. Dictionary with keys `(x, y)`."""
+
+    @axis_range.setter
+    def axis_range(self, axis_range: dict) -> None:
+        """Assign new axis_range."""
+        self._axis_range = axis_range
+```
+
+### Pathlib ([docs](https://docs.python.org/3/library/pathlib.html))
+
+For directory or file names, `.name`, `.stem`,  and `.suffix`
+
+```py
+<Path> = Path()                     # Returns relative cwd. Also Path('.').
+<Path> = Path.cwd()                 # Returns absolute cwd. Also Path().resolve().
+<Path> = Path.home()                # Returns user's home directory.
+<Path> = Path(__file__).resolve()   # Returns script's path if cwd wasn't changed.
+```
+
+See notes like above and more from [gto76/python-cheatsheet#path-object](https://github.com/gto76/python-cheatsheet#path-object)
 
 ### tempfile TemporaryDirectory ([docs](https://docs.python.org/3.8/library/tempfile.html#tempfile.TemporaryDirectory))
 
@@ -39,6 +105,20 @@ from tempfile import TemporaryDirectory
 
 with TemporaryDirectory() as td:
     tmp_dir = Path(td)
+```
+
+### Merging Dictionaries
+
+```py
+dict1 = {'a': 1, 'c': None}
+default = {'b': 2, 'c': 3}
+
+# In 3.9, you can use a pipe
+dict3 = dict1 | default
+
+# But for now, this works
+dict3 = {**default, **dict1}
+# > {'b': 2, 'c': None, 'a': 1}
 ```
 
 ## Dataset
@@ -376,3 +456,7 @@ wrong_column_df = pd.DataFrame({
 # #   0  bar    1
 # #   ...
 ```
+
+## isort
+
+Useful snippet when debugging isort settings: `isort . --show-config`

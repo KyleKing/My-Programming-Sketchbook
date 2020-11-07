@@ -28,6 +28,7 @@ Useful Python snippets
   - [Data Version Control (DVC) (Docs)](#data-version-control-dvc-docs)
   - [Pandera: Pandas Schemas (WIP)](#pandera-pandas-schemas-wip)
   - [isort](#isort)
+  - [Conda](#conda)
 
 ## Archive
 
@@ -470,3 +471,15 @@ wrong_column_df = pd.DataFrame({
 ## isort
 
 Useful snippet when debugging isort settings: `isort . --show-config`
+
+## Conda
+
+Create environment at specified version
+
+```sh
+conda create --name py390 python=3.9.0
+conda activate py390
+conda deactivate
+```
+
+Update global Python version: `conda install python=3.10.0`

@@ -1,0 +1,15 @@
+{
+  "name": "assorted_snippets",
+  "version": "0.0.0",
+  "description": "Assorted Snippets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "svg-term-cli": "^2.1.1",
+    "svgembed": "git+https://github.com/miraclx/svgembed.git"
+  }
+}

@@ -1,1 +1,5 @@
 *.ipynb
+.node_modules/*
+*.ttf
+*.svg
+*.cast

@@ -13,6 +13,11 @@ python = "^3.8"
 loguru = "^0.5.3"
 numpy = "^1.19.4"
 pandas = "^1.1.4"
-PySimpleGUI = "^4.30.0"
 
 [tool.poetry.dev-dependencies]
+ipykernel = "^5.3.4"
+ipywidgets = "^7.5.1"
+jupyterlab = "^2.2.9"
+jupytext = "^1.6.0"
+plotly = "^4.12.0"
+PySimpleGUI = "^4.30.0"

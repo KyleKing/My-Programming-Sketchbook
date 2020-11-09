@@ -11,6 +11,7 @@ Useful Python snippets
     - [Pathlib (docs)](#pathlib-docs)
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
     - [Merging Dictionaries](#merging-dictionaries)
+    - [f-strings](#f-strings)
   - [Dataset](#dataset)
   - [funcy](#funcy)
   - [Pandas](#pandas)
@@ -130,6 +131,75 @@ dict3 = dict1 | default
 # But for now, this works
 dict3 = {**default, **dict1}
 # > {'b': 2, 'c': None, 'a': 1}
+```
+
+### f-strings
+
+Based on "[73 might be excessive](https://miguendes.me/73-examples-to-help-you-master-pythons-f-strings)"
+
+Format options (`!s` < default `str()`, `!r` using `__repr__`, and `!a` to escape non-ASCII)
+
+```py
+f"{c}"  # >> 'A RGB color'
+# When `obj!r` is used, the __repr__ output is printed
+f"{c!r}"  # >> 'Color(r=123, g=32, b=255)'
+utf_str = "Áeiöu"  # >> f"{utf_str!a}"  # >> "'\\xc1ei\\xf6u'"
+```
+
+Number Formatting
+
+```py
+f"num rounded to 2 decimal palces = {num:.2f}"  # >> 'num rounded to 2 decimal palces = 4.12'
+f"Percentage of true positive: {perc:%}"  # >> 'Percentage of true positive: 39.080460%'
+f"Percentage of true positive: {perc:.2%}"  # >> 'Percentage of true positive: 39.08%'
+f"{1234567890.123456:,.3f}"  # >> '1,234,567,890.123'
+f"{num:e}"  # >> '2.343553e+06'
+f"{num:.2e}"  # >> '2.34e+06'
+
+num = 42
+f"{num:05}"  # >> '00042'
+f'{num:+010}'  # >> '+000000042'
+
+num = -42
+f'{num:010}'  # >> '-000000042'
+f'{num:+010}'  # >> '-000000042'
+f'{num:-010}'  # >> '-000000042'
+```
+
+Padding
+
+```py
+greetings = "hello"
+f"She says {greetings:>10}"  # >> 'She says      hello'
+# Pad 10 char to the right
+f"{greetings:>10}"  # >> '     hello'
+f"{greetings:<10}"  # >> 'hello     '
+# Or omit the < for left padding
+f"{greetings:10}"  # >> 'hello     '
+
+hello = "world"
+f"{hello:^11}"  # >> '   world   '
+f"{hello:*^11}"  # >> '***world***'
+# Extra padding is added to the right
+f"{hello:*^10}"  # >> '**world***'
+# N shorter than len(hello)
+f"{hello:^2}"  # >> 'world'
+```
+
+Escaping
+
+```py
+f"{{hello}} = {hello}"  # >> '{hello} = world'
+```
+
+Datetime
+
+```py
+import datetime
+now = datetime.datetime.now()
+ten_days_ago = now - datetime.timedelta(days=10)
+f'{ten_days_ago:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-13 20:24:17'
+f'{now:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-23 20:24:17'
 ```
 
 ## Dataset

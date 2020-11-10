@@ -4,9 +4,8 @@
 
 1. Main Snippets [./python.md](./python.md)
 2. [./python-wip.md](./python-wip.md)
-3. [./python-ipynb.py](./python-ipynb.py)
-4. [./terminal_recordings.md](./terminal_recordings.md)
-5. [./python-archive.md](./python-archive.md)
+3. [./notebooks/README.md](./notebooks/README.md)
+4. [./terminal_recording.md](./terminal_recording.md)
 
 ## git
 

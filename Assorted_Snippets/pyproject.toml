@@ -1,6 +1,13 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+length_sort = false
+line_length = 120
 
 [tool.poetry]
 name = "assorted_snippets"
@@ -9,16 +16,22 @@ description = "Assorted Python Snippets"
 authors = [ "Kyle King <KyleKing@users.noreply.github.com>",]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8,<3.9"
 loguru = "^0.5.3"
 numpy = "^1.19.4"
 pandas = "^1.1.4"
+python-decouple = "^3.3"
 
 [tool.poetry.dev-dependencies]
+asciinema = "^2.0.2"
 ipykernel = "^5.3.4"
 ipywidgets = "^7.5.1"
+julynter = "^0.4.1"
+jupyter-kite = "^1.2.0"
 jupyterlab = "^2.2.9"
 jupytext = "^1.6.0"
 plotly = "^4.12.0"
 PySimpleGUI = "^4.30.0"
-asciinema = "^2.0.2"
+tmdbsimple = "^2.6.6"
+# dash-dev = {git = "https://github.com/KyleKing/dash_dev.git", rev = "main"}
+flake8 = "^3.8.4"

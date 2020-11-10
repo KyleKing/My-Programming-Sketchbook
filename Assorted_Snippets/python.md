@@ -149,7 +149,7 @@ utf_str = "Áeiöu"  # >> f"{utf_str!a}"  # >> "'\\xc1ei\\xf6u'"
 Number Formatting
 
 ```py
-f"num rounded to 2 decimal palces = {num:.2f}"  # >> 'num rounded to 2 decimal palces = 4.12'
+f"num rounded to 2 decimal places = {num:.2f}"  # >> 'num rounded to 2 decimal places = 4.12'
 f"Percentage of true positive: {perc:%}"  # >> 'Percentage of true positive: 39.080460%'
 f"Percentage of true positive: {perc:.2%}"  # >> 'Percentage of true positive: 39.08%'
 f"{1234567890.123456:,.3f}"  # >> '1,234,567,890.123'

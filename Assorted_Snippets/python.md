@@ -3,15 +3,15 @@
 Useful Python snippets
 
 - [Python Snippets](#python-snippets)
-  - [Archive](#archive)
   - [Cheat Sheets](#cheat-sheets)
   - [Plain Python](#plain-python)
-  - [Warnings](#warnings)
-  - [Python Getter/Setter](#python-gettersetter)
+    - [Warnings](#warnings)
+    - [Python Getter/Setter](#python-gettersetter)
     - [Pathlib (docs)](#pathlib-docs)
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
     - [Merging Dictionaries](#merging-dictionaries)
     - [f-strings](#f-strings)
+  - [Run Python Script with auto-PDB Shell on Exception](#run-python-script-with-auto-pdb-shell-on-exception)
   - [Dataset](#dataset)
   - [funcy](#funcy)
   - [Pandas](#pandas)
@@ -31,10 +31,6 @@ Useful Python snippets
   - [isort](#isort)
   - [Conda](#conda)
 
-## Archive
-
-See [./python-archive.md](./python-archive.md)
-
 ## Cheat Sheets
 
 - [gto76/python-cheatsheet](https://github.com/gto76/python-cheatsheet)
@@ -43,7 +39,7 @@ See [./python-archive.md](./python-archive.md)
 
 [Main Documentation](https://docs.python.org/3.9/)
 
-## Warnings
+### Warnings
 
 ```py
 import warnings
@@ -52,7 +48,7 @@ warnings.warn('This decorator will be deprecated. Use `with_argparser(parser, wi
                 PendingDeprecationWarning, stacklevel=2)
 ```
 
-## Python Getter/Setter
+### Python Getter/Setter
 
 ```py
 class MyClass:
@@ -201,6 +197,12 @@ ten_days_ago = now - datetime.timedelta(days=10)
 f'{ten_days_ago:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-13 20:24:17'
 f'{now:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-23 20:24:17'
 ```
+
+## Run Python Script with auto-PDB Shell on Exception
+
+[Based on an SO answer (link)](https://stackoverflow.com/a/2438834/3219667)
+
+`python -m pdb -c continue myscript.py`
 
 ## Dataset
 

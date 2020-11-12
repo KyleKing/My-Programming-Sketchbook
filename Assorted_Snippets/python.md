@@ -30,6 +30,12 @@ Useful Python snippets
   - [Pandera: Pandas Schemas (WIP)](#pandera-pandas-schemas-wip)
   - [isort](#isort)
   - [Conda](#conda)
+  - [Logging with Loguru (docs)](#logging-with-loguru-docs)
+    - [For Packages](#for-packages)
+    - [General Logging Notes](#general-logging-notes)
+    - [Loguru: Custom Sinks](#loguru-custom-sinks)
+    - [Loguru: Async](#loguru-async)
+    - [Encrypted Logs?](#encrypted-logs)
 
 ## Cheat Sheets
 
@@ -555,3 +561,204 @@ conda deactivate
 ```
 
 Update global Python version: `conda install python=3.10.0`
+
+## Logging with Loguru ([docs](https://github.com/Delgan/loguru))
+
+[gto76 Loguru Cheatsheet](https://github.com/gto76/python-cheatsheet#logging)
+
+
+- TODO: Show an example with bound context, useful for adding an attribute to identify the class? Could be used with self.logger.debug()
+- PLANNED: `logger.add(sys.stderr, filter='my_module')`
+- PLANNED: Show enable/disable from dash_dev
+- PLANNED: Replace [old parsers for text files](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.parse)
+
+```py
+import logging
+import sys
+
+from loguru import logger
+
+# TODO: See https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove
+logger.remove()  # Clear default stderr/stdout logger 0?
+logger.add(sys.stdout, level=logging.INFO)
+logger.add('debug_{time}.jsonl', retention='2 minutes', serialize=True)
+logger.add('error.log', level=logging.ERROR)
+
+logger.warning('A logging warning.')
+logger.debug('A logging debug.')
+logger.info('A logging info.')
+logger.error('A logging error.')
+logger.exception('A logging exception.')
+
+# logger.add('file.log', format='{extra[ip]} {extra[user]} {message}')
+# context_logger = logger.bind(ip='192.168.0.1', user='someone')
+# context_logger.info('Contextualize your logger easily')
+# context_logger.bind(user='someone_else').info('Inline binding of extra attribute')
+# > You can also have more fine-grained control over your logs by combining bind() and filter:
+# logger.add('special.log', filter=lambda record: 'special' in record['extra'])
+# logger.debug('This message is not logged to the file')
+# logger.bind(special=True).info('This message, though, is logged to the file!')
+# > Finally, the patch() method allows dynamic values to be attached to the record dict of each new message:
+# logger.add(sys.stderr, format='{extra[utc]} {message}')
+# logger = logger.patch(lambda record: record['extra'].update(utc=datetime.utcnow()))
+
+with logger.contextualize(task='task_id'):
+    logger.info('End of task')
+
+# TODO: See the https://github.com/Delgan/loguru/issues/310
+with logger.catch(message='Because we never know...', reraise=False):
+    raise FileNotFoundError('Testing logger.catch')
+
+# If you need to handle your own try/catch blocks
+try:
+   raise FileNotFoundError('Testing logger.catch')
+except FileNotFoundError:
+    logger.exception('Because we never know...')
+```
+
+### For Packages
+
+Rules:
+
+- Never call `logger.add(...)`. Use `logger.configure(...)` instead
+- Call `logger.disable(__pkg_name__)`, which is done automatically by dash_dev when generating documentation
+- A developer can later use `logger.enable(__pkg_name__)`
+
+```py
+LOG_DIR = Path(__file__).resolve().parent / '.logs'
+"""Output directory for log files."""
+LOG_DIR.mkdir(exist_ok=True)
+
+LOGGER_CONFIG = {
+    'handlers': [
+        {'sink': LOG_DIR / 'pkg.jsonl', 'mode': 'w', 'serialize': True, 'level': logging.DEBUG},
+        {'sink': LOG_DIR / 'pkg.log', 'mode': 'w', 'level': logging.INFO},
+    ],
+    'extra': {'package': __pkg_name__},
+}
+"""Loguru configuration. Note: loguru logging for this package is deactivated by default and must be activated."""
+logger.configure(**LOGGER_CONFIG)
+
+# For libraries
+logger.disable(__pkg_name__)
+logger.info('No matter added sinks, this message is not displayed')
+logger.enable(__pkg_name__)
+logger.info('This message however is propagated to the sinks')
+```
+
+### General Logging Notes
+
+Careful select the log level:
+
+- *DEBUG*: capture intermediary and verbose information that will assist with development. Expect this to be disabled for production uses
+- *INFO*: capture branch points and expected events so that the context can be deciphered from the logs
+  - Entering and exit webpages
+  - Starting and stopping steps or long processes
+  - Login/logout
+- *WARNING*: capture unusual or unexpected events, but not errors
+  - Unexpected values are encountered
+  - A batch or step takes longer than expected
+- *ERROR*: capture expected errors handled and recovered by the app
+  - APIs returning an error result
+  - Request time out
+  - Optional component not available, but requested
+  - Note to reduce noise, some benign and common errors that are properly handled, such as input validation, could go in warning
+- *CRITICAL*: catch critical errors that prevent usage of the tool
+
+Additionally, write logs asynchronously to a buffer or queue so the application can keep running for time-sensitive components
+
+### Loguru: Custom Sinks
+
+[Based on this discussion](https://github.com/Delgan/loguru/pull/205#issuecomment-577379512):
+
+FIXME: test and replace with something that can write to a file with the simpler record dataset
+
+```py
+def json_sink(message):
+    record = message.record
+    reduced = dict(
+        time=record['time'],
+        module=record['module'],
+        level=record['level'].name,
+        function=record['function'],
+        line=record['line'],
+        message=record['message'],
+        extra=record['extra'],
+    )
+    serialized = json.dumps(reduced)
+    print(serialized)
+
+logger.add(json_sink)
+```
+
+[Based on this discussion](https://github.com/Delgan/loguru/issues/203#issuecomment-592183529):
+
+```py
+def sink_serializer(message):
+    record = message.record
+    simplified = {
+        'level': record['level'].name,
+        'message': record['message'],
+        'timestamp': record['time'].timestamp(),
+    }
+    serialized = json.dumps(simplified)
+    print(serialized, file=sys.stderr)
+
+logger.add(sink_serializer, level='INFO', format='{level}: {time} [{name}] {message}')
+```
+
+### Loguru: Async
+
+[Based on this discussion](https://github.com/Delgan/loguru/issues/268#issuecomment-631616065):
+
+```py
+import asyncio
+from loguru import logger
+
+
+async def api_post(message):
+    await asyncio.sleep(1)
+    print('Async http post:', message)
+
+
+async def publish(message):
+    await api_post(message)
+
+
+async def main():
+    logger.info('Entry')
+    await asyncio.sleep(0.5)
+    logger.info('Exit')
+    await logger.complete()  # Ensure that the log messages have been captured
+
+
+if __name__ == '__main__':
+    logger.add(publish, serialize=True)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
+```
+
+### Encrypted Logs?
+
+From: https://github.com/Delgan/loguru/issues/332#issuecomment-699645995
+
+```py
+import better_exceptions
+
+def encrypted_formatter(record):
+    encrypted_message = cipher.encrypt(record['message'].encode('utf8'))
+    record['extra']['encrypted_message'] = b64encode(encrypted_message).decode('latin1')
+
+    encrypted_exception = cipher.encrypt(better_exceptions.format_exception(*record['exception']).encode('utf8'))
+    record['extra']['encrypted_exception'] = b64encode(encrypted_exception).decode('latin1')
+    return '[{level}] {extra[encrypted_message]}\n{extra[encrypted_exception]}'
+```
+
+For production output, use:
+
+```py
+import sys
+
+logger.add(sys.stdout, backtrace=True, diagnose=False)
+```

@@ -12,10 +12,8 @@ Useful Git snippets
 How to sync a branch (with `main`)
 
 ```sh
-git checkout main
-git pull
-git checkout <branch_name>
-git merge main
+git fetch --all
+git merge main --ff
 ```
 
 Conversely for merging into the main branch locally, do:

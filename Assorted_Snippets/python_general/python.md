@@ -36,6 +36,7 @@ Useful Python snippets
     - [Loguru: Custom Sinks](#loguru-custom-sinks)
     - [Loguru: Async](#loguru-async)
     - [Encrypted Logs?](#encrypted-logs)
+  - [tqdm](#tqdm)
 
 ## Cheat Sheets
 
@@ -566,6 +567,7 @@ Update global Python version: `conda install python=3.10.0`
 
 [gto76 Loguru Cheatsheet](https://github.com/gto76/python-cheatsheet#logging)
 
+<!-- FIXME: Cleanup and push changes -->
 
 - TODO: Show an example with bound context, useful for adding an attribute to identify the class? Could be used with self.logger.debug()
 - PLANNED: `logger.add(sys.stderr, filter='my_module')`
@@ -655,6 +657,7 @@ Careful select the log level:
   - Entering and exit webpages
   - Starting and stopping steps or long processes
   - Login/logout
+  - Other operations/actions
 - *WARNING*: capture unusual or unexpected events, but not errors
   - Unexpected values are encountered
   - A batch or step takes longer than expected
@@ -761,4 +764,146 @@ For production output, use:
 import sys
 
 logger.add(sys.stdout, backtrace=True, diagnose=False)
+```
+
+<!--
+
+
+# Context can be useful, but you need to be careful because it can be finicky if any fields are missing
+import sys
+logger.remove(0)
+logger.add(sys.stdout, format='{extra[ip]} {extra[user]} {message}')
+context_logger = logger.bind(ip='192.168.0.1', user='someone')
+context_logger.info('Contextualize your logger easily')
+context_logger.bind(user='someone_else').info('Inline binding of extra attribute ({extra[user]} nor {user})')
+context_logger.info('Use kwargs to add context during formatting: {user}', user='anybody')
+# This will fail...
+logger.info('This will fail for an error that ip was not bound')
+
+-->
+
+
+<!-- TODO: Merge this notes with Pandas -->
+
+https://calmcode.io/patsy/introduction.html
+
+```py
+import patsy as ps
+import numpy as np
+import pandas as pd
+import matplotlib.pylab as plt
+
+from sklearn.linear_model import LinearRegression
+
+df = pd.read_csv("birthdays.csv")
+
+def clean_data(dataf):
+    return (dataf
+            .drop(columns=['Unnamed: 0'])
+            .assign(date = lambda d: pd.to_datetime(d['date']))
+            .groupby(['date', 'wday', 'month'])
+            .agg(n_born=('births', 'sum'))
+            .reset_index()
+            .assign(yday = lambda d: d['date'].dt.dayofyear))
+
+df_clean = df.pipe(clean_data)
+
+# -------
+
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
+from sklego.preprocessing import PatsyTransformer
+
+import matplotlib.pylab as plt
+
+X = (df_clean
+    .head(2000)
+    .loc[lambda d: d['n_born'] > 2000]
+    .assign(num_date = lambda d: date_to_num(d['date'])))
+y = X['n_born']
+
+pipe = Pipeline([
+    ("patsy", PatsyTransformer("(cc(yday, df=12) + wday + num_date)**2")),
+    ("scale", StandardScaler()),
+    ("model", LinearRegression())
+])
+
+np.mean(np.abs(pipe.fit(X, y).predict(X) - y))
+
+#
+# Another variant of the pandas
+
+import pandas as pd
+
+df = pd.read_csv("birthdays.csv")
+
+plot_df = (df
+  .assign(date = lambda d: pd.to_datetime(d['date']))
+  .assign(day_of_year = lambda d: d['date'].dt.dayofyear)
+  .groupby('day_of_year')
+  .agg(n_births=('births', 'sum'))
+  .assign(p = lambda d: d['n_births']/d['n_births'].sum()))
+
+plot_df.assign(p_fake = lambda d: 1/d.shape[0])[['p', 'p_fake']].plot()
+plt.ylim(0);
+```
+
+===============================
+
+## tqdm
+
+```py
+import this
+import tqdm
+
+for outer in tqdm.tqdm([10, 20, 30, 40, 50], desc=" outer", position=0):
+    for inner in tqdm.tqdm(range(outer), desc=" inner loop", position=1, leave=False):
+        time.sleep(0.05)
+print("done!")
+```
+
+More chaining
+
+```py
+class Clumper:
+    def __init__(self, blob):
+        self.blob = blob
+
+    def keep(self, *funcs):
+        data = self.blob
+        for func in funcs:
+            data = [d for d in data if func(d)]
+        return Clumper(data)
+
+    def head(self, n):
+        return Clumper([self.blob[i] for i in range(n)])
+
+    def tail(self, n):
+        return Clumper([self.blob[-i] for i in range(1, n+1)])
+
+    def select(self, *keys):
+        return Clumper([{k: d[k] for k in keys} for d in self.blob])
+
+    def mutate(self, **kwargs):
+        data = self.blob
+        for key, func in kwargs.items():
+            for i in range(len(data)):
+                data[i][key] = func(data[i])
+        return Clumper(data)
+
+    def sort(self, key, reverse=False):
+        return Clumper(sorted(self.blob, key=key, reverse=reverse))
+
+Let's look at the query we're able to make now.
+
+(Clumper(poke_dict)
+  .keep(lambda d: 'Grass' in d['type'],
+        lambda d: d['hp'] < 60)
+  .mutate(ratio=lambda d: d['attack']/d['hp'])
+  .select('name', 'ratio')
+  .sort(lambda d: d['ratio'], reverse=True)
+  .head(15)
+  .blob)
 ```

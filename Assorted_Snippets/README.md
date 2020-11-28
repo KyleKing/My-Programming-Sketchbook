@@ -2,14 +2,16 @@
 
 ## Python
 
-1. Main Snippets [./python.md](./python.md)
-2. [./python-wip.md](./python-wip.md)
+1. Main Snippets [./python_general/python.md](./python_general/python.md)
+2. [./python_general/python-wip.md](./python_general/python-wip.md)
 3. [./notebooks/README.md](./notebooks/README.md)
-4. [./terminal_recording.md](./terminal_recording.md)
+4. [./python_general/terminal_recording.md](./python_general/terminal_recording.md)
+5. [./python_general/python-archive.md](./python_general/python-archive.md)
 
 ## git
 
 [./git.md](./git.md)
+[./github_README.md](./github_README.md)
 
 ## LaTeX
 

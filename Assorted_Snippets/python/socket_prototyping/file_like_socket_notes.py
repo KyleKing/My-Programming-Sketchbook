@@ -9,27 +9,7 @@ import socket
 import sys
 from io import StringIO
 
-import cmd2
-
-
-class FileLikeSocket:
-    """Simple Implementation.
-
-    Source: https://python-patterns.guide/gang-of-four/composition-over-inheritance/
-
-    """
-
-    def __init__(self, sock):
-        self.sock = sock
-
-    def write(self, message_and_newline):
-        self.sock.sendall(message_and_newline.encode('ascii'))
-
-    def flush(self):
-        pass
-
 # Full Blown Mock. Source: https://github.com/explorigin/Rocket/blob/master/rocket/filelike.py
-
 
 class FullFileLikeSocket:
 

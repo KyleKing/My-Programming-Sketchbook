@@ -8,28 +8,33 @@ import socket
 
 from loguru import logger
 
+BUF_SIZE = 16
+HOST, PORT = ('localhost', 8081)
+
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
-server_address = ('localhost', 10000)
-logger.info('connecting to {} port {}'.format(*server_address))
-sock.connect(server_address)
+timeout = 5
+logger.info(f'Connecting to {HOST} port {PORT}')
+# sock.connect((HOST, PORT))
+sock = socket.create_connection((HOST, PORT), timeout)
 
 try:
     # Send data
-    message = b'This is our message. It is very long but will only be transmitted in chunks of 16 at a time'
-    logger.info('sending {!r}'.format(message))
+    message = b'This is our long message that will only be transmitted in chunks of BUF_SIZE at a time\n'
+    logger.info(f'Sending {message!r}')
     sock.sendall(message)
 
     # Look for the response
-    amount_received = 0
-    amount_expected = len(message)
-
-    while amount_received < amount_expected:
-        data = sock.recv(16)
-        amount_received += len(data)
-        logger.info('received {!r}'.format(data))
+    data = ''
+    matched_eol = False
+    while not matched_eol:
+        data += sock.recv(BUF_SIZE).decode()
+        matched_eol = '\n' in data
+        if not matched_eol:
+            data += '|'
+    logger.info(f'Received ({type(data)}) `{data}`')
 finally:
-    logger.info('closing socket')
+    logger.info('Closing socket')
     sock.close()

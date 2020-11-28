@@ -8,8 +8,8 @@ import socket
 
 from loguru import logger
 
-BUF_SIZE = 4096
-HOST, PORT = ('localhost', 8081)
+BUFF_SIZE = 4096
+HOST, PORT = ('localhost', 8085)
 EOL = '\n'
 
 # Connect the socket to the port where the server is listening
@@ -19,7 +19,8 @@ sock = socket.create_connection((HOST, PORT), timeout)
 
 try:
     # Send data
-    messages = ['echo Hello World!', 'exit']
+    messages = ['echo Hello World!']
+    # WARN: incorrect commands ('echo ', 'not_a_cmd!') will trigger just stderr and won't send a socket response
     for message in messages:
         logger.info(f'Sending {message!r}')
         sock.sendall((message + EOL).encode('ascii'))
@@ -28,7 +29,7 @@ try:
         logger.info('Waiting for response')
         data = ''
         while EOL not in data:
-            data += sock.recv(BUF_SIZE).decode()
+            data += sock.recv(BUFF_SIZE).decode()
         logger.info(f'Received ({type(data)}) `{data}`')
 
     sock.sendall(('quit' + EOL).encode('ascii'))

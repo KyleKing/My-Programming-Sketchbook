@@ -3,24 +3,19 @@
 Based on ticket: https://github.com/python-cmd2/cmd2/issues/1020
 And cmd2 example: https://cmd2.readthedocs.io/en/latest/examples/first_app.html
 
-```
-I worked around this by making a class called FilelikeSocket that was just a socket with read, write, etc. methods defined so that I could pass the connection object to Cmd's stdin and stdout arguments, but it'd be nice if Cmd could just take a standard connection object for those args and magically do the conversion from read()/readlines() to recv() and write() to send().
-```
-
 """
 
-import argparse
 import socket
 
 import cmd2
-from cmd2 import Cmd
+from cmd2 import Cmd, Cmd2ArgumentParser
 from loguru import logger
 
-BUF_SIZE = 4096
-HOST, PORT = ('localhost', 8081)
+BUFF_SIZE = 4096
+HOST, PORT = ('localhost', 8085)
 EOL = '\n'
 
-echo_parser = argparse.ArgumentParser()
+echo_parser = Cmd2ArgumentParser()
 echo_parser.add_argument('words', nargs='+', help='words to say')
 
 
@@ -29,6 +24,7 @@ class FirstApp(Cmd):
     def __init__(self, fd):
         super().__init__(stdin=fd, stdout=fd)
         self.use_rawinput = False
+        self.feedback_to_output = True
 
     @cmd2.with_argparser(echo_parser)
     def do_echo(self, statement):
@@ -51,26 +47,53 @@ class FileLikeSocket:
     def isatty(self):
         return True
 
-    def readline(self, *, _buf_size=1):
+    def readline(self, *, _buff_size=1):
         # Look for the response
         logger.info('Called readline')
         data = ''
         while EOL not in data:
-            data += self.conn.recv(_buf_size).decode()
+            data += self.conn.recv(_buff_size).decode()
         logger.info(f'Received ({type(data)}) `{data}`')
         return data
 
     def read(self):
         logger.info('Called read')
-        return self.readline(_buf_size=BUF_SIZE)
+        return self.readline(_buff_size=BUFF_SIZE)
 
     def write(self, message_and_newline):
         logger.info('Called write')
+        # self.conn.sendall((message_and_newline.strip() + EOL).encode('ascii'))
         self.conn.sendall(message_and_newline.encode('ascii'))
 
     def flush(self):
         logger.info('Called flush')
         pass
+
+
+# import sys
+# from functools import partial
+# from io import StringIO
+
+
+# def send_err(message, conn):
+#     print(message)
+#     conn.sendall(message.encode('ascii'))
+
+
+# def stderr_capture(conn):
+#     # tmp_err = StringIO()
+#     # sys.stderr = tmp_err
+#     # # The original `sys.stderr` is kept in a special dunder named `sys.__stderr__`
+#     # # So you can restore the original errput stream to the terminal
+#     # sys.stderr = sys.__stderr__
+#     sys.stderr.__write = sys.stderr.write
+#     sys.stderr.write = partial(send_err, conn=connection)
+#     # return tmp_err
+
+
+# def stderr_restore():
+#     # sys.stderr = sys.__stderr__
+#     sys.stderr.write = sys.stderr.__write
 
 
 if __name__ == '__main__':
@@ -81,18 +104,20 @@ if __name__ == '__main__':
     # Listen for incoming connections
     sock.listen(1)
 
-    while True:
+    clean_exit = False
+    while not clean_exit:
         # Wait for a connection
         logger.info('Waiting for a connection')
         connection, client_address = sock.accept()
         try:
             logger.info(f'Connection from: {client_address}')
-            # STDIN: data = connection.recv(BUF_SIZE)
-            # STDOUT: connection.sendall(data)
+            # tmp_err = stderr_capture(connection)
             file_like_socket = FileLikeSocket(connection)
             app = FirstApp(file_like_socket)
             app.cmdloop()
+            clean_exit = True
         finally:
             # Clean up the connection
             logger.info('Closing current connection')
             connection.close()
+            # stderr_restore()

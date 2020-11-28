@@ -5,28 +5,28 @@ You will need Python (I recommend `miniconda`), Git, and NodeJS for most of thes
 I have a workflow for getting the most out of Jupyter that I think could be helpful to others
 
 - Use poetry virtual environments
-- Use jupytext to pair the notebook file (JSON) with a percent file (py) for version control (the .ipynb file is ignored)
+- Use jupytext to pair the notebook file (JSON) with a percent file (py) for version control (the .ipynb file should be ignored)
 - Install extensions that enforce Python best practices, linting, and formatting
 - Utilize Plotly for visualizations
 
-Things still to be resolved
-
-- TBD
-
 ## Quick Start
 
-1. `poetry install` and run `poetry add ___` for any additional Python packages necessary
-2. `TBD` register the local virtual environment as a kernel option in Jupyter
-
-## Snippets
-
-TBD...
+```sh
+# Install node.js - see above
+# Install poetry, possibly create a new package or add to an existing project
+poetry add jupyterlab ipykernel jupytext -D
+# Add additional packages fromt he section below. Some need extra steps. Rebuild once packages are instaled
+poetry run jupyter lab build
+# Configure the poetry environment as a virtual environment for Jupyter
+poetry run python -m ipykernel install --user --name replace_with_poetry_package_name
+# See additional information here: https://janakiev.com/blog/jupyter-virtual-envs/
+# Launch Jupyter Lab
+poetry run jupyter lab
+```
 
 ## Plugins
 
-I highly recommend all of the below plugins, but you can pick and choose
-
-Once you've installed the plugins, make sure to `poetry run jupyter lab build` or select rebuild in the UI when prompted
+I highly recommend all of the below plugins, but you can pick and choose. Once you've installed the plugins, make sure to `poetry run jupyter lab build` or select rebuild in the UI when prompted
 
 ### Code Quality
 
@@ -39,7 +39,7 @@ jupyter serverextension enable --py jupyterlab_code_formatter
 
 ### [How to Use jupyterlab_code_formatter](https://jupyterlab-code-formatter.readthedocs.io/en/latest/how-to-use.html#how-to-use-this-plugin)
 
-TODO: TODO
+PLANNED: this wasn't working for me
 
 “Settings” > “Advanced Settings Editor” > “Jupyterlab Code Formatter”, then in the “User Preferences” panel, enter, for example:
 
@@ -73,6 +73,20 @@ unset NODE_OPTIONS
 ```sh
 poetry run jupyter labextension install @arbennett/base16-monokai @ryantam626/jupyterlab_sublime --no-build
 ```
+
+### General List
+
+- @jupyter-widgets/jupyterlab-manager
+- jupyterlab-flake8
+- @ijmbarr/jupyterlab_spellchecker
+- @julynter/labextension
+- plotlywidget
+- @kiteco/jupyterlab-kite
+- @arbennett/base16-monokai
+- jupyterlab-plotly
+- jupyterlab-jupytext
+- @krassowski/jupyterlab_go_to_definition
+- PLANNED: try [dataflownb/ipycollections-extension](https://github.com/dataflownb/ipycollections-extension)
 
 ## Keyboard Shortcuts
 

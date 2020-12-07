@@ -11,6 +11,7 @@ Useful Python snippets
     - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
     - [Merging Dictionaries](#merging-dictionaries)
     - [f-strings](#f-strings)
+    - [Regex](#regex)
     - [Sockets (Docs)](#sockets-docs)
   - [Run Python Script with auto-PDB Shell on Exception](#run-python-script-with-auto-pdb-shell-on-exception)
   - [Dataset](#dataset)
@@ -203,6 +204,19 @@ now = datetime.datetime.now()
 ten_days_ago = now - datetime.timedelta(days=10)
 f'{ten_days_ago:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-13 20:24:17'
 f'{now:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-23 20:24:17'
+```
+
+### Regex
+
+See [gto76/python-cheatsheet#regex](https://github.com/gto76/python-cheatsheet#regex) for more
+
+```py
+import re
+
+re_var_comment = re.compile(r'<!-- (?P<key>[^=]+)=(?P<value>[^;]+);')
+
+section = '<!-- rating=1; -->'
+re_var_comment.match(section.strip()).groupdict()  # {'rating': '1'}
 ```
 
 ### Sockets ([Docs](https://docs.python.org/3.8/howto/sockets.html))

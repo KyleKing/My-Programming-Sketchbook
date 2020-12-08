@@ -42,6 +42,7 @@ Useful Python snippets
 ## Cheat Sheets
 
 - [gto76/python-cheatsheet](https://github.com/gto76/python-cheatsheet)
+- [crazyguitar/pysheeet](https://github.com/crazyguitar/pysheeet)
 
 ## Plain Python
 
@@ -208,7 +209,7 @@ f'{now:%Y-%m-%d %H:%M:%S}'  # >> '2020-10-23 20:24:17'
 
 ### Regex
 
-See [gto76/python-cheatsheet#regex](https://github.com/gto76/python-cheatsheet#regex) for more
+See [gto76/python-cheatsheet#regex](https://github.com/gto76/python-cheatsheet#regex) and [crazyguitar/pysheeet](https://github.com/crazyguitar/pysheeet/blob/master/docs/notes/python-rexp.rst) for more
 
 ```py
 import re
@@ -221,7 +222,9 @@ re_var_comment.match(section.strip()).groupdict()  # {'rating': '1'}
 
 ### Sockets ([Docs](https://docs.python.org/3.8/howto/sockets.html))
 
-[Magic Number is bufsize](https://docs.python.org/3/library/socket.html#socket.socket.recv) `socket.recv(bufsize=4096)`
+A whole long list of socket examples on [crazyguitar/pysheeet](https://github.com/crazyguitar/pysheeet/blob/master/docs/notes/python-socket.rst)
+
+The [Magic 4096 Number is bufsize](https://docs.python.org/3/library/socket.html#socket.socket.recv) `socket.recv(bufsize=4096)`
 
 See prototpe cmd2/file socket: [./_cli_prototyping/proto_file_socket.py](./_cli_prototyping/proto_file_socket.py)
 

@@ -32,6 +32,8 @@ PLANNED: [Check out coroutines](https://github.com/gto76/python-cheatsheet#corou
 
 PLANNED: [Also see threading](https://github.com/gto76/python-cheatsheet#threading)
 
+PLANNED: https://github.com/crazyguitar/pysheeet/blob/master/docs/appendix/python-concurrent.rst and https://github.com/crazyguitar/pysheeet/blob/master/docs/appendix/python-asyncio.rst
+
 ## Profiling
 
 PLANNED: [gto76/python-cheatsheet#profiling](https://github.com/gto76/python-cheatsheet#profiling)

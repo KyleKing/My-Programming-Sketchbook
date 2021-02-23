@@ -1,0 +1,5 @@
+aircraft-db.sqlite
+
+# FYI: To clone the data required for aircraftlib, see the Prefect tutorial
+#   https://docs.prefect.io/core/tutorial/01-etl-before-prefect.html
+aircraftlib/data/*

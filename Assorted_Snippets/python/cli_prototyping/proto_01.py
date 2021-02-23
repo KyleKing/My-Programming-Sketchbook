@@ -145,6 +145,8 @@ class Controller:
         for keyword, cmd in self.cmd_lookup.items():
             self.help_text += f'\n  {keyword}: {cmd.help_text}'
 
+        self.aliases.update({'exit': 'quit', 'help': 'help -v'})  # Convenient!
+
     def configure_prompt(self):
         set_title('Streaming Wars Application')
 

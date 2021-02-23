@@ -10,6 +10,7 @@ Useful Python snippets
         - [Pathlib (docs)](#pathlib-docs)
         - [tempfile TemporaryDirectory (docs)](#tempfile-temporarydirectory-docs)
         - [Merging Dictionaries](#merging-dictionaries)
+        - [Default Dict](#default-dict)
         - [f-strings](#f-strings)
         - [Regex](#regex)
         - [Sockets (Docs)](#sockets-docs)
@@ -136,6 +137,25 @@ dict3 = dict1 | default
 # But for now, this works
 dict3 = {**default, **dict1}
 # > {'b': 2, 'c': None, 'a': 1}
+```
+
+### Default Dict
+
+```py
+from collections import defaultdict
+from pprint import pprint
+
+letters = 'ABCDEF'
+
+test_list = defaultdict(list)
+for letter in letters:
+    test_list[letter].append(letter)
+pprint(test_list)
+
+test_dict = defaultdict(dict)
+for idx, letter in enumerate(letters):
+    test_dict[letter][idx] = letter
+pprint(test_dict)
 ```
 
 ### f-strings

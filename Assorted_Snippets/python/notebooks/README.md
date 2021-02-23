@@ -30,6 +30,8 @@ I highly recommend all of the below plugins, but you can pick and choose. Once y
 
 ### Code Quality
 
+TODO: Try [nbQA](https://github.com/nbQA-dev/nbQA) to run general code quality tools in Jupyter. Is there an equivalent for Jupyter Lab?
+
 ```sh
 poetry run jupyter labextension install jupyterlab-jupytext jupyterlab-flake8 @ryantam626/jupyterlab_code_formatter @wallneradam/trailing_space_remover @julynter/labextension @ijmbarr/jupyterlab_spellchecker @krassowski/jupyterlab_go_to_definition @kiteco/jupyterlab-kite --no-build
 

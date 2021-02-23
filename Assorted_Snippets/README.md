@@ -20,3 +20,7 @@
 ## java
 
 [./java.md](./java.md)
+
+## Inclusive Language
+
+[Block/Exclude || Allow/Permit List](https://english.stackexchange.com/questions/51088/alternative-terms-to-blacklist-and-whitelist/528887#528887)

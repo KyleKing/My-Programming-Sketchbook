@@ -3,14 +3,14 @@
 Archived, but still useful Python snippets
 
 - [Python Snippets (Archive)](#python-snippets-archive)
-  - [logging (docs)](#logging-docs)
-    - [logging.basicConfig (docs)](#loggingbasicconfig-docs)
-    - [Rotating File Handler (Docs)](#rotating-file-handler-docs)
-    - [Timed Rotating File Handler (Docs)](#timed-rotating-file-handler-docs)
-  - [Snoop Logging Module](#snoop-logging-module)
-  - [GUI](#gui)
-    - [pySimpleGUI (docs)](#pysimplegui-docs)
-    - [tkinter](#tkinter)
+    - [logging (docs)](#logging-docs)
+        - [logging.basicConfig (docs)](#loggingbasicconfig-docs)
+        - [Rotating File Handler (Docs)](#rotating-file-handler-docs)
+        - [Timed Rotating File Handler (Docs)](#timed-rotating-file-handler-docs)
+    - [Snoop Logging Module](#snoop-logging-module)
+    - [GUI](#gui)
+        - [pySimpleGUI (docs)](#pysimplegui-docs)
+        - [tkinter](#tkinter)
 
 ## logging ([docs](https://docs.python.org/3.8/library/logging.html))
 

@@ -3,7 +3,7 @@
 Useful Java snippets
 
 - [Java Snippets](#java-snippets)
-  - [Learning Resources](#learning-resources)
+    - [Learning Resources](#learning-resources)
 
 ## Learning Resources
 

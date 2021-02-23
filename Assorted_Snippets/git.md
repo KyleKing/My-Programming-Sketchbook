@@ -3,9 +3,9 @@
 Useful Git snippets
 
 - [Git Snippets](#git-snippets)
-  - [Sync Upstream Main Branch](#sync-upstream-main-branch)
-  - [Sync Fork with Upstream](#sync-fork-with-upstream)
-  - [Rename Master Branch to Main](#rename-master-branch-to-main)
+    - [Sync Upstream Main Branch](#sync-upstream-main-branch)
+    - [Sync Fork with Upstream](#sync-fork-with-upstream)
+    - [Rename Master Branch to Main](#rename-master-branch-to-main)
 
 ## Sync Upstream Main Branch
 

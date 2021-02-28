@@ -1,5 +1,130 @@
 # NEW (WIP)
 
+## sqlite_utils ([docs](https://sqlite-utils.datasette.io/en/stable/python-api.html))
+
+```py
+from sqlite_utils import Database
+
+db = Database("my_database.db")
+db = Database("my_database.db", recreate=True)  # Remove from disk if found
+# See snippet on attaching multiple databases
+
+db = Database("dogs.db", recreate=True)
+dogs = db["dogs"]
+dogs.insert({
+    "name": "Cleo",
+    "twitter": "cleopaws",
+    "age": 3,
+    "is_good_dog": True,
+})
+# Automatically creates a new table with schema:
+# CREATE TABLE dogs (
+#     name TEXT,
+#     twitter TEXT,
+#     age INTEGER,
+#     is_good_dog INTEGER
+# )
+dogs.insert({
+    "id": 1,
+    "name": "Cleo",
+    "twitter": "cleopaws",
+    "age": 3,
+    "is_good_dog": True,
+}, pk="id")  # Note: pk is only used if "insert" causes table to be created
+# After inserting a row like this, the dogs.last_rowid property will return the SQLite rowid assigned to the most recently inserted record
+# The dogs.last_pk property will return the last inserted primary key value, if you specified one. This can be very useful when writing code that creates foreign keys or many-to-many relationships
+
+# Specify initial column order (note: You don’t need to pass all of the columns)
+db["dogs"].insert({
+    "id": 1,
+    "name": "Cleo",
+    "twitter": "cleopaws",
+    "age": 3,
+    "is_good_dog": True,
+}, pk="id", column_order=("id", "twitter", "name"))
+# Over-ride detected types (useful if value may be None)
+db["dogs"].insert({
+    "id": 1,
+    "name": "Cleo",
+    "age": "5",
+}, pk="id", columns={"age": int, "weight": float})
+
+db["dogs"].insert_all(({
+    "id": 1,
+    "name": "Name {}".format(i),
+} for i in range(10000)), batch_size=1000, pk="id", replace=True)
+
+
+# Can use compound primary keys
+db["cats"].create({
+    "id": int,
+    "breed": str,
+    "name": str,
+    "weight": float,
+}, pk=("breed", "id"))
+
+db["dogs"].insert({"name": "Cleo"})
+db.execute("update dogs set name = 'Cleopaws'")
+db.execute("update dogs set name = ?", ["Cleopaws"])
+db.execute("update dogs set name = :name", {"name": "Cleopaws"})
+
+# Also see: .insert(), .upsert(), .insert_all(), and .upsert_all()
+db["authors"].insert_all(
+    [{"id": 1, "name": "Sally", "score": 2}],
+    pk="id",
+    not_null={"name", "score"},
+    defaults={"score": 1},
+)
+db["authors"].insert({"name": "Dharma"})
+
+list(db["authors"].rows)
+# Outputs:
+# [{'id': 1, 'name': 'Sally', 'score': 2},
+#  {'id': 3, 'name': 'Dharma', 'score': 1}]
+print(db["authors"].schema)
+# Outputs:
+# CREATE TABLE [authors] (
+#     [id] INTEGER PRIMARY KEY,
+#     [name] TEXT NOT NULL,
+#     [score] INTEGER NOT NULL DEFAULT 1
+# )
+
+db.table_names()
+db.tables()
+
+db.view_names()
+db.views()
+
+table = db["my_table"]
+# for row in db["dogs"].rows:
+# for row in db["dogs"].rows_where("age > ?", [3]):
+# for row in db["dogs"].rows_where(select='name, age'):
+# for row in db["dogs"].rows_where("age > 1", order_by="age"):
+# for row in db["dogs"].rows_where("age > 1", order_by="age desc"):
+# for row in db["dogs"].rows_where(order_by="age desc", offset=2, limit=1):
+
+db["dogs"].get(1)  # {'id': 1, 'age': 4, 'name': 'Cleo'}
+
+db["my_table"].drop()
+
+# Vacuum?
+Database("my_database.db").vacuum()
+
+# TODO: Foreign keys
+# > https://sqlite-utils.datasette.io/en/stable/python-api.html#specifying-foreign-keys
+# > https://sqlite-utils.datasette.io/en/stable/python-api.html#python-api-add-foreign-key
+
+
+db["dogs"].delete_where("age < ?", [3]):
+
+
+# TODO: Lookup tables
+# > https://sqlite-utils.datasette.io/en/stable/python-api.html#working-with-lookup-tables
+
+
+# TODO: Example script https://github.com/simonw/russian-ira-facebook-ads-datasette/blob/master/fetch_and_build_russian_ads.py
+```
+
 ## Dotted Dict
 
 FIXME: Use dotted dict instead of enum for mapping global keys?
@@ -22,9 +147,13 @@ poetry run pyinstaller script.py --add-data '<path>:.'  # Adds file to the root 
 # File paths need to be updated to 'os.path.join(sys._MEIPASS, <path>)'.
 ```
 
-TODO: Check out nutika: [Overview](https://packaging.python.org/overview/) and [Docs](https://nuitka.net/doc/user-manual.html)
+- Nuitka [Overview](https://packaging.python.org/overview/) and [Docs](https://nuitka.net/doc/user-manual.html)
+    - *Converts Python to C and compiles to a native binary file*
+    - This can be particularly convenient if you wish to obfuscate the Python source code behind your application
+    - Recommend invoking with `--follow-imports` flag like: `python -m nuitka --follow-imports your_app.python3`
+    - Not all Python code is supported
 
-- Nuitka * Converts your Python to C and compiles it to a native binary file * This can be particularly convenient if you wish to obfuscate the Python source code behind your application * Recommend invoking with --follow-imports flag like: python3 -m nuitka --follow-imports your_app.python3
+TODO: Monitor [PyOxidizer](https://github.com/indygreg/PyOxidizer)
 
 ## Plain Python
 

@@ -200,3 +200,5 @@ docs/*
 *.svg
 *.cast
 **/settings.ini
+
+*.dill

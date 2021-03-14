@@ -13,6 +13,7 @@ Useful Python snippets
         - [Default Dict](#default-dict)
         - [f-strings](#f-strings)
         - [Regex](#regex)
+        - [reduce](#reduce)
         - [Sockets (Docs)](#sockets-docs)
     - [Run Python Script with auto-PDB Shell on Exception](#run-python-script-with-auto-pdb-shell-on-exception)
     - [Dataset](#dataset)
@@ -238,6 +239,15 @@ re_var_comment = re.compile(r'<!-- (?P<key>[^=]+)=(?P<value>[^;]+);')
 
 section = '<!-- rating=1; -->'
 re_var_comment.match(section.strip()).groupdict()  # {'rating': '1'}
+```
+
+### reduce
+
+Nice example from [reddit](https://www.reddit.com/r/Python/comments/lxjf5l/interesting_use_of_self_and_reduce_i_saw_in_the/)
+
+```py
+# Because x.union(y) == DataFrame.union(x, y), reduce can make this simpler without a lambda!
+df_all = reduce(DataFrame.union, list_df)
 ```
 
 ### Sockets ([Docs](https://docs.python.org/3.8/howto/sockets.html))

@@ -17,15 +17,14 @@ authors = [ "Kyle King <KyleKing@users.noreply.github.com>",]
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.9"
-loguru = "^0.5.3"
-numpy = "^1.19.4"
-pandas = "^1.1.4"
+dill = "^0.3"
+loguru = "^0.5"
+numpy = "^1.19"
+pandas = "^1.1"
 python-decouple = "^3.3"
 
 [tool.poetry.dev-dependencies]
 aiofiles = "^0.6"
-asciinema = "^2.0.2"
-flake8 = "^3.8.4"
 ipykernel = "^5.3.4"
 ipywidgets = "^7.5.1"
 julynter = "^0.4.1"
@@ -36,6 +35,11 @@ plotly = "^4.12.0"
 pyparsing = "^2.4"
 PySimpleGUI = "^4.30.0"
 tmdbsimple = "^2.6.6"
+
+# Experimental
+great-expectations = "*"
+pandas-schema = "*"
+pandera = "*"
 
 [tool.poetry.dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"

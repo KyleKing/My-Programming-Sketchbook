@@ -4,6 +4,8 @@ For whatever reason, these snippets reaaaally slow down VSCode, so here they are
 
 ## asciinema ([docs](https://github.com/asciinema/asciinema))
 
+Tested with `asciinema = "^2.0.2"`
+
 Recording a terminal session
 
 ```sh

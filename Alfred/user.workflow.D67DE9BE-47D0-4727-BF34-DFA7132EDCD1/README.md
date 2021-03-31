@@ -5,6 +5,7 @@ This workflow calls an aptly-named function, ```AlfredFunction()```, which retur
 *Note: As this is a two-part program (part-Alfred & part-Hammerspoon), you should also checkout my [```.hammerspoon``` directory](https://github.com/KyleKing/My-Programming-Sketchbook/tree/master/Scripts/.hammerspoon), in particular the [```ini.lua``` file](https://github.com/KyleKing/My-Programming-Sketchbook/blob/master/Scripts/.hammerspoon/init.lua) for additional examples.*
 
 For example, you can define this in your ```init.lua``` file:
+
 ```lua
 -- make sure to have dkjson available in your .hammerspoon dir
 local json = require('dkjson')

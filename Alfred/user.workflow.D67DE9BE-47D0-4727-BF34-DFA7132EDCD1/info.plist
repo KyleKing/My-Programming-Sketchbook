@@ -27,7 +27,7 @@
 	<key>description</key>
 	<string>Finds function names and links from .lua file</string>
 	<key>disabled</key>
-	<false/>
+	<true/>
 	<key>name</key>
 	<string>_Smart Hammerspoon</string>
 	<key>objects</key>
@@ -64,6 +64,12 @@ query="{query}"
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -100,7 +106,7 @@ query="{query}"
 			<key>uid</key>
 			<string>DEDCD8F3-8CFA-445F-AD64-E46DF2048383</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>

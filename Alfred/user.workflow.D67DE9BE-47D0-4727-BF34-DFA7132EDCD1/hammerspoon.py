@@ -3,11 +3,11 @@
 # Huge thanks to the amazing guide:
 # http://www.deanishe.net/alfred-workflow/tutorial_1.html#creating-a-new-workflow
 
-import sys
 import json
-# from time import sleep
+import sys
+from subprocess import PIPE, Popen
+
 from workflow import Workflow
-from subprocess import Popen, PIPE
 
 
 def force_HS_reload():
@@ -21,8 +21,8 @@ def force_HS_reload():
     # p = Popen(['osascript', '-'] + args, stdin=PIPE, stdout=PIPE,
     #           stderr=PIPE)
     # STDOUT, err = p.communicate(scpt)
-    # # print (p.returncode, STDOUT, err)
-    # print STDOUT
+    # # print(p.returncode, STDOUT, err)
+    # print(STDOUT)
 
     conditional_close = '''
         on run {application_name}
@@ -65,7 +65,7 @@ def get_func_list():
     # Try to reload HS config and rerun command
     if err:
         force_HS_reload()
-        print err
+        print(err)
 
         # Works if only running a python file, but takes focus from Alfred
         # sleep(2)
@@ -73,7 +73,7 @@ def get_func_list():
         #              stdout=PIPE, stderr=PIPE)
         # STDOUT, err = pTry.communicate()
         # if err:
-        #     print err
+        #     print(err)
     json_stdout = json.loads(STDOUT)
     # print(json_stdout['wrapper'][1]['FuncName'])
     return json_stdout['wrapper']

@@ -1,0 +1,4 @@
+# this config manually sets the directory (`base_dir`) for Sqlite to store run information in:
+run_storage:
+  module: dagster.core.storage.runs
+  class: SqliteRunStorage

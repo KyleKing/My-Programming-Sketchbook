@@ -10,8 +10,12 @@ poetry run dagit -f dagster_demo.py
 DAGSTER_HOME=$PWD/dagit-cache
 ECHO $DAGSTER_HOME
 mdkir $DAGSTER_HOME
-poetry run dagit -p 80
+nano $DAGSTER_HOME/dagster.yaml
+cat $DAGSTER_HOME/dagster.yaml
+poetry run dagit -f dagster_demo.py -p 80
 ```
+
+Note: the UI stalls sometimes, but when it shows success, reload to see the full run result (otherwise looks like a step ran forever...)
 
 """
 import csv
@@ -26,11 +30,13 @@ from dagster import (ModeDefinition, PresetDefinition, composite_solid, daily_sc
 from dagster.core.execution.context.compute import SolidExecutionContext
 from dagster.experimental import DynamicOutput, DynamicOutputDefinition
 
-SLEEP = 0.1
+SLEEP = 2
 
 # FIXME: Stop on first failure?
 
 
+# @solid
+# def load_cereals(context: SolidExecutionContext) -> List[Dict[str, str]]:
 @solid(
     config_schema={'max_cereal': int},
     output_defs=[DynamicOutputDefinition(List[Dict[str, str]])],
@@ -48,6 +54,7 @@ def load_cereals(context: SolidExecutionContext, date: str):
     dataset_path = os.path.join(os.path.dirname(__file__), 'cereal.csv')
     with open(dataset_path, 'r') as fd:
         cereals = [*csv.DictReader(fd)]
+    # return cereals[:20]
     for max_cereal in range(2, context.solid_config['max_cereal'] + 3):
         yield DynamicOutput(
             value=cereals[:max_cereal],
@@ -115,8 +122,14 @@ def process_cereal(cereals: List[Dict[str, str]]) -> str:
 
 
 @solid
-def display_cereal_results(context: SolidExecutionContext, cereal_results) -> None:
+def display_cereal_results(context: SolidExecutionContext, cereal_results) -> int:
     context.log.info(f'cereal_results={cereal_results}')
+    return 1
+
+
+@solid
+def last_step(context: SolidExecutionContext, something: int) -> None:
+    context.log.info(f'something={something}')
 
 
 # --------------------------------------------------------------------------------------
@@ -151,8 +164,13 @@ def display_cereal_results(context: SolidExecutionContext, cereal_results) -> No
 def complex_pipeline() -> None:
     """Docstring for complex_pipeline."""
     cereals = load_cereals()
+
+    # cereal_results = process_cereal(cereals)
+    # display_cereal_results(cereal_results)
+
     cereal_results = cereals.map(process_cereal)
-    display_cereal_results(cereal_results.collect())
+    something = display_cereal_results(cereal_results.collect())
+    last_step(something)
 
 
 # FROM: https://github.com/dagster-io/dagster/blob/0.11.4/examples/docs_snippets/docs_snippets/intro_tutorial/advanced/scheduling/scheduler.py
@@ -178,7 +196,7 @@ def good_weekday_morning_schedule(date):
     }
 
 
-# Just a collection
+# Repositories are a collection of pipelines and schedules to populate the UI
 @repository
 def complex_repository():
     return [complex_pipeline, good_weekday_morning_schedule]
@@ -202,7 +220,10 @@ def test_complex_pipeline():
     # Can also be a yaml file passed to CLI with "-c" for test vs. production
     # https://docs.dagster.io/tutorial/intro-tutorial/configuring-solids
     run_config = {
-        'solids': {'load_cereals': {'config': {'max_cereal': 2}}},
+        'solids': {'load_cereals': {
+            'config': {'max_cereal': 2},
+            'inputs': {'date': '2021-01-02'},
+        }},
         # WARN: Only run multiprocessing through dagit
         # 'execution': {'multiprocess': {'config': {
         #     'max_concurrent': 10,
@@ -218,7 +239,7 @@ def test_complex_pipeline():
 
 
 if __name__ == '__main__':
-    # test_get_most_calories()
+    test_get_most_calories()
     test_complex_pipeline()
 
     result = execute_pipeline(complex_pipeline, preset='local')

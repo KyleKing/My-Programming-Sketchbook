@@ -5,17 +5,17 @@
 poetry run python dagster_demo.py
 poetry run dagit -f dagster_demo.py
 
-# Set a persistent location for dagit to store metadata (otherwise in tmp directory)
-# FIXME: This isn't actually working...
+# Set a persistent location for dagit to store metadata (otherwise in temporary directory)
 DAGSTER_HOME=$PWD/dagit-cache
+export DAGSTER_HOME
 ECHO $DAGSTER_HOME
 mdkir $DAGSTER_HOME
-nano $DAGSTER_HOME/dagster.yaml
-cat $DAGSTER_HOME/dagster.yaml
-poetry run dagit -f dagster_demo.py -p 80
+# cat $DAGSTER_HOME/dagster.yaml # (not required)
+poetry run dagit -f dagster_demo.py -p 3000
+# Note: setting the port to 8080 or another non-3000 needs changes elsewhere... Stays gray
 ```
 
-Note: the UI stalls sometimes, but when it shows success, reload to see the full run result (otherwise looks like a step ran forever...)
+Note: the UI stalls sometimes, but when it shows success, reload to see the full run result (otherwise looks like a step ran forever...). This appears to only happen when running from the temporary directory though
 
 """
 import csv

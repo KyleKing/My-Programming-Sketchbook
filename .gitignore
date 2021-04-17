@@ -20,3 +20,6 @@ Recipes/imgs/IMG*.jpg
 secret_backup.json
 secret.*
 z_notInterested.lua
+
+**/dagit-cache/.*/*
+**/dagit-cache/storage/*

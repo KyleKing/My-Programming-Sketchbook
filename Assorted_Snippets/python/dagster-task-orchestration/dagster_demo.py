@@ -14,44 +14,28 @@ poetry run dagit -p 80
 ```
 
 """
-
 import csv
 import os
-import time
+from datetime import datetime, time
 from operator import itemgetter
+from time import sleep
 from typing import Dict, List
 
-from dagster import (ModeDefinition, PresetDefinition, composite_solid, default_executors,
-                     execute_pipeline, execute_solid, fs_io_manager, pipeline, reconstructable, solid)
+from dagster import (ModeDefinition, PresetDefinition, composite_solid, daily_schedule, default_executors,
+                     execute_pipeline, execute_solid, fs_io_manager, pipeline, repository, solid)
 from dagster.core.execution.context.compute import SolidExecutionContext
 from dagster.experimental import DynamicOutput, DynamicOutputDefinition
-from dagster_dask import dask_executor
 
 SLEEP = 0.1
 
-
-# @solid(config_schema={'max_cereal': int})
-# def load_cereals(context: SolidExecutionContext) -> List[Dict[str, str]]:
-#     """Docstring for load_cereals.
-#
-#     Args:
-#         context: SolidExecutionContext
-#
-#     Results:
-#         str: some string
-#
-#     """
-#     dataset_path = os.path.join(os.path.dirname(__file__), 'cereal.csv')
-#     with open(dataset_path, 'r') as fd:
-#         cereals = [*csv.DictReader(fd)]
-#     return cereals[:context.solid_config['max_cereal']]
+# FIXME: Stop on first failure?
 
 
 @solid(
     config_schema={'max_cereal': int},
     output_defs=[DynamicOutputDefinition(List[Dict[str, str]])],
 )
-def load_cereals(context: SolidExecutionContext):
+def load_cereals(context: SolidExecutionContext, date: str):
     """Docstring for load_cereals.
 
     Args:
@@ -67,41 +51,42 @@ def load_cereals(context: SolidExecutionContext):
     for max_cereal in range(2, context.solid_config['max_cereal'] + 3):
         yield DynamicOutput(
             value=cereals[:max_cereal],
-            mapping_key=f'max_cereal_{max_cereal}',  # Must be a valid function name (i.e. no dashes)
+             # Must be a valid function name (i.e. no dashes)
+            mapping_key=f'max_cereal_{max_cereal}_{date}'.replace('-', '_'),
         )
 
 
 @solid
-def get_most_calories(context: SolidExecutionContext,
-                      cereals: List[Dict[str, str]]) -> str:
+def get_most_calories(context: SolidExecutionContext, cereals: List[Dict[str, str]]) -> str:
     """Docstring for get_most_calories.
 
     Args:
         context: SolidExecutionContext
+        cereals: list
 
     Results:
-        str: some string
+        str: cereal name
 
     """
     sorted_cereals = [*sorted(cereals, key=itemgetter('calories'))]
-    time.sleep(SLEEP + 0.5)
+    sleep(SLEEP + 0.5)
     return sorted_cereals[-1]['name']
 
 
 @solid
-def get_most_protein(context: SolidExecutionContext,
-                     cereals: List[Dict[str, str]]) -> str:
+def get_most_protein(context: SolidExecutionContext, cereals: List[Dict[str, str]]) -> str:
     """Docstring for get_most_protein.
 
     Args:
         context: SolidExecutionContext
+        cereals: list
 
     Results:
-        str: some string
+        str: cereal name
 
     """
     sorted_cereals = [*sorted(cereals, key=itemgetter('protein'))]
-    time.sleep(SLEEP)
+    sleep(SLEEP)
     return sorted_cereals[-1]['name']
 
 
@@ -124,15 +109,8 @@ def log_results(context: SolidExecutionContext, *,
 
 @composite_solid
 def process_cereal(cereals: List[Dict[str, str]]) -> str:
-    # Doesn't work to pass non-output as an input
-    # get_most_calories = get_most.alias('get_most_calories')
-    # get_most_protein = get_most.alias('get_most_protein')
-    # most_calories = get_most_calories(cereals, 'calories')
-    # most_protein = get_most_protein(cereals, 'protein')
-
     most_calories = get_most_calories(cereals)
     most_protein = get_most_protein(cereals)
-
     return log_results(most_calories=most_calories, most_protein=most_protein)
 
 
@@ -147,16 +125,26 @@ def display_cereal_results(context: SolidExecutionContext, cereal_results) -> No
 @pipeline(
     preset_defs=[
         PresetDefinition(name='default', run_config={
-            'solids': {'load_cereals': {'config': {'max_cereal': 8}}},
-            'execution': {'dask': {'config': {
-                'cluster': {'local': {}},  # Test Dask parallelism only in dagit
+            'solids': {'load_cereals': {
+                'config': {'max_cereal': 8},
+                'inputs': {'date': '2021-03-01'},
+            }},
+            'execution': {'multiprocess': {'config': {
+                'max_concurrent': 10,
             }}},
+            # 'intermediate_storage': {'filesystem': {}}, # Duplicate of io_manager
+        }),
+        PresetDefinition(name='local', run_config={
+            'solids': {'load_cereals': {
+                'config': {'max_cereal': 2},
+                'inputs': {'date': '2021-01-02'},
+            }},
         }),
     ],
     mode_defs=[
         ModeDefinition(
             resource_defs={'io_manager': fs_io_manager},
-            executor_defs=default_executors + [dask_executor],
+            executor_defs=default_executors,
         ),
     ],
 )
@@ -167,7 +155,33 @@ def complex_pipeline() -> None:
     display_cereal_results(cereal_results.collect())
 
 
-reconstructable_complex_pipeline = reconstructable(complex_pipeline)
+# FROM: https://github.com/dagster-io/dagster/blob/0.11.4/examples/docs_snippets/docs_snippets/intro_tutorial/advanced/scheduling/scheduler.py
+def weekday_filter(context) -> bool:
+    """Returns true if current day is a weekday."""
+    return datetime.today().weekday() < 5
+
+
+@daily_schedule(
+    pipeline_name='complex_pipeline',
+    start_date=datetime(2021, 1, 1),
+    execution_time=time(10, 5),
+    execution_timezone='US/Central',
+    should_execute=weekday_filter,
+)
+def good_weekday_morning_schedule(date):
+    return {
+        'solids': {
+            'load_cereals': {
+                'inputs': {'date': {'value': date.strftime('%Y_%m_%d')}},
+            },
+        },
+    }
+
+
+# Just a collection
+@repository
+def complex_repository():
+    return [complex_pipeline, good_weekday_morning_schedule]
 
 
 # --------------------------------------------------------------------------------------
@@ -185,8 +199,14 @@ def test_get_most_calories():
 
 
 def test_complex_pipeline():
+    # Can also be a yaml file passed to CLI with "-c" for test vs. production
+    # https://docs.dagster.io/tutorial/intro-tutorial/configuring-solids
     run_config = {
-        'solids': {'load_cereals': {'config': {'max_cereal': 1}}},
+        'solids': {'load_cereals': {'config': {'max_cereal': 2}}},
+        # WARN: Only run multiprocessing through dagit
+        # 'execution': {'multiprocess': {'config': {
+        #     'max_concurrent': 10,
+        # }}},
     }
 
     result = execute_pipeline(complex_pipeline, run_config=run_config)
@@ -199,24 +219,6 @@ def test_complex_pipeline():
 
 if __name__ == '__main__':
     # test_get_most_calories()
-    # test_complex_pipeline()
+    test_complex_pipeline()
 
-    # Can also be a yaml file passed to CLI with "-c" for test vs. production
-    # https://docs.dagster.io/tutorial/intro-tutorial/configuring-solids
-    run_config = {
-        'solids': {'load_cereals': {'config': {'max_cereal': 4}}},
-        # 'execution': {'dask': {'config': {
-        #     'cluster': {'local': {}},  # Test Dask parallelism only in dagit
-        #     # 'cluster': {'local': {'n_workers': 1, 'threads_per_worker': 4}},
-        #     # DagsterUnmetExecutorRequirementsError: You have attempted to use an executor that uses multiple processes with the pipeline "complex_pipeline" that is not reconstructable. Pipelines must be loaded in a way that allows dagster to reconstruct them in a new process. This means:
-        #     # * using the file, module, or repository.yaml arguments of dagit/dagster-graphql/dagster
-        #     # * loading the pipeline through the reconstructable() function
-        # }}},
-    }
-    result = execute_pipeline(complex_pipeline, run_config=run_config)
-
-    # > PLANNED: max_cereals = [*range(2, 5)]
-    # Maybe: https://stackoverflow.com/questions/61330816/how-would-you-parameterize-dagster-pipelines-to-run-same-solids-with-multiple-di
-
-    # result = execute_pipeline(complex_pipeline, preset='default')
-    # result = execute_pipeline(reconstructable_complex_pipeline, preset='default')
+    result = execute_pipeline(complex_pipeline, preset='local')

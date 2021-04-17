@@ -15,38 +15,64 @@ poetry run dagit -p 80
 
 """
 
-import time
 import csv
 import os
+import time
 from operator import itemgetter
-from typing import Dict, List, Optional
+from typing import Dict, List
 
-from dagster import ModeDefinition, default_executors, execute_pipeline, fs_io_manager, pipeline, solid, execute_solid
+from dagster import (ModeDefinition, PresetDefinition, composite_solid, default_executors,
+                     execute_pipeline, execute_solid, fs_io_manager, pipeline, reconstructable, solid)
 from dagster.core.execution.context.compute import SolidExecutionContext
+from dagster.experimental import DynamicOutput, DynamicOutputDefinition
 from dagster_dask import dask_executor
 
-SLEEP = 4
+SLEEP = 0.1
 
 
-@solid(config_schema={'max_cereal': int})
-def load_cereals(context: Optional[SolidExecutionContext]) -> List[Dict[str, str]]:
+# @solid(config_schema={'max_cereal': int})
+# def load_cereals(context: SolidExecutionContext) -> List[Dict[str, str]]:
+#     """Docstring for load_cereals.
+#
+#     Args:
+#         context: SolidExecutionContext
+#
+#     Results:
+#         str: some string
+#
+#     """
+#     dataset_path = os.path.join(os.path.dirname(__file__), 'cereal.csv')
+#     with open(dataset_path, 'r') as fd:
+#         cereals = [*csv.DictReader(fd)]
+#     return cereals[:context.solid_config['max_cereal']]
+
+
+@solid(
+    config_schema={'max_cereal': int},
+    output_defs=[DynamicOutputDefinition(List[Dict[str, str]])],
+)
+def load_cereals(context: SolidExecutionContext):
     """Docstring for load_cereals.
 
     Args:
         context: SolidExecutionContext
 
-    Results:
-        str: some string
+    Yields:
+        List[Dict[str, str]]: Cereals
 
     """
     dataset_path = os.path.join(os.path.dirname(__file__), 'cereal.csv')
     with open(dataset_path, 'r') as fd:
         cereals = [*csv.DictReader(fd)]
-    return cereals[:context.solid_config['max_cereal']]
+    for max_cereal in range(2, context.solid_config['max_cereal'] + 3):
+        yield DynamicOutput(
+            value=cereals[:max_cereal],
+            mapping_key=f'max_cereal_{max_cereal}',  # Must be a valid function name (i.e. no dashes)
+        )
 
 
 @solid
-def get_most_calories(context: Optional[SolidExecutionContext],
+def get_most_calories(context: SolidExecutionContext,
                       cereals: List[Dict[str, str]]) -> str:
     """Docstring for get_most_calories.
 
@@ -63,7 +89,7 @@ def get_most_calories(context: Optional[SolidExecutionContext],
 
 
 @solid
-def get_most_protein(context: Optional[SolidExecutionContext],
+def get_most_protein(context: SolidExecutionContext,
                      cereals: List[Dict[str, str]]) -> str:
     """Docstring for get_most_protein.
 
@@ -80,22 +106,53 @@ def get_most_protein(context: Optional[SolidExecutionContext],
 
 
 @solid
-def log_results(context: Optional[SolidExecutionContext], *,
-                most_calories: str, most_protein: str) -> None:
+def log_results(context: SolidExecutionContext, *,
+                most_calories: str, most_protein: str) -> str:
     """Docstring for log_results.
 
     Args:
         context: SolidExecutionContext
 
     Results:
-        str: some string
+        str: sum of string lengths
 
     """
     context.log.info(f'Most caloric cereal: {most_calories}')
     context.log.info(f'Most protein-rich cereal: {most_protein}')
+    return f'{len(most_calories)}--{len(most_protein)}'
+
+
+@composite_solid
+def process_cereal(cereals: List[Dict[str, str]]) -> str:
+    # Doesn't work to pass non-output as an input
+    # get_most_calories = get_most.alias('get_most_calories')
+    # get_most_protein = get_most.alias('get_most_protein')
+    # most_calories = get_most_calories(cereals, 'calories')
+    # most_protein = get_most_protein(cereals, 'protein')
+
+    most_calories = get_most_calories(cereals)
+    most_protein = get_most_protein(cereals)
+
+    return log_results(most_calories=most_calories, most_protein=most_protein)
+
+
+@solid
+def display_cereal_results(context: SolidExecutionContext, cereal_results) -> None:
+    context.log.info(f'cereal_results={cereal_results}')
+
+
+# --------------------------------------------------------------------------------------
 
 
 @pipeline(
+    preset_defs=[
+        PresetDefinition(name='default', run_config={
+            'solids': {'load_cereals': {'config': {'max_cereal': 8}}},
+            'execution': {'dask': {'config': {
+                'cluster': {'local': {}},  # Test Dask parallelism only in dagit
+            }}},
+        }),
+    ],
     mode_defs=[
         ModeDefinition(
             resource_defs={'io_manager': fs_io_manager},
@@ -106,9 +163,14 @@ def log_results(context: Optional[SolidExecutionContext], *,
 def complex_pipeline() -> None:
     """Docstring for complex_pipeline."""
     cereals = load_cereals()
-    most_calories = get_most_calories(cereals)
-    most_protein = get_most_protein(cereals)
-    log_results(most_calories=most_calories, most_protein=most_protein)
+    cereal_results = cereals.map(process_cereal)
+    display_cereal_results(cereal_results.collect())
+
+
+reconstructable_complex_pipeline = reconstructable(complex_pipeline)
+
+
+# --------------------------------------------------------------------------------------
 
 
 # https://docs.dagster.io/_apidocs/execution#dagster.execute_solid
@@ -124,32 +186,37 @@ def test_get_most_calories():
 
 def test_complex_pipeline():
     run_config = {
-        'solids': {'load_cereals': {'config': {'max_cereal': 8}}},
+        'solids': {'load_cereals': {'config': {'max_cereal': 1}}},
     }
 
     result = execute_pipeline(complex_pipeline, run_config=run_config)
 
     assert result.success
-    assert len(result.solid_result_list) == 4
+    assert len(result.solid_result_list) > 2
     for solid_res in result.solid_result_list:
         assert solid_res.success
 
 
 if __name__ == '__main__':
-    test_get_most_calories()
-    test_complex_pipeline()
+    # test_get_most_calories()
+    # test_complex_pipeline()
 
     # Can also be a yaml file passed to CLI with "-c" for test vs. production
     # https://docs.dagster.io/tutorial/intro-tutorial/configuring-solids
     run_config = {
-        'solids': {'load_cereals': {'config': {'max_cereal': 8}}},
-
-        # https://docs.dagster.io/_apidocs/libraries/dagster-dask#dagster_dask.dask_executor
-        'execution': {'dask': {'config': {
-            # 'cluster': {'local': {'n_workers': 1, 'threads_per_worker': 2}},
-            'cluster': {'local': {}},  # Test Dask parallelism only in dagit
-        }}},
+        'solids': {'load_cereals': {'config': {'max_cereal': 4}}},
+        # 'execution': {'dask': {'config': {
+        #     'cluster': {'local': {}},  # Test Dask parallelism only in dagit
+        #     # 'cluster': {'local': {'n_workers': 1, 'threads_per_worker': 4}},
+        #     # DagsterUnmetExecutorRequirementsError: You have attempted to use an executor that uses multiple processes with the pipeline "complex_pipeline" that is not reconstructable. Pipelines must be loaded in a way that allows dagster to reconstruct them in a new process. This means:
+        #     # * using the file, module, or repository.yaml arguments of dagit/dagster-graphql/dagster
+        #     # * loading the pipeline through the reconstructable() function
+        # }}},
     }
+    result = execute_pipeline(complex_pipeline, run_config=run_config)
 
     # > PLANNED: max_cereals = [*range(2, 5)]
-    result = execute_pipeline(complex_pipeline, run_config=run_config)
+    # Maybe: https://stackoverflow.com/questions/61330816/how-would-you-parameterize-dagster-pipelines-to-run-same-solids-with-multiple-di
+
+    # result = execute_pipeline(complex_pipeline, preset='default')
+    # result = execute_pipeline(reconstructable_complex_pipeline, preset='default')

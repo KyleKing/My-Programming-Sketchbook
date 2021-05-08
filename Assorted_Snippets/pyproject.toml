@@ -18,6 +18,7 @@ authors = [ "Kyle King <KyleKing@users.noreply.github.com>",]
 [tool.poetry.dependencies]
 python = "^3.8,<3.9"
 dill = "^0.3"
+grpcio = "^1.37"
 loguru = "^0.5"
 numpy = "^1.19"
 pandas = "^1.1"
@@ -40,6 +41,7 @@ tmdbsimple = "^2.6"
 great-expectations = "*"
 pandas-schema = "*"
 pandera = "*"
+grpcio-tools = "^1.37.0"
 
 [tool.poetry.dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"

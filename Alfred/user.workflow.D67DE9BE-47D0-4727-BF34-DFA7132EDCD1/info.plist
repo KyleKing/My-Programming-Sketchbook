@@ -27,7 +27,7 @@
 	<key>description</key>
 	<string>Finds function names and links from .lua file</string>
 	<key>disabled</key>
-	<true/>
+	<false/>
 	<key>name</key>
 	<string>_Smart Hammerspoon</string>
 	<key>objects</key>

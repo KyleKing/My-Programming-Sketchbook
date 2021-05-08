@@ -32,7 +32,7 @@ end conditionalopen
 -- Open apps if not open already:
 conditionalopen("Sip")
 conditionalopen("Dash")
--- conditionalopen("PopClip") -- causes CMD C to fail...
+-- conditionalopen("PopClip") -- Causes CMD C to fail. Currently deactivated
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
 conditionalopen("Downlink")
@@ -44,14 +44,14 @@ conditionalopen("Downlink")
 -- conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
 conditionalopen("Dropbox")
-conditionalopen("Backup and Sync")  -- Google Drive Sync
+conditionalopen("Backup and Sync") -- Google Drive Sync
 
 -- Debugging:
 
 -- Use console to log timestamp and info to console upon error
 -- to logit(log_string, log_file)
--- 	do shell script Â¬
--- 		"echo `date '+%Y-%m-%d %T: '`\"" & log_string & Â¬
+-- 	do shell script Â
+-- 		"echo `date '+%Y-%m-%d %T: '`\"" & log_string & Â
 -- 		"\" >> $HOME/Library/Logs/" & log_file & ".log"
 -- end logit
 

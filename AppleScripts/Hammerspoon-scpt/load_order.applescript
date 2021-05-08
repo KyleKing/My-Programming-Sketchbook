@@ -1,5 +1,4 @@
--- Symlinked into ~/Library/Services/ dir to be run as an Apple Service
--- [Inspired by this guide](http://www.makeuseof.com/tag/3-tools-unleash-mac-os-menu-bar/)
+--- Inspired by: http://www.makeuseof.com/tag/3-tools-unleash-mac-os-menu-bar
 
 to conditionalclose(application_name)
 	tell application application_name
@@ -33,11 +32,10 @@ end conditionalopen
 -- Open apps if not open already:
 conditionalopen("Sip")
 conditionalopen("Dash")
--- conditionalopen("PopClip") -- causes CMD C to fail on first try?
+-- conditionalopen("PopClip") -- causes CMD C to fail...
 conditionalopen("Dropshelf")
 conditionalopen("Flux")
 conditionalopen("Downlink")
-
 -- conditionalopen("Numi")
 
 -- Background Apps
@@ -45,10 +43,8 @@ conditionalopen("Downlink")
 -- conditionalopen("BetterTouchTool")
 -- conditionalopen("EvernoteHelper")
 conditionalopen("Bartender 2")
--- conditionalopen("OverSight")  -- Loads with a pop-up, so let it launch on its own
-conditionalopen("Dropbox") -- The Dropbox file helper is likely stealing the cursor focus (had to due with limited permissions. Gave full disk access to fix...)
+conditionalopen("Dropbox")
 conditionalopen("Backup and Sync")  -- Google Drive Sync
--- Background Apps ^
 
 -- Debugging:
 
@@ -61,9 +57,6 @@ conditionalopen("Backup and Sync")  -- Google Drive Sync
 
 -- Quit any unneccessary apps
 -- conditionalclose("KeepingYouAwake")
-
--- TODO!
--- tell application "Finder" to sleep
 
 -- Other method of printing results
 set dateStamp to date string of (current date)

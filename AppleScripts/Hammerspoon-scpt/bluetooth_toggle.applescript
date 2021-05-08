@@ -1,5 +1,3 @@
--- Symlinked into ~/Library/Services/ dir to be run as an Apple Service
-
 -- Using "blueutil" installed at:
 set blueutilpath to "/usr/local/bin/blueutil"
 -- Might work? The blueutil API changed in version 2

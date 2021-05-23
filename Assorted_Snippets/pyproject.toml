@@ -18,14 +18,12 @@ authors = [ "Kyle King <KyleKing@users.noreply.github.com>",]
 [tool.poetry.dependencies]
 python = "^3.8,<3.9"
 dill = "^0.3"
-grpcio = "^1.37"
 loguru = "^0.5"
 numpy = "^1.19"
 pandas = "^1.1"
 python-decouple = "^3.3"
 
 [tool.poetry.dev-dependencies]
-aiofiles = "^0.6"
 ipykernel = "^5.3"
 ipywidgets = "^7.5"
 julynter = "^0.4"
@@ -37,18 +35,22 @@ pyparsing = "^2.4"
 PySimpleGUI = "^4.30"
 tmdbsimple = "^2.6"
 
+async-files = "^0.4"
+aiofiles = "^0.6"
+
 # Experimental
 great-expectations = "*"
 pandas-schema = "*"
 pandera = "*"
-grpcio-tools = "^1.37.0"
 
 [tool.poetry.dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
-branch = "main"
+branch = "dev/development"
+rev = "56802cf"  # Always pin to a commit
+develop = true  # Optional: will reinstall each time
 
 [tool.poetry.dev-dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
-branch = "main"
+branch = "dev/development"
 # extras = [ "dev", "lint", "test",]
 extras = [ "dev", "lint"]

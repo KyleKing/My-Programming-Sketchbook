@@ -122,6 +122,18 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "asyncstdlib"
+version = "3.9.2"
+description = "The missing async toolbox"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+doc = ["sphinx", "sphinxcontrib-contentui", "sphinxcontrib-trio"]
+test = ["pytest (>=4.3.0)", "flake8", "flake8-bugbear", "black", "coverage"]
+
+[[package]]
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
@@ -2691,7 +2703,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8,<3.9"
-content-hash = "ca0b7ce7eb539ff94ed78b1ebb8ff448653f9c8f6b8ef51b97b0bcb99254408e"
+content-hash = "1ec9dbfe74aec849cd14e28b3e3bbf450eb3c023a9e96c52b5747f2c16872290"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2752,6 +2764,10 @@ async-files = [
 async-generator = [
     {file = "async_generator-1.10-py3-none-any.whl", hash = "sha256:01c7bf666359b4967d2cda0000cc2e4af16a0ae098cbffcb8472fb9e8ad6585b"},
     {file = "async_generator-1.10.tar.gz", hash = "sha256:6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144"},
+]
+asyncstdlib = [
+    {file = "asyncstdlib-3.9.2-py2.py3-none-any.whl", hash = "sha256:cecb4e4d7d3d4e7c56ba8d304abe1e259ababb45b2defebf18e3171958e3c9ea"},
+    {file = "asyncstdlib-3.9.2.tar.gz", hash = "sha256:2b9c729d238df39f4728f59303b152d5e9ff89860256d567609c91deba2848f3"},
 ]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},

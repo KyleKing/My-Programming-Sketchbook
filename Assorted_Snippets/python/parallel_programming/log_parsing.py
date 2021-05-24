@@ -5,21 +5,47 @@ cd Assorted_Snippets
 poetry run python python/parallel_programming/log_parsing.py
 ```
 
-> PLANNED: try running against: "/private/var/log/system.log"
+Resource Links:
 
-Links:
-
-- async: https://realpython.com/async-io-python/#using-a-queue
-- aiofiles: https://pypi.org/project/aiofiles
-- async-files: https://pypi.org/project/async-files
+- generators: https://masnun.com/2015/11/13/python-generators-coroutines-native-coroutines-and-async-await.html
+- async queue: https://realpython.com/async-io-python/#using-a-queue
+- cheat sheet for async: https://www.pythonsheets.com/notes/python-asyncio.html
+- async-files: https://pypi.org/project/async-files (Fork of aiofiles)
+- async stdlib: https://asyncstdlib.readthedocs.io/en/latest/_modules/asyncstdlib/itertools.html
 - timeit: https://docs.python.org/3/library/timeit.html
+- pyparsing performance advice:
+    - https://codereview.stackexchange.com/questions/167445/parsing-a-file-using-pyparsing
+    - https://stackoverflow.com/questions/7233891/pyparsing-performance-tips-for-parallel-logs-processing
+    - https://stackoverflow.com/questions/3406544/parsing-snort-logs-with-pyparsing
+
+Parse system logs for more complex demos (i.e. "/private/var/log/system.log"):
+    https://www.howtogeek.com/356942/how-to-view-the-system-log-on-a-mac/
+
+- System Log Folder: /var/log
+- System Log: /var/log/system.log
+- Mac Analytics Data: /var/log/DiagnosticMessages
+- System Application Logs: /Library/Logs
+- System Reports: /Library/Logs/DiagnosticReports
+- User Application Logs: ~/Library/Logs (in other words, /Users/NAME/Library/Logs)
+- User Reports: ~/Library/Logs/DiagnosticReports (in other words, /Users/NAME/Library/Logs/DiagnosticReports)
+
+Planned Parser Logic:
+
+* Step 1: Generator line reader returns each single or multiline "log entry"
+* Step 2: Yielded log entry is passed to a parser that uses regex, pyparsing, or other method
+    * (Could be an intermediary step to assign task based on format for performance)
+    * All output is then stored in a database such as sqlite (For performance, could collect and write in batches)
 
 """
 
+import asyncio
 import string
 import time
 from pathlib import Path
+from typing import Callable
 
+from async_files import FileIO
+from asyncstdlib.builtins import enumerate as async_enumerate
 from loguru import logger
 from pyparsing import (Combine, Group, ParseException, Suppress, Word, alphas,
                        dblQuotedString, delimitedList, nums, removeQuotes)
@@ -77,16 +103,7 @@ BNF_TEST_DATA = [
     ('127.0.0.1 - u.surname@domain.com [12/Sep/2006:14:13:53 +0300] "GET /skins/monobook/external.png HTTP/1.0" 304 -'
      ' "http://wiki.mysite.com/skins/monobook/main.css" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.6)'
      ' Gecko/20060728 Firefox/1.5.0.6"'),
-] * 250
-
-# # TODO: async function is shown as a SyntaxError in VSCode?
-# ? import asyncio
-# ? import aiofiles
-# ? async def _read_lines(path_log: Path):  # noqa
-# ?     async with aiofiles.open(path_log, mode='r') as _f:
-# ?         async for line in _f:
-# ?             logger.debug(line.strip())
-# ? # > asyncio.run(_read_lines(path_log))
+]
 
 
 def _parse_line_bnf(line: str, write_log: bool = False):  # noqa: D103
@@ -99,7 +116,7 @@ def _parse_line_bnf(line: str, write_log: bool = False):  # noqa: D103
     # >     logger.debug(f'fields[{key}] = {fields[key]}')
 
 
-def _gen_read_lines(path_log: Path) -> None:
+def _gen_read_lines_sync(path_log: Path) -> None:
     """Yield lines from the specified log file."""
     with open(path_log, mode='r') as _f:
         for line in _f.readlines():
@@ -107,20 +124,55 @@ def _gen_read_lines(path_log: Path) -> None:
                 yield line
 
 
-def main_sync(path_log: Path) -> None:  # noqa: D103
+async def _gen_read_lines_async(path_log: Path) -> None:
+    """Yield lines from the specified log file asynchronously."""
+    async with FileIO(path_log, mode='r') as f:
+        async for line in f:
+            if line:
+                yield line
+
+
+def main_sync(path_log: Path, parse_f: Callable[[str, bool], None]) -> None:  # noqa
     """Main function for synchronous parsing of the log file."""
-    logger.debug(f'Parsing: {path_log}')
+    logger.debug(f'SYNC-Parsing: {path_log}')
     try:
-        for index, line in enumerate(_gen_read_lines(path_log)):
-            _parse_line_bnf(line, index < 1)
+        for index, line in enumerate(_gen_read_lines_sync(path_log)):
+            parse_f(line, write_log=index < 1)
     except ParseException:
         logger.exception(f'Failed to parse: {path_log}. Skipping')
+
+
+async def main_async(path_log: Path, parse_f: Callable[[str, bool], None]) -> None:  # noqa
+    """Main function for synchronous parsing of the log file."""
+    logger.debug(f'ASYNC-Parsing: {path_log}')
+    try:
+        async for index, line in async_enumerate(_gen_read_lines_async(path_log)):
+            parse_f(line, write_log=index < 1)
+    except ParseException:
+        logger.exception(f'Failed to parse: {path_log}. Skipping')
+
+
+def time_control(path_log: Path) -> float:
+    """Time the processing time for the synchronous approach."""
+    def vapor(line, write_log):
+        pass
+
+    start = time.perf_counter()
+    main_sync(path_log, vapor)
+    return time.perf_counter() - start
 
 
 def time_sync(path_log: Path) -> float:
     """Time the processing time for the synchronous approach."""
     start = time.perf_counter()
-    main_sync(path_log)
+    main_sync(path_log, _parse_line_bnf)
+    return time.perf_counter() - start
+
+
+async def time_async(path_log: Path) -> float:
+    """Time the processing time for the synchronous approach."""
+    start = time.perf_counter()
+    await main_async(path_log, _parse_line_bnf)
     return time.perf_counter() - start
 
 
@@ -128,8 +180,19 @@ if __name__ == '__main__':
     """Run as a script file to test. See snippet at top."""
     dir_log = Path(__file__).resolve().parent / 'log'
     path_log_bnf = dir_log / 'bnf.log'
-    path_log_bnf.write_text('\n'.join(BNF_TEST_DATA))
 
-    sync_elapsed = time_sync(path_log_bnf)
+    loop = asyncio.get_event_loop()
+    for scalar in [50, 5000]:
+        path_log_bnf.write_text('\n'.join(BNF_TEST_DATA * scalar))
 
-    logger.info(f'time_snc: {sync_elapsed:0.2f}')  # ~0.76s
+        con_elapsed = time_control(path_log_bnf)
+        sync_elapsed = time_sync(path_log_bnf)
+        async_elapsed = loop.run_until_complete(time_async(path_log_bnf))
+
+        logger.info(f'time_control({scalar}): {con_elapsed:0.2f}')  # (500) ~0.00 (this is a CPU-limited process)
+        logger.info(f'time_sync({scalar}): {sync_elapsed:0.2f}')  # (500) ~1.12s
+        logger.info(f'time_async({scalar}): {async_elapsed:0.2f}')  # (500) ~1.52s (Slower)
+
+    # FYI: async is always slower even when the file becomes very large (4 * 50000 lines)
+
+    loop.close()

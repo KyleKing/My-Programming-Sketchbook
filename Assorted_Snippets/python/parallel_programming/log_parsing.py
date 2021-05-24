@@ -21,6 +21,8 @@ Resource Links:
 Parse system logs for more complex demos (i.e. "/private/var/log/system.log"):
     https://www.howtogeek.com/356942/how-to-view-the-system-log-on-a-mac/
 
+Example parser: https://github.com/CrowdStrike/automactc/blob/master/modules/mod_syslog_v100.py
+
 - System Log Folder: /var/log
 - System Log: /var/log/system.log
 - Mac Analytics Data: /var/log/DiagnosticMessages
@@ -39,6 +41,7 @@ Planned Parser Logic:
 """
 
 import asyncio
+import re
 import string
 import time
 from pathlib import Path
@@ -92,8 +95,9 @@ def _create_log_line_bnf():  # noqa: D103
 LOG_LINE_BNF = _create_log_line_bnf()
 
 BNF_TEST_DATA = [
+    # Use "\n\t" to turn this first line into a multi-line entry for the parser, but will be fixed in _parse_line_bnf
     ('195.146.134.15 - - [20/Jan/2003:08:55:36 -0800] "GET /path/to/page.html HTTP/1.0" 200 4649'
-     ' "http://www.somedomain.com/020602/page.html" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"'),
+     '\n\t"http://www.somedomain.com/020602/page.html" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"'),
     ('111.111.111.11 - - [16/Feb/2004:04:09:49 -0800] "GET /ads/redirectads/336x280redirect.htm HTTP/1.1" 304 -'
      ' "http://www.foobarp.org/theme_detail.php?type=vs&cat=0&mid=27512" "Mozilla/4.0 (compatible; MSIE 6.0; Windows'
      ' NT 5.1)"'),
@@ -105,9 +109,13 @@ BNF_TEST_DATA = [
      ' Gecko/20060728 Firefox/1.5.0.6"'),
 ]
 
+RE_START_BNF_LINE = re.compile(r'^\d')
+
 
 def _parse_line_bnf(line: str, write_log: bool = False):  # noqa: D103
     """Parse a single line in BNF format."""
+    line = line.replace('\n\t', '')
+
     fields = LOG_LINE_BNF.parseString(line)
     if write_log:
         logger.debug('fields.dump(): {fields}\n', fields=fields.dump())
@@ -116,27 +124,35 @@ def _parse_line_bnf(line: str, write_log: bool = False):  # noqa: D103
     # >     logger.debug(f'fields[{key}] = {fields[key]}')
 
 
-def _gen_read_lines_sync(path_log: Path) -> None:
+def _gen_read_lines_sync(path_log: Path, re_start_entry) -> None:
     """Yield lines from the specified log file."""
     with open(path_log, mode='r') as _f:
+        entry_lines = []
         for line in _f.readlines():
-            if line:
-                yield line
+            if re_start_entry.match(line) and entry_lines:
+                yield '\n'.join(entry_lines)
+                entry_lines = []
+            entry_lines.append(line)
+        yield '\n'.join(entry_lines)
 
 
-async def _gen_read_lines_async(path_log: Path) -> None:
+async def _gen_read_lines_async(path_log: Path, re_start_entry) -> None:
     """Yield lines from the specified log file asynchronously."""
     async with FileIO(path_log, mode='r') as f:
+        entry_lines = []
         async for line in f:
-            if line:
-                yield line
+            if re_start_entry.match(line) and entry_lines:
+                yield '\n'.join(entry_lines)
+                entry_lines = []
+            entry_lines.append(line)
+        yield '\n'.join(entry_lines)
 
 
 def main_sync(path_log: Path, parse_f: Callable[[str, bool], None]) -> None:  # noqa
     """Main function for synchronous parsing of the log file."""
     logger.debug(f'SYNC-Parsing: {path_log}')
     try:
-        for index, line in enumerate(_gen_read_lines_sync(path_log)):
+        for index, line in enumerate(_gen_read_lines_sync(path_log, RE_START_BNF_LINE)):
             parse_f(line, write_log=index < 1)
     except ParseException:
         logger.exception(f'Failed to parse: {path_log}. Skipping')
@@ -146,7 +162,7 @@ async def main_async(path_log: Path, parse_f: Callable[[str, bool], None]) -> No
     """Main function for synchronous parsing of the log file."""
     logger.debug(f'ASYNC-Parsing: {path_log}')
     try:
-        async for index, line in async_enumerate(_gen_read_lines_async(path_log)):
+        async for index, line in async_enumerate(_gen_read_lines_async(path_log, RE_START_BNF_LINE)):
             parse_f(line, write_log=index < 1)
     except ParseException:
         logger.exception(f'Failed to parse: {path_log}. Skipping')
@@ -191,7 +207,7 @@ if __name__ == '__main__':
 
         logger.info(f'time_control({scalar}): {con_elapsed:0.2f}')  # (500) ~0.00 (this is a CPU-limited process)
         logger.info(f'time_sync({scalar}): {sync_elapsed:0.2f}')  # (500) ~1.12s
-        logger.info(f'time_async({scalar}): {async_elapsed:0.2f}')  # (500) ~1.52s (Slower)
+        logger.info(f'time_async({scalar}): {async_elapsed:0.2f}')  # (500) ~1.52s (Slower than sync)
 
     # FYI: async is always slower even when the file becomes very large (4 * 50000 lines)
 

@@ -53,6 +53,10 @@ from loguru import logger
 from pyparsing import (Combine, Group, ParseException, Suppress, Word, alphas,
                        dblQuotedString, delimitedList, nums, removeQuotes)
 
+# ======================================================================================
+# Parser Logic
+# ======================================================================================
+
 
 def _get_cmd_fields(_s, _loc, tokens) -> None:  # noqa
     """Split the cmd into the three relevant token components. Updates tokens in-place."""
@@ -111,6 +115,10 @@ BNF_TEST_DATA = [
 
 RE_START_BNF_LINE = re.compile(r'^\d')
 
+# ======================================================================================
+# Reader-Generators
+# ======================================================================================
+
 
 def _parse_line_bnf(line: str, write_log: bool = False):  # noqa: D103
     """Parse a single line in BNF format."""
@@ -148,6 +156,11 @@ async def _gen_read_lines_async(path_log: Path, re_start_entry) -> None:
         yield '\n'.join(entry_lines)
 
 
+# ======================================================================================
+# Mains
+# ======================================================================================
+
+
 def main_sync(path_log: Path, parse_f: Callable[[str, bool], None]) -> None:  # noqa
     """Main function for synchronous parsing of the log file."""
     logger.debug(f'SYNC-Parsing: {path_log}')
@@ -168,13 +181,18 @@ async def main_async(path_log: Path, parse_f: Callable[[str, bool], None]) -> No
         logger.exception(f'Failed to parse: {path_log}. Skipping')
 
 
+# ======================================================================================
+# Timers
+# ======================================================================================
+
+
 def time_control(path_log: Path) -> float:
-    """Time the processing time for the synchronous approach."""
-    def vapor(line, write_log):
+    """Time the processing time for the control vapor_parser only."""
+    def vapor_parser(line, write_log):
         pass
 
     start = time.perf_counter()
-    main_sync(path_log, vapor)
+    main_sync(path_log, vapor_parser)
     return time.perf_counter() - start
 
 
@@ -186,10 +204,15 @@ def time_sync(path_log: Path) -> float:
 
 
 async def time_async(path_log: Path) -> float:
-    """Time the processing time for the synchronous approach."""
+    """Time the processing time for the async approach."""
     start = time.perf_counter()
     await main_async(path_log, _parse_line_bnf)
     return time.perf_counter() - start
+
+
+# ======================================================================================
+# Test Script
+# ======================================================================================
 
 
 if __name__ == '__main__':

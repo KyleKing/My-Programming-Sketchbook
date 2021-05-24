@@ -44,9 +44,11 @@ import asyncio
 import re
 import string
 import time
+from functools import partial
 from pathlib import Path
 from typing import Callable
 
+import pendulum
 from async_files import FileIO
 from asyncstdlib.builtins import enumerate as async_enumerate
 from loguru import logger
@@ -181,6 +183,29 @@ async def main_async(path_log: Path, parse_f: Callable[[str, bool], None]) -> No
         logger.exception(f'Failed to parse: {path_log}. Skipping')
 
 
+LOG_LINE_RE = (
+    r'(?P<ip_addr>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+    r' -'
+    r' (?P<auth>[\w\.\-@]+)'
+    r' \[(?P<timestamp>\d{1,2}\/\w{3}\/\d{4}:\d{2}:\d{2}:\d{2} [+-]\d{4})\]'
+    r' "(?P<method>\w+)'
+    r' (?P<unparsed>.*)'
+    r''
+)
+logger.info('LOG_LINE_RE={regex}', regex=LOG_LINE_RE)
+
+
+def main_loguru(path_log: Path) -> None:  # noqa
+    """Main function to demonstrate parsing log files with loguru."""
+    logger.debug(f'Loguru-Parsing: {path_log}')
+    cast_dict = {
+        'timestamp': partial(pendulum.from_format, fmt='DD/MMM/YYYY:HH:mm:SS ZZ'),
+    }
+    for index, groups in enumerate(logger.parse(path_log, LOG_LINE_RE, cast=cast_dict)):
+        if index < 1:
+            logger.debug('Parsed: {groups}', groups=groups)
+
+
 # ======================================================================================
 # Timers
 # ======================================================================================
@@ -210,6 +235,13 @@ async def time_async(path_log: Path) -> float:
     return time.perf_counter() - start
 
 
+def time_loguru(path_log: Path) -> float:
+    """Time the processing time for the loguru approach."""
+    start = time.perf_counter()
+    main_loguru(path_log)
+    return time.perf_counter() - start
+
+
 # ======================================================================================
 # Test Script
 # ======================================================================================
@@ -221,16 +253,18 @@ if __name__ == '__main__':
     path_log_bnf = dir_log / 'bnf.log'
 
     loop = asyncio.get_event_loop()
-    for scalar in [50, 5000]:
+    for scalar in [500, 5000]:
         path_log_bnf.write_text('\n'.join(BNF_TEST_DATA * scalar))
 
+        loguru_elapsed = time_loguru(path_log_bnf)
         con_elapsed = time_control(path_log_bnf)
         sync_elapsed = time_sync(path_log_bnf)
         async_elapsed = loop.run_until_complete(time_async(path_log_bnf))
 
-        logger.info(f'time_control({scalar}): {con_elapsed:0.2f}')  # (500) ~0.00 (this is a CPU-limited process)
-        logger.info(f'time_sync({scalar}): {sync_elapsed:0.2f}')  # (500) ~1.12s
-        logger.info(f'time_async({scalar}): {async_elapsed:0.2f}')  # (500) ~1.52s (Slower than sync)
+        logger.info(f'time_control({scalar}): {con_elapsed:0.2f}')  # (500) ~0.01 (this is a CPU-limited process)
+        logger.info(f'time_sync({scalar}): {sync_elapsed:0.2f}')  # (500) ~1.88s
+        logger.info(f'time_async({scalar}): {async_elapsed:0.2f}')  # (500) ~2.14s (Slower than sync)
+        logger.info(f'time_loguru({scalar}): {loguru_elapsed:0.2f}')  # (500) ~0.57 (Note: partial, but always faster)
 
     # FYI: async is always slower even when the file becomes very large (4 * 50000 lines)
 

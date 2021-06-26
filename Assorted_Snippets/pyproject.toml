@@ -1,5 +1,5 @@
 [build-system]
-requires = [ "poetry-core>=1.0.0",]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
@@ -13,10 +13,11 @@ line_length = 120
 name = "assorted_snippets"
 version = "0.0.0"
 description = "Assorted Python Snippets"
-authors = [ "Kyle King <KyleKing@users.noreply.github.com>",]
+authors = ["Kyle King <KyleKing@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.9"
+calcipy = "^*.3"
 dill = "^0.3"
 loguru = "^0.5"
 numpy = "^1.19"
@@ -42,14 +43,6 @@ great-expectations = "*"
 pandas-schema = "*"
 pandera = "*"
 
-[tool.poetry.dependencies.calcipy]
-git = "https://github.com/kyleking/calcipy.git"
-branch = "dev/development"
-rev = "56802cf"  # Always pin to a commit
-develop = true  # Optional: will reinstall each time
-
 [tool.poetry.dev-dependencies.calcipy]
-git = "https://github.com/kyleking/calcipy.git"
-branch = "dev/development"
-# extras = [ "dev", "lint", "test",]
-extras = [ "dev", "lint"]
+version = "*"
+extras = ["dev", "lint", "test"]
